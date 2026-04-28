@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>City of Promise — What We Do</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--color-canvas); color: var(--color-navy); font-family: var(--font-body); }
+  * { box-sizing: border-box; }
+  img { display: block; max-width: 100%; }
+
+  /* ---------- Shared header ---------- */
+  .site-header {
+    position: sticky; top: 0; z-index: 20;
+    background: #fff;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+  }
+  .site-header img { height: 48px; width: auto; }
+  .site-header nav { display: flex; gap: 28px; }
+  .site-header nav a {
+    font-family: var(--font-body); font-size: 14px; font-weight: 500;
+    color: var(--color-navy); text-decoration: none;
+    padding: 4px 0; border-bottom: 2px solid transparent;
+    transition: border-color 200ms;
+  }
+  .site-header nav a.is-active { border-bottom-color: var(--color-gold); }
+  .site-header .donate-btn {
+    background: var(--color-gold); color: var(--color-navy);
+    font-family: var(--font-body); font-weight: 600; font-size: 14px;
+    padding: 10px 20px; border-radius: 6px; border: 0; cursor: pointer;
+  }
+
+  /* ---------- Shared footer ---------- */
+  footer {
+    background: var(--color-navy); color: #fff;
+    border-top: 3px solid var(--color-gold);
+    padding: 56px 48px 36px;
+  }
+  footer .grid {
+    max-width: 1184px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.3fr repeat(4, 1fr); gap: 40px;
+  }
+  footer h4 {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--color-gold); margin: 0 0 16px;
+  }
+  footer ul { list-style: none; padding: 0; margin: 0; }
+  footer ul li { margin-bottom: 10px; }
+  footer ul a {
+    font-family: var(--font-body); font-size: 14px;
+    color: rgba(255,255,255,.78); text-decoration: none;
+  }
+  footer ul a:hover { color: var(--color-gold); }
+  footer .org-name {
+    font-family: var(--font-display); font-weight: 700; font-size: 22px;
+    margin-bottom: 14px;
+  }
+  footer .address {
+    font-family: var(--font-body); font-size: 14px;
+    color: rgba(255,255,255,.7); line-height: 1.6;
+  }
+  footer .footer-bottom {
+    max-width: 1184px; margin: 40px auto 0; padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,.12);
+    font-family: var(--font-body); font-size: 12px;
+    color: rgba(255,255,255,.5);
+    display: flex; justify-content: space-between;
+  }
+
+  .gold-rule { width: 64px; height: 3px; background: var(--color-gold); border: 0; margin: 0 0 22px; }
+
+  /* ---------- WWD Hero ---------- */
+  .wwd-hero { background: var(--color-navy); color: #fff; padding: 96px 48px 104px; }
+  .wwd-hero .inner { max-width: 1184px; margin: 0 auto; }
+  .wwd-hero .kicker {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,.65); margin-bottom: 22px;
+  }
+  .wwd-hero h1 {
+    font-family: var(--font-display); font-size: 88px; font-weight: 700;
+    color: #fff; text-transform: uppercase;
+    letter-spacing: -2px; line-height: 1.02; margin: 0; max-width: 1000px;
+  }
+  .wwd-hero p {
+    font-family: var(--font-body); font-size: 20px;
+    color: rgba(255,255,255,.82); line-height: 1.55;
+    margin: 32px 0 0; max-width: 720px;
+  }
+
+  /* ---------- Shared program section pieces ---------- */
+  .section-tag { display: flex; align-items: center; gap: 14px; }
+  .section-tag .n {
+    font-family: var(--font-display); font-size: 22px; font-weight: 700;
+    letter-spacing: -0.4px;
+  }
+  .section-tag .rule { height: 1px; flex: 0 0 32px; }
+  .section-tag .label {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .section-tag.light .n { color: var(--color-primary); }
+  .section-tag.light .rule { background: rgba(7,48,91,.25); }
+  .section-tag.light .label { color: rgba(7,48,91,.70); }
+  .section-tag.dark .n { color: var(--color-gold); }
+  .section-tag.dark .rule { background: rgba(255,255,255,.35); }
+  .section-tag.dark .label { color: rgba(255,255,255,.75); }
+
+  .stat-cell .v {
+    font-family: var(--font-display); font-size: 56px; font-weight: 700;
+    letter-spacing: -1.4px; line-height: 1;
+  }
+  .stat-cell .l {
+    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    margin-top: 10px; line-height: 1.4; max-width: 160px;
+  }
+  .stat-cell.light .l { color: rgba(7,48,91,.70); }
+  .stat-cell.dark .l { color: rgba(255,255,255,.70); }
+  .v-blue { color: var(--color-primary); }
+  .v-gold { color: var(--color-gold); }
+  .v-white { color: #fff; }
+
+  .chip {
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    font-family: var(--font-body); font-size: 12px; font-weight: 500;
+    letter-spacing: 0.4px; background: transparent;
+  }
+  .chip.light { border: 1px solid rgba(7,48,91,.18); color: var(--color-navy); }
+  .chip.dark  { border: 1px solid rgba(255,255,255,.30); color: rgba(255,255,255,.88); }
+
+  .wwd-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 22px; border-radius: 6px; border: 0;
+    font-family: var(--font-body); font-size: 15px; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: all 200ms cubic-bezier(.2,.6,.2,1);
+  }
+  .wwd-btn:hover { transform: scale(1.04); }
+  .wwd-btn.navy { background: var(--color-navy); color: #fff; }
+  .wwd-btn.gold { background: var(--color-gold); color: var(--color-navy); }
+  .wwd-btn.outline-light { background: transparent; color: var(--color-navy); border: 1px solid rgba(7,48,91,.30); }
+  .wwd-btn.outline-dark  { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.45); }
+
+  /* Program section layout */
+  .program {
+    padding: 112px 48px;
+  }
+  .program .inner {
+    max-width: 1280px; margin: 0 auto;
+    display: grid; gap: 72px; align-items: center;
+  }
+  .program.photo-left .inner { grid-template-columns: minmax(340px, 480px) 1fr; }
+  .program.photo-right .inner { grid-template-columns: 1fr minmax(340px, 480px); }
+  .program .photo {
+    aspect-ratio: 4/5; border-radius: 16px; overflow: hidden;
+    background-size: cover; background-position: center 30%;
+    box-shadow: var(--shadow-card);
+  }
+  .program h2 {
+    font-family: var(--font-display); font-size: 56px; font-weight: 700;
+    letter-spacing: -1.2px; line-height: 1.05;
+    margin: 24px 0 16px; text-transform: uppercase;
+  }
+  .program p {
+    font-family: var(--font-body); font-size: 19px;
+    line-height: 1.55; margin: 0; max-width: 560px;
+  }
+  .program .stats {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 32px;
+    margin-top: 40px; padding-top: 32px;
+    border-top: 1px solid rgba(7,48,91,.10);
+  }
+  .program .pills { display: flex; gap: 8px; margin-top: 32px; flex-wrap: wrap; }
+  .program .ctas { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+
+  .program.canvas { background: var(--color-canvas); }
+  .program.canvas h2 { color: var(--color-navy); }
+  .program.canvas p  { color: rgba(7,48,91,.80); }
+  .program.canvas p strong { color: var(--color-navy); }
+
+  .program.navy { background: var(--color-navy); color: #fff; position: relative; }
+  .program.navy h2 { color: #fff; }
+  .program.navy p  { color: rgba(255,255,255,.80); }
+  .program.navy p strong { color: #fff; }
+  .program.navy .stats { border-top-color: rgba(255,255,255,.15); }
+
+  .program.tan { background: var(--color-tan); }
+  .program.tan h2 { color: var(--color-navy); }
+  .program.tan p  { color: rgba(7,48,91,.80); }
+  .program.tan p strong { color: var(--color-navy); }
+  .program.tan .stats { border-top-color: rgba(7,48,91,.15); }
+
+  /* ---------- Approach tie-back ---------- */
+  .tieback { background: var(--color-canvas); padding: 96px 48px; border-top: 1px solid rgba(7,48,91,.10); }
+  .tieback .inner {
+    max-width: 1280px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
+  }
+  .tieback .kicker {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase; color: rgba(7,48,91,.60);
+  }
+  .tieback h2 {
+    font-family: var(--font-display); font-size: 44px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -1px; line-height: 1.1; margin: 0;
+  }
+  .tieback p {
+    font-family: var(--font-body); font-size: 18px;
+    color: rgba(7,48,91,.80); line-height: 1.6; margin-top: 20px; max-width: 540px;
+  }
+  .tieback .scale-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 16px;
+  }
+  .scale-card {
+    background: #fff; border-radius: 8px; padding: 24px;
+    border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card);
+    display: flex; flex-direction: column;
+  }
+  .scale-card .num {
+    font-family: var(--font-display); font-size: 14px; font-weight: 600;
+    color: var(--color-gold); letter-spacing: 0.4px;
+  }
+  .scale-card .scale {
+    font-family: var(--font-display); font-size: 28px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -0.6px; margin-top: 14px;
+  }
+  .scale-card .rule { width: 40px; height: 2px; background: var(--color-gold); margin: 12px 0; }
+  .scale-card .program-name {
+    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    color: rgba(7,48,91,.70); letter-spacing: 0.4px;
+  }
+
+  /* ---------- Final CTA ---------- */
+  .final-cta { position: relative; overflow: hidden; }
+  .final-cta .bg {
+    position: absolute; inset: 0;
+    background-image: url('assets/wwd-cta.jpg');
+    background-size: cover; background-position: center 40%;
+  }
+  .final-cta .scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(7,48,91,.95) 0%, rgba(7,48,91,.85) 50%, rgba(7,48,91,.55) 100%);
+  }
+  .final-cta .inner {
+    position: relative; max-width: 1280px; margin: 0 auto; padding: 112px 48px;
+  }
+  .final-cta h2 {
+    font-family: var(--font-display); font-size: 56px; font-weight: 700;
+    color: #fff; letter-spacing: -1.2px; line-height: 1.05;
+    margin: 0; text-transform: uppercase; max-width: 820px;
+  }
+  .final-cta .lede {
+    font-family: var(--font-body); font-size: 19px;
+    color: rgba(255,255,255,.82); line-height: 1.55; margin-top: 20px; max-width: 620px;
+  }
+  .final-cta .ctas { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+  .final-cta .nap {
+    margin-top: 32px; padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.12); max-width: 620px;
+  }
+  .final-cta .nap-eyebrow {
+    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--color-gold); margin-bottom: 8px;
+  }
+  .final-cta .nap-body {
+    font-family: var(--font-body); font-size: 15px;
+    color: rgba(255,255,255,.78); line-height: 1.55;
+  }
+
+  /* Photo backgrounds */
+  .photo-cs { background-image: url('assets/wwd-community-schools.png'); }
+  .photo-db { background-image: url('assets/wwd-dreambuilders.jpg'); background-size: auto 118%; background-position: 44% 38%; }
+  .photo-fe { background-image: url('assets/wwd-family-engagement.png'); background-position: center 20%; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1100px) {
+    .wwd-hero h1 { font-size: 60px; letter-spacing: -1.4px; }
+    .program.photo-left .inner,
+    .program.photo-right .inner { grid-template-columns: 1fr; }
+    .program .stats { grid-template-columns: repeat(2,1fr); }
+    .tieback .inner { grid-template-columns: 1fr; }
+    .tieback .scale-grid { grid-template-columns: 1fr; }
+    footer .grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 700px) {
+    .site-header { padding: 14px 20px; flex-wrap: wrap; gap: 14px; }
+    .site-header nav { display: none; }
+    .wwd-hero, .program, .tieback, .final-cta .inner {
+      padding-left: 20px; padding-right: 20px;
+    }
+    .wwd-hero { padding-top: 56px; padding-bottom: 64px; }
+    .wwd-hero h1 { font-size: 40px; letter-spacing: -1px; }
+    .program { padding-top: 64px; padding-bottom: 64px; }
+    .program h2 { font-size: 36px; letter-spacing: -0.6px; }
+    .program p { font-size: 17px; }
+    .program .stats { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .stat-cell .v { font-size: 44px; }
+    .final-cta h2 { font-size: 36px; letter-spacing: -0.6px; }
+    footer { padding: 48px 20px 28px; }
+    footer .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="site-header">
+  <a href="index.html" aria-label="City of Promise home">
+    <img src="assets/logo-horizontal.png" alt="City of Promise">
+  </a>
+  <nav>
+    <a href="what-we-do.html" class="is-active">What We Do</a>
+    <a href="our-approach.html">Our Approach</a>
+    <a href="who-we-are.html">Who We Are</a>
+    <a href="#">Access Services</a>
+    <a href="#">Get Involved</a>
+    <a href="#">Published Work</a>
+    <a href="#">Contact</a>
+  </nav>
+  <button class="donate-btn">Donate</button>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="wwd-hero">
+  <div class="inner">
+    <hr class="gold-rule">
+    <div class="kicker">What We Do</div>
+    <h1>Three programs.<br>One family.</h1>
+    <p>A cradle-to-career continuum for kids and the adults who raise them, because education is a social issue no school can solve alone.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROGRAM 01 — Community Schools (canvas, photo left)
+     ============================================================ -->
+<section class="program canvas photo-left">
+  <div class="inner">
+    <div class="photo photo-cs"></div>
+    <div>
+      <div class="section-tag light">
+        <div class="n">01</div>
+        <div class="rule"></div>
+        <div class="label">Program One</div>
+      </div>
+      <h2>Community<br>Schools</h2>
+      <hr class="gold-rule">
+      <p>Community School Coordinators embedded at <strong>seven Charlottesville school sites</strong>: ELC, Trailblazer, Tall Oaks, Summit, CMS, Lugo-McGinness, and CHS. After-school tutoring four days a week, on-site food pantries, and the Walking Bus that gets 25–30 kids to and from Trailblazer every day.</p>
+      <div class="stats">
+        <div class="stat-cell light"><div class="v v-blue">7</div><div class="l">CCS school sites</div></div>
+        <div class="stat-cell light"><div class="v v-blue">75%</div><div class="l">drop in absences (Spring→Fall 2025)</div></div>
+        <div class="stat-cell light"><div class="v v-gold">40+</div><div class="l">hours added instruction</div></div>
+        <div class="stat-cell light"><div class="v v-gold">4×/wk</div><div class="l">after-school tutoring</div></div>
+      </div>
+      <div class="pills">
+        <span class="chip light">Coordinators</span>
+        <span class="chip light">On-Site Tutoring</span>
+        <span class="chip light">Food Pantries</span>
+        <span class="chip light">Walking Bus</span>
+        <span class="chip light">Resource Brokering</span>
+      </div>
+      <div class="ctas">
+        <a class="wwd-btn navy" href="#">See how it works <span>→</span></a>
+        <a class="wwd-btn outline-light" href="who-we-are.html#team">Meet our coordinators <span>→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROGRAM 02 — Dreambuilders (navy, photo right)
+     ============================================================ -->
+<section class="program navy photo-right">
+  <div class="inner">
+    <div>
+      <div class="section-tag dark">
+        <div class="n">02</div>
+        <div class="rule"></div>
+        <div class="label">Program Two</div>
+      </div>
+      <h2>Dreambuilders</h2>
+      <hr class="gold-rule">
+      <p>Dreambuilders is a <strong>two-year wraparound program</strong> for working Charlottesville families: parent classes, family learning time, embedded coaching, and up to $7,000 in micro-financing to invest in self-sufficiency.</p>
+      <div class="stats">
+        <div class="stat-cell dark"><div class="v v-gold">2 yr</div><div class="l">commitment per family</div></div>
+        <div class="stat-cell dark"><div class="v v-gold">$7K</div><div class="l">in micro-financing</div></div>
+        <div class="stat-cell dark"><div class="v v-white">Weekly</div><div class="l">parent + family learning</div></div>
+        <div class="stat-cell dark"><div class="v v-white">NCFL</div><div class="l">evidence-based model</div></div>
+      </div>
+      <div class="pills">
+        <span class="chip dark">Parent Time</span>
+        <span class="chip dark">P.A.C.T. Time</span>
+        <span class="chip dark">Micro-Financing</span>
+        <span class="chip dark">School Coordination</span>
+      </div>
+      <div class="ctas">
+        <a class="wwd-btn gold" href="#">Program Details <span>→</span></a>
+        <a class="wwd-btn outline-dark" href="#">Who qualifies <span>→</span></a>
+      </div>
+    </div>
+    <div class="photo photo-db"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROGRAM 03 — Family Engagement (tan, photo right)
+     ============================================================ -->
+<section class="program tan photo-right">
+  <div class="inner">
+    <div>
+      <div class="section-tag light">
+        <div class="n">03</div>
+        <div class="rule"></div>
+        <div class="label">Program Three</div>
+      </div>
+      <h2>Family Engagement<br>&amp; Advocacy</h2>
+      <hr class="gold-rule">
+      <p>The parent-facing arm of our model offers <strong>parenting coaching, school advocacy, and connection to the wider Charlottesville safety net</strong>, because a child's trajectory tracks their parent's. Any CoP family can start a conversation, no application required.</p>
+      <div class="stats">
+        <div class="stat-cell light"><div class="v v-blue">1:1</div><div class="l">parent coaching</div></div>
+        <div class="stat-cell light"><div class="v v-blue">All</div><div class="l">CoP families eligible</div></div>
+        <div class="stat-cell light"><div class="v v-gold">Ongoing</div><div class="l">intake, no cohorts</div></div>
+        <div class="stat-cell light"><div class="v v-gold">LIFT</div><div class="l">integrated team model</div></div>
+      </div>
+      <div class="pills">
+        <span class="chip light">Parenting Practices</span>
+        <span class="chip light">School Advocacy</span>
+        <span class="chip light">Academic Involvement</span>
+        <span class="chip light">Community Support</span>
+      </div>
+      <div class="ctas">
+        <a class="wwd-btn navy" href="#">What parent support looks like <span>→</span></a>
+        <a class="wwd-btn outline-light" href="#">Start a conversation <span>→</span></a>
+      </div>
+    </div>
+    <div class="photo photo-fe"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     APPROACH TIE-BACK
+     ============================================================ -->
+<section class="tieback">
+  <div class="inner">
+    <div>
+      <div class="kicker">Why three, why together</div>
+      <hr class="gold-rule" style="margin: 18px 0 24px;">
+      <h2>Dual-generation, by design.</h2>
+      <p>We coach the child, support the parent, and connect the family to the "constellation of care" around them: housing, childcare, health, food. A single coordinator may touch all three programs for the same household in a single week.</p>
+      <div style="margin-top: 32px;">
+        <a class="wwd-btn navy" href="our-approach.html">Read our approach <span>→</span></a>
+      </div>
+    </div>
+    <div class="scale-grid">
+      <div class="scale-card">
+        <div class="num">01</div>
+        <div class="scale">Child</div>
+        <div class="rule"></div>
+        <div class="program-name">Community Schools</div>
+      </div>
+      <div class="scale-card">
+        <div class="num">02</div>
+        <div class="scale">Family</div>
+        <div class="rule"></div>
+        <div class="program-name">Dreambuilders</div>
+      </div>
+      <div class="scale-card">
+        <div class="num">03</div>
+        <div class="scale">Community</div>
+        <div class="rule"></div>
+        <div class="program-name">Family Engagement</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FINAL CTA
+     ============================================================ -->
+<section class="final-cta">
+  <div class="bg"></div>
+  <div class="scrim"></div>
+  <div class="inner">
+    <hr class="gold-rule">
+    <h2>Move this work<br>forward.</h2>
+    <p class="lede">This is relationship work, not a transaction. It only happens when partners stay in for the long haul.</p>
+    <div class="ctas">
+      <a class="wwd-btn gold" href="#">Donate Now <span>→</span></a>
+      <a class="wwd-btn outline-dark" href="#">Partner with us <span>→</span></a>
+    </div>
+    <div class="nap">
+      <div class="nap-eyebrow">NAP credits</div>
+      <div class="nap-body">Gifts of $500 or more qualify for a 65% Virginia state tax credit. CoP has used 100% of its allocation each year, so credits move fast.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="grid">
+    <div>
+      <div class="org-name">City of Promise</div>
+      <div class="address">
+        708 Page Street<br>
+        Charlottesville, VA 22903
+      </div>
+    </div>
+    <div>
+      <h4>What We Do</h4>
+      <ul>
+        <li><a href="what-we-do.html">Community Schools</a></li>
+        <li><a href="what-we-do.html">Dreambuilders</a></li>
+        <li><a href="what-we-do.html">Family Engagement</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Who We Are</h4>
+      <ul>
+        <li><a href="who-we-are.html#team">Team</a></li>
+        <li><a href="who-we-are.html#board">Board</a></li>
+        <li><a href="who-we-are.html#history">History</a></li>
+        <li><a href="who-we-are.html#partners">Partners</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get Involved</h4>
+      <ul>
+        <li><a href="#">Donate</a></li>
+        <li><a href="#">Volunteer</a></li>
+        <li><a href="#">Partner with us</a></li>
+        <li><a href="#">NAP Tax Credits</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Published Work</h4>
+      <ul>
+        <li><a href="#">Annual Report</a></li>
+        <li><a href="#">Envision Radio</a></li>
+        <li><a href="#">From the ED</a></li>
+        <li><a href="#">990s</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 City of Promise</span>
+    <span>Charlottesville, Virginia</span>
+  </div>
+</footer>
+
+</body>
+</html>

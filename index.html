@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>City of Promise — Home</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="colors_and_type.css">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: var(--color-canvas); color: var(--color-navy); font-family: var(--font-body); }
+  * { box-sizing: border-box; }
+  img { display: block; max-width: 100%; }
+
+  /* ---------- Shared header ---------- */
+  .site-header {
+    position: sticky; top: 0; z-index: 20;
+    background: #fff;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 48px;
+  }
+  .site-header img { height: 48px; width: auto; }
+  .site-header nav { display: flex; gap: 28px; }
+  .site-header nav a {
+    font-family: var(--font-body); font-size: 14px; font-weight: 500;
+    color: var(--color-navy); text-decoration: none;
+    padding: 4px 0; border-bottom: 2px solid transparent;
+    transition: border-color 200ms;
+  }
+  .site-header nav a.is-active { border-bottom-color: var(--color-gold); }
+  .site-header .donate-btn {
+    background: var(--color-gold); color: var(--color-navy);
+    font-family: var(--font-body); font-weight: 600; font-size: 14px;
+    padding: 10px 20px; border-radius: 6px; border: 0; cursor: pointer;
+  }
+
+  /* ---------- Shared footer ---------- */
+  footer {
+    background: var(--color-navy); color: #fff;
+    border-top: 3px solid var(--color-gold);
+    padding: 56px 48px 36px;
+  }
+  footer .grid {
+    max-width: 1184px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.3fr repeat(4, 1fr); gap: 40px;
+  }
+  footer h4 {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--color-gold); margin: 0 0 16px;
+  }
+  footer ul { list-style: none; padding: 0; margin: 0; }
+  footer ul li { margin-bottom: 10px; }
+  footer ul a {
+    font-family: var(--font-body); font-size: 14px;
+    color: rgba(255,255,255,.78); text-decoration: none;
+  }
+  footer ul a:hover { color: var(--color-gold); }
+  footer .org-name {
+    font-family: var(--font-display); font-weight: 700; font-size: 22px;
+    margin-bottom: 14px;
+  }
+  footer .address {
+    font-family: var(--font-body); font-size: 14px;
+    color: rgba(255,255,255,.7); line-height: 1.6;
+  }
+  footer .footer-bottom {
+    max-width: 1184px; margin: 40px auto 0; padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,.12);
+    font-family: var(--font-body); font-size: 12px;
+    color: rgba(255,255,255,.5);
+    display: flex; justify-content: space-between;
+  }
+
+  /* ---------- Hero ---------- */
+  .home-hero { position: relative; height: 780px; overflow: hidden; }
+  .home-hero .bg {
+    position: absolute; inset: 0; background: var(--color-navy);
+    background-image: url('assets/hero.jpg');
+    background-size: auto 180%;
+    background-position: 8% 68%;
+    background-repeat: no-repeat;
+  }
+  .home-hero .scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(238,238,236,.78) 0%, rgba(238,238,236,.65) 22%, rgba(238,238,236,.25) 38%, rgba(238,238,236,0) 52%);
+  }
+  .home-hero .inner {
+    position: relative; max-width: 1280px; margin: 0 auto;
+    padding: 0 48px; height: 100%;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .home-hero .copy { max-width: 560px; }
+  .gold-rule { width: 64px; height: 3px; background: var(--color-gold); border: 0; margin: 0 0 20px; }
+  .home-hero h1 {
+    font-family: var(--font-display); font-size: 64px; font-weight: 700;
+    color: var(--color-navy); text-transform: uppercase;
+    letter-spacing: -1.6px; line-height: 1.05; margin: 0;
+  }
+  .home-hero p {
+    font-family: var(--font-body); font-size: 18px;
+    color: rgba(7,48,91,.85); line-height: 1.55; margin-top: 24px;
+  }
+  .home-hero .ctas { display: flex; gap: 12px; margin-top: 32px; margin-bottom: 24px; }
+
+  .btn { display: inline-block; padding: 14px 24px; border-radius: 6px; border: 0;
+         font-family: var(--font-body); font-weight: 600; font-size: 16px;
+         cursor: pointer; text-decoration: none; transition: all 200ms; }
+  .btn:hover { transform: scale(1.04); }
+  .btn-gold { background: var(--color-gold); color: var(--color-navy); }
+  .btn-navy { background: var(--color-navy); color: #fff; }
+  .btn-outline-light { background: transparent; color: var(--color-navy); border: 1px solid var(--color-navy); }
+  .btn-outline-dark { background: transparent; color: #fff; border: 1px solid #fff; }
+
+  /* ---------- Urgency ---------- */
+  .urgency { background: var(--color-navy); padding: 96px 48px; }
+  .urgency .inner { max-width: 1280px; margin: 0 auto; }
+  .urgency h2 {
+    font-family: var(--font-display); font-size: 48px; font-weight: 700;
+    color: #fff; text-transform: uppercase; letter-spacing: -1px;
+    line-height: 1.1; margin: 0;
+  }
+  .urgency .lede {
+    font-family: var(--font-body); font-size: 18px;
+    color: rgba(255,255,255,.78); max-width: 720px; margin-top: 18px; line-height: 1.55;
+  }
+  .urgency .stats {
+    display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap: 48px; margin-top: 64px; align-items: start;
+  }
+  .urgency .stats .vrule { align-self: stretch; width: 1px; background: var(--color-gold); }
+  .stat-big { }
+  .stat-big .v {
+    font-family: var(--font-display); font-size: 96px; font-weight: 700;
+    color: var(--color-gold); letter-spacing: -2px; line-height: 1;
+  }
+  .stat-big .v .unit { font-size: 48px; }
+  .stat-big .l {
+    font-family: var(--font-body); font-size: 14px;
+    color: rgba(255,255,255,.8); margin-top: 12px;
+    max-width: 220px; line-height: 1.45;
+  }
+  .urgency .seemore {
+    display: inline-block; margin-top: 48px;
+    font-family: var(--font-body); font-size: 15px; font-weight: 500;
+    color: var(--color-gold); text-decoration: none;
+  }
+
+  /* ---------- Programs ---------- */
+  .programs { background: var(--color-canvas); padding: 96px 48px; }
+  .programs .inner { max-width: 1280px; margin: 0 auto; }
+  .programs h2 {
+    font-family: var(--font-display); font-size: 48px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -1px; line-height: 1.1; margin: 0;
+  }
+  .programs .lede {
+    font-family: var(--font-body); font-size: 18px;
+    color: rgba(7,48,91,.75); max-width: 720px; margin-top: 18px; line-height: 1.55;
+  }
+  .programs .cards {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px;
+  }
+  .program-card {
+    background: #fff; border-radius: 8px; padding: 24px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-card);
+  }
+  .program-card .photo {
+    width: 100%; aspect-ratio: 16/10; border-radius: 12px; margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-family: var(--font-body); font-size: 11px; font-weight: 600;
+    letter-spacing: 1.2px; opacity: .9;
+  }
+  .program-card .pc-1 { background: linear-gradient(135deg,#A8C8E8,#13539A); }
+  .program-card .pc-2 { background: linear-gradient(135deg,#E8DFD1,#D5A33A); }
+  .program-card .pc-3 { background: linear-gradient(135deg,#E8DFD1,#07305B); }
+  .program-card h3 {
+    font-family: var(--font-display); font-size: 24px; font-weight: 600;
+    color: var(--color-navy); letter-spacing: -0.3px; margin: 0 0 10px;
+  }
+  .program-card p {
+    font-family: var(--font-body); font-size: 16px;
+    color: rgba(7,48,91,.75); line-height: 1.55; margin: 0 0 16px;
+  }
+  .program-card a {
+    font-family: var(--font-body); font-size: 15px; font-weight: 500;
+    color: var(--color-primary); text-decoration: none;
+  }
+
+  /* ---------- By the Numbers ---------- */
+  .numbers { background: var(--color-canvas); padding: 64px 48px 96px; }
+  .numbers .inner { max-width: 1280px; margin: 0 auto; }
+  .numbers h2 {
+    font-family: var(--font-display); font-size: 48px; font-weight: 700;
+    color: var(--color-navy); text-transform: uppercase;
+    letter-spacing: -1px; margin: 0;
+  }
+  .numbers .lede {
+    font-family: var(--font-body); font-size: 18px;
+    color: rgba(7,48,91,.75); margin-top: 18px; line-height: 1.55;
+  }
+  .numbers .grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 56px;
+  }
+  .num-cell .icon {
+    width: 56px; height: 56px; border-radius: 999px;
+    background: rgba(7,48,91,.06);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px; color: var(--color-navy);
+  }
+  .num-cell .v {
+    font-family: var(--font-display); font-size: 72px; font-weight: 700;
+    letter-spacing: -1.4px; line-height: 1;
+  }
+  .num-cell.gold .v { color: var(--color-gold); }
+  .num-cell.blue .v { color: var(--color-primary); }
+  .num-cell .l {
+    font-family: var(--font-body); font-size: 14px;
+    color: var(--color-navy); margin-top: 10px;
+    max-width: 180px; line-height: 1.4;
+  }
+
+  /* ---------- Story ---------- */
+  .story { background: var(--color-tan); padding: 96px 48px; }
+  .story .inner { max-width: 1280px; margin: 0 auto; }
+  .story h2 {
+    font-family: var(--font-display); font-size: 36px; font-weight: 600;
+    color: var(--color-navy); letter-spacing: -0.6px; margin: 0;
+  }
+  .story .row {
+    display: grid; grid-template-columns: 380px 1fr;
+    gap: 56px; margin-top: 48px; align-items: center;
+  }
+  .story .photo {
+    aspect-ratio: 4/5; border-radius: 16px;
+    background-image: url('assets/eddison.jpg');
+    background-size: cover; background-position: center 30%;
+  }
+  .story .quotemark {
+    font-family: var(--font-display); font-size: 160px; color: var(--color-gold);
+    line-height: 0.6; font-weight: 700; margin-bottom: -20px;
+  }
+  .story .quote-body { color: var(--color-navy); }
+  .story .quote-body p {
+    margin: 0 0 18px;
+    font-family: 'Caveat', cursive; font-size: 35px; font-weight: 600; line-height: 1.3;
+  }
+  .story .quote-body p:last-of-type { margin-bottom: 0; }
+  .story .by-rule { width: 40px; height: 2px; background: var(--color-gold); margin: 28px 0 12px; }
+  .story .by {
+    font-family: var(--font-display); font-style: italic; font-size: 15px;
+    color: rgba(7,48,91,.75);
+  }
+
+  /* ---------- Three Ways ---------- */
+  .three-ways { background: var(--color-navy); padding: 96px 48px; }
+  .three-ways .inner { max-width: 1280px; margin: 0 auto; }
+  .three-ways h2 {
+    font-family: var(--font-display); font-size: 48px; font-weight: 700;
+    color: #fff; text-transform: uppercase; letter-spacing: -1px;
+    line-height: 1.1; margin: 0;
+  }
+  .three-ways .lede {
+    font-family: var(--font-body); font-size: 18px;
+    color: rgba(255,255,255,.78); margin-top: 18px; max-width: 720px; line-height: 1.55;
+  }
+  .three-ways .grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 56px;
+  }
+  .way-card {
+    border: 1px solid rgba(255,255,255,.15); border-radius: 8px; padding: 28px;
+  }
+  .way-card h3 {
+    font-family: var(--font-display); font-size: 28px; font-weight: 600;
+    color: #fff; letter-spacing: -0.4px; margin: 0 0 12px;
+  }
+  .way-card p {
+    font-family: var(--font-body); font-size: 15px;
+    color: rgba(255,255,255,.78); line-height: 1.55; margin: 0 0 20px; min-height: 88px;
+  }
+  .way-card .btn-gold { font-size: 14px; padding: 10px 18px; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1100px) {
+    .home-hero h1 { font-size: 52px; letter-spacing: -1.2px; }
+    .urgency .stats { grid-template-columns: 1fr; gap: 32px; }
+    .urgency .stats .vrule { display: none; }
+    .programs .cards { grid-template-columns: 1fr; }
+    .numbers .grid { grid-template-columns: repeat(2, 1fr); }
+    .three-ways .grid { grid-template-columns: 1fr; }
+    .story .row { grid-template-columns: 1fr; }
+    footer .grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 700px) {
+    .site-header { padding: 14px 20px; flex-wrap: wrap; gap: 14px; }
+    .site-header nav { display: none; }
+    .home-hero, .urgency, .programs, .numbers, .story, .three-ways {
+      padding-left: 20px; padding-right: 20px;
+    }
+    .home-hero h1 { font-size: 40px; letter-spacing: -1px; }
+    .urgency h2, .programs h2, .numbers h2, .three-ways h2 { font-size: 32px; letter-spacing: -0.6px; }
+    .stat-big .v { font-size: 64px; }
+    .num-cell .v { font-size: 52px; }
+    footer { padding: 48px 20px 28px; }
+    footer .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="site-header">
+  <a href="index.html" aria-label="City of Promise home">
+    <img src="assets/logo-horizontal.png" alt="City of Promise">
+  </a>
+  <nav>
+    <a href="what-we-do.html">What We Do</a>
+    <a href="our-approach.html">Our Approach</a>
+    <a href="who-we-are.html">Who We Are</a>
+    <a href="#">Access Services</a>
+    <a href="#">Get Involved</a>
+    <a href="#">Published Work</a>
+    <a href="#">Contact</a>
+  </nav>
+  <button class="donate-btn">Donate</button>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="home-hero">
+  <div class="bg"></div>
+  <div class="scrim"></div>
+  <div class="inner">
+    <div class="copy">
+      <hr class="gold-rule">
+      <h1>Every kid deserves to learn to read.</h1>
+      <p>Charlottesville's hub for dual-generation early intervention. We equip children and families with the support, coaching, and whole-family tools they need, because education is a social issue no school can solve alone.</p>
+      <div class="ctas">
+        <a class="btn btn-gold" href="#">Donate Now</a>
+        <a class="btn btn-outline-light" href="#">Access Services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     URGENCY
+     ============================================================ -->
+<section class="urgency">
+  <div class="inner">
+    <hr class="gold-rule">
+    <h2>The gap is right here.</h2>
+    <p class="lede">Charlottesville City Schools has the highest Black–white literacy pass-rate gap in Virginia.</p>
+    <div class="stats">
+      <div class="stat-big">
+        <div class="v">49<span class="unit"> pp</span></div>
+        <div class="l">reading gap, Black vs. white (highest in VA)</div>
+      </div>
+      <div class="vrule"></div>
+      <div class="stat-big">
+        <div class="v">40%</div>
+        <div class="l">of Black CCS students passing English reading</div>
+      </div>
+      <div class="vrule"></div>
+      <div class="stat-big">
+        <div class="v">$18.5K</div>
+        <div class="l">cost per pupil — 2nd highest in Virginia</div>
+      </div>
+    </div>
+    <a class="seemore" href="our-approach.html">See our full analysis →</a>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROGRAMS
+     ============================================================ -->
+<section class="programs">
+  <div class="inner">
+    <hr class="gold-rule">
+    <h2>Three programs. One family.</h2>
+    <p class="lede">A cradle-to-career continuum that serves kids and the adults who raise them, because education is a social issue no school can solve alone.</p>
+    <div class="cards">
+      <div class="program-card">
+        <div class="photo pc-1">PHOTO</div>
+        <h3>Community Schools</h3>
+        <p>Community School Coordinators embedded at 7 Charlottesville school sites. After-school tutoring four days a week, on-site food pantries, and the Walking Bus.</p>
+        <a href="what-we-do.html">Learn more →</a>
+      </div>
+      <div class="program-card">
+        <div class="photo pc-2">PHOTO</div>
+        <h3>Dreambuilders</h3>
+        <p>A two-year wraparound program for working Charlottesville families. Parent classes, family learning, and up to $7,000 in micro-financing to invest in self-sufficiency.</p>
+        <a href="what-we-do.html">Learn more →</a>
+      </div>
+      <div class="program-card">
+        <div class="photo pc-3">PHOTO</div>
+        <h3>Family Engagement &amp; Advocacy</h3>
+        <p>The parent-facing arm of our model. Parenting coaching, school advocacy, and connection to the wider Charlottesville safety net, because a child's trajectory tracks their parent's.</p>
+        <a href="what-we-do.html">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BY THE NUMBERS
+     ============================================================ -->
+<section class="numbers">
+  <div class="inner">
+    <hr class="gold-rule">
+    <h2>By the Numbers</h2>
+    <p class="lede">What a decade of dual-generation work looks like.</p>
+    <div class="grid">
+      <div class="num-cell blue">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <div class="v">10+</div>
+        <div class="l">years serving Charlottesville</div>
+      </div>
+      <div class="num-cell gold">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <div class="v">3</div>
+        <div class="l">programs, one family</div>
+      </div>
+      <div class="num-cell blue">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <div class="v">$1.3M</div>
+        <div class="l">raised in FY2026</div>
+      </div>
+      <div class="num-cell gold">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <div class="v">11</div>
+        <div class="l">staff members (growing to 20–25)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STORY
+     ============================================================ -->
+<section class="story">
+  <div class="inner">
+    <hr class="gold-rule">
+    <h2>In their own words.</h2>
+    <div class="row">
+      <div class="photo"></div>
+      <div>
+        <div class="quotemark">"</div>
+        <div class="quote-body">
+          <p>I am standing in front of you today as a first-generation college student.</p>
+          <p>College was not something I imagined. A year ago, I wouldn't have expected to be here today, standing here and telling my story.</p>
+          <p>I am thankful for the youth programs that have been in my life that have set me on the right path. It truly has taken a village to help raise me.</p>
+        </div>
+        <div class="by-rule"></div>
+        <div class="by">Eddison Duolo — Virginia State University, Men's Soccer Team</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THREE WAYS
+     ============================================================ -->
+<section class="three-ways">
+  <div class="inner">
+    <hr class="gold-rule">
+    <h2>There's no us without you.</h2>
+    <p class="lede">Three ways to move the work forward. Pick yours.</p>
+    <div class="grid">
+      <div class="way-card">
+        <h3>Donate</h3>
+        <p>Ask about NAP tax credits — 65% Virginia state tax credit on gifts of $500 or more.</p>
+        <a class="btn btn-gold" href="#">Give today</a>
+      </div>
+      <div class="way-card">
+        <h3>Volunteer</h3>
+        <p>Tutoring, Walking Bus, family support — current open roles on the volunteer portal.</p>
+        <a class="btn btn-gold" href="#">See opportunities</a>
+      </div>
+      <div class="way-card">
+        <h3>Partner</h3>
+        <p>Schools, nonprofits, UVA researchers: we build the connective tissue together.</p>
+        <a class="btn btn-gold" href="#">Start a conversation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="grid">
+    <div>
+      <div class="org-name">City of Promise</div>
+      <div class="address">
+        708 Page Street<br>
+        Charlottesville, VA 22903
+      </div>
+    </div>
+    <div>
+      <h4>What We Do</h4>
+      <ul>
+        <li><a href="what-we-do.html">Community Schools</a></li>
+        <li><a href="what-we-do.html">Dreambuilders</a></li>
+        <li><a href="what-we-do.html">Family Engagement</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Who We Are</h4>
+      <ul>
+        <li><a href="who-we-are.html#team">Team</a></li>
+        <li><a href="who-we-are.html#board">Board</a></li>
+        <li><a href="who-we-are.html#history">History</a></li>
+        <li><a href="who-we-are.html#partners">Partners</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get Involved</h4>
+      <ul>
+        <li><a href="#">Donate</a></li>
+        <li><a href="#">Volunteer</a></li>
+        <li><a href="#">Partner with us</a></li>
+        <li><a href="#">NAP Tax Credits</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Published Work</h4>
+      <ul>
+        <li><a href="#">Annual Report</a></li>
+        <li><a href="#">Envision Radio</a></li>
+        <li><a href="#">From the ED</a></li>
+        <li><a href="#">990s</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 City of Promise</span>
+    <span>Charlottesville, Virginia</span>
+  </div>
+</footer>
+
+</body>
+</html>
