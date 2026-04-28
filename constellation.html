@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The Constellation of Care — City of Promise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EEEEEC;
+    --paper-warm:#E8DFD1;
+    --ink:#07305B;
+    --ink-soft:rgba(7,48,91,0.72);
+    --ink-mute:rgba(7,48,91,0.42);
+    --ink-faint:rgba(7,48,91,0.14);
+    --ink-line:rgba(7,48,91,0.55);
+    --ink-line-faint:rgba(7,48,91,0.22);
+    --gold:#D5A33A;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Inter","Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    letter-spacing:.005em;
+    min-height:100%;
+    overflow:auto;
+  }
+  body.expanded{overflow:hidden}
+
+  .page{
+    min-height:100vh;
+    padding:0;
+    display:flex;flex-direction:column;
+    background:var(--paper);
+  }
+  body.expanded .page{padding:0}
+
+  /* Embed mode: parent page owns the section chrome */
+  .page-head, .caption, .card-title, .expand-btn, .collapse-btn, .toolbar { display:none !important; }
+
+  .eyebrow{
+    font-family:"Inter",sans-serif;
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mute);
+    font-weight:600;
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:8px;
+  }
+  .eyebrow .rule{display:inline-block;width:32px;height:2px;background:var(--gold);}
+  h1{
+    margin:0;font-family:"Fraunces","Times New Roman",serif;
+    font-weight:600;font-size:34px;letter-spacing:-.015em;
+    color:var(--ink);line-height:1.05;
+  }
+  h1 em{font-style:italic;font-weight:400;color:var(--ink-soft);}
+  .sub{
+    color:var(--ink-soft);font-size:14px;line-height:1.55;max-width:380px;
+    text-align:right;text-wrap:pretty;font-weight:400;
+  }
+  .sub strong{color:var(--ink);font-weight:600}
+
+  /* ===================== Card ===================== */
+  .card{
+    position:relative;
+    width:100%;margin:0;
+    height:100vh;
+    border-radius:0;overflow:hidden;
+    border:0;
+    background:var(--paper);
+    box-shadow:none;
+    transition:all .5s cubic-bezier(.2,.7,.2,1);
+    flex:1 1 auto;
+  }
+  body.expanded .card{
+    position:fixed;inset:0;
+    max-width:none;height:100vh;border-radius:0;border:0;
+    box-shadow:none;
+    z-index:50;
+  }
+
+  /* Paper-texture canvas */
+  .card-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
+  .card-bg canvas{width:100%;height:100%;display:block}
+
+  /* Top-left chrome inside the card */
+  .card-title{
+    position:absolute;top:22px;left:28px;z-index:14;
+    pointer-events:none;
+  }
+  .card-title .ct-eyebrow{
+    font-family:"Inter",sans-serif;font-size:10px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--ink-mute);font-weight:600;
+    display:flex;align-items:center;gap:8px;margin-bottom:6px;
+  }
+  .card-title .ct-eyebrow .rule{display:inline-block;width:24px;height:2px;background:var(--gold);}
+  .card-title h2{
+    margin:0;font-family:"Fraunces",serif;font-weight:600;
+    font-size:22px;letter-spacing:-.01em;color:var(--ink);line-height:1;
+  }
+  .card-title h2 em{font-style:italic;font-weight:400;color:var(--ink-soft);}
+  body.expanded .card-title{top:36px;left:48px}
+  body.expanded .card-title h2{font-size:34px}
+
+  /* Viewport */
+  .viewport{
+    position:absolute;inset:0;z-index:2;overflow:hidden;
+    cursor:grab;touch-action:none;
+  }
+  .viewport.panning{cursor:grabbing}
+
+  .world{
+    position:absolute;top:0;left:0;
+    width:var(--world-w);height:var(--world-h);
+    transform-origin:0 0;will-change:transform;
+  }
+  svg.wires{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    pointer-events:none;overflow:visible;
+    z-index:1;
+  }
+
+  /* Center silhouette */
+  .child{
+    position:absolute;
+    transform:translate(-50%,-52%);
+    pointer-events:none;
+    z-index:3;
+  }
+  .child img{
+    display:block;
+    width:100%;height:100%;
+    object-fit:contain;
+    /* slight paper-printed warmth */
+    opacity:.92;
+    filter:drop-shadow(0 2px 0 rgba(7,48,91,0.06));
+  }
+  /* Stars — hand-drawn ink dots */
+  .star{
+    position:absolute;transform:translate(-50%,-50%);
+    user-select:none;pointer-events:auto;cursor:pointer;
+    z-index:5;
+  }
+  .star .ring{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    border-radius:50%;
+    border:1.5px solid var(--ink-line);
+    background:var(--paper);
+    transition:transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .star .dot{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:var(--ink);
+    transition:background .25s ease, transform .25s ease;
+  }
+  /* small "spark" tick marks around the star — like hand-drawn radial pen strokes */
+  .star .spark{
+    position:absolute;left:50%;top:50%;
+    width:0;height:0;
+    pointer-events:none;
+    opacity:0;transition:opacity .25s ease;
+  }
+  .star .spark i{
+    position:absolute;left:0;top:0;
+    width:1.5px;height:7px;
+    background:var(--gold);
+    transform-origin:50% 14px;
+    border-radius:1px;
+  }
+  .star:hover .ring, .star.active .ring{
+    border-color:var(--gold);
+    background:#fff;
+    transform:translate(-50%,-50%) scale(1.12);
+  }
+  .star:hover .dot, .star.active .dot{
+    background:var(--gold);
+  }
+  .star.active .spark{opacity:1}
+
+  /* Labels live in screen-space overlay, outside the transformed world,
+     so they always render at native pixel size — no compositor stretching. */
+  .labels-layer{
+    position:absolute;inset:0;pointer-events:none;z-index:4;
+  }
+  .star-label{
+    position:absolute; left:0; top:0;
+    text-align:center; white-space:nowrap;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    text-rendering:geometricPrecision;
+    will-change:transform;
+  }
+  .star-label .label{
+    display:block;
+    font-family:"Inter",sans-serif;
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    font-weight:700;
+    color:var(--ink);
+    transition:color .25s ease;
+  }
+  .star-label .sublabel{
+    display:block;
+    margin-top:4px;
+    font-family:"Fraunces",serif;font-style:italic;font-weight:400;
+    font-size:12.5px;color:var(--ink-mute);
+    opacity:.85;
+    transition:color .25s ease, opacity .25s ease;
+  }
+  .star-label.active .label, .star-label.hover .label{color:var(--ink)}
+  .star-label.active .sublabel, .star-label.hover .sublabel{color:var(--ink-soft);opacity:1}
+
+  /* ===================== Panel ===================== */
+  .panel{
+    position:absolute;top:50%;right:24px;transform:translateY(-50%) translateX(16px);
+    width:340px;z-index:30;
+    background:var(--white);
+    border:1px solid rgba(7,48,91,.12);
+    border-radius:8px;padding:28px 28px 24px;
+    box-shadow:0 8px 24px rgba(7,48,91,.08), 0 1px 3px rgba(7,48,91,.06);
+    opacity:0;pointer-events:none;
+    transition:opacity .35s ease, transform .35s cubic-bezier(.2,.7,.2,1);
+  }
+  .panel.open{opacity:1;pointer-events:auto;transform:translateY(-50%) translateX(0)}
+  body.expanded .panel{right:48px;width:380px}
+
+  .panel .gold-rule{
+    display:block;width:48px;height:3px;background:var(--gold);
+    margin-bottom:14px;border-radius:2px;
+  }
+  .panel .idx{
+    font-family:"Inter",sans-serif;
+    font-size:10px;letter-spacing:.22em;color:var(--ink-mute);text-transform:uppercase;
+    font-weight:600;margin-bottom:8px;
+  }
+  .panel h3{
+    margin:0 0 6px;font-family:"Fraunces",serif;font-weight:600;
+    font-size:28px;letter-spacing:-.015em;color:var(--ink);line-height:1.1;
+  }
+  .panel .tagline{
+    font-family:"Fraunces",serif;font-style:italic;font-weight:400;
+    font-size:15px;color:var(--ink-soft);
+    margin:0 0 18px;line-height:1.4;
+  }
+  .panel p{
+    margin:0 0 16px;color:var(--ink-soft);line-height:1.55;font-size:14px;text-wrap:pretty;
+    font-weight:400;
+  }
+  .panel .links-hd{
+    font-family:"Inter",sans-serif;font-weight:600;
+    font-size:10px;letter-spacing:.22em;color:var(--ink-mute);text-transform:uppercase;
+    margin:4px 0 10px;padding-top:16px;border-top:1px solid rgba(7,48,91,.1);
+  }
+  .panel .connections{display:flex;flex-wrap:wrap;gap:6px}
+  .panel .conn{
+    font-family:"Inter",sans-serif;font-weight:500;
+    font-size:12px;letter-spacing:.01em;color:var(--ink);
+    padding:5px 11px;border-radius:999px;
+    background:var(--paper);
+    border:1px solid rgba(7,48,91,.1);
+    cursor:pointer;transition:all .15s ease-out;
+  }
+  .panel .conn:hover{
+    color:var(--ink);
+    border-color:var(--gold);
+    background:#fff;
+    transform:scale(1.04);
+  }
+  .panel .close{
+    position:absolute;top:14px;right:14px;
+    width:28px;height:28px;border-radius:50%;
+    background:transparent;border:1px solid rgba(7,48,91,.15);
+    color:var(--ink-soft);cursor:pointer;font-size:14px;line-height:24px;
+    transition:all .15s ease-out;
+    font-family:"Inter",sans-serif;
+  }
+  .panel .close:hover{color:var(--ink);border-color:var(--gold);transform:scale(1.04)}
+
+  /* Expand / Collapse */
+  .expand-btn{
+    position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+    z-index:20;
+    display:flex;align-items:center;gap:10px;
+    padding:10px 18px 10px 16px;
+    background:var(--ink);
+    border:0;
+    border-radius:6px;
+    color:#fff;
+    font-family:"Inter",sans-serif;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;
+    cursor:pointer;
+    transition:transform .15s ease-out, background .15s ease-out;
+    box-shadow:0 2px 8px rgba(7,48,91,.18);
+  }
+  .expand-btn:hover{background:#13539A;transform:translateX(-50%) scale(1.04)}
+  .expand-btn:active{transform:translateX(-50%) scale(0.97)}
+  .expand-btn svg{width:14px;height:14px;display:block}
+  body.expanded .expand-btn.go{display:none}
+
+  .collapse-btn{
+    display:none;
+    position:absolute;top:36px;right:48px;z-index:20;
+    width:40px;height:40px;border-radius:50%;
+    background:#fff;border:1px solid rgba(7,48,91,.12);
+    color:var(--ink);cursor:pointer;
+    align-items:center;justify-content:center;
+    transition:transform .15s ease-out, border-color .15s ease-out;
+    box-shadow:0 1px 3px rgba(7,48,91,.06);
+  }
+  .collapse-btn:hover{border-color:var(--gold);transform:scale(1.04)}
+  body.expanded .collapse-btn{display:flex}
+  .collapse-btn svg{width:14px;height:14px}
+
+  /* Zoom toolbar — only in expanded */
+  .toolbar{
+    display:none;
+    position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+    z-index:15;gap:2px;align-items:center;
+    background:#fff;border:1px solid rgba(7,48,91,.12);
+    border-radius:999px;padding:5px;
+    box-shadow:0 1px 3px rgba(7,48,91,.06);
+  }
+  body.expanded .toolbar{display:flex}
+  .toolbar button{
+    background:transparent;border:0;color:var(--ink-soft);
+    font-family:"Inter",sans-serif;
+    font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;
+    padding:8px 16px;border-radius:999px;cursor:pointer;
+    transition:color .15s ease-out, background .15s ease-out;
+  }
+  .toolbar button:hover{color:var(--ink);background:var(--paper)}
+  .toolbar .sep{width:1px;height:18px;background:rgba(7,48,91,.1);margin:0 2px}
+
+  .caption{
+    max-width:1200px;margin:18px auto 0;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:"Inter",sans-serif;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;
+    color:var(--ink-mute);
+  }
+  body.expanded .caption{display:none}
+  .caption kbd{
+    display:inline-block;padding:2px 7px;border-radius:4px;
+    border:1px solid rgba(7,48,91,.15);background:#fff;
+    color:var(--ink);font-family:inherit;font-size:10px;margin:0 2px;
+    font-weight:600;
+  }
+  .caption .right{display:flex;gap:18px;align-items:center}
+
+  /* Hand-drawn line aesthetic for SVG wires */
+  .wire{
+    fill:none;
+    stroke:var(--ink-line-faint);
+    stroke-width:1.3;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    /* No transitions — they trigger ~50 concurrent animations and stutter the world animation */
+  }
+  .wire.active{
+    stroke:var(--gold);
+    stroke-width:1.1;
+    opacity:1;
+    filter: drop-shadow(0 0 3px rgba(213,163,58,0.55))
+            drop-shadow(0 0 7px rgba(213,163,58,0.25));
+  }
+  .wire.dim{opacity:.5}
+
+  /* Subtle annotation marks scattered in paper bg — like surveyor crosses */
+  .mark{
+    position:absolute;color:var(--ink-mute);
+    font-family:"Inter",sans-serif;font-size:9px;letter-spacing:.2em;
+    text-transform:uppercase;font-weight:600;
+    pointer-events:none;opacity:.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="page-head">
+    <div>
+      <div class="eyebrow"><span class="rule"></span> Constellation of Care · CoP</div>
+      <h1>The Constellation <em>of Care</em></h1>
+    </div>
+    <p class="sub">A child at the center, and the dozen overlapping systems a family needs to thrive. <strong>Tap any node</strong> to see how it connects.</p>
+  </div>
+
+  <div class="card" id="card">
+
+    <div class="card-bg"><canvas id="bg"></canvas></div>
+
+    <div class="card-title">
+      <h2>The Constellation <em>of Care</em></h2>
+    </div>
+
+    <div class="viewport" id="viewport">
+      <svg class="wires" id="wires" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <g id="wire-transform">
+          <g id="wire-layer"></g>
+        </g>
+      </svg>
+      <div class="world" id="world">
+        <!-- Child silhouette + stars are positioned by JS into the world -->
+      </div>
+      <div class="labels-layer" id="labels-layer"></div>
+    </div>
+
+    <aside class="panel" id="panel">
+      <button class="close" id="close" aria-label="close">×</button>
+      <span class="gold-rule"></span>
+      <div class="idx" id="p-idx">Node · 01</div>
+      <h3 id="p-name">—</h3>
+      <p class="tagline" id="p-tag">—</p>
+      <p id="p-desc">—</p>
+      <div class="links-hd" id="p-connhd">Connected to</div>
+      <div class="connections" id="p-conns"></div>
+    </aside>
+
+    <button class="expand-btn go" id="expand" aria-label="Expand">
+      <span>Expand</span>
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="2,5 2,2 5,2"/>
+        <polyline points="12,5 12,2 9,2"/>
+        <polyline points="2,9 2,12 5,12"/>
+        <polyline points="12,9 12,12 9,12"/>
+      </svg>
+    </button>
+
+    <button class="collapse-btn" id="collapse" aria-label="Collapse">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="5,2 5,5 2,5"/>
+        <polyline points="9,2 9,5 12,5"/>
+        <polyline points="5,12 5,9 2,9"/>
+        <polyline points="9,12 9,9 12,9"/>
+      </svg>
+    </button>
+
+    <div class="toolbar">
+      <button id="t-center">Fit</button>
+      <div class="sep"></div>
+      <button id="t-zoomout">−</button>
+      <button id="t-zoomin">+</button>
+    </div>
+  </div>
+
+  <div class="caption">
+    <span>Drag to pan · Scroll to zoom · <kbd>Esc</kbd> to close</span>
+    <span class="right">A child is at the center of everything we do.</span>
+  </div>
+
+</div>
+
+<script>
+// ============== Data ==============
+const WORLD_W = 1600;
+const WORLD_H = 1000;
+document.documentElement.style.setProperty('--world-w', WORLD_W+'px');
+document.documentElement.style.setProperty('--world-h', WORLD_H+'px');
+
+const _STAR_META = [
+  { id:'healthcare', name:'Healthcare',            tag:'Wellness'    },
+  { id:'childcare',  name:'Childcare',             tag:'Family'      },
+  { id:'workforce',  name:'Workforce',             tag:'Opportunity' },
+  { id:'housing',    name:'Housing',               tag:'Shelter'     },
+  { id:'transport',  name:'Transportation',        tag:'Mobility'    },
+  { id:'safety',     name:'Community Safety',      tag:'Belonging'   },
+  { id:'education',  name:'Continuing Ed.',        tag:'Learning'    },
+  { id:'tech',       name:'Tech Access',           tag:'Bridge'      },
+  { id:'mentoring',  name:'Mentoring',             tag:'Connection'  },
+  { id:'capital',    name:'Access to Capital',     tag:'Economy'     },
+  { id:'extras',     name:'Extracurriculars',      tag:'Growth'      },
+  { id:'food',       name:'Food Security',         tag:'Nourishment' },
+  { id:'finlit',     name:'Financial Literacy',    tag:'Foundation'  },
+];
+
+// Center child at (0.32, 0.50). Ellipse around them, biased left
+// to leave the right ~30% clear for the panel.
+const _CX = 0.32, _CY = 0.50, _RX = 0.26, _RY = 0.42;
+const STARS = _STAR_META.map((s, i) => {
+  const theta = -Math.PI/2 + (i / _STAR_META.length) * Math.PI*2 - 0.10;
+  // Add a tiny per-node radial wobble so it doesn't feel mechanical.
+  const wobR = 1 + (((i*37) % 13) - 6) * 0.008;
+  return { ...s,
+    x: _CX + _RX * wobR * Math.cos(theta),
+    y: _CY + _RY * wobR * Math.sin(theta),
+    theta,
+  };
+});
+
+const INFO = {
+  healthcare:{ tagline:'Bodies mended, minds supported.',
+    desc:'Primary, behavioral, and preventive care — close to home, covered, and consistent across a lifetime.' },
+  childcare: { tagline:'Safe arms while parents work.',
+    desc:'Licensed, affordable care for children 0–5, with evening and weekend hours that match real schedules.' },
+  workforce: { tagline:'Pathways, not just jobs.',
+    desc:'Training, credentials, and paid apprenticeships tuned to the industries actually hiring nearby.' },
+  housing:   { tagline:'A stable roof, a stable life.',
+    desc:'Mixed-income units, eviction prevention, and rapid rehousing so a rent spike never becomes a lost decade.' },
+  transport: { tagline:"Nothing matters if you can't get there.",
+    desc:'Reliable transit, vouchers, and vehicle repair programs that keep people connected to work and care.' },
+  safety:    { tagline:'Safe enough to show up.',
+    desc:'Trauma-informed response, violence interruption, and the ordinary public goods that make streets feel like home.' },
+  finlit:    { tagline:'Money skills that compound.',
+    desc:'Budgeting, credit, tax, and first-bank-account coaching embedded where people already show up.' },
+  food:      { tagline:'No empty plates. No empty wallets.',
+    desc:"Fresh-food pantries, SNAP navigation, and school-adjacent meals that don't disappear during summer." },
+  extras:    { tagline:'Where kids discover who they are.',
+    desc:'Sports, music, arts, and clubs — scholarships so no family pays in opportunity.' },
+  capital:   { tagline:'Dreams need down payments.',
+    desc:'Micro-loans, grants, and CDFI partnerships for first-time entrepreneurs and first-time homeowners.' },
+  mentoring: { tagline:'Someone in your corner.',
+    desc:'1:1 mentors and peer tutors matched by interest — showing up long enough to matter.' },
+  tech:      { tagline:'The internet is infrastructure.',
+    desc:'Devices, broadband subsidies, and digital literacy across all ages — from homework to telehealth.' },
+  education: { tagline:"Learning doesn't stop at 22.",
+    desc:'GEDs, community college, and stackable credentials — with childcare and transport so adults can actually attend.' },
+};
+
+const C = Object.fromEntries(STARS.map((s,i)=>[s.id,i]));
+const RAW_LINKS = [
+  ['healthcare','childcare'],['healthcare','food'],['healthcare','housing'],
+  ['healthcare','transport'],['healthcare','tech'],['healthcare','finlit'],
+  ['healthcare','safety'],['healthcare','mentoring'],
+
+  ['childcare','workforce'],['childcare','food'],['childcare','education'],
+  ['childcare','transport'],['childcare','extras'],['childcare','mentoring'],
+
+  ['workforce','education'],['workforce','transport'],['workforce','capital'],
+  ['workforce','tech'],['workforce','housing'],['workforce','finlit'],
+  ['workforce','mentoring'],
+
+  ['housing','capital'],['housing','safety'],['housing','finlit'],
+  ['housing','transport'],['housing','food'],['housing','tech'],
+
+  ['transport','education'],['transport','food'],['transport','safety'],
+  ['transport','tech'],['transport','extras'],
+
+  ['safety','mentoring'],['safety','extras'],['safety','education'],['safety','tech'],
+
+  ['finlit','capital'],['finlit','education'],['finlit','food'],
+
+  ['food','extras'],['food','education'],['food','mentoring'],
+
+  ['extras','mentoring'],['extras','education'],['extras','tech'],
+
+  ['capital','tech'],['capital','education'],['capital','mentoring'],
+
+  ['mentoring','education'],['mentoring','tech'],
+
+  ['tech','education'],
+];
+const LINKS = RAW_LINKS.map(([a,b])=>[C[a],C[b]]);
+
+// ============== Build world ==============
+const card = document.getElementById('card');
+const viewport = document.getElementById('viewport');
+const world = document.getElementById('world');
+const wireLayer = document.getElementById('wire-layer');
+const wireTransform = document.getElementById('wire-transform');
+const wiresSvg = document.getElementById('wires');
+
+function sizeWires(){
+  // SVG covers the viewport in screen space; coords inside <g id="wire-transform">
+  // are in world units, then translated/scaled to match the world.
+  const w = viewport.clientWidth, h = viewport.clientHeight;
+  wiresSvg.setAttribute('width', w);
+  wiresSvg.setAttribute('height', h);
+  wiresSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+}
+
+// ---- Child silhouette at center ----
+const child = document.createElement('div');
+child.className = 'child';
+const childW = 220, childH = 260;
+child.style.width = childW + 'px';
+child.style.height = childH + 'px';
+child.style.left = (_CX*WORLD_W) + 'px';
+child.style.top  = (_CY*WORLD_H) + 'px';
+child.innerHTML = `<img src="assets/child-silhouette-navy.png" alt="A child at the center"/>`;
+world.appendChild(child);
+
+// ---- Hand-drawn wire path generator ----
+// Slight wobble — segment a line into N steps with sin-based perpendicular offset.
+function wirePath(x1, y1, x2, y2, seed){
+  const dx = x2 - x1, dy = y2 - y1;
+  const len = Math.hypot(dx, dy);
+  const nx = -dy/len, ny = dx/len; // perpendicular unit
+  const steps = Math.max(6, Math.floor(len / 60));
+  const amp = Math.min(2.5, len * 0.004); // very subtle hand wobble
+  // pseudo-random offset per seed
+  const r = (i) => {
+    const s = Math.sin((seed*97 + i*53) * 0.01) * 10000;
+    return s - Math.floor(s);
+  };
+  let d = `M ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+  for(let i=1; i<=steps; i++){
+    const t = i/steps;
+    // taper amplitude near endpoints so it lands cleanly on the dot
+    const taper = Math.sin(t*Math.PI);
+    const off = (r(i) - 0.5) * 2 * amp * taper;
+    const x = x1 + dx*t + nx*off;
+    const y = y1 + dy*t + ny*off;
+    d += ` L ${x.toFixed(1)} ${y.toFixed(1)}`;
+  }
+  return d;
+}
+
+const starEls = [];
+const labelEls = [];
+const wireEls = [];
+const STAR_SIZE = 12; // dot diameter
+const RING_SIZE = 22; // outer ring diameter
+const LABEL_OFFSET = RING_SIZE/2 + 18; // px below star (in world coords)
+
+const labelsLayer = document.getElementById('labels-layer');
+
+STARS.forEach((s,i)=>{
+  const el = document.createElement('div');
+  el.className = 'star';
+  el.dataset.id = s.id;
+
+  el.innerHTML = `
+    <div class="ring" style="width:${RING_SIZE}px;height:${RING_SIZE}px"></div>
+    <div class="dot" style="width:${STAR_SIZE}px;height:${STAR_SIZE}px"></div>
+  `;
+  el.style.left = (s.x*WORLD_W)+'px';
+  el.style.top  = (s.y*WORLD_H)+'px';
+  world.appendChild(el);
+  starEls.push(el);
+
+  // Screen-space label (lives outside the transformed world)
+  const lab = document.createElement('div');
+  lab.className = 'star-label';
+  lab.dataset.id = s.id;
+  lab.innerHTML = `<span class="label">${s.name}</span>`;
+  labelsLayer.appendChild(lab);
+  labelEls.push(lab);
+
+  let px=0, py=0, moved=false;
+  el.addEventListener('pointerdown', e=>{ px=e.clientX; py=e.clientY; moved=false; e.stopPropagation(); });
+  el.addEventListener('pointermove', e=>{
+    if(Math.abs(e.clientX-px)+Math.abs(e.clientY-py) > 4) moved=true;
+  });
+  el.addEventListener('click', e=>{
+    e.stopPropagation();
+    if(moved){ moved=false; return; }
+    select(s.id);
+  });
+  el.addEventListener('pointerenter', ()=>lab.classList.add('hover'));
+  el.addEventListener('pointerleave', ()=>lab.classList.remove('hover'));
+});
+
+function positionLabels(){
+  STARS.forEach((s,i)=>{
+    const sx = s.x * WORLD_W * scale + tx;
+    const sy = s.y * WORLD_H * scale + ty + (LABEL_OFFSET * scale);
+    // translate3d → composite-only update (no layout reflow per frame)
+    labelEls[i].style.transform = `translate3d(${sx}px, ${sy}px, 0) translate(-50%, 0)`;
+  });
+}
+
+// ---- Compute child's hit-radius so wires don't cut through it ----
+// Hand-drawn lines run from each star toward the child's center, but stop
+// short of the silhouette by an elliptical mask.
+const childCx = _CX*WORLD_W;
+const childCy = _CY*WORLD_H;
+// silhouette ellipse roughly fits within these radii
+const childRX = childW * 0.42;
+const childRY = childH * 0.46;
+
+function trimToChild(x1, y1, x2, y2){
+  // x1,y1 = star, x2,y2 = child center. Move (x2,y2) outward toward (x1,y1)
+  // so it sits on the ellipse boundary instead of in the child's body.
+  const dx = x1 - x2, dy = y1 - y2;
+  // Normalize to ellipse: solve (t*dx/rx)^2 + (t*dy/ry)^2 = 1
+  const tx = dx / childRX;
+  const ty = dy / childRY;
+  const t = 1 / Math.hypot(tx, ty);
+  return [ x2 + dx * t, y2 + dy * t ];
+}
+
+// Trim wire endpoints back from a star center so the line + halo are absorbed
+// by the dot/ring instead of running through it.
+const STAR_TRIM = 16; // world units (≈dot radius + halo padding)
+function trimEnds(x1, y1, x2, y2, trimA, trimB){
+  const dx = x2 - x1, dy = y2 - y1;
+  const len = Math.hypot(dx, dy) || 1;
+  const ux = dx/len, uy = dy/len;
+  return [ x1 + ux*trimA, y1 + uy*trimA, x2 - ux*trimB, y2 - uy*trimB ];
+}
+
+// "Spokes" — every star has a faint hand-drawn line to the child
+STARS.forEach((s, i) => {
+  const sx = s.x * WORLD_W, sy = s.y * WORLD_H;
+  const [cx, cy] = trimToChild(sx, sy, childCx, childCy);
+  const [x1, y1, x2, y2] = trimEnds(sx, sy, cx, cy, STAR_TRIM, 0);
+  const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  p.setAttribute('class', 'wire spoke');
+  p.setAttribute('d', wirePath(x1, y1, x2, y2, i+1));
+  p.dataset.star = i;
+  p.dataset.spoke = '1';
+  p.setAttribute('stroke', 'rgba(7,48,91,0.16)');
+  p.setAttribute('stroke-width', '1.0');
+  wireLayer.appendChild(p);
+});
+
+// Inter-node links
+LINKS.forEach((pair, idx)=>{
+  const a = STARS[pair[0]], b = STARS[pair[1]];
+  const ax = a.x*WORLD_W, ay = a.y*WORLD_H;
+  const bx = b.x*WORLD_W, by = b.y*WORLD_H;
+  const [x1, y1, x2, y2] = trimEnds(ax, ay, bx, by, STAR_TRIM, STAR_TRIM);
+  const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  p.setAttribute('class', 'wire');
+  p.setAttribute('d', wirePath(x1, y1, x2, y2, idx + 100));
+  p.dataset.a = pair[0];
+  p.dataset.b = pair[1];
+  wireLayer.appendChild(p);
+  wireEls.push(p);
+});
+
+// ============== Pan & zoom ==============
+let tx=0, ty=0, scale=1;
+let MIN_SCALE=0.3;
+const MAX_SCALE=1.1;
+
+function applyTransform(useCSSForWires){
+  world.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  if(useCSSForWires){
+    // GPU-composited via will-change — smooth motion, slight blur during animation.
+    wireTransform.style.willChange = 'transform';
+    wireTransform.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  } else {
+    // Vector SVG attribute — sharp at rest, but re-rasterizes every change.
+    wireTransform.style.transform = '';
+    wireTransform.style.willChange = 'auto';
+    wireTransform.setAttribute('transform', `translate(${tx} ${ty}) scale(${scale})`);
+  }
+  positionLabels();
+}
+function clamp(){
+  const vw = viewport.clientWidth, vh = viewport.clientHeight;
+  // Symmetric pan bounds around the visual centroid (silhouette position).
+  const cx = vw/2 - _CX*WORLD_W*scale;
+  const cy = vh/2 - _CY*WORLD_H*scale;
+  // Pan range must scale with zoom so users can bring outer stars to center.
+  // _RX/_RY = star-ring half-extent in world units (0..1).
+  const padX = Math.max(vw*0.0625, (_RX*WORLD_W*scale + vw*0.1) * 0.5);
+  const padY = Math.max(vh*0.03, (_RY*WORLD_H*scale + vh*0.05) * 0.5);
+  tx = Math.max(cx - padX, Math.min(cx + padX, tx));
+  ty = Math.max(cy - padY, Math.min(cy + padY, ty));
+}
+
+let animRAF = null;
+function animateTo(fx, fy, targetScale, duration=650){
+  if(animRAF) cancelAnimationFrame(animRAF);
+  const vw = viewport.clientWidth, vh = viewport.clientHeight;
+  const expanded = document.body.classList.contains('expanded');
+  const panelW = expanded ? 380 : 340;
+  const panelGap = expanded ? 48 : 24;
+  const panelOffset = (panelW + panelGap) / 2;
+  const focusX = vw/2 - panelOffset;
+  const focusY = vh/2;
+
+  let targetTx = focusX - fx*WORLD_W*targetScale;
+  let targetTy = focusY - fy*WORLD_H*targetScale;
+
+  // Pre-clamp the target to pan bounds at the FINAL scale, otherwise the
+  // animation aims for an unreachable point and the per-frame clamp jerks it back.
+  const cxT = vw/2 - _CX*WORLD_W*targetScale;
+  const cyT = vh/2 - _CY*WORLD_H*targetScale;
+  const padXT = Math.max(vw*0.0625, (_RX*WORLD_W*targetScale + vw*0.1) * 0.5);
+  const padYT = Math.max(vh*0.03,   (_RY*WORLD_H*targetScale + vh*0.05) * 0.5);
+  targetTx = Math.max(cxT - padXT, Math.min(cxT + padXT, targetTx));
+  targetTy = Math.max(cyT - padYT, Math.min(cyT + padYT, targetTy));
+
+  const startTx=tx, startTy=ty, startScale=scale;
+  const t0 = performance.now();
+  // Ease-in-out cubic — gentle accelerate, gentle decelerate.
+  // Avoids the perceived "jump" of ease-out when starting from a still state.
+  const ease = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+
+  function step(now){
+    const t = Math.min(1, (now-t0)/duration);
+    const k = ease(t);
+    scale = startScale + (targetScale - startScale)*k;
+    tx    = startTx    + (targetTx    - startTx)*k;
+    ty    = startTy    + (targetTy    - startTy)*k;
+    // During animation: GPU-composited wire transform for smooth motion.
+    applyTransform(true);
+    if(t<1) animRAF = requestAnimationFrame(step);
+    else { clamp(); applyTransform(false); animRAF = null; }
+  }
+  animRAF = requestAnimationFrame(step);
+}
+function fitWorld(){
+  const vw = viewport.clientWidth, vh = viewport.clientHeight;
+  if(vw===0||vh===0) return;
+  const fit = Math.min(vw / WORLD_W, vh / WORLD_H) * 0.98;
+  // Lock minimum zoom to the fit scale so users can't zoom out past full view.
+  MIN_SCALE = fit;
+  scale = fit;
+  // Center on the visual centroid (silhouette), not the geometric world center.
+  tx = vw/2 - _CX*WORLD_W*scale;
+  ty = vh/2 - _CY*WORLD_H*scale;
+  applyTransform();
+}
+
+let panning=false, sx=0, sy=0, stx=0, sty=0;
+viewport.addEventListener('pointerdown', e=>{
+  if(animRAF){ cancelAnimationFrame(animRAF); animRAF=null; }
+  panning=true; sx=e.clientX; sy=e.clientY; stx=tx; sty=ty;
+  viewport.classList.add('panning');
+  try{viewport.setPointerCapture(e.pointerId)}catch(_){}
+});
+viewport.addEventListener('pointermove', e=>{
+  if(!panning) return;
+  tx = stx + (e.clientX-sx);
+  ty = sty + (e.clientY-sy);
+  clamp(); applyTransform();
+});
+const endPan = e=>{
+  panning=false;
+  viewport.classList.remove('panning');
+  try{viewport.releasePointerCapture(e.pointerId)}catch(_){}
+};
+viewport.addEventListener('pointerup', endPan);
+viewport.addEventListener('pointercancel', endPan);
+viewport.addEventListener('pointerleave', endPan);
+
+viewport.addEventListener('click', e=>{
+  if(e.target === viewport || e.target === world){ deselect(); }
+});
+
+viewport.addEventListener('wheel', e=>{
+  e.preventDefault();
+  if(animRAF){ cancelAnimationFrame(animRAF); animRAF=null; }
+  const rect = viewport.getBoundingClientRect();
+  const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+  const wx = (mx - tx)/scale, wy = (my - ty)/scale;
+  const delta = Math.exp(-e.deltaY*0.0015);
+  const newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale*delta));
+  scale = newScale;
+  tx = mx - wx*scale; ty = my - wy*scale;
+  clamp(); applyTransform();
+}, { passive:false });
+
+window.addEventListener('resize', ()=>{ requestAnimationFrame(()=>{ sizeWires(); fitWorld(); }); });
+
+// ============== Panel ==============
+const panel = document.getElementById('panel');
+const pIdx  = document.getElementById('p-idx');
+const pName = document.getElementById('p-name');
+const pTag  = document.getElementById('p-tag');
+const pDesc = document.getElementById('p-desc');
+const pConns = document.getElementById('p-conns');
+const pConnHd = document.getElementById('p-connhd');
+
+function neighborsOf(i){
+  const set = new Set();
+  for(const [a,b] of LINKS){
+    if(a===i) set.add(b); else if(b===i) set.add(a);
+  }
+  return [...set];
+}
+
+function select(id){
+  const i = STARS.findIndex(s=>s.id===id);
+  const s = STARS[i];
+  const info = INFO[id];
+
+  // Start the world animation FIRST so it isn't delayed by DOM mutations below.
+  const ZOOM_IN_SCALE = 1.1;
+  const targetScale = Math.min(MAX_SCALE, Math.max(scale, ZOOM_IN_SCALE));
+  animateTo(s.x, s.y, targetScale, 650);
+  panel.classList.add('open');
+
+  // Defer non-critical DOM work one frame so it doesn't compete with the first
+  // animation frame for layout/paint budget.
+  requestAnimationFrame(()=>{
+    starEls.forEach((el,j)=>el.classList.toggle('active', j===i));
+    labelEls.forEach((el,j)=>el.classList.toggle('active', j===i));
+    wireEls.forEach(l=>{
+      const connected = (+l.dataset.a===i || +l.dataset.b===i);
+      l.classList.toggle('active', connected);
+      l.classList.toggle('dim', !connected);
+      l.removeAttribute('stroke');
+      l.removeAttribute('stroke-width');
+    });
+    document.querySelectorAll('.spoke').forEach(sp=>{
+      const isActive = (+sp.dataset.star === i);
+      sp.setAttribute('stroke', isActive ? 'rgba(7,48,91,0.45)' : 'rgba(7,48,91,0.16)');
+      sp.setAttribute('stroke-width', isActive ? '1.4' : '1.0');
+    });
+    pIdx.textContent = `Node · ${String(i+1).padStart(2,'0')} of ${STARS.length}`;
+    pName.textContent = s.name;
+    pTag.textContent = info.tagline;
+    pDesc.textContent = info.desc;
+    const ns = neighborsOf(i);
+    pConnHd.textContent = `Connected to · ${ns.length}`;
+    pConns.innerHTML = ns.map(j=>{
+      const n = STARS[j];
+      return `<span class="conn" data-id="${n.id}">${n.name}</span>`;
+    }).join('');
+    pConns.querySelectorAll('.conn').forEach(c=>{
+      c.addEventListener('click',()=>select(c.dataset.id));
+    });
+  });
+}
+function deselect(){
+  panel.classList.remove('open');
+  starEls.forEach(el=>el.classList.remove('active'));
+  labelEls.forEach(el=>el.classList.remove('active'));
+  wireEls.forEach(l=>{
+    l.classList.remove('active');
+    l.classList.remove('dim');
+    l.removeAttribute('stroke');
+    l.removeAttribute('stroke-width');
+  });
+  document.querySelectorAll('.spoke').forEach(sp=>{
+    sp.setAttribute('stroke', 'rgba(7,48,91,0.16)');
+    sp.setAttribute('stroke-width', '1.0');
+  });
+}
+document.getElementById('close').addEventListener('click', deselect);
+
+// ============== Expand / Collapse ==============
+const expandBtn = document.getElementById('expand');
+const collapseBtn = document.getElementById('collapse');
+
+function setExpanded(on){
+  document.body.classList.toggle('expanded', on);
+  setTimeout(()=>{ sizeWires(); fitWorld(); sizeBG(); }, 520);
+  requestAnimationFrame(()=>{ sizeWires(); fitWorld(); sizeBG(); });
+}
+expandBtn.addEventListener('click', ()=>setExpanded(true));
+collapseBtn.addEventListener('click', ()=>setExpanded(false));
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){
+    if(panel.classList.contains('open')) deselect();
+    else if(document.body.classList.contains('expanded')) setExpanded(false);
+  }
+  if(e.key==='r' || e.key==='R') fitWorld();
+});
+
+document.getElementById('t-center').addEventListener('click', fitWorld);
+document.getElementById('t-zoomin').addEventListener('click', ()=>{
+  const vw = viewport.clientWidth, vh = viewport.clientHeight;
+  const wx = (vw/2 - tx)/scale, wy = (vh/2 - ty)/scale;
+  scale = Math.min(MAX_SCALE, scale*1.2);
+  tx = vw/2 - wx*scale; ty = vh/2 - wy*scale;
+  clamp(); applyTransform();
+});
+document.getElementById('t-zoomout').addEventListener('click', ()=>{
+  const vw = viewport.clientWidth, vh = viewport.clientHeight;
+  const wx = (vw/2 - tx)/scale, wy = (vh/2 - ty)/scale;
+  scale = Math.max(MIN_SCALE, scale/1.2);
+  tx = vw/2 - wx*scale; ty = vh/2 - wy*scale;
+  clamp(); applyTransform();
+});
+
+// ============== Paper texture background ==============
+// A subtle warm-noise paper feel, plus a few faint surveyor cross marks.
+const bgCanvas = document.getElementById('bg');
+const bctx = bgCanvas.getContext('2d');
+let marks = [];
+
+function sizeBG(){
+  const w = card.clientWidth, h = card.clientHeight;
+  bgCanvas.width = w * devicePixelRatio;
+  bgCanvas.height = h * devicePixelRatio;
+  bgCanvas.style.width = w+'px';
+  bgCanvas.style.height = h+'px';
+  drawBG();
+}
+
+function drawBG(){
+  const w = bgCanvas.width, h = bgCanvas.height;
+  bctx.clearRect(0,0,w,h);
+
+  // Base: warm paper
+  bctx.fillStyle = '#EEEEEC';
+  bctx.fillRect(0,0,w,h);
+
+  // Vignette wash (warm tan corners)
+  const vg = bctx.createRadialGradient(w*0.5, h*0.5, Math.min(w,h)*0.2, w*0.5, h*0.5, Math.max(w,h)*0.7);
+  vg.addColorStop(0, 'rgba(232,223,209,0)');
+  vg.addColorStop(1, 'rgba(232,223,209,0.55)');
+  bctx.fillStyle = vg;
+  bctx.fillRect(0,0,w,h);
+
+  // Speckle / paper grain
+  const grainCount = Math.floor(w*h/600);
+  for(let i=0;i<grainCount;i++){
+    const x = Math.random()*w;
+    const y = Math.random()*h;
+    const a = Math.random() * 0.05;
+    bctx.fillStyle = `rgba(7,48,91,${a.toFixed(3)})`;
+    bctx.fillRect(x, y, 1, 1);
+  }
+
+  // (surveyor crosses + N compass mark removed for embed)
+}
+sizeBG();
+window.addEventListener('resize', sizeBG);
+
+// ============== Boot ==============
+requestAnimationFrame(()=>{
+  sizeWires();
+  fitWorld();
+  sizeBG();
+});
+</script>
+
+</body>
+</html>

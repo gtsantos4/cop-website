@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>What We Do — Wireframes</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="colors_and_type.css">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-faint: #8a8a8a;
+    --paper: #f7f3ea;
+    --paper-2: #efe9db;
+    --accent: #D5A33A;
+    --accent-2: #13539A;
+    --sketch: 'Kalam', 'Caveat', sans-serif;
+    --hand: 'Caveat', cursive;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #e8e2d2; font-family: var(--sketch); color: var(--ink); }
+
+  /* Page frame / chrome */
+  .chrome {
+    position: sticky; top: 0; z-index: 20;
+    background: #f3ede0;
+    border-bottom: 1.5px solid var(--ink);
+    padding: 14px 24px 0;
+  }
+  .chrome-top {
+    display:flex; align-items:flex-end; justify-content:space-between;
+    gap: 24px; padding-bottom: 10px;
+  }
+  .title-block h1 {
+    font-family: var(--hand);
+    font-size: 34px; font-weight: 700; color: var(--ink);
+    text-transform: none; letter-spacing: 0; line-height: 1;
+    margin: 0;
+  }
+  .title-block .meta {
+    font-family: var(--sketch);
+    font-size: 13px; color: var(--ink-soft); margin-top: 4px;
+  }
+  .legend {
+    font-family: var(--sketch); font-size: 12px; color: var(--ink-soft);
+    display: flex; gap: 16px; align-items: center;
+  }
+  .legend-dot { display:inline-flex; align-items:center; gap:6px; }
+  .legend-dot::before {
+    content:''; width:10px; height:10px; border-radius:999px;
+    border: 1.5px solid var(--ink);
+  }
+  .legend-dot.gold::before { background: var(--accent); }
+  .legend-dot.navy::before { background: var(--ink); }
+  .legend-dot.paper::before { background: var(--paper); }
+  .legend-dot.photo::before { background: repeating-linear-gradient(45deg, #cfc7b0 0 4px, #b8b098 4px 8px); }
+
+  /* Tabs */
+  .tabs {
+    display:flex; gap: 0;
+    margin-top: 4px;
+  }
+  .tab {
+    font-family: var(--hand);
+    font-size: 20px; font-weight: 600;
+    padding: 8px 18px 10px;
+    background: transparent;
+    border: 1.5px solid var(--ink);
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    color: var(--ink-soft);
+    cursor: pointer;
+    margin-right: -1.5px;
+    position: relative;
+    transform: translateY(1.5px);
+  }
+  .tab:hover { color: var(--ink); background: rgba(255,255,255,.3); }
+  .tab.active {
+    background: var(--paper);
+    color: var(--ink);
+    z-index: 2;
+    box-shadow: 0 -2px 0 var(--accent) inset;
+  }
+  .tab .num {
+    display:inline-block; font-family: var(--sketch); font-size: 12px;
+    color: var(--ink-faint); margin-right: 6px;
+  }
+  .tab.active .num { color: var(--accent-2); }
+
+  /* Canvas */
+  .canvas {
+    background: var(--paper);
+    min-height: calc(100vh - 120px);
+    border-top: 1.5px solid var(--ink);
+    padding: 0;
+  }
+  .frame {
+    max-width: 1200px; margin: 0 auto;
+    padding: 28px 32px 80px;
+    position: relative;
+  }
+  .frame::before {
+    /* subtle page edge */
+    content:''; position: absolute; inset: 16px 8px; pointer-events:none;
+    border: 1px dashed rgba(0,0,0,.08); border-radius: 4px;
+  }
+
+  /* Wireframe primitives */
+  .wf-box {
+    border: 1.5px solid var(--ink);
+    background: #fff;
+    position: relative;
+  }
+  .wf-box.dashed { border-style: dashed; }
+  .wf-navy { background: #2a2a2a; color: #fff; border-color: #1a1a1a; }
+  .wf-navy.real { background: var(--ink); }
+  .wf-tan { background: var(--paper-2); }
+  .wf-photo {
+    background:
+      repeating-linear-gradient(45deg, rgba(0,0,0,.06) 0 1px, transparent 1px 10px),
+      repeating-linear-gradient(-45deg, rgba(0,0,0,.06) 0 1px, transparent 1px 10px),
+      #d8d1bd;
+    color: var(--ink-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--sketch); font-size: 12px;
+    letter-spacing: 1.4px; text-transform: uppercase;
+  }
+  .wf-photo::after {
+    content: 'photo'; 
+  }
+  .wf-photo.labeled::after { content: attr(data-label); }
+
+  .wf-rule { height: 3px; width: 64px; background: var(--accent); margin: 10px 0; border: 0; }
+  .wf-rule.thin { height: 2px; width: 48px; }
+  .wf-line {
+    height: 10px; background: repeating-linear-gradient(90deg, var(--ink-soft) 0 40%, transparent 40% 42%, var(--ink-soft) 42% 85%, transparent 85% 87%, var(--ink-soft) 87% 100%);
+    background-size: 100% 100%;
+    opacity: .45;
+    border-radius: 2px;
+  }
+  .wf-line.short { width: 60%; }
+  .wf-line.shorter { width: 40%; }
+  .wf-line.tall { height: 14px; opacity:.65; }
+
+  .wf-head {
+    font-family: var(--hand);
+    font-weight: 700; font-size: 28px; color: var(--ink); line-height: 1;
+  }
+  .wf-head.xl { font-size: 44px; }
+  .wf-head.xxl { font-size: 60px; }
+  .wf-head.sm { font-size: 22px; }
+  .wf-eyebrow {
+    font-family: var(--sketch); font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--ink-soft);
+  }
+  .wf-body {
+    font-family: var(--sketch); font-size: 14px; color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .wf-label {
+    font-family: var(--sketch); font-size: 12px; color: var(--ink-faint);
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .wf-btn {
+    display:inline-block; padding: 8px 14px; border: 1.5px solid var(--ink);
+    border-radius: 6px; font-family: var(--hand); font-size: 16px;
+    background: #fff; color: var(--ink);
+  }
+  .wf-btn.gold { background: var(--accent); }
+  .wf-btn.navy { background: var(--ink); color: #fff; }
+  .wf-btn.ghost { background: transparent; }
+
+  .wf-pill {
+    display:inline-block; padding: 3px 10px; border: 1.2px solid var(--ink);
+    border-radius: 999px; font-family: var(--sketch); font-size: 11px;
+    letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink);
+    background: #fff;
+  }
+  .wf-pill.gold { background: var(--accent); border-color: var(--ink); }
+  .wf-pill.navy { background: var(--ink); color: #fff; }
+
+  .wf-icon {
+    width: 38px; height: 38px; border-radius: 999px;
+    border: 1.5px solid var(--ink); display:flex; align-items:center; justify-content:center;
+    background: #fff; color: var(--ink-soft);
+    font-family: var(--sketch); font-size: 16px;
+  }
+  .wf-icon svg { width: 18px; height: 18px; }
+
+  /* Common page chrome wireframe (nav + hero lead-in used across options) */
+  .wf-nav {
+    display:flex; justify-content:space-between; align-items:center;
+    border: 1.5px solid var(--ink); background: #fff;
+    padding: 10px 16px; border-radius: 6px;
+  }
+  .wf-nav-logo {
+    display:flex; align-items:center; gap: 8px;
+    font-family: var(--hand); font-weight: 700; font-size: 18px;
+  }
+  .wf-nav-logo::before {
+    content:''; width:22px; height:22px; border-radius:4px;
+    background: var(--accent-2); display:inline-block;
+  }
+  .wf-nav-items {
+    display:flex; gap: 18px; font-family: var(--sketch); font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .wf-nav-items .active {
+    color: var(--ink); font-weight: 700;
+    border-bottom: 2px solid var(--accent); padding-bottom: 2px;
+  }
+  .wf-crumb {
+    font-family: var(--sketch); font-size: 12px; color: var(--ink-faint);
+    margin: 16px 0 6px; letter-spacing: 0.5px;
+  }
+  .wf-crumb b { color: var(--ink-soft); }
+
+  /* Annotations */
+  .annot {
+    position: absolute;
+    font-family: var(--hand);
+    font-size: 16px;
+    color: #b6421a;
+    line-height: 1.1;
+    max-width: 180px;
+  }
+  .annot svg { display:block; overflow: visible; }
+  .annot-label {
+    background: #fff5cf;
+    border: 1px dashed #b6421a;
+    padding: 3px 8px;
+    border-radius: 3px;
+    display:inline-block;
+  }
+
+  /* Grid helpers */
+  .row { display:flex; gap: 16px; }
+  .col { display: grid; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+  /* Section wrapper */
+  .sect {
+    padding: 22px 20px;
+    border: 1.5px solid var(--ink);
+    border-radius: 4px;
+    background: #fff;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .sect.navy { background: #2a2a2a; color: #fff; }
+  .sect.navy .wf-body { color: rgba(255,255,255,.75); }
+  .sect.navy .wf-head { color: #fff; }
+  .sect.tan { background: var(--paper-2); }
+  .sect.dashed { border-style: dashed; background: transparent; }
+
+  .sect-tag {
+    position: absolute; top: -10px; left: 16px;
+    background: var(--paper); padding: 0 8px;
+    font-family: var(--hand); font-size: 13px; color: var(--accent-2);
+    font-weight: 700;
+  }
+
+  /* Option-specific styles */
+  .triptych {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border: 1.5px solid var(--ink);
+  }
+  .triptych > div { padding: 20px; border-right: 1.5px solid var(--ink); min-height: 280px; }
+  .triptych > div:last-child { border-right: 0; }
+  .triptych h3 { margin: 0; }
+
+  .stack-card {
+    display:grid; grid-template-columns: 140px 1fr 180px; gap: 20px;
+    padding: 18px; border: 1.5px solid var(--ink); background: #fff;
+    align-items: center;
+  }
+  .stack-card + .stack-card { margin-top: 14px; }
+
+  .hero-full {
+    min-height: 260px;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55)),
+      repeating-linear-gradient(45deg, rgba(255,255,255,.06) 0 1px, transparent 1px 10px),
+      #3a3a3a;
+    color: #fff;
+    padding: 24px;
+    display:flex; flex-direction: column; justify-content: flex-end;
+    border: 1.5px solid var(--ink);
+    position: relative;
+  }
+  .hero-full .wf-head { color: #fff; }
+  .hero-full .wf-eyebrow { color: rgba(255,255,255,.7); }
+  .hero-photo-tag {
+    position: absolute; top: 12px; right: 12px;
+    font-family: var(--sketch); font-size: 10px; letter-spacing: 1.5px;
+    background: rgba(255,255,255,.15); color: #fff;
+    padding: 4px 8px; border-radius: 3px; border: 1px dashed rgba(255,255,255,.4);
+  }
+
+  /* Option C — diagram */
+  .diagram {
+    position: relative;
+    padding: 28px;
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    min-height: 360px;
+  }
+  .diagram svg.links {
+    position: absolute; inset: 0; pointer-events:none;
+  }
+  .node {
+    position: absolute;
+    border: 1.5px solid var(--ink);
+    background: #fff;
+    padding: 10px 14px;
+    font-family: var(--hand);
+    font-weight: 600;
+    text-align: center;
+    border-radius: 6px;
+    min-width: 140px;
+  }
+  .node.center {
+    background: var(--ink); color: #fff;
+    min-width: 180px; padding: 18px 16px;
+  }
+  .node small {
+    display:block; font-family: var(--sketch); font-size: 11px;
+    color: var(--ink-faint); font-weight: 400; letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .node.center small { color: rgba(255,255,255,.6); }
+
+  /* Option D — journey timeline */
+  .journey {
+    position: relative;
+    padding: 40px 20px 28px;
+    background: #fff;
+    border: 1.5px solid var(--ink);
+  }
+  .journey-track {
+    position: relative;
+    height: 2px;
+    background: var(--ink);
+    margin: 48px 40px 12px;
+  }
+  .journey-track::before, .journey-track::after {
+    content:''; position:absolute; top:-4px; width:10px; height:10px;
+    border-radius: 999px; background: var(--ink);
+  }
+  .journey-track::before { left: -6px; }
+  .journey-track::after { right: -6px; }
+  .journey-stops {
+    display:grid; grid-template-columns: repeat(5, 1fr); margin: -18px 16px 0;
+  }
+  .journey-stop { text-align:center; }
+  .journey-stop .dot {
+    width: 14px; height: 14px; background: var(--accent); border: 1.5px solid var(--ink);
+    border-radius: 999px; margin: 0 auto 8px;
+  }
+  .journey-stop .age {
+    font-family: var(--hand); font-weight: 700; font-size: 20px;
+  }
+  .journey-stop .lbl {
+    font-family: var(--sketch); font-size: 11px; color: var(--ink-soft);
+    text-transform: uppercase; letter-spacing: 1.2px;
+  }
+  .program-band {
+    display: grid; grid-template-columns: 140px 1fr;
+    gap: 16px; align-items: center;
+    padding: 14px 18px;
+    border: 1.5px solid var(--ink);
+    background: var(--paper);
+    margin-top: 14px;
+    position: relative;
+  }
+  .program-band .bar {
+    height: 14px; background: var(--accent); border: 1.5px solid var(--ink);
+    position: relative;
+  }
+  .program-band .bar.blue { background: var(--accent-2); }
+  .program-band .bar.navy { background: var(--ink); }
+  .program-band .bar span {
+    position: absolute; top: -2px; bottom: -2px;
+    border: 1.5px solid var(--ink); background: #fff;
+    width: 4px;
+  }
+
+  /* sketchiness: slight wobble on some borders */
+  .wobble { transform: rotate(-0.25deg); }
+  .wobble-2 { transform: rotate(0.2deg); }
+
+  /* notes footer */
+  .notes {
+    margin-top: 24px;
+    padding: 16px 20px;
+    border: 1.5px dashed var(--ink);
+    border-radius: 4px;
+    background: #fff8e6;
+    font-family: var(--sketch); font-size: 13px; color: var(--ink-soft);
+  }
+  .notes b { color: var(--ink); font-family: var(--hand); font-size: 16px; }
+  .notes ul { margin: 8px 0 0 18px; padding: 0; }
+
+  /* tweak toggle button floating */
+  .tweak-panel {
+    position: fixed; right: 16px; bottom: 16px; z-index: 30;
+    background: #fff; border: 1.5px solid var(--ink); border-radius: 6px;
+    padding: 12px; min-width: 220px; font-family: var(--sketch); font-size: 13px;
+    display: none;
+    box-shadow: 4px 4px 0 rgba(0,0,0,.08);
+  }
+  .tweak-panel.on { display: block; }
+  .tweak-panel h4 { margin: 0 0 8px; font-family: var(--hand); font-size: 18px; }
+  .tweak-panel label { display:flex; align-items:center; gap: 8px; margin: 6px 0; }
+
+  /* hide inactive panels */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+</style>
+</head>
+<body>
+
+<!-- ============ CHROME ============ -->
+<div class="chrome">
+  <div class="chrome-top">
+    <div class="title-block">
+      <h1>"What We Do" — page wireframes</h1>
+      <div class="meta">Low-fi structural exploration · City of Promise · 4 directions</div>
+    </div>
+    <div class="legend">
+      <span class="legend-dot paper">paper / canvas</span>
+      <span class="legend-dot navy">navy full-bleed</span>
+      <span class="legend-dot gold">gold accent</span>
+      <span class="legend-dot photo">photo placeholder</span>
+    </div>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-tab="a"><span class="num">A</span>Editorial stack</button>
+    <button class="tab" data-tab="b"><span class="num">B</span>Triptych + deep dives</button>
+    <button class="tab" data-tab="c"><span class="num">C</span>Ecosystem diagram</button>
+    <button class="tab" data-tab="d"><span class="num">D</span>Family journey</button>
+  </div>
+</div>
+
+<div class="canvas">
+<div class="frame">
+
+<!-- ============================================================= -->
+<!-- OPTION A — EDITORIAL STACK                                    -->
+<!-- ============================================================= -->
+<div class="panel active" data-panel="a">
+
+  <div class="wf-crumb">You are here: <b>Home</b> › <b>What We Do</b> &nbsp;·&nbsp; layout inspired by the annual report section stack</div>
+
+  <!-- Global nav -->
+  <div class="wf-nav wobble">
+    <div class="wf-nav-logo">City of Promise</div>
+    <div class="wf-nav-items">
+      <span class="active">What We Do</span>
+      <span>Our Approach</span>
+      <span>Who We Are</span>
+      <span>Access Services</span>
+      <span>Get Involved</span>
+      <span>Published Work</span>
+    </div>
+    <span class="wf-btn gold" style="font-size:13px; padding:6px 12px;">Donate</span>
+  </div>
+
+  <!-- Hero -->
+  <div class="sect" style="padding: 0; border: none; background: transparent; margin-top: 18px;">
+    <div class="hero-full">
+      <div class="hero-photo-tag">PHOTO — kids on the Walking Bus</div>
+      <div class="wf-eyebrow">WHAT WE DO</div>
+      <hr class="wf-rule"/>
+      <div class="wf-head xxl" style="max-width: 760px;">Three programs.<br/>One ecosystem.</div>
+      <div class="wf-body" style="color: rgba(255,255,255,.8); max-width: 620px; margin-top: 10px;">
+        A cradle-to-career continuum designed to reach kids and parents together — because the problem is bigger than school.
+      </div>
+    </div>
+  </div>
+
+  <!-- Program 1: Community Schools — photo left, content right -->
+  <div class="sect">
+    <div class="sect-tag">① Community Schools</div>
+    <div class="row" style="align-items: stretch;">
+      <div class="wf-photo labeled" data-label="PHOTO — coach at ELC" style="flex: 0 0 38%; min-height: 280px;"></div>
+      <div style="flex: 1; padding: 10px 4px 4px 14px;">
+        <span class="wf-pill">PROGRAM 1 OF 3</span>
+        <div class="wf-head xl" style="margin: 10px 0 4px;">Community Schools</div>
+        <hr class="wf-rule"/>
+        <div class="wf-body" style="max-width: 560px; font-size: 15px;">
+          Embedded coaches at seven Charlottesville school sites. On-site tutoring, food pantries, and the Walking Bus.
+        </div>
+        <div class="grid-4" style="margin-top: 18px;">
+          <div><div class="wf-head sm" style="color: var(--accent-2);">7</div><div class="wf-label">sites</div></div>
+          <div><div class="wf-head sm" style="color: var(--accent-2);">K–12</div><div class="wf-label">span</div></div>
+          <div><div class="wf-head sm" style="color: var(--accent);">daily</div><div class="wf-label">tutoring</div></div>
+          <div><div class="wf-head sm" style="color: var(--accent);">free</div><div class="wf-label">to families</div></div>
+        </div>
+        <div style="display:flex; gap: 8px; margin-top: 18px; flex-wrap: wrap;">
+          <span class="wf-pill">Pathway Coaching</span>
+          <span class="wf-pill">On-Site Tutoring</span>
+          <span class="wf-pill">Food Pantries</span>
+          <span class="wf-pill">Walking Bus</span>
+          <span class="wf-pill">School Sites</span>
+        </div>
+        <div style="margin-top: 20px;">
+          <span class="wf-btn navy">Read the full program →</span>
+          <span class="wf-btn ghost">Find your school coordinator</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Program 2: Dreambuilders — full-bleed navy, reversed -->
+  <div class="sect navy">
+    <div class="sect-tag" style="color: var(--accent); background: var(--paper);">② Dreambuilders</div>
+    <div class="row">
+      <div style="flex: 1; padding: 10px 14px 4px 4px;">
+        <span class="wf-pill gold">PROGRAM 2 OF 3</span>
+        <div class="wf-head xl" style="margin: 10px 0 4px; color: #fff;">Dreambuilders</div>
+        <hr class="wf-rule"/>
+        <div class="wf-body" style="color: rgba(255,255,255,.78); max-width: 560px; font-size: 15px;">
+          A two-year wraparound program for working Charlottesville families pursuing family-level goals.
+        </div>
+        <div class="grid-4" style="margin-top: 18px;">
+          <div><div class="wf-head sm" style="color: var(--accent);">2 yr</div><div class="wf-label" style="color: rgba(255,255,255,.6)">commitment</div></div>
+          <div><div class="wf-head sm" style="color: var(--accent);">$7K</div><div class="wf-label" style="color: rgba(255,255,255,.6)">micro-financing</div></div>
+          <div><div class="wf-head sm" style="color: #fff;">apply</div><div class="wf-label" style="color: rgba(255,255,255,.6)">required</div></div>
+          <div><div class="wf-head sm" style="color: #fff;">cohort</div><div class="wf-label" style="color: rgba(255,255,255,.6)">based</div></div>
+        </div>
+        <div style="display:flex; gap: 8px; margin-top: 18px; flex-wrap: wrap;">
+          <span class="wf-pill" style="background:transparent; color:#fff; border-color:rgba(255,255,255,.4);">Parent Time</span>
+          <span class="wf-pill" style="background:transparent; color:#fff; border-color:rgba(255,255,255,.4);">P.A.C.T. Time</span>
+          <span class="wf-pill" style="background:transparent; color:#fff; border-color:rgba(255,255,255,.4);">Micro-Financing</span>
+          <span class="wf-pill" style="background:transparent; color:#fff; border-color:rgba(255,255,255,.4);">Eligibility</span>
+        </div>
+        <div style="margin-top: 20px;">
+          <span class="wf-btn gold">Apply to Dreambuilders →</span>
+          <span class="wf-btn ghost" style="background:transparent; color:#fff; border-color:#fff;">Read the full program</span>
+        </div>
+      </div>
+      <div class="wf-photo labeled" data-label="PHOTO — Dreambuilders graduation" style="flex: 0 0 38%; min-height: 280px; background-color: #4a4a4a;"></div>
+    </div>
+  </div>
+
+  <!-- Program 3: Family Engagement — photo right, content left -->
+  <div class="sect tan">
+    <div class="sect-tag">③ Family Engagement</div>
+    <div class="row" style="align-items: stretch;">
+      <div style="flex: 1; padding: 10px 14px 4px 4px;">
+        <span class="wf-pill">PROGRAM 3 OF 3</span>
+        <div class="wf-head xl" style="margin: 10px 0 4px;">Family Engagement &amp; Advocacy</div>
+        <hr class="wf-rule"/>
+        <div class="wf-body" style="max-width: 560px; font-size: 15px;">
+          Direct parent support — parenting practices, school navigation, and community resource connection.
+        </div>
+        <div class="grid-4" style="margin-top: 18px;">
+          <div><div class="wf-head sm" style="color: var(--accent-2);">1:1</div><div class="wf-label">support</div></div>
+          <div><div class="wf-head sm" style="color: var(--accent-2);">any</div><div class="wf-label">family</div></div>
+          <div><div class="wf-head sm" style="color: var(--accent);">free</div><div class="wf-label">services</div></div>
+          <div><div class="wf-head sm" style="color: var(--accent);">walk-in</div><div class="wf-label">welcome</div></div>
+        </div>
+        <div style="display:flex; gap: 8px; margin-top: 18px; flex-wrap: wrap;">
+          <span class="wf-pill">Parent Support</span>
+          <span class="wf-pill">School Advocacy</span>
+          <span class="wf-pill">Resource Connection</span>
+        </div>
+        <div style="margin-top: 20px;">
+          <span class="wf-btn navy">Read the full program →</span>
+          <span class="wf-btn ghost">Contact us directly</span>
+        </div>
+      </div>
+      <div class="wf-photo labeled" data-label="PHOTO — parent & coordinator" style="flex: 0 0 38%; min-height: 280px;"></div>
+    </div>
+  </div>
+
+  <!-- Tie-back to approach -->
+  <div class="sect dashed">
+    <div class="row" style="gap: 32px; align-items:center;">
+      <div style="flex:1;">
+        <div class="wf-eyebrow">WHY THREE, WHY TOGETHER</div>
+        <div class="wf-head" style="margin-top: 6px;">Dual-generation, by design.</div>
+        <div class="wf-body" style="margin-top: 8px; max-width: 600px;">
+          We coach the child, support the parent, and connect the family to everything else that matters. Learn the theory behind our model.
+        </div>
+      </div>
+      <span class="wf-btn">Our Approach →</span>
+    </div>
+  </div>
+
+  <!-- Final CTA band -->
+  <div class="sect navy">
+    <div class="row" style="align-items:center; gap: 24px;">
+      <div style="flex: 1;">
+        <hr class="wf-rule"/>
+        <div class="wf-head xl" style="color:#fff;">Need help? Want to help?</div>
+        <div class="wf-body" style="color: rgba(255,255,255,.78); margin-top:8px; max-width: 560px;">
+          Two doors on this page: families looking for services, and neighbors looking to support the work.
+        </div>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <span class="wf-btn gold">Access Services</span>
+        <span class="wf-btn ghost" style="background:transparent; color:#fff; border-color:#fff;">Donate / Volunteer</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <b>Option A — Editorial stack</b>
+    <ul>
+      <li>Closest to the existing annual-report rhythm (full-bleed navy alternates with canvas and tan).</li>
+      <li>Each program gets a roughly equal, ~full-viewport block with photo, stats, sub-section pills, and two CTAs.</li>
+      <li>Strength: familiar, scannable, hierarchy clear. Risk: three near-identical blocks can feel repetitive — rhythm relies on color alternation.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- OPTION B — TRIPTYCH + DEEP DIVES                              -->
+<!-- ============================================================= -->
+<div class="panel" data-panel="b">
+
+  <div class="wf-crumb">You are here: <b>Home</b> › <b>What We Do</b> &nbsp;·&nbsp; overview-first: 3 programs at a glance, then detail sections</div>
+
+  <div class="wf-nav wobble-2">
+    <div class="wf-nav-logo">City of Promise</div>
+    <div class="wf-nav-items">
+      <span class="active">What We Do</span>
+      <span>Our Approach</span>
+      <span>Who We Are</span>
+      <span>Access Services</span>
+      <span>Get Involved</span>
+      <span>Published Work</span>
+    </div>
+    <span class="wf-btn gold" style="font-size:13px; padding:6px 12px;">Donate</span>
+  </div>
+
+  <!-- Short header (no photo hero) -->
+  <div class="sect" style="padding: 40px 28px;">
+    <div class="wf-eyebrow">WHAT WE DO</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head xxl" style="max-width: 800px;">Everything. Everywhere.<br/>All at once.</div>
+    <div class="wf-body" style="max-width: 640px; font-size: 16px; margin-top: 12px;">
+      CoP runs three programs on a dual-generation model — reaching kids and parents in the same household, at the same time.
+    </div>
+  </div>
+
+  <!-- Triptych -->
+  <div class="triptych" style="background: #fff;">
+    <div>
+      <div class="wf-photo labeled" data-label="PHOTO — schools" style="height: 140px; margin-bottom: 14px; border: 1.5px solid var(--ink);"></div>
+      <div class="wf-eyebrow" style="color: var(--accent-2);">PROGRAM ONE</div>
+      <div class="wf-head" style="margin: 6px 0;">Community Schools</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body">Embedded coaches at 7 CCS sites. Tutoring, pantries, Walking Bus.</div>
+      <div style="margin-top: 14px; display:flex; flex-direction: column; gap: 6px;">
+        <div class="wf-label">↳ Pathway Coaching</div>
+        <div class="wf-label">↳ On-Site Tutoring</div>
+        <div class="wf-label">↳ Food Pantries</div>
+        <div class="wf-label">↳ The Walking Bus</div>
+        <div class="wf-label">↳ 7 School Sites</div>
+      </div>
+      <div style="margin-top: 18px;"><span class="wf-btn">See full program →</span></div>
+    </div>
+    <div style="background: var(--paper-2);">
+      <div class="wf-photo labeled" data-label="PHOTO — dreambuilders" style="height: 140px; margin-bottom: 14px; border: 1.5px solid var(--ink);"></div>
+      <div class="wf-eyebrow" style="color: var(--accent-2);">PROGRAM TWO</div>
+      <div class="wf-head" style="margin: 6px 0;">Dreambuilders</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body">A 2-year wraparound for working families with cash match.</div>
+      <div style="margin-top: 14px; display:flex; flex-direction: column; gap: 6px;">
+        <div class="wf-label">↳ Parent Time</div>
+        <div class="wf-label">↳ P.A.C.T. Time</div>
+        <div class="wf-label">↳ Micro-Financing</div>
+        <div class="wf-label">↳ Eligibility</div>
+        <div class="wf-label">↳ Apply Now (form)</div>
+      </div>
+      <div style="margin-top: 18px;"><span class="wf-btn gold">Apply →</span> <span class="wf-btn ghost">Learn more</span></div>
+    </div>
+    <div>
+      <div class="wf-photo labeled" data-label="PHOTO — family support" style="height: 140px; margin-bottom: 14px; border: 1.5px solid var(--ink);"></div>
+      <div class="wf-eyebrow" style="color: var(--accent-2);">PROGRAM THREE</div>
+      <div class="wf-head" style="margin: 6px 0;">Family Engagement &amp; Advocacy</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body">Direct support — parenting, school navigation, resource connection.</div>
+      <div style="margin-top: 14px; display:flex; flex-direction: column; gap: 6px;">
+        <div class="wf-label">↳ Parent Support</div>
+        <div class="wf-label">↳ School Advocacy</div>
+        <div class="wf-label">↳ Resource Connection</div>
+      </div>
+      <div style="margin-top: 18px;"><span class="wf-btn">See full program →</span></div>
+    </div>
+  </div>
+
+  <!-- Contextual band -->
+  <div class="sect navy" style="margin-top: 18px;">
+    <div class="row" style="gap: 36px; align-items: center;">
+      <div style="flex: 0 0 40%;">
+        <div class="wf-eyebrow" style="color: var(--accent);">THE PATTERN</div>
+        <hr class="wf-rule"/>
+        <div class="wf-head xl" style="color:#fff;">Every child sits inside a family.<br/>Every family sits inside a community.</div>
+      </div>
+      <div style="flex: 1;">
+        <div class="wf-body" style="color: rgba(255,255,255,.8); font-size: 15px;">
+          Our three programs correspond to those three nested scales. We don't treat them as separate services — a single coach may touch all three for the same family in a single week.
+        </div>
+        <div class="row" style="margin-top: 20px; gap: 10px;">
+          <div style="flex:1; padding: 12px; border: 1.5px solid rgba(255,255,255,.3);">
+            <div class="wf-head sm" style="color: var(--accent);">Child</div>
+            <div class="wf-label" style="color: rgba(255,255,255,.6)">Community Schools</div>
+          </div>
+          <div style="flex:1; padding: 12px; border: 1.5px solid rgba(255,255,255,.3);">
+            <div class="wf-head sm" style="color: var(--accent);">Family</div>
+            <div class="wf-label" style="color: rgba(255,255,255,.6)">Dreambuilders</div>
+          </div>
+          <div style="flex:1; padding: 12px; border: 1.5px solid rgba(255,255,255,.3);">
+            <div class="wf-head sm" style="color: var(--accent);">Community</div>
+            <div class="wf-label" style="color: rgba(255,255,255,.6)">Family Engagement</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deep dive: stack cards by program -->
+  <div class="wf-label" style="margin: 26px 6px 10px;">— EACH PROGRAM, IN ONE ROW ——————————————————————————————————————</div>
+
+  <div class="stack-card">
+    <div class="wf-photo labeled" data-label="PHOTO" style="height: 110px;"></div>
+    <div>
+      <span class="wf-pill">01</span>
+      <div class="wf-head sm" style="margin: 6px 0;">Community Schools</div>
+      <div class="wf-body" style="font-size: 14px;">Pathway coaches, tutoring, pantries, Walking Bus. Present daily in 7 CCS buildings.</div>
+    </div>
+    <div style="display:flex; flex-direction: column; gap: 6px; align-items: flex-end;">
+      <span class="wf-btn navy" style="width: 170px; text-align:center;">Read full program →</span>
+      <span class="wf-btn ghost" style="width: 170px; text-align:center;">Find your coordinator</span>
+    </div>
+  </div>
+
+  <div class="stack-card">
+    <div class="wf-photo labeled" data-label="PHOTO" style="height: 110px;"></div>
+    <div>
+      <span class="wf-pill">02</span>
+      <div class="wf-head sm" style="margin: 6px 0;">Dreambuilders</div>
+      <div class="wf-body" style="font-size: 14px;">Two-year cohort program with Parent Time, P.A.C.T. Time, and $7K of micro-financing.</div>
+    </div>
+    <div style="display:flex; flex-direction: column; gap: 6px; align-items: flex-end;">
+      <span class="wf-btn gold" style="width: 170px; text-align:center;">Apply now →</span>
+      <span class="wf-btn ghost" style="width: 170px; text-align:center;">Eligibility &amp; detail</span>
+    </div>
+  </div>
+
+  <div class="stack-card">
+    <div class="wf-photo labeled" data-label="PHOTO" style="height: 110px;"></div>
+    <div>
+      <span class="wf-pill">03</span>
+      <div class="wf-head sm" style="margin: 6px 0;">Family Engagement &amp; Advocacy</div>
+      <div class="wf-body" style="font-size: 14px;">One-to-one parent support: school advocacy and community resource connection.</div>
+    </div>
+    <div style="display:flex; flex-direction: column; gap: 6px; align-items: flex-end;">
+      <span class="wf-btn navy" style="width: 170px; text-align:center;">Read full program →</span>
+      <span class="wf-btn ghost" style="width: 170px; text-align:center;">Contact a coordinator</span>
+    </div>
+  </div>
+
+  <div class="notes">
+    <b>Option B — Triptych + deep dives</b>
+    <ul>
+      <li>Overview-first: three equal cards answer "what do you do?" in 10 seconds, then scroll for depth.</li>
+      <li>Repeats the info in two registers (cards, then horizontal stack) so visitors can scan or dive.</li>
+      <li>Strength: clear symmetry, no program "loses" vs another. Risk: triptych is a familiar pattern — less editorial voice than A.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- OPTION C — ECOSYSTEM DIAGRAM                                  -->
+<!-- ============================================================= -->
+<div class="panel" data-panel="c">
+
+  <div class="wf-crumb">You are here: <b>Home</b> › <b>What We Do</b> &nbsp;·&nbsp; diagram-led — lead with "one ecosystem" as an actual picture</div>
+
+  <div class="wf-nav">
+    <div class="wf-nav-logo">City of Promise</div>
+    <div class="wf-nav-items">
+      <span class="active">What We Do</span>
+      <span>Our Approach</span>
+      <span>Who We Are</span>
+      <span>Access Services</span>
+      <span>Get Involved</span>
+      <span>Published Work</span>
+    </div>
+    <span class="wf-btn gold" style="font-size:13px; padding:6px 12px;">Donate</span>
+  </div>
+
+  <!-- Header -->
+  <div class="sect" style="padding: 36px 28px;">
+    <div class="wf-eyebrow">WHAT WE DO</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head xxl" style="max-width: 780px;">The Constellation of Care.</div>
+    <div class="wf-body" style="max-width: 620px; font-size: 16px; margin-top: 12px;">
+      Three programs, fifteen services, one family at the center. Here's how it fits together.
+    </div>
+  </div>
+
+  <!-- The diagram itself -->
+  <div class="diagram" style="height: 520px;">
+    <span class="sect-tag" style="background: #fff;">interactive diagram</span>
+
+    <!-- SVG connecting lines -->
+    <svg class="links" viewBox="0 0 1000 500" preserveAspectRatio="none">
+      <g stroke="#1a1a1a" stroke-width="1.3" fill="none" stroke-dasharray="4 4" opacity="0.5">
+        <line x1="500" y1="250" x2="200" y2="110"/>
+        <line x1="500" y1="250" x2="800" y2="110"/>
+        <line x1="500" y1="250" x2="500" y2="430"/>
+        <line x1="200" y1="110" x2="90" y2="40"/>
+        <line x1="200" y1="110" x2="90" y2="180"/>
+        <line x1="200" y1="110" x2="300" y2="40"/>
+        <line x1="200" y1="110" x2="300" y2="200"/>
+        <line x1="800" y1="110" x2="700" y2="40"/>
+        <line x1="800" y1="110" x2="910" y2="40"/>
+        <line x1="800" y1="110" x2="700" y2="200"/>
+        <line x1="800" y1="110" x2="910" y2="180"/>
+        <line x1="500" y1="430" x2="380" y2="460"/>
+        <line x1="500" y1="430" x2="620" y2="460"/>
+      </g>
+    </svg>
+
+    <!-- Center hub -->
+    <div class="node center" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
+      <small>THE FAMILY</small>
+      One child, one parent,<br/>one household
+    </div>
+
+    <!-- Program A: Community Schools (upper left) -->
+    <div class="node" style="left: 12%; top: 12%;">
+      <small style="color: var(--accent-2);">PROGRAM 1</small>
+      Community<br/>Schools
+    </div>
+    <!-- sub-services for CS -->
+    <div class="node" style="left: 2%; top: 2%; min-width: 110px; font-size: 13px; background: var(--paper-2);">Pathway Coaching</div>
+    <div class="node" style="left: 2%; top: 30%; min-width: 110px; font-size: 13px; background: var(--paper-2);">Tutoring</div>
+    <div class="node" style="left: 22%; top: 2%; min-width: 110px; font-size: 13px; background: var(--paper-2);">Food Pantries</div>
+    <div class="node" style="left: 24%; top: 34%; min-width: 110px; font-size: 13px; background: var(--paper-2);">Walking Bus</div>
+
+    <!-- Program B: Dreambuilders (upper right) -->
+    <div class="node" style="right: 12%; top: 12%;">
+      <small style="color: var(--accent-2);">PROGRAM 2</small>
+      Dreambuilders
+    </div>
+    <div class="node" style="right: 22%; top: 2%; min-width: 110px; font-size: 13px; background: var(--paper-2);">Parent Time</div>
+    <div class="node" style="right: 2%; top: 2%; min-width: 110px; font-size: 13px; background: var(--paper-2);">P.A.C.T. Time</div>
+    <div class="node" style="right: 24%; top: 34%; min-width: 120px; font-size: 13px; background: var(--paper-2);">Micro-Financing</div>
+    <div class="node" style="right: 2%; top: 30%; min-width: 110px; font-size: 13px; background: var(--paper-2);">Apply →</div>
+
+    <!-- Program C: Family Engagement (bottom) -->
+    <div class="node" style="left: 50%; bottom: 12%; transform: translateX(-50%);">
+      <small style="color: var(--accent-2);">PROGRAM 3</small>
+      Family Engagement &amp; Advocacy
+    </div>
+    <div class="node" style="left: 32%; bottom: 1%; min-width: 110px; font-size: 13px; background: var(--paper-2);">School Advocacy</div>
+    <div class="node" style="right: 32%; bottom: 1%; min-width: 110px; font-size: 13px; background: var(--paper-2);">Resource Connection</div>
+
+    <!-- Annotation -->
+    <div class="annot" style="left: 44%; top: 32%;">
+      <div class="annot-label">click any node → jumps to that program/service</div>
+    </div>
+  </div>
+
+  <!-- Legend row -->
+  <div class="row" style="margin-top: 16px; gap: 12px;">
+    <div class="sect" style="flex:1; margin:0; padding: 14px 18px;">
+      <div class="wf-eyebrow" style="color: var(--accent-2);">PROGRAM 1</div>
+      <div class="wf-head sm" style="margin: 4px 0 0;">Community Schools</div>
+      <div class="wf-body" style="font-size: 13px;">In schools. Reaches the child where they already are.</div>
+    </div>
+    <div class="sect" style="flex:1; margin:0; padding: 14px 18px;">
+      <div class="wf-eyebrow" style="color: var(--accent-2);">PROGRAM 2</div>
+      <div class="wf-head sm" style="margin: 4px 0 0;">Dreambuilders</div>
+      <div class="wf-body" style="font-size: 13px;">Two-year commitment. Works with the whole household.</div>
+    </div>
+    <div class="sect" style="flex:1; margin:0; padding: 14px 18px;">
+      <div class="wf-eyebrow" style="color: var(--accent-2);">PROGRAM 3</div>
+      <div class="wf-head sm" style="margin: 4px 0 0;">Family Engagement</div>
+      <div class="wf-body" style="font-size: 13px;">Open door. Connects families to the wider system.</div>
+    </div>
+  </div>
+
+  <!-- Then condensed program cards below the diagram -->
+  <div class="wf-label" style="margin: 22px 6px 10px;">— SAME CONTENT, LINEAR ——————————————————————————————————————————</div>
+
+  <div class="grid-3">
+    <div class="sect" style="margin: 0;">
+      <div class="wf-photo labeled" data-label="PHOTO" style="height: 120px; margin-bottom: 12px; border:1.5px solid var(--ink);"></div>
+      <div class="wf-head sm">Community Schools</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body" style="font-size: 13px;">Coaches. Tutoring. Pantries. Walking Bus. Seven sites.</div>
+      <div style="margin-top: 12px;"><span class="wf-btn">Read the program →</span></div>
+    </div>
+    <div class="sect" style="margin: 0; background: var(--paper-2);">
+      <div class="wf-photo labeled" data-label="PHOTO" style="height: 120px; margin-bottom: 12px; border:1.5px solid var(--ink);"></div>
+      <div class="wf-head sm">Dreambuilders</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body" style="font-size: 13px;">Two-year wraparound with cash match and cohort structure.</div>
+      <div style="margin-top: 12px;"><span class="wf-btn gold">Apply →</span></div>
+    </div>
+    <div class="sect" style="margin: 0;">
+      <div class="wf-photo labeled" data-label="PHOTO" style="height: 120px; margin-bottom: 12px; border:1.5px solid var(--ink);"></div>
+      <div class="wf-head sm">Family Engagement</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body" style="font-size: 13px;">Direct support. School navigation. Resource connection.</div>
+      <div style="margin-top: 12px;"><span class="wf-btn">Read the program →</span></div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <b>Option C — Ecosystem diagram</b>
+    <ul>
+      <li>Leads with a diagram of the Constellation of Care as the hero element, not a photograph.</li>
+      <li>Lets a skeptical reader (grant officer, partner) grasp the whole in one view before reading a word.</li>
+      <li>Strength: distinctive, own-able, reinforces the "ecosystem" claim. Risk: more build effort; needs legible layout on mobile (likely collapses to a stacked tree).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- OPTION D — FAMILY JOURNEY                                     -->
+<!-- ============================================================= -->
+<div class="panel" data-panel="d">
+
+  <div class="wf-crumb">You are here: <b>Home</b> › <b>What We Do</b> &nbsp;·&nbsp; framed around the family's timeline, not our org chart</div>
+
+  <div class="wf-nav">
+    <div class="wf-nav-logo">City of Promise</div>
+    <div class="wf-nav-items">
+      <span class="active">What We Do</span>
+      <span>Our Approach</span>
+      <span>Who We Are</span>
+      <span>Access Services</span>
+      <span>Get Involved</span>
+      <span>Published Work</span>
+    </div>
+    <span class="wf-btn gold" style="font-size:13px; padding:6px 12px;">Donate</span>
+  </div>
+
+  <!-- Header -->
+  <div class="sect" style="padding: 36px 28px;">
+    <div class="wf-eyebrow">WHAT WE DO</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head xxl" style="max-width: 800px;">Cradle-to-career,<br/>without a break.</div>
+    <div class="wf-body" style="max-width: 620px; font-size: 16px; margin-top: 12px;">
+      Show us a kid at any age and we can show you where CoP meets them — and their family.
+    </div>
+  </div>
+
+  <!-- Journey diagram -->
+  <div class="journey">
+    <span class="sect-tag" style="background: #fff;">family journey</span>
+    <div class="wf-eyebrow" style="position: absolute; top: 16px; left: 28px;">A CHARLOTTESVILLE KID, THROUGH THE YEARS</div>
+
+    <div class="journey-track"></div>
+    <div class="journey-stops">
+      <div class="journey-stop"><div class="dot"></div><div class="age">PreK–K</div><div class="lbl">ELC</div></div>
+      <div class="journey-stop"><div class="dot"></div><div class="age">Grades 1–5</div><div class="lbl">Trailblazer · Tall Oaks · Summit</div></div>
+      <div class="journey-stop"><div class="dot"></div><div class="age">Middle</div><div class="lbl">CMS · Lugo-McGinness</div></div>
+      <div class="journey-stop"><div class="dot"></div><div class="age">High</div><div class="lbl">CHS</div></div>
+      <div class="journey-stop"><div class="dot"></div><div class="age">College / Work</div><div class="lbl">Alumni &amp; families</div></div>
+    </div>
+
+    <!-- Program bars underneath -->
+    <div class="program-band">
+      <div style="font-family: var(--hand); font-weight: 700; font-size: 18px;">Community Schools</div>
+      <div class="bar" style="background: var(--accent-2);"><span style="left: 2%;"></span><span style="right: 12%;"></span></div>
+    </div>
+    <div class="program-band">
+      <div style="font-family: var(--hand); font-weight: 700; font-size: 18px;">Dreambuilders</div>
+      <div class="bar navy"><span style="left: 18%;"></span><span style="right: 4%;"></span></div>
+    </div>
+    <div class="program-band">
+      <div style="font-family: var(--hand); font-weight: 700; font-size: 18px;">Family Engagement</div>
+      <div class="bar" style="background: var(--accent);"><span style="left: 0%;"></span><span style="right: 0%;"></span></div>
+    </div>
+    <div class="wf-label" style="margin: 10px 8px 0;">→ bars show when each program is available across a child's life</div>
+  </div>
+
+  <!-- Two-up doors: family vs ally -->
+  <div class="row" style="gap: 16px; margin-top: 18px;">
+    <div class="sect" style="flex: 1; margin: 0; padding: 22px; background: var(--paper-2);">
+      <div class="wf-eyebrow">FOR A FAMILY</div>
+      <div class="wf-head" style="margin: 6px 0;">Where does my family fit?</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body" style="margin-bottom: 14px;">Short questionnaire → right coordinator.</div>
+      <div class="col" style="gap: 8px;">
+        <div class="wf-box" style="padding: 10px 12px;">Which school does your child attend?</div>
+        <div class="wf-box" style="padding: 10px 12px;">What grade are they in?</div>
+        <div class="wf-box" style="padding: 10px 12px;">What do you need most right now? <span style="color:var(--ink-faint);">(tutoring · food · school advocacy · cash)</span></div>
+      </div>
+      <div style="margin-top: 14px;"><span class="wf-btn gold">Find the right door →</span></div>
+    </div>
+    <div class="sect navy" style="flex: 1; margin: 0; padding: 22px;">
+      <div class="wf-eyebrow" style="color: var(--accent);">FOR EVERYONE ELSE</div>
+      <div class="wf-head" style="color:#fff; margin: 6px 0;">Three programs at a glance</div>
+      <hr class="wf-rule thin"/>
+      <div class="col" style="gap: 10px; margin-top: 10px;">
+        <div style="display:flex; gap: 10px; align-items:center; padding: 10px; border: 1.5px solid rgba(255,255,255,.3);">
+          <div class="wf-icon" style="border-color:#fff; background: transparent; color: var(--accent);">CS</div>
+          <div style="flex:1;">
+            <div class="wf-head sm" style="color:#fff;">Community Schools</div>
+            <div class="wf-body" style="color: rgba(255,255,255,.7); font-size: 13px;">Embedded coaches · 7 sites · daily</div>
+          </div>
+          <span class="wf-label" style="color: rgba(255,255,255,.6)">→</span>
+        </div>
+        <div style="display:flex; gap: 10px; align-items:center; padding: 10px; border: 1.5px solid rgba(255,255,255,.3);">
+          <div class="wf-icon" style="border-color:#fff; background: transparent; color: var(--accent);">DB</div>
+          <div style="flex:1;">
+            <div class="wf-head sm" style="color:#fff;">Dreambuilders</div>
+            <div class="wf-body" style="color: rgba(255,255,255,.7); font-size: 13px;">2-year cohort · Parent + PACT Time · $7K</div>
+          </div>
+          <span class="wf-label" style="color: rgba(255,255,255,.6)">→</span>
+        </div>
+        <div style="display:flex; gap: 10px; align-items:center; padding: 10px; border: 1.5px solid rgba(255,255,255,.3);">
+          <div class="wf-icon" style="border-color:#fff; background: transparent; color: var(--accent);">FE</div>
+          <div style="flex:1;">
+            <div class="wf-head sm" style="color:#fff;">Family Engagement</div>
+            <div class="wf-body" style="color: rgba(255,255,255,.7); font-size: 13px;">Open door · parenting · navigation</div>
+          </div>
+          <span class="wf-label" style="color: rgba(255,255,255,.6)">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A day / a year pattern -->
+  <div class="sect tan" style="margin-top: 18px;">
+    <div class="wf-eyebrow">A DAY IN THE LIFE</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head" style="margin: 4px 0 14px;">What a Tuesday looks like for one CoP coach.</div>
+    <div class="grid-4" style="gap: 12px;">
+      <div class="wf-box" style="padding: 12px;"><div class="wf-label">7:30 AM</div><div class="wf-body" style="margin-top: 6px; font-size: 14px;">Walking Bus from Page St → ELC</div></div>
+      <div class="wf-box" style="padding: 12px;"><div class="wf-label">9:00 AM</div><div class="wf-body" style="margin-top: 6px; font-size: 14px;">Tutoring block, 3rd grade</div></div>
+      <div class="wf-box" style="padding: 12px;"><div class="wf-label">1:00 PM</div><div class="wf-body" style="margin-top: 6px; font-size: 14px;">Pantry distribution</div></div>
+      <div class="wf-box" style="padding: 12px;"><div class="wf-label">6:30 PM</div><div class="wf-body" style="margin-top: 6px; font-size: 14px;">Parent Time with a Dreambuilders cohort</div></div>
+    </div>
+    <div class="wf-label" style="margin-top: 12px;">One coach, three programs, same family.</div>
+  </div>
+
+  <!-- Link out -->
+  <div class="sect dashed" style="margin-top: 18px;">
+    <div class="row" style="gap: 24px; align-items: center;">
+      <div style="flex: 1;">
+        <div class="wf-eyebrow">WHY WE BUILT IT THIS WAY</div>
+        <div class="wf-head" style="margin-top: 6px;">The theory is on a separate page.</div>
+        <div class="wf-body" style="margin-top: 8px;">The 49pp literacy gap, dual-generation research, and cost-per-pupil framing live under Our Approach.</div>
+      </div>
+      <span class="wf-btn">Our Approach →</span>
+    </div>
+  </div>
+
+  <div class="notes">
+    <b>Option D — Family journey</b>
+    <ul>
+      <li>Frames programs around the <i>family's</i> timeline, not CoP's org chart. Strongest for the "Access Services" audience.</li>
+      <li>The horizontal timeline + three program bars makes "cradle-to-career" legible at a glance.</li>
+      <li>Strength: story-first, not taxonomy-first; clear CTA for families. Risk: donors/stakeholders have to scroll past the family door to find program descriptions.</li>
+    </ul>
+  </div>
+
+</div>
+
+</div>
+</div>
+
+<!-- Tweaks panel -->
+<div class="tweak-panel" id="tweakPanel">
+  <h4>Tweaks</h4>
+  <label><input type="checkbox" id="t-chrome" checked> show nav + breadcrumb</label>
+  <label><input type="checkbox" id="t-notes" checked> show annotation notes</label>
+  <label><input type="checkbox" id="t-rotate" checked> sketchy wobble</label>
+  <label>
+    <span>fidelity:</span>
+    <select id="t-fidelity">
+      <option value="sketch" selected>low-fi / sketch</option>
+      <option value="medium">medium — show color swatches</option>
+    </select>
+  </label>
+</div>
+
+<script>
+  // Tab switching
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+  const STORAGE_KEY = 'whatwedo-tab';
+  function setTab(name) {
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+    panels.forEach(p => p.classList.toggle('active', p.dataset.panel === name));
+    try { localStorage.setItem(STORAGE_KEY, name); } catch(e){}
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+  tabs.forEach(t => t.addEventListener('click', () => setTab(t.dataset.tab)));
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) setTab(saved);
+  } catch(e){}
+
+  // Tweaks — editmode protocol
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "showChrome": true,
+    "showNotes": true,
+    "wobble": true,
+    "fidelity": "medium"
+  }/*EDITMODE-END*/;
+
+  let tweaks = { ...TWEAK_DEFAULTS };
+
+  function applyTweaks() {
+    document.querySelectorAll('.wf-nav, .wf-crumb').forEach(el => {
+      el.style.display = tweaks.showChrome ? '' : 'none';
+    });
+    document.querySelectorAll('.notes').forEach(el => {
+      el.style.display = tweaks.showNotes ? '' : 'none';
+    });
+    document.querySelectorAll('.wobble, .wobble-2').forEach(el => {
+      el.style.transform = tweaks.wobble ? '' : 'none';
+    });
+    if (tweaks.fidelity === 'medium') {
+      document.body.style.filter = '';
+      document.documentElement.style.setProperty('--paper', '#EEEEEC');
+      document.documentElement.style.setProperty('--paper-2', '#E8DFD1');
+    } else {
+      document.documentElement.style.setProperty('--paper', '#f7f3ea');
+      document.documentElement.style.setProperty('--paper-2', '#efe9db');
+    }
+    const cb = (id,key) => { const el = document.getElementById(id); if (el) el.checked = tweaks[key]; };
+    cb('t-chrome','showChrome'); cb('t-notes','showNotes'); cb('t-rotate','wobble');
+    const sel = document.getElementById('t-fidelity'); if (sel) sel.value = tweaks.fidelity;
+  }
+  applyTweaks();
+
+  // tweak listeners
+  function wireTweaks() {
+    const onChange = (key, val) => {
+      tweaks[key] = val; applyTweaks();
+      window.parent.postMessage({type: '__edit_mode_set_keys', edits: tweaks}, '*');
+    };
+    document.getElementById('t-chrome').addEventListener('change', e => onChange('showChrome', e.target.checked));
+    document.getElementById('t-notes').addEventListener('change', e => onChange('showNotes', e.target.checked));
+    document.getElementById('t-rotate').addEventListener('change', e => onChange('wobble', e.target.checked));
+    document.getElementById('t-fidelity').addEventListener('change', e => onChange('fidelity', e.target.value));
+  }
+  wireTweaks();
+
+  // edit mode availability
+  window.addEventListener('message', (e) => {
+    const d = e.data || {};
+    if (d.type === '__activate_edit_mode') document.getElementById('tweakPanel').classList.add('on');
+    if (d.type === '__deactivate_edit_mode') document.getElementById('tweakPanel').classList.remove('on');
+  });
+  window.parent.postMessage({type: '__edit_mode_available'}, '*');
+</script>
+
+</body>
+</html>

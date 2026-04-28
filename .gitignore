@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Node / Eleventy (added when we set up Eleventy)
+node_modules/
+_site/
+
+# Editor
+.vscode/
+.idea/
+
+# Local dev artifacts
+debug/
+uploads/
+
+# Logs
+*.log

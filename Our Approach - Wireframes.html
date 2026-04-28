@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Our Approach — Wireframes</title>
+<link rel="icon" href="assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-faint: #8a8a8a;
+    --paper: #f7f3ea;
+    --paper-2: #efe9db;
+    --accent: #D5A33A;
+    --accent-2: #13539A;
+    --red: #b6421a;
+    --sketch: 'Kalam', 'Caveat', sans-serif;
+    --hand: 'Caveat', cursive;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #e8e2d2; font-family: var(--sketch); color: var(--ink); }
+
+  /* ========== Chrome ========== */
+  .chrome {
+    position: sticky; top: 0; z-index: 20;
+    background: #f3ede0;
+    border-bottom: 1.5px solid var(--ink);
+    padding: 14px 24px 0;
+  }
+  .chrome-top {
+    display:flex; align-items:flex-end; justify-content:space-between;
+    gap: 24px; padding-bottom: 10px;
+  }
+  .title-block h1 {
+    font-family: var(--hand);
+    font-size: 34px; font-weight: 700; color: var(--ink);
+    line-height: 1;
+    margin: 0;
+  }
+  .title-block .meta {
+    font-family: var(--sketch);
+    font-size: 13px; color: var(--ink-soft); margin-top: 4px;
+  }
+  .legend {
+    font-family: var(--sketch); font-size: 12px; color: var(--ink-soft);
+    display: flex; gap: 16px; align-items: center;
+  }
+  .legend-dot { display:inline-flex; align-items:center; gap:6px; }
+  .legend-dot::before {
+    content:''; width:10px; height:10px; border-radius:999px;
+    border: 1.5px solid var(--ink);
+  }
+  .legend-dot.gold::before { background: var(--accent); }
+  .legend-dot.navy::before { background: var(--ink); }
+  .legend-dot.paper::before { background: var(--paper); }
+  .legend-dot.photo::before { background: repeating-linear-gradient(45deg, #cfc7b0 0 4px, #b8b098 4px 8px); }
+
+  /* ========== Tabs ========== */
+  .tabs {
+    display:flex; gap: 0;
+    margin-top: 4px;
+  }
+  .tab {
+    font-family: var(--hand);
+    font-size: 20px; font-weight: 600;
+    padding: 8px 18px 10px;
+    background: transparent;
+    border: 1.5px solid var(--ink);
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    color: var(--ink-soft);
+    cursor: pointer;
+    margin-right: -1.5px;
+    position: relative;
+    transform: translateY(1.5px);
+  }
+  .tab:hover { color: var(--ink); background: rgba(255,255,255,.3); }
+  .tab.active {
+    background: var(--paper);
+    color: var(--ink);
+    z-index: 2;
+    box-shadow: 0 -2px 0 var(--accent) inset;
+  }
+  .tab .num {
+    display:inline-block; font-family: var(--sketch); font-size: 12px;
+    color: var(--ink-faint); margin-right: 6px;
+  }
+  .tab.active .num { color: var(--accent-2); }
+
+  /* ========== Canvas ========== */
+  .canvas {
+    background: var(--paper);
+    min-height: calc(100vh - 120px);
+    border-top: 1.5px solid var(--ink);
+  }
+  .frame {
+    max-width: 1200px; margin: 0 auto;
+    padding: 28px 32px 80px;
+    position: relative;
+  }
+
+  /* ========== Primitives ========== */
+  .wf-box {
+    border: 1.5px solid var(--ink);
+    background: #fff;
+    position: relative;
+  }
+  .wf-box.dashed { border-style: dashed; }
+  .wf-photo {
+    background:
+      repeating-linear-gradient(45deg, rgba(0,0,0,.06) 0 1px, transparent 1px 10px),
+      repeating-linear-gradient(-45deg, rgba(0,0,0,.06) 0 1px, transparent 1px 10px),
+      #d8d1bd;
+    color: var(--ink-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--sketch); font-size: 12px;
+    letter-spacing: 1.4px; text-transform: uppercase;
+  }
+  .wf-photo::after { content: 'photo'; }
+  .wf-photo.labeled::after { content: attr(data-label); }
+
+  .wf-rule { height: 3px; width: 64px; background: var(--accent); margin: 10px 0; border: 0; }
+  .wf-rule.thin { height: 2px; width: 48px; }
+  .wf-rule.wide { width: 120px; }
+
+  .wf-head {
+    font-family: var(--hand);
+    font-weight: 700; font-size: 28px; color: var(--ink); line-height: 1.05;
+  }
+  .wf-head.xl { font-size: 44px; }
+  .wf-head.xxl { font-size: 60px; line-height: 1; }
+  .wf-head.xxxl { font-size: 84px; line-height: 0.95; }
+  .wf-head.sm { font-size: 22px; }
+  .wf-eyebrow {
+    font-family: var(--sketch); font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--ink-soft);
+  }
+  .wf-body {
+    font-family: var(--sketch); font-size: 14px; color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .wf-body.lg { font-size: 16px; }
+  .wf-label {
+    font-family: var(--sketch); font-size: 12px; color: var(--ink-faint);
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .wf-btn {
+    display:inline-block; padding: 8px 14px; border: 1.5px solid var(--ink);
+    border-radius: 6px; font-family: var(--hand); font-size: 16px;
+    background: #fff; color: var(--ink);
+  }
+  .wf-btn.gold { background: var(--accent); }
+  .wf-btn.navy { background: var(--ink); color: #fff; }
+  .wf-btn.ghost { background: transparent; }
+
+  .wf-pill {
+    display:inline-block; padding: 3px 10px; border: 1.2px solid var(--ink);
+    border-radius: 999px; font-family: var(--sketch); font-size: 11px;
+    letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink);
+    background: #fff;
+  }
+  .wf-pill.gold { background: var(--accent); }
+  .wf-pill.navy { background: var(--ink); color: #fff; }
+
+  /* ========== Nav / breadcrumb ========== */
+  .wf-nav {
+    display:flex; justify-content:space-between; align-items:center;
+    border: 1.5px solid var(--ink); background: #fff;
+    padding: 10px 16px; border-radius: 6px;
+  }
+  .wf-nav-logo {
+    display:flex; align-items:center; gap: 8px;
+    font-family: var(--hand); font-weight: 700; font-size: 18px;
+  }
+  .wf-nav-logo::before {
+    content:''; width:22px; height:22px; border-radius:4px;
+    background: var(--accent-2); display:inline-block;
+  }
+  .wf-nav-items {
+    display:flex; gap: 18px; font-family: var(--sketch); font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .wf-nav-items .active {
+    color: var(--ink); font-weight: 700;
+    border-bottom: 2px solid var(--accent); padding-bottom: 2px;
+  }
+  .wf-crumb {
+    font-family: var(--sketch); font-size: 12px; color: var(--ink-faint);
+    margin: 16px 0 6px; letter-spacing: 0.5px;
+  }
+  .wf-crumb b { color: var(--ink-soft); }
+
+  /* ========== Annotations ========== */
+  .annot {
+    font-family: var(--hand);
+    font-size: 16px;
+    color: var(--red);
+    line-height: 1.1;
+  }
+  .annot-label {
+    background: #fff5cf;
+    border: 1px dashed var(--red);
+    padding: 3px 8px;
+    border-radius: 3px;
+    display:inline-block;
+  }
+
+  /* ========== Grid helpers ========== */
+  .row { display:flex; gap: 16px; }
+  .col { display: grid; gap: 16px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+  /* ========== Section ========== */
+  .sect {
+    padding: 22px 20px;
+    border: 1.5px solid var(--ink);
+    border-radius: 4px;
+    background: #fff;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .sect.navy { background: #2a2a2a; color: #fff; }
+  .sect.navy .wf-body { color: rgba(255,255,255,.75); }
+  .sect.navy .wf-head { color: #fff; }
+  .sect.navy .wf-eyebrow { color: rgba(255,255,255,.7); }
+  .sect.tan { background: var(--paper-2); }
+  .sect.dashed { border-style: dashed; background: transparent; }
+
+  .sect-tag {
+    position: absolute; top: -10px; left: 16px;
+    background: var(--paper); padding: 0 8px;
+    font-family: var(--hand); font-size: 13px; color: var(--accent-2);
+    font-weight: 700;
+  }
+  .sect.tan .sect-tag { background: var(--paper-2); }
+  .sect.navy .sect-tag { background: var(--paper); }
+
+  /* ========== Anchor rail (left-side TOC) ========== */
+  .layout-railed {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    margin-top: 18px;
+  }
+  .rail {
+    position: sticky; top: 140px;
+    align-self: start;
+    font-family: var(--sketch);
+    font-size: 13px;
+    padding: 16px 14px;
+    border: 1.5px dashed var(--ink);
+    background: rgba(255,255,255,.5);
+    border-radius: 4px;
+  }
+  .rail .rail-title {
+    font-family: var(--hand); font-size: 16px; font-weight: 700;
+    color: var(--ink); margin-bottom: 8px;
+  }
+  .rail ol {
+    margin: 0; padding-left: 22px; color: var(--ink-soft);
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .rail ol li.active {
+    color: var(--ink); font-weight: 700;
+  }
+
+  /* ========== Option A — Essay rail ========== */
+  .kicker-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 22px;
+  }
+  .kicker-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 0 14px;
+    border-top: 1.5px solid var(--ink);
+  }
+  .kicker-stat .big {
+    font-family: var(--hand); font-weight: 700;
+    font-size: 52px; line-height: 1; color: var(--accent-2);
+  }
+  .kicker-stat .big.gold { color: var(--accent); }
+
+  /* ========== Option B — Claim / Evidence ========== */
+  .claim-pair {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 1.5px solid var(--ink); margin-bottom: 16px;
+  }
+  .claim-pair > div { padding: 22px; }
+  .claim-pair > div + div {
+    border-left: 1.5px solid var(--ink);
+    background: var(--paper-2);
+  }
+  .claim-pair .claim-num {
+    font-family: var(--hand); font-weight: 700; font-size: 80px;
+    line-height: 1; color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .claim-pair .claim-q {
+    font-family: var(--hand); font-weight: 700; font-size: 30px;
+    color: var(--ink); line-height: 1.05; margin-top: 8px;
+  }
+  .claim-pair .evidence-title {
+    font-family: var(--hand); font-weight: 700; font-size: 22px;
+    color: var(--ink); margin-bottom: 8px;
+  }
+  .claim-pair .evidence-stat {
+    font-family: var(--hand); font-weight: 700; font-size: 40px;
+    color: var(--accent-2); line-height: 1;
+    margin: 6px 0;
+  }
+
+  /* ========== Option C — Diagram ========== */
+  .diagram-frame {
+    padding: 28px;
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    min-height: 560px;
+    position: relative;
+  }
+  .diagram-frame svg.links {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .gen-lane {
+    position: absolute;
+    border: 1.5px dashed var(--ink);
+    opacity: 0.6;
+    border-radius: 4px;
+  }
+  .gen-lane .lane-lbl {
+    position: absolute; top: -10px; left: 10px;
+    background: #fff;
+    padding: 0 8px;
+    font-family: var(--hand); font-weight: 700; font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .node {
+    position: absolute;
+    border: 1.5px solid var(--ink);
+    background: #fff;
+    padding: 10px 14px;
+    font-family: var(--hand);
+    font-weight: 600;
+    text-align: center;
+    border-radius: 6px;
+    min-width: 140px;
+    font-size: 18px;
+  }
+  .node small {
+    display:block; font-family: var(--sketch); font-size: 11px;
+    color: var(--ink-faint); font-weight: 400; letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+  .node.svc { background: var(--paper-2); font-size: 14px; min-width: 120px; padding: 7px 10px; }
+  .node.outcome {
+    background: var(--accent); color: var(--ink);
+    border-color: var(--ink); font-size: 14px; min-width: 120px; padding: 7px 10px;
+  }
+
+  /* ========== Option D — Data board ========== */
+  .bignum {
+    display:flex; flex-direction:column; gap: 4px;
+    padding: 18px; border: 1.5px solid var(--ink); background: #fff;
+    position: relative;
+  }
+  .bignum .n {
+    font-family: var(--hand); font-weight: 700; font-size: 72px;
+    line-height: 1; color: var(--accent-2);
+  }
+  .bignum .n.gold { color: var(--accent); }
+  .bignum .n.dark { color: var(--ink); }
+  .bignum .unit {
+    font-family: var(--sketch); font-size: 13px; color: var(--ink-soft);
+    text-transform: uppercase; letter-spacing: 1.5px;
+  }
+  .bignum .src {
+    margin-top: 6px; font-family: var(--sketch); font-size: 11px;
+    color: var(--ink-faint);
+  }
+
+  .barpair {
+    display:flex; align-items:flex-end; gap: 20px; height: 160px;
+    padding: 12px 0 0;
+  }
+  .barpair .bar {
+    width: 80px; border: 1.5px solid var(--ink); position: relative;
+    display:flex; align-items:flex-end; justify-content:center;
+    padding-bottom: 6px;
+  }
+  .barpair .bar .lbl {
+    position: absolute; top: -26px;
+    font-family: var(--hand); font-weight: 700; font-size: 18px;
+    color: var(--ink); white-space: nowrap;
+  }
+  .barpair .bar .txt {
+    font-family: var(--sketch); font-size: 11px; color: var(--ink-faint);
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .barpair .bar.a { background: var(--paper-2); height: 100%; }
+  .barpair .bar.b { background: var(--accent); height: 24%; }
+
+  /* ========== notes ========== */
+  .notes {
+    margin-top: 24px;
+    padding: 16px 20px;
+    border: 1.5px dashed var(--ink);
+    border-radius: 4px;
+    background: #fff8e6;
+    font-family: var(--sketch); font-size: 13px; color: var(--ink-soft);
+  }
+  .notes b { color: var(--ink); font-family: var(--hand); font-size: 16px; }
+  .notes ul { margin: 8px 0 0 18px; padding: 0; }
+
+  /* ========== tweaks ========== */
+  .tweak-panel {
+    position: fixed; right: 16px; bottom: 16px; z-index: 30;
+    background: #fff; border: 1.5px solid var(--ink); border-radius: 6px;
+    padding: 12px; min-width: 220px; font-family: var(--sketch); font-size: 13px;
+    display: none;
+    box-shadow: 4px 4px 0 rgba(0,0,0,.08);
+  }
+  .tweak-panel.on { display: block; }
+  .tweak-panel h4 { margin: 0 0 8px; font-family: var(--hand); font-size: 18px; }
+  .tweak-panel label { display:flex; align-items:center; gap: 8px; margin: 6px 0; }
+
+  /* hide inactive panels */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .wobble { transform: rotate(-0.25deg); }
+  .wobble-2 { transform: rotate(0.2deg); }
+
+  /* Pull-quote style */
+  .pullquote {
+    font-family: var(--hand); font-weight: 700;
+    font-size: 42px; line-height: 1.1;
+    color: var(--ink);
+    border-left: 4px solid var(--accent);
+    padding: 4px 0 4px 18px;
+    margin: 8px 0;
+  }
+  .pullquote .byline {
+    display: block; font-family: var(--sketch); font-weight: 400;
+    font-size: 14px; color: var(--ink-faint);
+    text-transform: uppercase; letter-spacing: 1.5px;
+    margin-top: 8px;
+  }
+
+  /* Section marker ribbon for Option A */
+  .marker {
+    display:flex; gap: 14px; align-items: baseline;
+    border-top: 2px solid var(--ink); padding-top: 8px;
+    margin-bottom: 18px;
+  }
+  .marker .n {
+    font-family: var(--hand); font-weight: 700; font-size: 28px;
+    color: var(--accent); line-height: 1;
+  }
+  .marker .t {
+    font-family: var(--hand); font-weight: 700; font-size: 24px;
+    color: var(--ink); line-height: 1;
+  }
+  .marker .sub {
+    font-family: var(--sketch); font-size: 13px; color: var(--ink-faint);
+    margin-left: auto;
+  }
+
+  /* Dual-gen mini model for A */
+  .dualgen {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 1.5px solid var(--ink); margin-top: 10px;
+  }
+  .dualgen > div {
+    padding: 18px;
+  }
+  .dualgen > div:first-child {
+    border-right: 1.5px solid var(--ink);
+    background: #fff;
+  }
+  .dualgen > div:last-child {
+    background: var(--paper-2);
+  }
+  .dualgen .hdr {
+    font-family: var(--hand); font-weight: 700; font-size: 24px;
+    color: var(--ink); margin-bottom: 4px;
+  }
+  .dualgen .eyebrow {
+    font-family: var(--sketch); font-size: 11px;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--ink-soft);
+  }
+  .dualgen ul {
+    margin: 10px 0 0 0; padding-left: 18px;
+    font-family: var(--sketch); font-size: 14px; color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  /* Constellation for A — flat diagram */
+  .mini-constellation {
+    display:grid; grid-template-columns: repeat(3, 1fr);
+    border: 1.5px solid var(--ink); margin-top: 10px;
+  }
+  .mini-constellation > div {
+    padding: 16px; border-right: 1.5px solid var(--ink);
+    min-height: 120px;
+  }
+  .mini-constellation > div:last-child { border-right: 0; }
+
+</style>
+</head>
+<body>
+
+<!-- ============ CHROME ============ -->
+<div class="chrome">
+  <div class="chrome-top">
+    <div class="title-block">
+      <h1>"Our Approach" — page wireframes</h1>
+      <div class="meta">Low-fi structural exploration · City of Promise · /approach · 4 directions</div>
+    </div>
+    <div class="legend">
+      <span class="legend-dot paper">paper / canvas</span>
+      <span class="legend-dot navy">navy full-bleed</span>
+      <span class="legend-dot gold">gold accent</span>
+      <span class="legend-dot photo">photo placeholder</span>
+    </div>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-tab="a"><span class="num">A</span>Essay with rail</button>
+    <button class="tab" data-tab="b"><span class="num">B</span>Claim → Evidence</button>
+    <button class="tab" data-tab="c"><span class="num">C</span>Model-first diagram</button>
+    <button class="tab" data-tab="d"><span class="num">D</span>Data board</button>
+  </div>
+</div>
+
+<div class="canvas">
+<div class="frame">
+
+<!-- ============================================================= -->
+<!-- OPTION A — ESSAY WITH RAIL                                    -->
+<!-- ============================================================= -->
+<div class="panel active" data-panel="a">
+
+  <div class="wf-crumb">You are here: <b>Home</b> › <b>Our Approach</b> &nbsp;·&nbsp; long-form essay, sticky TOC rail on the left</div>
+
+  <div class="wf-nav wobble">
+    <div class="wf-nav-logo">City of Promise</div>
+    <div class="wf-nav-items">
+      <span>What We Do</span>
+      <span class="active">Our Approach</span>
+      <span>Who We Are</span>
+      <span>Access Services</span>
+      <span>Get Involved</span>
+      <span>Published Work</span>
+    </div>
+    <span class="wf-btn gold" style="font-size:13px; padding:6px 12px;">Donate</span>
+  </div>
+
+  <!-- HERO -->
+  <div class="sect" style="padding: 48px 28px; margin-top: 18px;">
+    <div class="wf-eyebrow">OUR APPROACH</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head xxxl" style="max-width: 900px;">Education is a<br/>social issue.</div>
+    <div class="wf-body lg" style="max-width: 620px; margin-top: 18px;">
+      The story of a child's learning starts outside the classroom. It starts in the household, the block, the bus route.
+      Here's the problem we're responding to, the theory behind our response, and the proof that it's working.
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div style="margin-top: 18px;">
+    <div>
+
+      <!-- 1 The Problem -->
+      <section class="sect" id="problem">
+        <div class="marker"><span class="n">01</span><span class="t">The Problem</span><span class="sub">why we exist</span></div>
+        <div class="pullquote">
+          In Charlottesville, the literacy gap between Black and White students is 49 percentage points. It's the highest in Virginia.
+          <span class="byline">— VDOE Standards of Learning, 2024</span>
+        </div>
+        <div class="wf-body lg" style="margin-top: 14px; max-width: 720px;">
+          Chronic absenteeism. Household instability. Our kids don't have a "school problem." They have a life problem that school is trying to solve alone.
+        </div>
+
+        <!-- Bar graph: Charlottesville vs VA avg vs best division -->
+        <div style="margin-top: 26px; padding: 20px 18px 14px; border: 1.5px solid var(--ink); background: var(--paper-2);">
+          <div class="wf-eyebrow">3RD–8TH GRADE READING SOL · PASS RATE BY RACE</div>
+          <div class="wf-head sm" style="margin-top: 4px;">The Charlottesville reading gap, in context.</div>
+          <hr class="wf-rule thin"/>
+          <div class="row" style="gap: 32px; align-items: flex-end; margin-top: 18px;">
+            <div class="barpair">
+              <div class="bar a">
+                <span class="lbl">82%</span>
+                <span class="txt">White</span>
+              </div>
+              <div class="bar b" style="height: 33%;">
+                <span class="lbl">33%</span>
+                <span class="txt">Black</span>
+              </div>
+              <div class="wf-label" style="writing-mode: vertical-lr; transform: rotate(180deg); color: var(--ink-soft); padding: 0 6px;">CVILLE</div>
+            </div>
+            <div class="barpair">
+              <div class="bar a" style="background: #fff; height: 76%;">
+                <span class="lbl">76%</span>
+                <span class="txt">White</span>
+              </div>
+              <div class="bar b" style="background: #b8b098; height: 52%;">
+                <span class="lbl">52%</span>
+                <span class="txt">Black</span>
+              </div>
+              <div class="wf-label" style="writing-mode: vertical-lr; transform: rotate(180deg); color: var(--ink-soft); padding: 0 6px;">VA AVG</div>
+            </div>
+            <div class="barpair">
+              <div class="bar a" style="background: #fff; height: 72%;">
+                <span class="lbl">72%</span>
+                <span class="txt">White</span>
+              </div>
+              <div class="bar b" style="background: #b8b098; height: 61%;">
+                <span class="lbl">61%</span>
+                <span class="txt">Black</span>
+              </div>
+              <div class="wf-label" style="writing-mode: vertical-lr; transform: rotate(180deg); color: var(--ink-soft); padding: 0 6px;">BEST VA DIV</div>
+            </div>
+            <div style="flex:1; padding-left: 16px;">
+              <div class="wf-head sm" style="color: var(--red);">The gap isn't "bad in Charlottesville."<br/>It's the worst.</div>
+              <div class="wf-body" style="margin-top: 8px;">
+                Not a failure of teachers, curriculum, or funding. The load a child carries into the classroom from <i>outside</i> of it.
+              </div>
+            </div>
+          </div>
+          <div class="wf-label" style="margin-top: 14px; color: var(--ink-faint);">src: VDOE SOL 2024 · bar heights are placeholders — confirm</div>
+        </div>
+
+        <!-- Other metrics underneath -->
+        <div class="kicker-stats-row">
+          <div class="kicker-stat">
+            <div class="big gold">$18.5K</div>
+            <div>
+              <div class="wf-head sm">Cost per pupil, per year</div>
+              <div class="wf-body">CCS spends more per child than the state average. Outcomes haven't followed.</div>
+            </div>
+          </div>
+          <div class="kicker-stat">
+            <div class="big">1 in 3</div>
+            <div>
+              <div class="wf-head sm">Chronically absent</div>
+              <div class="wf-body">Missing ≥10% of school days. Leading indicator for every downstream gap.</div>
+            </div>
+          </div>
+          <div class="kicker-stat">
+            <div class="big">49<span style="font-size: 28px; color: var(--ink);">pp</span></div>
+            <div>
+              <div class="wf-head sm">Literacy gap, highest in VA</div>
+              <div class="wf-body">Black vs White reading-SOL pass rates, 3rd–8th grade. (Detail above.)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="annot" style="margin-top: 14px;">
+          <span class="annot-label">→ all numbers placeholder — confirm w/ Price before publish</span>
+        </div>
+      </section>
+
+      <!-- 2 Theory of Change -->
+      <section class="sect tan" id="theory">
+        <div class="marker"><span class="n">02</span><span class="t">Theory of Change</span><span class="sub">the argument</span></div>
+        <div class="wf-head xl" style="max-width: 720px; margin-bottom: 14px;">
+          You can't fix a child's outcomes without changing the household around them.
+        </div>
+        <div class="wf-body lg" style="max-width: 720px;">
+          Three assumptions. Take any one away and the model collapses.
+        </div>
+
+        <div class="grid-3" style="margin-top: 18px;">
+          <div class="wf-box" style="padding: 16px;">
+            <div class="wf-eyebrow">ASSUMPTION 1</div>
+            <div class="wf-head sm" style="margin: 6px 0 6px;">Proximity matters</div>
+            <hr class="wf-rule thin"/>
+            <div class="wf-body">Services inside the school the child already attends. Not a referral across town.</div>
+          </div>
+          <div class="wf-box" style="padding: 16px;">
+            <div class="wf-eyebrow">ASSUMPTION 2</div>
+            <div class="wf-head sm" style="margin: 6px 0 6px;">Parents first</div>
+            <hr class="wf-rule thin"/>
+            <div class="wf-body">A parent who's thriving is the single biggest predictor of a child who's thriving.</div>
+          </div>
+          <div class="wf-box" style="padding: 16px;">
+            <div class="wf-eyebrow">ASSUMPTION 3</div>
+            <div class="wf-head sm" style="margin: 6px 0 6px;">Relationship, not triage</div>
+            <hr class="wf-rule thin"/>
+            <div class="wf-body">A coach who knows the family's name, and has been there for two years, can do what a case manager can't.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 Dual-Gen -->
+      <section class="sect" id="dualgen">
+        <div class="marker"><span class="n">03</span><span class="t">Dual-Generation Model</span><span class="sub">who we reach</span></div>
+        <div class="wf-body lg" style="max-width: 720px;">
+          Most programs pick a lane: reach the kid, or reach the parent. We do both, in the same household, at the same time.
+        </div>
+
+        <div class="dualgen">
+          <div>
+            <div class="eyebrow">CHILD-SIDE</div>
+            <div class="hdr">What we do for the kid</div>
+            <ul>
+              <li>Embedded Pathway Coach at their school</li>
+              <li>On-site tutoring during the school day</li>
+              <li>Walking Bus to&nbsp;/&nbsp;from class</li>
+              <li>Food pantry access when the household needs it</li>
+            </ul>
+          </div>
+          <div>
+            <div class="eyebrow">PARENT-SIDE</div>
+            <div class="hdr">What we do for the parent</div>
+            <ul>
+              <li>Parent Time, the weekly cohort</li>
+              <li>P.A.C.T. Time, structured parent-child engagement</li>
+              <li>Up to $7K micro-financing, matched to family goals</li>
+              <li>School navigation &amp; advocacy</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="annot" style="margin-top: 14px;">
+          <span class="annot-label">↑ diagram version of this also appears in Option C</span>
+        </div>
+      </section>
+
+      <!-- 4 Constellation -->
+      <section class="sect" id="constellation">
+        <div class="marker"><span class="n">04</span><span class="t">The Constellation of Care</span><span class="sub">how it fits together</span></div>
+        <div class="wf-body lg" style="max-width: 720px;">
+          A single Charlottesville family can touch all three of our programs in a single week. That's the point.
+        </div>
+
+        <!-- Placeholder for interactive visual -->
+        <div style="margin-top: 18px; min-height: 360px; border: 2px dashed var(--ink); border-radius: 6px;
+                    background:
+                      repeating-linear-gradient(45deg, rgba(0,0,0,.04) 0 1px, transparent 1px 14px),
+                      #fff;
+                    display: flex; flex-direction: column; align-items: center; justify-content: center;
+                    text-align: center; padding: 32px; position: relative;">
+          <div class="wf-pill gold" style="margin-bottom: 14px;">INTERACTIVE VISUAL — TBD</div>
+          <div class="wf-head xl" style="max-width: 560px;">[ Constellation of Care ]</div>
+          <div class="wf-body lg" style="max-width: 480px; margin-top: 10px;">
+            Interactive diagram lives here. Hover or tap a node → reveals which program touches that part of a family's life.
+          </div>
+          <div class="wf-label" style="margin-top: 16px; color: var(--ink-faint);">design + build separately — see Option C diagram for a static draft</div>
+        </div>
+
+        <div class="row" style="align-items:center; margin-top: 16px;">
+          <div style="flex:1;" class="wf-body">↳ One coach often touches all three for the same family.</div>
+          <span class="wf-btn">See the programs →</span>
+        </div>
+      </section>
+
+      <!-- 5 By the Numbers -->
+      <section class="sect navy" id="numbers">
+        <div class="marker" style="border-top-color:#fff;">
+          <span class="n" style="color: var(--accent);">05</span>
+          <span class="t" style="color:#fff;">By the Numbers</span>
+          <span class="sub" style="color: rgba(255,255,255,.6);">the proof</span>
+        </div>
+        <div class="wf-body lg" style="color: rgba(255,255,255,.78); max-width: 640px; margin-bottom: 18px;">
+          Sixteen years in. Here's what the model produces.
+        </div>
+        <div class="grid-4" style="gap: 14px;">
+          <div class="bignum" style="background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.3);">
+            <div class="n gold">327</div>
+            <div class="unit" style="color: rgba(255,255,255,.7);">kids in our programs</div>
+            <div class="src" style="color: rgba(255,255,255,.45);">FY25</div>
+          </div>
+          <div class="bignum" style="background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.3);">
+            <div class="n gold">94%</div>
+            <div class="unit" style="color: rgba(255,255,255,.7);">avg. attendance</div>
+            <div class="src" style="color: rgba(255,255,255,.45);">vs 78% baseline</div>
+          </div>
+          <div class="bignum" style="background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.3);">
+            <div class="n gold">41</div>
+            <div class="unit" style="color: rgba(255,255,255,.7);">Dreambuilders grads</div>
+            <div class="src" style="color: rgba(255,255,255,.45);">since 2022</div>
+          </div>
+          <div class="bignum" style="background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.3);">
+            <div class="n gold" style="color: #fff;">7</div>
+            <div class="unit" style="color: rgba(255,255,255,.7);">school sites</div>
+            <div class="src" style="color: rgba(255,255,255,.45);">Charlottesville</div>
+          </div>
+        </div>
+        <div class="annot" style="color: #ffcfa8; margin-top: 14px;">
+          <span class="annot-label" style="border-color:#ffcfa8; color: var(--ink);">→ replace with real FY numbers from 2025 annual report</span>
+        </div>
+      </section>
+
+      <!-- Next steps CTA -->
+      <div class="sect dashed">
+        <div class="row" style="align-items: center; gap: 24px;">
+          <div style="flex: 1;">
+            <div class="wf-eyebrow">NEXT</div>
+            <div class="wf-head" style="margin-top: 6px;">Now see it in practice.</div>
+            <div class="wf-body" style="max-width: 560px; margin-top: 6px;">
+              The three programs on <i>What We Do</i> are this argument, operationalized.
+            </div>
+          </div>
+          <div style="display:flex; gap: 8px;">
+            <span class="wf-btn navy">What We Do →</span>
+            <span class="wf-btn">Donate</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="notes">
+    <b>Option A — Essay with rail</b>
+    <ul>
+      <li>Reads top-to-bottom as a single argument: problem → theory → who → how → proof. Sticky TOC anchors the five sitemap sections.</li>
+      <li>Strength: most faithful to the "Our Approach is the intellectual core" brief. Skimmable via the rail, deep via scroll.</li>
+      <li>Risk: the five sections are visually similar — relies on the ① ② ③ markers + alternating backgrounds for rhythm.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- OPTION B — CLAIM → EVIDENCE                                   -->
+<!-- ============================================================= -->
+<div class="panel" data-panel="b">
+
+  <div class="wf-crumb">You are here: <b>Home</b> › <b>Our Approach</b> &nbsp;·&nbsp; structured as paired panels — left asks, right answers</div>
+
+  <div class="wf-nav wobble-2">
+    <div class="wf-nav-logo">City of Promise</div>
+    <div class="wf-nav-items">
+      <span>What We Do</span>
+      <span class="active">Our Approach</span>
+      <span>Who We Are</span>
+      <span>Access Services</span>
+      <span>Get Involved</span>
+      <span>Published Work</span>
+    </div>
+    <span class="wf-btn gold" style="font-size:13px; padding:6px 12px;">Donate</span>
+  </div>
+
+  <!-- Hero -->
+  <div class="sect" style="padding: 48px 28px; margin-top: 18px;">
+    <div class="wf-eyebrow">OUR APPROACH — AN ARGUMENT IN FIVE PARTS</div>
+    <hr class="wf-rule wide"/>
+    <div class="wf-head xxl" style="max-width: 900px;">
+      Five questions nobody else is answering about how education works in Charlottesville.
+    </div>
+    <div class="wf-body lg" style="max-width: 600px; margin-top: 14px;">
+      Each panel poses the question we heard from a family, a teacher, or a funder — and what we've learned to say in return.
+    </div>
+  </div>
+
+  <!-- Q1 / A1 -->
+  <div class="claim-pair">
+    <div>
+      <div class="claim-num">01</div>
+      <div class="wf-eyebrow">THE PROBLEM</div>
+      <div class="claim-q">"Why is Charlottesville's achievement gap the worst in the state?"</div>
+      <div class="wf-body lg" style="margin-top: 14px;">
+        A wealthy college town. $18.5K per pupil. Seven school sites inside three miles.
+        And a 49-point literacy gap.
+      </div>
+    </div>
+    <div>
+      <div class="wf-eyebrow">WHAT WE'VE LEARNED</div>
+      <div class="evidence-title">Education is a social issue.</div>
+      <div class="evidence-stat">49<span style="font-size: 22px; color: var(--ink-soft);">pp</span></div>
+      <div class="wf-body">Reading-SOL gap, highest in VA. The schools are not the problem. The conditions around the schools are.</div>
+      <div class="wf-label" style="margin-top: 14px;">→ Supporting data: absenteeism, household instability, generational poverty</div>
+    </div>
+  </div>
+
+  <!-- Q2 / A2 -->
+  <div class="claim-pair">
+    <div>
+      <div class="claim-num">02</div>
+      <div class="wf-eyebrow">THEORY OF CHANGE</div>
+      <div class="claim-q">"If you can't reform the schools, what <i>can</i> you change?"</div>
+      <div class="wf-body lg" style="margin-top: 14px;">
+        We don't run schools. We don't want to. We change the three conditions that determine whether a child shows up ready to learn.
+      </div>
+    </div>
+    <div>
+      <div class="wf-eyebrow">WHAT WE'VE LEARNED</div>
+      <div class="evidence-title">Proximity · Parents · Relationship.</div>
+      <div class="col" style="margin-top: 12px; gap: 10px;">
+        <div class="wf-box" style="padding: 10px 14px;">
+          <b>Proximity</b> — services inside the building, not across town.
+        </div>
+        <div class="wf-box" style="padding: 10px 14px;">
+          <b>Parents first</b> — a thriving adult is the strongest predictor of a thriving child.
+        </div>
+        <div class="wf-box" style="padding: 10px 14px;">
+          <b>Relationship, not triage</b> — a coach who sticks for two years.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 / A3 -->
+  <div class="claim-pair">
+    <div>
+      <div class="claim-num">03</div>
+      <div class="wf-eyebrow">DUAL-GENERATION MODEL</div>
+      <div class="claim-q">"Do you work with the kid, or with the parent?"</div>
+      <div class="wf-body lg" style="margin-top: 14px;">
+        Yes.
+      </div>
+      <div class="wf-body" style="margin-top: 10px; max-width: 420px;">
+        Every dollar that goes into a child flows through the household. We fund both sides of that equation, from the same coach, in the same week.
+      </div>
+    </div>
+    <div>
+      <div class="wf-eyebrow">WHAT WE'VE LEARNED</div>
+      <div class="evidence-title">Both — same household, same week.</div>
+      <div class="grid-2" style="margin-top: 12px;">
+        <div class="wf-box" style="padding: 12px; background: #fff;">
+          <div class="wf-label" style="color: var(--accent-2);">CHILD-SIDE</div>
+          <div class="wf-head sm" style="margin-top: 4px;">In-school</div>
+          <hr class="wf-rule thin"/>
+          <div class="wf-body" style="font-size: 13px;">Coach · tutoring · pantry · Walking Bus</div>
+        </div>
+        <div class="wf-box" style="padding: 12px; background: #fff;">
+          <div class="wf-label" style="color: var(--accent-2);">PARENT-SIDE</div>
+          <div class="wf-head sm" style="margin-top: 4px;">In-cohort</div>
+          <hr class="wf-rule thin"/>
+          <div class="wf-body" style="font-size: 13px;">Parent Time · PACT · $7K · advocacy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 / A4 -->
+  <div class="claim-pair">
+    <div>
+      <div class="claim-num">04</div>
+      <div class="wf-eyebrow">CONSTELLATION OF CARE</div>
+      <div class="claim-q">"So — are these three programs, or one?"</div>
+      <div class="wf-body lg" style="margin-top: 14px;">
+        On paper: three. In the life of a single Charlottesville family: one woven network of the same trusted people.
+      </div>
+    </div>
+    <div>
+      <div class="wf-eyebrow">WHAT WE'VE LEARNED</div>
+      <div class="evidence-title">One constellation, three lenses.</div>
+      <div class="row" style="gap: 8px; margin-top: 12px;">
+        <div class="wf-box" style="flex:1; padding: 12px; text-align:center;">
+          <div class="wf-head sm" style="color: var(--accent-2);">Child</div>
+          <div class="wf-label">Community Schools</div>
+        </div>
+        <div class="wf-box" style="flex:1; padding: 12px; text-align:center; background: var(--paper-2);">
+          <div class="wf-head sm" style="color: var(--accent-2);">Family</div>
+          <div class="wf-label">Dreambuilders</div>
+        </div>
+        <div class="wf-box" style="flex:1; padding: 12px; text-align:center;">
+          <div class="wf-head sm" style="color: var(--accent-2);">Community</div>
+          <div class="wf-label">Family Engagement</div>
+        </div>
+      </div>
+      <div class="wf-label" style="margin-top: 12px;">↑ same people, different vantage point</div>
+    </div>
+  </div>
+
+  <!-- Q5 / A5 -->
+  <div class="claim-pair" style="background: #2a2a2a;">
+    <div style="color:#fff;">
+      <div class="claim-num" style="color: var(--accent);">05</div>
+      <div class="wf-eyebrow" style="color: rgba(255,255,255,.7);">BY THE NUMBERS</div>
+      <div class="claim-q" style="color:#fff;">"Okay — but does it work?"</div>
+      <div class="wf-body lg" style="color: rgba(255,255,255,.78); margin-top: 14px;">
+        Four years in. We're ready to be measured.
+      </div>
+    </div>
+    <div style="background: var(--ink); color:#fff;">
+      <div class="wf-eyebrow" style="color: rgba(255,255,255,.7);">THE RECEIPTS</div>
+      <div class="evidence-title" style="color:#fff;">The numbers, as of FY25.</div>
+      <div class="grid-2" style="margin-top: 14px; gap: 10px;">
+        <div class="wf-box" style="padding: 12px; background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.25);">
+          <div class="evidence-stat" style="color: var(--accent);">327</div>
+          <div class="wf-label" style="color: rgba(255,255,255,.7);">kids served</div>
+        </div>
+        <div class="wf-box" style="padding: 12px; background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.25);">
+          <div class="evidence-stat" style="color: var(--accent);">94%</div>
+          <div class="wf-label" style="color: rgba(255,255,255,.7);">avg attendance</div>
+        </div>
+        <div class="wf-box" style="padding: 12px; background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.25);">
+          <div class="evidence-stat" style="color: var(--accent);">41</div>
+          <div class="wf-label" style="color: rgba(255,255,255,.7);">DB grads</div>
+        </div>
+        <div class="wf-box" style="padding: 12px; background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.25);">
+          <div class="evidence-stat" style="color: var(--accent);">7</div>
+          <div class="wf-label" style="color: rgba(255,255,255,.7);">school sites</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Closing -->
+  <div class="sect tan">
+    <div class="row" style="gap: 20px; align-items: center;">
+      <div style="flex: 1;">
+        <div class="wf-eyebrow">IF YOU'VE READ THIS FAR</div>
+        <div class="wf-head xl" style="margin-top: 6px;">Two doors.</div>
+        <div class="wf-body lg" style="margin-top: 10px; max-width: 520px;">
+          Become a partner in the work — with time, money, or both.
+        </div>
+      </div>
+      <div style="display:flex; gap: 10px;">
+        <span class="wf-btn gold">Donate (NAP tax credit)</span>
+        <span class="wf-btn">Volunteer</span>
+        <span class="wf-btn ghost">See the programs →</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <b>Option B — Claim → Evidence</b>
+    <ul>
+      <li>Each sitemap section becomes a Q/A panel split left-right: the question a skeptic asks vs. the short, confident answer.</li>
+      <li>Strength: makes the intellectual argument structural, not just typographic. Reads well for funders/board, still accessible for first-timers.</li>
+      <li>Risk: Q/A framing can feel rhetorical if questions are too on-the-nose. Copy review matters here more than in the others.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- OPTION C — MODEL-FIRST DIAGRAM                                -->
+<!-- ============================================================= -->
+<div class="panel" data-panel="c">
+
+  <div class="wf-crumb">You are here: <b>Home</b> › <b>Our Approach</b> &nbsp;·&nbsp; leads with the visual model; prose follows</div>
+
+  <div class="wf-nav">
+    <div class="wf-nav-logo">City of Promise</div>
+    <div class="wf-nav-items">
+      <span>What We Do</span>
+      <span class="active">Our Approach</span>
+      <span>Who We Are</span>
+      <span>Access Services</span>
+      <span>Get Involved</span>
+      <span>Published Work</span>
+    </div>
+    <span class="wf-btn gold" style="font-size:13px; padding:6px 12px;">Donate</span>
+  </div>
+
+  <!-- short framing -->
+  <div class="sect" style="padding: 36px 28px; margin-top: 18px;">
+    <div class="wf-eyebrow">OUR APPROACH</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head xxl" style="max-width: 800px;">One picture. Read it for five seconds, then we'll walk you through it.</div>
+  </div>
+
+  <!-- THE DIAGRAM -->
+  <div class="diagram-frame" style="min-height: 620px;">
+    <span class="sect-tag" style="background: #fff;">the model (interactive — hover to focus a lane)</span>
+    <div class="wf-eyebrow" style="position:absolute; top: 18px; right: 28px;">DUAL-GENERATION, THREE PROGRAMS</div>
+
+    <!-- generation lanes -->
+    <div class="gen-lane" style="left: 24px; right: 24px; top: 72px; height: 180px;">
+      <div class="lane-lbl">CHILD ▶</div>
+    </div>
+    <div class="gen-lane" style="left: 24px; right: 24px; top: 300px; height: 180px;">
+      <div class="lane-lbl">PARENT ▶</div>
+    </div>
+
+    <!-- SVG links -->
+    <svg class="links" viewBox="0 0 1120 560" preserveAspectRatio="none">
+      <g stroke="#1a1a1a" stroke-width="1.4" fill="none" stroke-dasharray="4 4" opacity="0.55">
+        <!-- Problem → child / parent -->
+        <line x1="120" y1="160" x2="340" y2="160"/>
+        <line x1="120" y1="160" x2="120" y2="390"/>
+        <line x1="120" y1="390" x2="340" y2="390"/>
+        <!-- child services → outcome -->
+        <line x1="510" y1="130" x2="770" y2="160"/>
+        <line x1="510" y1="160" x2="770" y2="160"/>
+        <line x1="510" y1="200" x2="770" y2="160"/>
+        <!-- parent services → outcome -->
+        <line x1="510" y1="360" x2="770" y2="390"/>
+        <line x1="510" y1="390" x2="770" y2="390"/>
+        <line x1="510" y1="430" x2="770" y2="390"/>
+        <!-- outcomes → impact -->
+        <line x1="900" y1="160" x2="1020" y2="275"/>
+        <line x1="900" y1="390" x2="1020" y2="275"/>
+      </g>
+    </svg>
+
+    <!-- PROBLEM NODE (left) -->
+    <div class="node" style="left: 40px; top: 240px; background: #fff; border: 1.5px dashed var(--ink); min-width: 170px;">
+      <small style="color: var(--red);">THE PROBLEM</small>
+      49pp literacy gap<br/>
+      <span style="font-weight:400; font-size: 13px; color: var(--ink-soft);">$18.5K / pupil · worst in VA</span>
+    </div>
+
+    <!-- CHILD LANE nodes -->
+    <div class="node" style="left: 260px; top: 108px;">
+      <small style="color: var(--accent-2);">PROGRAM 1</small>
+      Community Schools
+    </div>
+    <div class="node svc" style="left: 420px; top: 82px;">Pathway Coach</div>
+    <div class="node svc" style="left: 420px; top: 124px;">Tutoring · Pantry</div>
+    <div class="node svc" style="left: 420px; top: 166px;">Walking Bus</div>
+
+    <div class="node outcome" style="left: 680px; top: 124px;">
+      Kid shows up<br/>ready to learn
+    </div>
+
+    <!-- PARENT LANE nodes -->
+    <div class="node" style="left: 260px; top: 340px;">
+      <small style="color: var(--accent-2);">PROGRAM 2</small>
+      Dreambuilders
+    </div>
+    <div class="node svc" style="left: 420px; top: 314px;">Parent Time</div>
+    <div class="node svc" style="left: 420px; top: 356px;">P.A.C.T. Time</div>
+    <div class="node svc" style="left: 420px; top: 398px;">$7K micro-finance</div>
+
+    <div class="node outcome" style="left: 680px; top: 356px;">
+      Household stability
+    </div>
+
+    <!-- Cross-lane program (sits in the middle gutter, between lanes) -->
+    <div class="node" style="left: 40px; top: 490px; min-width: 200px; background: var(--paper);">
+      <small style="color: var(--accent-2);">PROGRAM 3 — CROSS-LANE</small>
+      Family Engagement<br/>&amp; Advocacy
+    </div>
+
+    <!-- IMPACT (right) -->
+    <div class="node" style="right: 40px; top: 240px; min-width: 180px; background: var(--ink); color:#fff;">
+      <small style="color: rgba(255,255,255,.6);">OUTCOME</small>
+      Cradle-to-career,<br/>without a break
+    </div>
+
+    <!-- Annotations -->
+    <div class="annot" style="position:absolute; left: 260px; top: 500px; max-width: 220px;">
+      <span class="annot-label">Program 3 weaves across both generations</span>
+    </div>
+  </div>
+
+  <!-- Legend row / key -->
+  <div class="row" style="margin-top: 14px; gap: 12px;">
+    <div class="wf-box" style="flex:1; padding: 10px 14px; display:flex; gap: 10px; align-items:center;">
+      <span style="width:18px; height:18px; border:1.5px dashed var(--ink); display:inline-block;"></span>
+      <div class="wf-body" style="font-size: 13px;">the problem we respond to</div>
+    </div>
+    <div class="wf-box" style="flex:1; padding: 10px 14px; display:flex; gap: 10px; align-items:center;">
+      <span style="width:18px; height:18px; border:1.5px solid var(--ink); display:inline-block; background: #fff;"></span>
+      <div class="wf-body" style="font-size: 13px;">program (Community Schools / Dreambuilders / FE&amp;A)</div>
+    </div>
+    <div class="wf-box" style="flex:1; padding: 10px 14px; display:flex; gap: 10px; align-items:center;">
+      <span style="width:18px; height:18px; border:1.5px solid var(--ink); display:inline-block; background: var(--paper-2);"></span>
+      <div class="wf-body" style="font-size: 13px;">specific service</div>
+    </div>
+    <div class="wf-box" style="flex:1; padding: 10px 14px; display:flex; gap: 10px; align-items:center;">
+      <span style="width:18px; height:18px; border:1.5px solid var(--ink); display:inline-block; background: var(--accent);"></span>
+      <div class="wf-body" style="font-size: 13px;">outcome the service produces</div>
+    </div>
+  </div>
+
+  <!-- Now walk through: 5 compact chapters -->
+  <div class="wf-label" style="margin: 26px 6px 10px;">— WALK THROUGH THE DIAGRAM ————————————————————————————————————</div>
+
+  <div class="grid-2">
+    <div class="sect" style="margin: 0;">
+      <div class="wf-eyebrow">01 · THE PROBLEM</div>
+      <div class="wf-head" style="margin: 6px 0 0;">Why we exist</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body">49pp literacy gap, chronic absenteeism, $18.5K / pupil. Education is a social issue.</div>
+    </div>
+    <div class="sect" style="margin: 0; background: var(--paper-2);">
+      <div class="wf-eyebrow">02 · THEORY OF CHANGE</div>
+      <div class="wf-head" style="margin: 6px 0 0;">Proximity · Parents · Relationship</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body">Three assumptions; remove any and the model breaks.</div>
+    </div>
+    <div class="sect" style="margin: 0;">
+      <div class="wf-eyebrow">03 · DUAL-GEN MODEL</div>
+      <div class="wf-head" style="margin: 6px 0 0;">Reach the kid AND the parent</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body">Same household, same week, same coach.</div>
+    </div>
+    <div class="sect" style="margin: 0; background: var(--paper-2);">
+      <div class="wf-eyebrow">04 · CONSTELLATION OF CARE</div>
+      <div class="wf-head" style="margin: 6px 0 0;">Three programs; one network</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body">Child / Family / Community — not a service menu, a web.</div>
+    </div>
+  </div>
+
+  <!-- Numbers band -->
+  <div class="sect navy" style="margin-top: 18px;">
+    <div class="wf-eyebrow" style="color: var(--accent);">05 · BY THE NUMBERS</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head xl" style="color: #fff; margin-bottom: 14px;">Proof points.</div>
+    <div class="grid-4" style="gap: 12px;">
+      <div class="bignum" style="background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.3);">
+        <div class="n gold">327</div>
+        <div class="unit" style="color: rgba(255,255,255,.7);">kids served</div>
+      </div>
+      <div class="bignum" style="background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.3);">
+        <div class="n gold">94%</div>
+        <div class="unit" style="color: rgba(255,255,255,.7);">attendance</div>
+      </div>
+      <div class="bignum" style="background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.3);">
+        <div class="n gold">41</div>
+        <div class="unit" style="color: rgba(255,255,255,.7);">DB grads</div>
+      </div>
+      <div class="bignum" style="background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.3);">
+        <div class="n gold">7</div>
+        <div class="unit" style="color: rgba(255,255,255,.7);">sites</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <b>Option C — Model-first diagram</b>
+    <ul>
+      <li>Puts the "one picture" at the top, then asks readers to walk through it in five short cards.</li>
+      <li>Strength: most distinctive, own-able; functions as a one-page executive summary for funders/partners. Best match for "intellectual core".</li>
+      <li>Risk: build cost + responsive layout (diagram must collapse to a vertical chain on mobile). Requires someone to draw it well.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- OPTION D — DATA BOARD                                         -->
+<!-- ============================================================= -->
+<div class="panel" data-panel="d">
+
+  <div class="wf-crumb">You are here: <b>Home</b> › <b>Our Approach</b> &nbsp;·&nbsp; numbers-first: opens with the scoreboard, wraps narrative around it</div>
+
+  <div class="wf-nav">
+    <div class="wf-nav-logo">City of Promise</div>
+    <div class="wf-nav-items">
+      <span>What We Do</span>
+      <span class="active">Our Approach</span>
+      <span>Who We Are</span>
+      <span>Access Services</span>
+      <span>Get Involved</span>
+      <span>Published Work</span>
+    </div>
+    <span class="wf-btn gold" style="font-size:13px; padding:6px 12px;">Donate</span>
+  </div>
+
+  <!-- Hero -->
+  <div class="sect" style="padding: 40px 28px; margin-top: 18px;">
+    <div class="wf-eyebrow">OUR APPROACH · BY THE NUMBERS</div>
+    <hr class="wf-rule wide"/>
+    <div class="wf-head xxl" style="max-width: 900px;">A scoreboard, then the story behind it.</div>
+    <div class="wf-body lg" style="max-width: 620px; margin-top: 14px;">
+      Most of our peers bury outcomes at the bottom of a mission page. We put them on top — then show our work.
+    </div>
+  </div>
+
+  <!-- Scoreboard -->
+  <div class="grid-4">
+    <div class="bignum">
+      <div class="wf-eyebrow">THE GAP</div>
+      <div class="n" style="color: var(--red);">49<span style="font-size: 22px; color: var(--ink);">pp</span></div>
+      <div class="unit">literacy gap — highest in Virginia</div>
+      <div class="src">src: VDOE SOL 2024</div>
+    </div>
+    <div class="bignum">
+      <div class="wf-eyebrow">SPEND</div>
+      <div class="n gold">$18.5K</div>
+      <div class="unit">per pupil / year in CCS</div>
+      <div class="src">src: CCS budget FY25</div>
+    </div>
+    <div class="bignum">
+      <div class="wf-eyebrow">REACH</div>
+      <div class="n">327</div>
+      <div class="unit">CoP kids &amp; families served FY25</div>
+      <div class="src">src: CoP program data</div>
+    </div>
+    <div class="bignum">
+      <div class="wf-eyebrow">FOOTPRINT</div>
+      <div class="n dark">7</div>
+      <div class="unit">embedded school sites</div>
+      <div class="src">Charlottesville City Schools</div>
+    </div>
+  </div>
+
+  <!-- Problem chart -->
+  <div class="sect" style="margin-top: 18px;">
+    <div class="wf-eyebrow">01 · THE PROBLEM</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head xl">The Charlottesville reading gap.</div>
+    <div class="wf-body lg" style="max-width: 620px; margin: 10px 0 18px;">
+      3rd–8th grade reading SOL pass rates, 2024 — visualized against the worst and best gaps in VA.
+    </div>
+
+    <div class="row" style="gap: 32px; align-items: flex-end;">
+      <div class="barpair">
+        <div class="bar a">
+          <span class="lbl">82%</span>
+          <span class="txt">White</span>
+        </div>
+        <div class="bar b" style="height: 33%;">
+          <span class="lbl">33%</span>
+          <span class="txt">Black</span>
+        </div>
+        <div class="wf-label" style="writing-mode: vertical-lr; transform: rotate(180deg); color: var(--ink-soft); padding: 0 6px;">CVILLE</div>
+      </div>
+      <div class="barpair">
+        <div class="bar a" style="background: var(--paper-2); height: 76%;">
+          <span class="lbl">76%</span>
+          <span class="txt">White</span>
+        </div>
+        <div class="bar b" style="background: #b8b098; height: 52%;">
+          <span class="lbl">52%</span>
+          <span class="txt">Black</span>
+        </div>
+        <div class="wf-label" style="writing-mode: vertical-lr; transform: rotate(180deg); color: var(--ink-soft); padding: 0 6px;">VA AVG</div>
+      </div>
+      <div class="barpair">
+        <div class="bar a" style="background: var(--paper-2); height: 72%;">
+          <span class="lbl">72%</span>
+          <span class="txt">White</span>
+        </div>
+        <div class="bar b" style="background: #b8b098; height: 61%;">
+          <span class="lbl">61%</span>
+          <span class="txt">Black</span>
+        </div>
+        <div class="wf-label" style="writing-mode: vertical-lr; transform: rotate(180deg); color: var(--ink-soft); padding: 0 6px;">BEST VA DIV</div>
+      </div>
+
+      <div style="flex:1; padding-left: 16px;">
+        <div class="pullquote">The gap isn't "bad in Charlottesville." It's the worst.</div>
+        <div class="wf-body" style="margin-top: 10px; max-width: 320px;">
+          This is not a failure of teachers, curriculum, or funding. It's the load we ask a child to carry into the classroom from everything <i>outside</i> of it.
+        </div>
+      </div>
+    </div>
+    <div class="annot" style="margin-top: 16px;">
+      <span class="annot-label">→ bar heights placeholder; confirm numbers with VDOE API feed</span>
+    </div>
+  </div>
+
+  <!-- Theory as 3-stat band -->
+  <div class="sect tan">
+    <div class="wf-eyebrow">02 · THEORY OF CHANGE</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head xl" style="margin-bottom: 16px;">Three conditions. Three levers.</div>
+    <div class="grid-3">
+      <div class="bignum" style="background: #fff;">
+        <div class="wf-label">CONDITION</div>
+        <div class="wf-head sm" style="margin-top: 4px;">Proximity</div>
+        <div class="n" style="font-size: 44px; color: var(--accent-2);">0 mi</div>
+        <div class="unit">distance from kid to coach — they're in the same building</div>
+      </div>
+      <div class="bignum" style="background: #fff;">
+        <div class="wf-label">CONDITION</div>
+        <div class="wf-head sm" style="margin-top: 4px;">Parents</div>
+        <div class="n" style="font-size: 44px; color: var(--accent-2);">2×</div>
+        <div class="unit">reach — we fund the adult as much as the child</div>
+      </div>
+      <div class="bignum" style="background: #fff;">
+        <div class="wf-label">CONDITION</div>
+        <div class="wf-head sm" style="margin-top: 4px;">Relationship</div>
+        <div class="n" style="font-size: 44px; color: var(--accent-2);">2 yr</div>
+        <div class="unit">minimum coach-family relationship — not triage</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dual-gen as comparison -->
+  <div class="sect">
+    <div class="wf-eyebrow">03 · DUAL-GENERATION</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head xl">Most programs pick a lane. We fund both.</div>
+    <div class="grid-2" style="margin-top: 14px;">
+      <div class="wf-box" style="padding: 16px;">
+        <div class="wf-label" style="color: var(--accent-2);">CHILD-SIDE SPEND</div>
+        <div class="n" style="font-family: var(--hand); font-size: 60px; font-weight: 700; color: var(--accent-2); line-height: 1; margin-top: 4px;">~52%</div>
+        <div class="wf-body">Tutoring, coaches, Walking Bus, pantries.</div>
+      </div>
+      <div class="wf-box" style="padding: 16px; background: var(--paper-2);">
+        <div class="wf-label" style="color: var(--accent-2);">PARENT-SIDE SPEND</div>
+        <div class="n" style="font-family: var(--hand); font-size: 60px; font-weight: 700; color: var(--accent-2); line-height: 1; margin-top: 4px;">~48%</div>
+        <div class="wf-body">Parent Time, P.A.C.T., micro-finance, advocacy.</div>
+      </div>
+    </div>
+    <div class="wf-label" style="margin-top: 12px;">↑ spend breakdown — replace with audited FY25 figure</div>
+  </div>
+
+  <!-- Constellation as matrix -->
+  <div class="sect">
+    <div class="wf-eyebrow">04 · CONSTELLATION OF CARE</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head xl">Where the programs touch a single family.</div>
+
+    <!-- matrix -->
+    <div style="margin-top: 14px; border: 1.5px solid var(--ink);">
+      <div style="display:grid; grid-template-columns: 1fr repeat(3, 140px); background: var(--paper-2); border-bottom: 1.5px solid var(--ink);">
+        <div style="padding: 10px 14px;" class="wf-label">FAMILY NEED</div>
+        <div style="padding: 10px 14px; border-left: 1.5px solid var(--ink); text-align:center;" class="wf-label">COMMUNITY<br/>SCHOOLS</div>
+        <div style="padding: 10px 14px; border-left: 1.5px solid var(--ink); text-align:center;" class="wf-label">DREAM-<br/>BUILDERS</div>
+        <div style="padding: 10px 14px; border-left: 1.5px solid var(--ink); text-align:center;" class="wf-label">FAMILY<br/>ENGAGEMENT</div>
+      </div>
+      <!-- rows -->
+      <div style="display:grid; grid-template-columns: 1fr repeat(3, 140px); border-bottom: 1.5px solid var(--ink);">
+        <div style="padding: 12px 14px;" class="wf-head sm">Getting to school</div>
+        <div style="padding: 12px 14px; border-left: 1.5px solid var(--ink); text-align:center;"><span class="wf-pill gold">●</span></div>
+        <div style="padding: 12px 14px; border-left: 1.5px solid var(--ink); text-align:center;">—</div>
+        <div style="padding: 12px 14px; border-left: 1.5px solid var(--ink); text-align:center;"><span class="wf-pill">○</span></div>
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr repeat(3, 140px); border-bottom: 1.5px solid var(--ink); background: rgba(0,0,0,.015);">
+        <div style="padding: 12px 14px;" class="wf-head sm">Food on the table</div>
+        <div style="padding: 12px 14px; border-left: 1.5px solid var(--ink); text-align:center;"><span class="wf-pill gold">●</span></div>
+        <div style="padding: 12px 14px; border-left: 1.5px solid var(--ink); text-align:center;"><span class="wf-pill">○</span></div>
+        <div style="padding: 12px 14px; border-left: 1.5px solid var(--ink); text-align:center;"><span class="wf-pill gold">●</span></div>
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr repeat(3, 140px); border-bottom: 1.5px solid var(--ink);">
+        <div style="padding: 12px 14px;" class="wf-head sm">Parent career advancement</div>
+        <div style="padding: 12px 14px; border-left: 1.5px solid var(--ink); text-align:center;">—</div>
+        <div style="padding: 12px 14px; border-left: 1.5px solid var(--ink); text-align:center;"><span class="wf-pill gold">●</span></div>
+        <div style="padding: 12px 14px; border-left: 1.5px solid var(--ink); text-align:center;"><span class="wf-pill">○</span></div>
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr repeat(3, 140px); background: rgba(0,0,0,.015);">
+        <div style="padding: 12px 14px;" class="wf-head sm">Navigating the school system</div>
+        <div style="padding: 12px 14px; border-left: 1.5px solid var(--ink); text-align:center;"><span class="wf-pill">○</span></div>
+        <div style="padding: 12px 14px; border-left: 1.5px solid var(--ink); text-align:center;"><span class="wf-pill">○</span></div>
+        <div style="padding: 12px 14px; border-left: 1.5px solid var(--ink); text-align:center;"><span class="wf-pill gold">●</span></div>
+      </div>
+    </div>
+    <div class="wf-label" style="margin-top: 10px;">● primary program · ○ secondary support</div>
+  </div>
+
+  <!-- Final scoreboard reprise -->
+  <div class="sect navy">
+    <div class="wf-eyebrow" style="color: var(--accent);">05 · BY THE NUMBERS — FULL</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head xl" style="color:#fff; margin-bottom: 14px;">Everything we've shown so far, in one column.</div>
+    <div class="grid-4" style="gap: 12px;">
+      <div class="bignum" style="background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.3);">
+        <div class="n gold">327</div>
+        <div class="unit" style="color: rgba(255,255,255,.7);">kids served FY25</div>
+      </div>
+      <div class="bignum" style="background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.3);">
+        <div class="n gold">94%</div>
+        <div class="unit" style="color: rgba(255,255,255,.7);">attendance (vs 78% baseline)</div>
+      </div>
+      <div class="bignum" style="background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.3);">
+        <div class="n gold">41</div>
+        <div class="unit" style="color: rgba(255,255,255,.7);">Dreambuilders grads</div>
+      </div>
+      <div class="bignum" style="background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.3);">
+        <div class="n gold">$1.7M</div>
+        <div class="unit" style="color: rgba(255,255,255,.7);">operating budget</div>
+      </div>
+    </div>
+    <div style="margin-top: 20px; display:flex; gap: 10px;">
+      <span class="wf-btn gold">Download the 2025 Annual Report →</span>
+      <span class="wf-btn ghost" style="background:transparent; color:#fff; border-color:#fff;">See the programs →</span>
+    </div>
+  </div>
+
+  <div class="notes">
+    <b>Option D — Data board</b>
+    <ul>
+      <li>Opens with four big numbers above the fold; every section afterwards is built around a chart, matrix, or stat pair.</li>
+      <li>Strength: best for funders, board packets, grant readers. Reinforces "ready to be measured" posture.</li>
+      <li>Risk: can read cold / technocratic without photography and quotes layered in. Numbers must be real and cited before this goes live — placeholders are marked throughout.</li>
+    </ul>
+  </div>
+
+</div>
+
+</div>
+</div>
+
+<!-- Tweaks panel -->
+<div class="tweak-panel" id="tweakPanel">
+  <h4>Tweaks</h4>
+  <label><input type="checkbox" id="t-chrome" checked> show nav + breadcrumb</label>
+  <label><input type="checkbox" id="t-notes" checked> show annotation notes</label>
+  <label><input type="checkbox" id="t-rotate" checked> sketchy wobble</label>
+</div>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const id = tab.dataset.tab;
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === tab));
+      document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.dataset.panel === id));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Tweaks protocol
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "showChrome": true,
+    "showNotes": true,
+    "wobble": true
+  }/*EDITMODE-END*/;
+
+  const panel = document.getElementById('tweakPanel');
+
+  function applyTweaks(t) {
+    document.querySelectorAll('.wf-nav, .wf-crumb').forEach(el => {
+      el.style.display = t.showChrome ? '' : 'none';
+    });
+    document.querySelectorAll('.notes, .annot').forEach(el => {
+      el.style.display = t.showNotes ? '' : 'none';
+    });
+    document.querySelectorAll('.wobble, .wobble-2').forEach(el => {
+      el.style.transform = t.wobble ? '' : 'rotate(0deg)';
+    });
+  }
+
+  let state = { ...TWEAK_DEFAULTS };
+  applyTweaks(state);
+
+  const chromeBox = document.getElementById('t-chrome');
+  const notesBox = document.getElementById('t-notes');
+  const rotateBox = document.getElementById('t-rotate');
+  chromeBox.checked = state.showChrome;
+  notesBox.checked = state.showNotes;
+  rotateBox.checked = state.wobble;
+
+  function setKey(k, v) {
+    state[k] = v;
+    applyTweaks(state);
+    try {
+      window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [k]: v } }, '*');
+    } catch (e) {}
+  }
+  chromeBox.addEventListener('change', e => setKey('showChrome', e.target.checked));
+  notesBox.addEventListener('change', e => setKey('showNotes', e.target.checked));
+  rotateBox.addEventListener('change', e => setKey('wobble', e.target.checked));
+
+  window.addEventListener('message', (ev) => {
+    const d = ev.data || {};
+    if (d.type === '__activate_edit_mode') panel.classList.add('on');
+    if (d.type === '__deactivate_edit_mode') panel.classList.remove('on');
+  });
+
+  try {
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+  } catch (e) {}
+</script>
+
+</body>
+</html>
