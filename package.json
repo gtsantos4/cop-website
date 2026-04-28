@@ -1,0 +1,25 @@
+{
+  "name": "cop-website",
+  "version": "1.0.0",
+  "description": "City of Promise nonprofit website (static, built with Eleventy).",
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve",
+    "clean": "rm -rf _site"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gtsantos4/cop-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/gtsantos4/cop-website/issues"
+  },
+  "homepage": "https://github.com/gtsantos4/cop-website#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.5"
+  }
+}

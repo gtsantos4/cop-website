@@ -1,77 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>City of Promise — What We Do</title>
-<link rel="icon" href="assets/favicon.png">
-<link rel="stylesheet" href="colors_and_type.css">
+---
+layout: base.njk
+title: "City of Promise — What We Do"
+activePage: what-we-do
+permalink: /what-we-do.html
+---
 <style>
-  body { margin: 0; background: var(--color-canvas); color: var(--color-navy); font-family: var(--font-body); }
-  * { box-sizing: border-box; }
-  img { display: block; max-width: 100%; }
-
-  /* ---------- Shared header ---------- */
-  .site-header {
-    position: sticky; top: 0; z-index: 20;
-    background: #fff;
-    border-bottom: 1px solid var(--border-subtle);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 48px;
-  }
-  .site-header img { height: 48px; width: auto; }
-  .site-header nav { display: flex; gap: 28px; }
-  .site-header nav a {
-    font-family: var(--font-body); font-size: 14px; font-weight: 500;
-    color: var(--color-navy); text-decoration: none;
-    padding: 4px 0; border-bottom: 2px solid transparent;
-    transition: border-color 200ms;
-  }
-  .site-header nav a.is-active { border-bottom-color: var(--color-gold); }
-  .site-header .donate-btn {
-    background: var(--color-gold); color: var(--color-navy);
-    font-family: var(--font-body); font-weight: 600; font-size: 14px;
-    padding: 10px 20px; border-radius: 6px; border: 0; cursor: pointer;
-  }
-
-  /* ---------- Shared footer ---------- */
-  footer {
-    background: var(--color-navy); color: #fff;
-    border-top: 3px solid var(--color-gold);
-    padding: 56px 48px 36px;
-  }
-  footer .grid {
-    max-width: 1184px; margin: 0 auto;
-    display: grid; grid-template-columns: 1.3fr repeat(4, 1fr); gap: 40px;
-  }
-  footer h4 {
-    font-family: var(--font-body); font-size: 12px; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--color-gold); margin: 0 0 16px;
-  }
-  footer ul { list-style: none; padding: 0; margin: 0; }
-  footer ul li { margin-bottom: 10px; }
-  footer ul a {
-    font-family: var(--font-body); font-size: 14px;
-    color: rgba(255,255,255,.78); text-decoration: none;
-  }
-  footer ul a:hover { color: var(--color-gold); }
-  footer .org-name {
-    font-family: var(--font-display); font-weight: 700; font-size: 22px;
-    margin-bottom: 14px;
-  }
-  footer .address {
-    font-family: var(--font-body); font-size: 14px;
-    color: rgba(255,255,255,.7); line-height: 1.6;
-  }
-  footer .footer-bottom {
-    max-width: 1184px; margin: 40px auto 0; padding-top: 24px;
-    border-top: 1px solid rgba(255,255,255,.12);
-    font-family: var(--font-body); font-size: 12px;
-    color: rgba(255,255,255,.5);
-    display: flex; justify-content: space-between;
-  }
-
   .gold-rule { width: 64px; height: 3px; background: var(--color-gold); border: 0; margin: 0 0 22px; }
 
   /* ---------- WWD Hero ---------- */
@@ -147,9 +80,7 @@
   .wwd-btn.outline-dark  { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.45); }
 
   /* Program section layout */
-  .program {
-    padding: 112px 48px;
-  }
+  .program { padding: 112px 48px; }
   .program .inner {
     max-width: 1280px; margin: 0 auto;
     display: grid; gap: 72px; align-items: center;
@@ -273,12 +204,10 @@
     color: rgba(255,255,255,.78); line-height: 1.55;
   }
 
-  /* Photo backgrounds */
   .photo-cs { background-image: url('assets/wwd-community-schools.png'); }
   .photo-db { background-image: url('assets/wwd-dreambuilders.jpg'); background-size: auto 118%; background-position: 44% 38%; }
   .photo-fe { background-image: url('assets/wwd-family-engagement.png'); background-position: center 20%; }
 
-  /* ---------- Responsive ---------- */
   @media (max-width: 1100px) {
     .wwd-hero h1 { font-size: 60px; letter-spacing: -1.4px; }
     .program.photo-left .inner,
@@ -286,11 +215,8 @@
     .program .stats { grid-template-columns: repeat(2,1fr); }
     .tieback .inner { grid-template-columns: 1fr; }
     .tieback .scale-grid { grid-template-columns: 1fr; }
-    footer .grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 700px) {
-    .site-header { padding: 14px 20px; flex-wrap: wrap; gap: 14px; }
-    .site-header nav { display: none; }
     .wwd-hero, .program, .tieback, .final-cta .inner {
       padding-left: 20px; padding-right: 20px;
     }
@@ -302,35 +228,9 @@
     .program .stats { grid-template-columns: 1fr 1fr; gap: 20px; }
     .stat-cell .v { font-size: 44px; }
     .final-cta h2 { font-size: 36px; letter-spacing: -0.6px; }
-    footer { padding: 48px 20px 28px; }
-    footer .grid { grid-template-columns: 1fr; }
   }
 </style>
-</head>
-<body>
 
-<!-- ============================================================
-     HEADER
-     ============================================================ -->
-<header class="site-header">
-  <a href="index.html" aria-label="City of Promise home">
-    <img src="assets/logo-horizontal.png" alt="City of Promise">
-  </a>
-  <nav>
-    <a href="what-we-do.html" class="is-active">What We Do</a>
-    <a href="our-approach.html">Our Approach</a>
-    <a href="who-we-are.html">Who We Are</a>
-    <a href="#">Access Services</a>
-    <a href="#">Get Involved</a>
-    <a href="#">Published Work</a>
-    <a href="#">Contact</a>
-  </nav>
-  <button class="donate-btn">Donate</button>
-</header>
-
-<!-- ============================================================
-     HERO
-     ============================================================ -->
 <section class="wwd-hero">
   <div class="inner">
     <hr class="gold-rule">
@@ -340,9 +240,6 @@
   </div>
 </section>
 
-<!-- ============================================================
-     PROGRAM 01 — Community Schools (canvas, photo left)
-     ============================================================ -->
 <section class="program canvas photo-left">
   <div class="inner">
     <div class="photo photo-cs"></div>
@@ -376,9 +273,6 @@
   </div>
 </section>
 
-<!-- ============================================================
-     PROGRAM 02 — Dreambuilders (navy, photo right)
-     ============================================================ -->
 <section class="program navy photo-right">
   <div class="inner">
     <div>
@@ -411,9 +305,6 @@
   </div>
 </section>
 
-<!-- ============================================================
-     PROGRAM 03 — Family Engagement (tan, photo right)
-     ============================================================ -->
 <section class="program tan photo-right">
   <div class="inner">
     <div>
@@ -446,9 +337,6 @@
   </div>
 </section>
 
-<!-- ============================================================
-     APPROACH TIE-BACK
-     ============================================================ -->
 <section class="tieback">
   <div class="inner">
     <div>
@@ -483,9 +371,6 @@
   </div>
 </section>
 
-<!-- ============================================================
-     FINAL CTA
-     ============================================================ -->
 <section class="final-cta">
   <div class="bg"></div>
   <div class="scrim"></div>
@@ -503,60 +388,3 @@
     </div>
   </div>
 </section>
-
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
-<footer>
-  <div class="grid">
-    <div>
-      <div class="org-name">City of Promise</div>
-      <div class="address">
-        708 Page Street<br>
-        Charlottesville, VA 22903
-      </div>
-    </div>
-    <div>
-      <h4>What We Do</h4>
-      <ul>
-        <li><a href="what-we-do.html">Community Schools</a></li>
-        <li><a href="what-we-do.html">Dreambuilders</a></li>
-        <li><a href="what-we-do.html">Family Engagement</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Who We Are</h4>
-      <ul>
-        <li><a href="who-we-are.html#team">Team</a></li>
-        <li><a href="who-we-are.html#board">Board</a></li>
-        <li><a href="who-we-are.html#history">History</a></li>
-        <li><a href="who-we-are.html#partners">Partners</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Get Involved</h4>
-      <ul>
-        <li><a href="#">Donate</a></li>
-        <li><a href="#">Volunteer</a></li>
-        <li><a href="#">Partner with us</a></li>
-        <li><a href="#">NAP Tax Credits</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Published Work</h4>
-      <ul>
-        <li><a href="#">Annual Report</a></li>
-        <li><a href="#">Envision Radio</a></li>
-        <li><a href="#">From the ED</a></li>
-        <li><a href="#">990s</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 City of Promise</span>
-    <span>Charlottesville, Virginia</span>
-  </div>
-</footer>
-
-</body>
-</html>

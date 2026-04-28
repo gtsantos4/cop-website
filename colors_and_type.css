@@ -3,11 +3,11 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Webfonts
-   Fraunces (display serif) + Inter (body sans), loaded from Google Fonts CDN.
-   Swap to local .woff2 in /fonts/ when offline-capable builds are needed.
+   Webfonts: loaded via <link> in the base layout's <head> so they download
+   in parallel with this stylesheet. @import was removed because it serializes
+   the loading chain (HTML → this CSS → fonts CSS → font files), which causes
+   visible page-load flashes between navigations.
    -------------------------------------------------------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   /* ---------- Colors — core roles ---------- */

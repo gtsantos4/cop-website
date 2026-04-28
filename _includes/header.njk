@@ -1,0 +1,15 @@
+<header class="site-header">
+  <a href="index.html" aria-label="City of Promise home">
+    <img src="assets/logo-horizontal.png" alt="City of Promise">
+  </a>
+  <nav>
+    <a href="what-we-do.html"{% if activePage == "what-we-do" %} class="is-active"{% endif %}>What We Do</a>
+    <a href="our-approach.html"{% if activePage == "our-approach" %} class="is-active"{% endif %}>Our Approach</a>
+    <a href="who-we-are.html"{% if activePage == "who-we-are" %} class="is-active"{% endif %}>Who We Are</a>
+    <a href="#">Access Services</a>
+    <a href="#">Get Involved</a>
+    <a href="#">Published Work</a>
+    <a href="#">Contact</a>
+  </nav>
+  <button class="donate-btn">Donate</button>
+</header>

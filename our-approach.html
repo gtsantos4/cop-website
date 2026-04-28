@@ -1,38 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Our Approach — City of Promise</title>
-<link rel="icon" href="assets/favicon.png">
-<link rel="stylesheet" href="colors_and_type.css">
+---
+layout: base.njk
+title: "Our Approach — City of Promise"
+activePage: our-approach
+permalink: /our-approach.html
+---
 <style>
-  body { background: var(--color-canvas); color: var(--color-navy); }
-  * { box-sizing: border-box; }
-  img { display: block; max-width: 100%; }
-
-  /* ---------- Header ---------- */
-  .site-header {
-    position: sticky; top: 0; z-index: 20;
-    background: #fff;
-    border-bottom: 1px solid var(--border-subtle);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 48px;
-  }
-  .site-header img { height: 48px; width: auto; }
-  .site-header nav { display: flex; gap: 28px; }
-  .site-header nav a {
-    font-family: var(--font-body); font-size: 14px; font-weight: 500;
-    color: var(--color-navy); text-decoration: none;
-    padding: 4px 0; border-bottom: 2px solid transparent;
-    transition: border-color 200ms;
-  }
-  .site-header nav a.is-active { border-bottom-color: var(--color-gold); }
-  .site-header .donate-btn {
-    background: var(--color-gold); color: var(--color-navy);
-    font-family: var(--font-body); font-weight: 600; font-size: 14px;
-    padding: 10px 20px; border-radius: 6px; border: 0; cursor: pointer;
-  }
 
   /* ---------- Sub-nav ---------- */
   .sub-nav {
@@ -423,44 +395,6 @@
   .btn-navy { background: var(--color-navy); color: #fff; }
   .btn-outline { background: transparent; color: var(--color-navy); border: 1px solid var(--color-navy); }
 
-  /* ---------- Footer ---------- */
-  footer {
-    background: var(--color-navy); color: #fff;
-    border-top: 3px solid var(--color-gold);
-    padding: 56px 48px 36px;
-  }
-  footer .grid {
-    max-width: 1184px; margin: 0 auto;
-    display: grid; grid-template-columns: 1.3fr repeat(4, 1fr); gap: 40px;
-  }
-  footer h4 {
-    font-family: var(--font-body); font-size: 12px; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--color-gold); margin: 0 0 16px;
-  }
-  footer ul { list-style: none; padding: 0; margin: 0; }
-  footer ul li { margin-bottom: 10px; }
-  footer ul a {
-    font-family: var(--font-body); font-size: 14px;
-    color: rgba(255,255,255,.78); text-decoration: none;
-  }
-  footer ul a:hover { color: var(--color-gold); }
-  footer .org-name {
-    font-family: var(--font-display); font-weight: 700; font-size: 22px;
-    margin-bottom: 14px;
-  }
-  footer .address {
-    font-family: var(--font-body); font-size: 14px;
-    color: rgba(255,255,255,.7); line-height: 1.6;
-  }
-  footer .footer-bottom {
-    max-width: 1184px; margin: 40px auto 0; padding-top: 24px;
-    border-top: 1px solid rgba(255,255,255,.12);
-    font-family: var(--font-body); font-size: 12px;
-    color: rgba(255,255,255,.5);
-    display: flex; justify-content: space-between;
-  }
-
   /* ---------- Responsive ---------- */
   @media (max-width: 1100px) {
     .hero h1 { font-size: 64px; letter-spacing: -1.4px; }
@@ -473,8 +407,6 @@
     footer .grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 700px) {
-    .site-header { padding: 14px 20px; flex-wrap: wrap; gap: 14px; }
-    .site-header nav { display: none; }
     .sub-nav { padding: 12px 20px; gap: 16px; overflow-x: auto; }
     .hero, .section, .cta { padding-left: 20px; padding-right: 20px; }
     .hero { padding-top: 56px; padding-bottom: 64px; }
@@ -491,31 +423,8 @@
     .bignum .n { font-size: 56px; }
     .cta-inner { flex-direction: column; align-items: flex-start; }
     .cta h3 { font-size: 28px; }
-    footer { padding: 48px 20px 28px; }
-    footer .grid { grid-template-columns: 1fr; }
   }
 </style>
-</head>
-<body>
-
-<!-- ============================================================
-     HEADER
-     ============================================================ -->
-<header class="site-header">
-  <a href="index.html" aria-label="City of Promise home">
-    <img src="assets/logo-horizontal.png" alt="City of Promise">
-  </a>
-  <nav>
-    <a href="what-we-do.html">What We Do</a>
-    <a href="our-approach.html" class="is-active">Our Approach</a>
-    <a href="who-we-are.html">Who We Are</a>
-    <a href="#">Access Services</a>
-    <a href="#">Get Involved</a>
-    <a href="#">Published Work</a>
-    <a href="#">Contact</a>
-  </nav>
-  <button class="donate-btn">Donate</button>
-</header>
 
 <!-- ============================================================
      SUB-NAV
@@ -769,59 +678,3 @@
   </div>
 </section>
 
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
-<footer>
-  <div class="grid">
-    <div>
-      <div class="org-name">City of Promise</div>
-      <div class="address">
-        708 Page Street<br>
-        Charlottesville, VA 22903
-      </div>
-    </div>
-    <div>
-      <h4>What We Do</h4>
-      <ul>
-        <li><a href="#">Community Schools</a></li>
-        <li><a href="#">Dreambuilders</a></li>
-        <li><a href="#">Family Engagement</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Who We Are</h4>
-      <ul>
-        <li><a href="who-we-are.html#team">Team</a></li>
-        <li><a href="who-we-are.html#board">Board</a></li>
-        <li><a href="who-we-are.html#history">History</a></li>
-        <li><a href="who-we-are.html#partners">Partners</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Get Involved</h4>
-      <ul>
-        <li><a href="#">Donate</a></li>
-        <li><a href="#">Volunteer</a></li>
-        <li><a href="#">Partner with us</a></li>
-        <li><a href="#">NAP Tax Credits</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Published Work</h4>
-      <ul>
-        <li><a href="#">Annual Report</a></li>
-        <li><a href="#">Envision Radio</a></li>
-        <li><a href="#">From the ED</a></li>
-        <li><a href="#">990s</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 City of Promise</span>
-    <span>Charlottesville, Virginia</span>
-  </div>
-</footer>
-
-</body>
-</html>
