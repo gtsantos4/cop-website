@@ -1,0 +1,649 @@
+---
+layout: base.njk
+title: "Volunteer — City of Promise"
+activePage: get-involved
+permalink: /volunteer.html
+---
+<style>
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: var(--color-canvas);
+    padding: 96px 48px;
+  }
+  .hero-inner { max-width: 1184px; margin: 0 auto; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .hero .gold-rule { background: var(--color-gold); width: 64px; height: 3px; margin: 0 0 22px; border: 0; }
+  .hero .kicker {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--fg-3); margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 64px; line-height: 1.05; letter-spacing: -1.4px;
+    color: var(--color-navy); margin: 0;
+    text-transform: none;
+  }
+  .hero p {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.6;
+    color: var(--fg-2); margin: 24px 0 0; max-width: 540px;
+  }
+  .hero-photo {
+    aspect-ratio: 4/3;
+    border-radius: var(--radius-photo);
+    background-size: cover;
+    background-position: center 35%;
+    box-shadow: 0 4px 20px rgba(7, 48, 91, 0.08);
+  }
+  .anchor-row {
+    margin-top: 32px;
+    display: flex; flex-wrap: wrap; gap: 12px 24px;
+  }
+  .anchor-row a {
+    font-family: var(--font-body); font-size: 14px; font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    border-bottom: 2px solid var(--color-gold);
+    padding-bottom: 2px;
+  }
+  .anchor-row a:hover { color: var(--color-navy); text-decoration: none; }
+
+  /* ---------- Section base ---------- */
+  .section { padding: 96px 48px; }
+  .section.tan { background: var(--color-tan); }
+  .section.navy { background: var(--color-navy); color: #fff; }
+  .section-inner { max-width: 1184px; margin: 0 auto; }
+  .section .gold-rule { background: var(--color-gold); width: 64px; height: 3px; margin: 0 0 22px; border: 0; }
+  .section h2 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 40px; line-height: 1.1; letter-spacing: -0.6px;
+    color: var(--color-navy); margin: 0;
+  }
+  .section.navy h2 { color: #fff; }
+  .section .lede {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.55;
+    color: var(--fg-2); margin: 16px 0 0; max-width: 660px;
+  }
+  .section.navy .lede { color: rgba(255,255,255,.78); }
+
+  /* ---------- Why Volunteer ---------- */
+  .why-grid {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .why-body p {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.65;
+    color: var(--color-navy); margin: 0 0 20px;
+  }
+  .why-body p:last-child { margin-bottom: 0; }
+  .self-screen {
+    background: var(--color-tan);
+    border-radius: var(--radius-card);
+    padding: 32px 28px;
+  }
+  .self-screen .eyebrow {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--color-primary); margin-bottom: 16px;
+  }
+  .self-screen ul {
+    list-style: none; padding: 0; margin: 0;
+  }
+  .self-screen li {
+    font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+    color: var(--fg-2);
+    padding: 14px 0;
+    border-top: 1px solid rgba(7,48,91,.12);
+  }
+  .self-screen li:first-child { border-top: 0; padding-top: 4px; }
+  .self-screen li b { color: var(--color-navy); display: block; margin-bottom: 4px; }
+
+  /* ---------- Opportunities — role cards ---------- */
+  .roles { margin-top: 48px; display: grid; gap: 32px; }
+  .role {
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    box-shadow: 0 1px 0 rgba(7,48,91,.04), 0 8px 24px -16px rgba(7,48,91,.10);
+    scroll-margin-top: 96px;
+  }
+  .role-header {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .role-photo {
+    background-size: cover;
+    background-position: center;
+    min-height: 280px;
+    border-right: 1px solid var(--border-subtle);
+  }
+  .role-intro {
+    padding: 32px 36px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .role-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .pill {
+    display: inline-block;
+    font-family: var(--font-body); font-size: 11px; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    padding: 5px 11px; border-radius: var(--radius-pill);
+    background: rgba(7,48,91,.06); color: var(--color-navy);
+  }
+  .pill.gold { background: var(--color-gold); }
+  .role-intro h3 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 32px; line-height: 1.1; letter-spacing: -0.5px;
+    color: var(--color-navy); margin: 0;
+  }
+  .role-name {
+    font-family: var(--font-body); font-size: 13px; font-weight: 600;
+    letter-spacing: 1.4px; text-transform: uppercase;
+    color: var(--fg-3); margin: 12px 0 0;
+  }
+
+  .role-body {
+    padding: 32px 36px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 36px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .role-body .eyebrow {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--color-gold); margin-bottom: 8px;
+  }
+  .role-body p {
+    font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+    color: var(--fg-1); margin: 0;
+  }
+  .role-body p b { color: var(--color-navy); }
+
+  /* Reading Tutoring — stat callout in the role-body */
+  .role-stat {
+    grid-column: 1 / -1;
+    background: var(--color-gold);
+    border-radius: var(--radius-card);
+    padding: 22px 26px;
+    margin-bottom: 4px;
+  }
+  .role-stat .eyebrow {
+    color: var(--color-navy); margin-bottom: 8px;
+  }
+  .role-stat .stat-row {
+    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+    margin-top: 6px;
+  }
+  .role-stat .num {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 44px; line-height: 1; letter-spacing: -1px;
+    color: var(--color-navy);
+    font-variant-numeric: tabular-nums;
+  }
+  .role-stat .copy {
+    font-family: var(--font-body); font-size: 16px; line-height: 1.5;
+    color: var(--color-navy);
+  }
+  .role-stat .source {
+    font-family: var(--font-italic); font-style: italic;
+    font-size: 12px; color: rgba(7,48,91,.7);
+    margin-top: 12px; display: block;
+  }
+
+  .role-meta {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .role-meta > div {
+    padding: 24px 28px;
+    border-right: 1px solid var(--border-subtle);
+  }
+  .role-meta > div:last-child { border-right: 0; }
+  .meta-lab {
+    font-family: var(--font-body); font-size: 11px; font-weight: 700;
+    letter-spacing: 1.4px; text-transform: uppercase;
+    color: var(--fg-3); margin-bottom: 8px;
+  }
+  .meta-val {
+    font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+    color: var(--color-navy); font-weight: 500;
+  }
+
+  .role-cta {
+    background: var(--color-canvas);
+    padding: 22px 36px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap;
+  }
+  .role-cta p {
+    font-family: var(--font-body); font-size: 14px; line-height: 1.5;
+    color: var(--fg-2); margin: 0; max-width: 540px;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-block;
+    font-family: var(--font-body); font-weight: 600; font-size: 14px;
+    padding: 12px 22px; border-radius: var(--radius-button);
+    text-decoration: none;
+    transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+    white-space: nowrap;
+  }
+  .btn.primary { background: var(--color-navy); color: #fff; }
+  .btn.primary:hover { background: var(--color-primary); text-decoration: none; }
+  .btn.gold {
+    background: var(--color-gold); color: var(--color-navy);
+    font-size: 16px; padding: 14px 28px;
+  }
+  .btn.gold:hover { background: #c89530; text-decoration: none; }
+  .btn.ghost {
+    background: transparent; color: #fff;
+    border: 1px solid rgba(255,255,255,.4);
+  }
+  .btn.ghost:hover { background: rgba(255,255,255,.08); text-decoration: none; }
+
+  /* ---------- Sign-up steps ---------- */
+  .steps-grid {
+    margin-top: 40px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+  }
+  .step {
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 28px 24px;
+    position: relative;
+  }
+  .step-num {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 48px; line-height: 1; letter-spacing: -1px;
+    color: var(--color-gold); margin-bottom: 8px;
+  }
+  .step h4 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 20px; line-height: 1.2; letter-spacing: -0.2px;
+    color: var(--color-navy); margin: 0 0 12px;
+  }
+  .step p {
+    font-family: var(--font-body); font-size: 14px; line-height: 1.55;
+    color: var(--fg-2); margin: 0;
+  }
+  .step code {
+    font-family: var(--font-body); font-size: 13px;
+    background: rgba(7,48,91,.06); padding: 1px 6px; border-radius: 3px;
+  }
+
+  /* ---------- Prereq band ---------- */
+  .prereq-band {
+    margin-top: 40px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    border: 1px dashed var(--border-strong);
+    border-radius: var(--radius-card);
+    background: rgba(255,255,255,.4);
+  }
+  .prereq-band > div {
+    padding: 24px 28px;
+    border-right: 1px dashed var(--border-strong);
+  }
+  .prereq-band > div:last-child { border-right: 0; }
+  .prereq-band .eyebrow {
+    font-family: var(--font-body); font-size: 11px; font-weight: 700;
+    letter-spacing: 1.4px; text-transform: uppercase;
+    color: var(--color-gold); margin-bottom: 8px;
+  }
+  .prereq-band h4 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 20px; line-height: 1.2; letter-spacing: -0.2px;
+    color: var(--color-navy); margin: 0 0 8px;
+  }
+  .prereq-band p {
+    font-family: var(--font-body); font-size: 14px; line-height: 1.55;
+    color: var(--fg-2); margin: 0;
+  }
+
+  /* ---------- Portal CTA (navy) ---------- */
+  .portal-grid {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .portal-grid h3 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 40px; line-height: 1.1; letter-spacing: -0.6px;
+    color: #fff; margin: 0;
+  }
+  .portal-grid p {
+    font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+    color: rgba(255,255,255,.78); margin: 18px 0 0; max-width: 520px;
+  }
+  .portal-grid .eyebrow {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--color-gold); margin-bottom: 14px;
+  }
+  .portal-grid .gold-rule { background: var(--color-gold); width: 64px; height: 3px; margin: 0 0 18px; border: 0; }
+  .portal-cta-row {
+    margin-top: 28px;
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .portal-meta {
+    font-family: var(--font-body); font-size: 12px;
+    color: rgba(255,255,255,.55);
+    margin-top: 18px; letter-spacing: 0.4px;
+  }
+  .portal-photo {
+    aspect-ratio: 4/3;
+    border-radius: var(--radius-photo);
+    background-size: cover; background-position: center;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1000px) {
+    .hero { padding: 64px 24px; }
+    .hero h1 { font-size: 48px; letter-spacing: -1px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .section { padding: 64px 24px; }
+    .section h2 { font-size: 32px; letter-spacing: -0.4px; }
+    .why-grid { grid-template-columns: 1fr; gap: 32px; }
+    .role-header { grid-template-columns: 1fr; }
+    .role-photo { min-height: 220px; border-right: 0; border-bottom: 1px solid var(--border-subtle); }
+    .role-body { grid-template-columns: 1fr; gap: 24px; padding: 28px; }
+    .role-meta { grid-template-columns: 1fr; }
+    .role-meta > div { border-right: 0; border-bottom: 1px solid var(--border-subtle); }
+    .role-meta > div:last-child { border-bottom: 0; }
+    .role-cta { padding: 22px 28px; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .prereq-band { grid-template-columns: 1fr; }
+    .prereq-band > div { border-right: 0; border-bottom: 1px dashed var(--border-strong); }
+    .prereq-band > div:last-child { border-bottom: 0; }
+    .portal-grid { grid-template-columns: 1fr; gap: 32px; }
+    .portal-grid h3 { font-size: 32px; }
+  }
+  @media (max-width: 560px) {
+    .steps-grid { grid-template-columns: 1fr; }
+    .role-intro { padding: 24px 24px; }
+    .role-intro h3 { font-size: 26px; }
+  }
+
+</style>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-grid">
+      <div>
+        <hr class="gold-rule">
+        <div class="kicker">Get Involved — Volunteer</div>
+        <h1>Education is a social issue.<br>No school can solve it alone.</h1>
+        <p>Kids spend about 80% of their waking hours out of school. That time is either a tailwind or a headwind. CoP volunteers are how it becomes a tailwind. We run three volunteer roles, each one a relationship with a kid or family in Westhaven or 10th and Page that runs at least a full school semester, often longer.</p>
+        <div class="anchor-row">
+          <a href="#nurturing-neighborhood">Nurturing Neighborhood</a>
+          <a href="#mentoring-transportation">Mentoring &amp; Transportation</a>
+          <a href="#reading-tutoring">Reading Tutoring</a>
+          <a href="#sign-up">How to sign up</a>
+        </div>
+      </div>
+      <div class="hero-photo" style="background-image: url('cop-photos/program-volunteer-with-child.jpg');"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE WORK ============ -->
+<section class="section">
+  <div class="section-inner">
+    <hr class="gold-rule">
+    <h2>The work.</h2>
+    <div class="why-grid">
+      <div class="why-body">
+        <p>Every role pairs you with a small group of kids or families and asks you to stay with them through a full school semester at minimum. Most volunteers stay through the year.</p>
+        <p>CoP does not run event-day shifts, one-off drives, or surge volunteering. The work is repeat contact with the same families on a regular schedule, because that is what changes a child's trajectory.</p>
+      </div>
+      <aside class="self-screen">
+        <div class="eyebrow">Before you scroll</div>
+        <ul>
+          <li><b>Background check is universal across every role.</b>CoP runs and pays for it.</li>
+          <li><b>All roles are place-based in Charlottesville.</b>Westhaven, 10th and Page, and seven CCS partner schools, including Trailblazer, Summit, and Tall Oaks.</li>
+          <li><b>Reading Tutoring requires VA Literacy Partnerships certification.</b>Online plus practicum, roughly 12 hours over 4 weeks. Paid for by CoP.</li>
+          <li><b>Plan to commit through at least one school semester.</b>Most volunteers stay a full year.</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OPPORTUNITIES ============ -->
+<section class="section tan">
+  <div class="section-inner">
+    <hr class="gold-rule">
+    <h2>Opportunities.</h2>
+    <p class="lede">Three roles. Same template for each: what it is, what you'd do, who it's for, what it asks.</p>
+
+    <div class="roles">
+
+      <!-- ROLE 1 — Nurturing Neighborhood -->
+      <article class="role" id="nurturing-neighborhood">
+        <div class="role-header">
+          <div class="role-photo" style="background-image: url('cop-photos/community-mom-kids-selfie.png');"></div>
+          <div class="role-intro">
+            <div class="role-pills">
+              <span class="pill gold">Partner Pilot</span>
+              <span class="pill">UU Congregation + City Church</span>
+            </div>
+            <h3>When parents thrive, children thrive.</h3>
+            <div class="role-name">Nurturing Neighborhood</div>
+          </div>
+        </div>
+        <div class="role-body">
+          <div>
+            <div class="eyebrow">What it is</div>
+            <p>Nurturing Neighborhood is a faith-partner pilot CoP runs with the Thomas Jefferson Memorial Church Unitarian Universalist congregation and City Church. A pod of 4–5 volunteers is matched to one family in Westhaven or 10th and Page and stays with that family over months and years.</p>
+          </div>
+          <div>
+            <div class="eyebrow">What you'd do</div>
+            <p>Pods address the everyday non-monetary barriers a family faces: rides to appointments, after-school pickup, moving help, an extra adult at a school meeting. CoP staff coordinate scheduling and check-ins, and brief each pod before placement.</p>
+          </div>
+        </div>
+        <div class="role-meta">
+          <div>
+            <div class="meta-lab">Ideal volunteer</div>
+            <div class="meta-val">Volunteers who can integrate into a family's daily life over multi-year horizons. Faith-community members preferred for the pilot.</div>
+          </div>
+          <div>
+            <div class="meta-lab">Time commitment</div>
+            <div class="meta-val">Monthly check-ins plus ad-hoc support, multi-year</div>
+          </div>
+          <div>
+            <div class="meta-lab">Prereq</div>
+            <div class="meta-val">Background check, faith-partner intake</div>
+          </div>
+        </div>
+        <div class="role-cta">
+          <p>Currently active in Westhaven and 10th and Page. Rolling intake through partner congregations.</p>
+          <a href="#sign-up" class="btn primary">Sign up for Nurturing Neighborhood →</a>
+        </div>
+      </article>
+
+      <!-- ROLE 2 — Mentoring & Transportation -->
+      <article class="role" id="mentoring-transportation">
+        <div class="role-header">
+          <div class="role-photo" style="background-image: url('cop-photos/program-soccer-kids-field.jpg');"></div>
+          <div class="role-intro">
+            <div class="role-pills">
+              <span class="pill">Mentoring</span>
+              <span class="pill">Transportation</span>
+            </div>
+            <h3>Rides plus mentorship for CCS students in extracurriculars.</h3>
+            <div class="role-name">Mentoring &amp; Transportation</div>
+          </div>
+        </div>
+        <div class="role-body">
+          <div>
+            <div class="eyebrow">What it is</div>
+            <p>CoP volunteers drive Charlottesville City Schools students to and from sports practices, music lessons, and other extracurriculars they would otherwise miss for lack of transportation. The mentorship happens in the car, on repeated trips with the same kid.</p>
+          </div>
+          <div>
+            <div class="eyebrow">What you'd do</div>
+            <p>Two to four trips per week during the season, typically afternoons and early evenings. CoP matches volunteers to students based on geography, schedule, and the kid's activity.</p>
+          </div>
+        </div>
+        <div class="role-meta">
+          <div>
+            <div class="meta-lab">Ideal volunteer</div>
+            <div class="meta-val">Reliable vehicle, willingness to build rapport with a young person on repeated short drives.</div>
+          </div>
+          <div>
+            <div class="meta-lab">Time commitment</div>
+            <div class="meta-val">2–4 trips per week during a sports season or program term</div>
+          </div>
+          <div>
+            <div class="meta-lab">Prereq</div>
+            <div class="meta-val">Background check, valid Virginia driver's license, current auto insurance</div>
+          </div>
+        </div>
+        <div class="role-cta">
+          <p>Match windows open at the start of each season: fall sports, spring sports, summer enrichment.</p>
+          <a href="#sign-up" class="btn primary">Sign up for Mentoring &amp; Transportation →</a>
+        </div>
+      </article>
+
+      <!-- ROLE 3 — Reading Tutoring -->
+      <article class="role" id="reading-tutoring">
+        <div class="role-header">
+          <div class="role-photo" style="background-image: url('cop-photos/program-girls-studying-indoors.jpg');"></div>
+          <div class="role-intro">
+            <div class="role-pills">
+              <span class="pill">VA Literacy Partnerships</span>
+              <span class="pill">Cert required</span>
+            </div>
+            <h3>Every kid deserves to learn to read.</h3>
+            <div class="role-name">Reading Tutoring</div>
+          </div>
+        </div>
+        <div class="role-body">
+          <div class="role-stat">
+            <div class="eyebrow">The gap this role addresses</div>
+            <div class="stat-row">
+              <span class="num">40%</span>
+              <span class="copy">of Black students in Charlottesville City Schools read on grade level,</span>
+            </div>
+            <div class="stat-row">
+              <span class="num">vs. 89%</span>
+              <span class="copy">of their White peers.</span>
+            </div>
+            <span class="source">Source: VDOE / CCS — to confirm and date.</span>
+          </div>
+          <div>
+            <div class="eyebrow">What it is</div>
+            <p>Reading Tutoring is one-on-one literacy support for CCS students. Volunteers complete <b>VA Literacy Partnerships</b> certification before being matched, then meet weekly with the same student through the school year.</p>
+          </div>
+          <div>
+            <div class="eyebrow">What you'd do</div>
+            <p>A one-hour session each week, in the school day or just after, at one of CoP's partner schools. VA Literacy Partnerships provides the training and the curriculum. Your job is to show up consistently for the same student over a school year.</p>
+          </div>
+        </div>
+        <div class="role-meta">
+          <div>
+            <div class="meta-lab">Ideal volunteer</div>
+            <div class="meta-val">Volunteers who can hold a weekly time slot through a full school year and complete certification before the year starts.</div>
+          </div>
+          <div>
+            <div class="meta-lab">Time commitment</div>
+            <div class="meta-val">One hour weekly, school year long, same student</div>
+          </div>
+          <div>
+            <div class="meta-lab">Prereq</div>
+            <div class="meta-val">Background check, VA Literacy Partnerships certification (CoP-paid)</div>
+          </div>
+        </div>
+        <div class="role-cta">
+          <p>Cert windows open before the fall and spring semesters. Apply 6 weeks ahead.</p>
+          <a href="#sign-up" class="btn primary">Sign up for Reading Tutoring →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW TO SIGN UP ============ -->
+<section class="section" id="sign-up">
+  <div class="section-inner">
+    <hr class="gold-rule">
+    <h2>How to sign up.</h2>
+    <p class="lede">The matching flow is the same for all three roles.</p>
+
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>Create a portal account</h4>
+        <p>Sign up at <code>volunteer.cityofpromise.org</code> with your name, email, and a password. About a minute.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4>Matching form</h4>
+        <p>Background, interests, weekly availability, and the role(s) you would consider. You can pick one role or all three.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>Interview</h4>
+        <p>A 15-to-20-minute conversation with CoP's Assistant Director, by phone or in person. Both sides decide whether to move forward.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h4>Match notification</h4>
+        <p>When CoP pairs you with a family, student, or pod, you get an email and onboarding starts from there.</p>
+      </div>
+    </div>
+
+    <div class="prereq-band">
+      <div>
+        <div class="eyebrow">Universal</div>
+        <h4>Background check</h4>
+        <p>Required for every role. CoP runs the check and pays the fee.</p>
+      </div>
+      <div>
+        <div class="eyebrow">Reading Tutoring only</div>
+        <h4>VA Literacy Partnerships certification</h4>
+        <p>Online and practicum components, roughly 12 hours over 4 weeks. CoP pays the fee.</p>
+      </div>
+      <div>
+        <div class="eyebrow">Mentoring + Transport only</div>
+        <h4>Driver's license + auto insurance</h4>
+        <p>Current Virginia driver's license, current auto insurance, vehicle in working order.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VOLUNTEER PORTAL ============ -->
+<section class="section navy">
+  <div class="section-inner">
+    <div class="portal-grid">
+      <div>
+        <hr class="gold-rule">
+        <div class="eyebrow">Start here</div>
+        <h3>All four steps live in the portal.</h3>
+        <p>Account creation, matching form, interview scheduling, and ongoing engagement all happen at <b>volunteer.cityofpromise.org</b>. Same portal for current volunteers, who sign in there to log shifts and update availability.</p>
+        <div class="portal-cta-row">
+          <a href="https://volunteer.cityofpromise.org" class="btn gold" target="_blank" rel="noopener">Open the Volunteer Portal →</a>
+          <a href="https://volunteer.cityofpromise.org" class="btn ghost" target="_blank" rel="noopener">I'm already signed up</a>
+        </div>
+        <div class="portal-meta">↗ external · volunteer.cityofpromise.org</div>
+      </div>
+      <div class="portal-photo" style="background-image: url('cop-photos/program-mentoring-outdoor.jpg');"></div>
+    </div>
+  </div>
+</section>

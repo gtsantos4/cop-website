@@ -37,10 +37,13 @@ img { display: block; max-width: 100%; }
 }
 .site-header nav a.is-active { border-bottom-color: var(--color-gold); }
 .site-header .donate-btn {
+  display: inline-block;
   background: var(--color-gold); color: var(--color-navy);
   font-family: var(--font-body); font-weight: 600; font-size: 14px;
   padding: 10px 20px; border-radius: 6px; border: 0; cursor: pointer;
+  text-decoration: none;
 }
+.site-header .donate-btn:hover { text-decoration: none; }
 
 /* ---------- Shared footer ---------- */
 footer {
