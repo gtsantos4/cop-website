@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ title or "City of Promise" }}</title>
 
-<!-- Tell Chrome/Edge to prerender same-site pages on hover/click intent.
+<!-- Tell Chromium browsers to prerender same-site pages immediately.
+     "eager" means: prerender all matched links as soon as this page loads,
+     not on hover-intent. Needed because moderate eagerness waits for a
+     heuristic that often doesn't fire before the click on a small site.
      When the user clicks a nav link the page is already loaded → no flash. -->
 <script type="speculationrules">
 {
@@ -15,10 +18,22 @@
       { "not": { "href_matches": "/constellation.html" } },
       { "not": { "href_matches": "/*.pdf" } }
     ]},
-    "eagerness": "moderate"
+    "eagerness": "eager"
   }]
 }
 </script>
+
+<!-- Plain prefetch fallback for browsers without Speculation Rules support
+     (Safari, Firefox). Loads HTML into HTTP cache during idle time so the
+     navigation paints from cache instead of from the network. -->
+<link rel="prefetch" href="index.html" as="document">
+<link rel="prefetch" href="what-we-do.html" as="document">
+<link rel="prefetch" href="community-schools.html" as="document">
+<link rel="prefetch" href="family-engagement.html" as="document">
+<link rel="prefetch" href="our-approach.html" as="document">
+<link rel="prefetch" href="who-we-are.html" as="document">
+<link rel="prefetch" href="get-involved.html" as="document">
+<link rel="prefetch" href="volunteer.html" as="document">
 
 <!-- Paint the page background BEFORE any external CSS loads, to kill the
      white flash between page navigations. Hex must match --color-canvas. -->
