@@ -705,18 +705,17 @@ editPage: published-work.html
         </div>
 
         <div>
-          <div class="player">
+          <a class="player" id="envision-player" href="https://podcasts.apple.com/us/podcast/envision-radio/id1606792491" target="_blank" rel="noopener" style="text-decoration: none; color: inherit;">
             <div class="play" aria-hidden="true">&#9654;</div>
             <div class="meta">
-              <div class="ep-no">Listen on the web</div>
-              <div class="ep-title">The latest episode of Envision Radio.</div>
+              <div class="ep-no" data-envision-epno>Latest episode</div>
+              <div class="ep-title" data-envision-title>Loading the latest episode of Envision Radio…</div>
               <div class="progress" aria-hidden="true"></div>
             </div>
-          </div>
+          </a>
           <div class="listen-on">
             <a class="platform" href="https://podcasts.apple.com/us/podcast/envision-radio/id1606792491" target="_blank" rel="noopener"><span class="dot"></span>Apple Podcasts</a>
             <a class="platform" href="https://open.spotify.com/show/6mRpodXN34BqF39oJPps4m" target="_blank" rel="noopener"><span class="dot"></span>Spotify</a>
-            <a class="platform" href="https://music.amazon.com/podcasts/105a4741-0d60-4fa3-9949-dd66bba5a516/envision-radio" target="_blank" rel="noopener"><span class="dot"></span>Amazon Music</a>
             <a class="platform" href="https://www.youtube.com/playlist?list=PL7R1AZM1dxPisylWu_me3SxyrPq7JbhVl" target="_blank" rel="noopener"><span class="dot"></span>YouTube</a>
           </div>
           <p style="margin: 16px 0 0; font-family: var(--font-body); font-size: 14px; color: rgba(7,48,91,.78); line-height: 1.55;">Airs every Saturday morning at <strong style="color: var(--color-navy);">7:30 AM on WINA</strong>.</p>
@@ -765,6 +764,37 @@ editPage: published-work.html
     </div>
   </div>
 </section>
+
+<script>
+  (async () => {
+    const FEED = 'https://rss.buzzsprout.com/1922553.rss';
+    const player = document.getElementById('envision-player');
+    if (!player) return;
+    const titleEl = player.querySelector('[data-envision-title]');
+    const noEl = player.querySelector('[data-envision-epno]');
+    try {
+      const xml = await fetch(FEED, { cache: 'no-store' }).then(r => r.text());
+      const doc = new DOMParser().parseFromString(xml, 'application/xml');
+      const item = doc.querySelector('item');
+      if (!item) return;
+      const rawTitle = item.querySelector('title')?.textContent?.trim() || '';
+      const pubDate = item.querySelector('pubDate')?.textContent?.trim() || '';
+      const link = item.querySelector('link')?.textContent?.trim();
+      // Buzzsprout episode title pattern: "Episode 209 - Guest Name"
+      const m = rawTitle.match(/^Episode\s+(\d+)\s*[–—-]\s*(.+)$/i);
+      const epNum = m ? `EP ${m[1]}` : 'Latest episode';
+      const epTitle = m ? m[2].trim() : rawTitle;
+      const dateStr = pubDate
+        ? new Date(pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        : '';
+      noEl.textContent = dateStr ? `${epNum} · ${dateStr}` : epNum;
+      titleEl.textContent = epTitle;
+      if (link) player.href = link;
+    } catch (e) {
+      // Fall back to the static placeholder text already in the DOM.
+    }
+  })();
+</script>
 
 <!-- ============ 02 · FROM THE ED ============ -->
 <section id="from-the-ed" class="pw-section tan">
