@@ -1,4 +1,6 @@
 const { parse } = require("node-html-parser");
+const fs = require("fs");
+const path = require("path");
 
 module.exports = function(eleventyConfig) {
   // Static asset passthrough — files copied into _site as-is.
@@ -69,8 +71,37 @@ module.exports = function(eleventyConfig) {
     }
 
     walk(body);
+
+    // ---------- Apply edit overrides from sidecar ----------
+    // Read edits/<page>.json (written by the inline-edit worker) and
+    // overwrite the inner content of any data-field elements that have an
+    // override. This is what makes edits survive every rebuild.
+    const editPage = body.getAttribute("data-edit-page");
+    if (editPage) {
+      const slug = editPage.replace(/\.html$/, "");
+      const sidecar = path.join(__dirname, "edits", `${slug}.json`);
+      if (fs.existsSync(sidecar)) {
+        try {
+          const overrides = JSON.parse(fs.readFileSync(sidecar, "utf8"));
+          for (const [field, text] of Object.entries(overrides)) {
+            const el = root.querySelector(`[data-field="${field}"]`);
+            if (!el) continue;
+            const safe = String(text)
+              .replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;");
+            el.set_content(safe);
+          }
+        } catch (err) {
+          console.warn(`[auto-edit-markers] failed to apply ${sidecar}: ${err.message}`);
+        }
+      }
+    }
+
     return root.toString();
   });
+
+  eleventyConfig.addWatchTarget("edits/");
 
   // Strip HTML for the build-time search index. Removes script/style blocks,
   // tags, comments, and decodes a few common entities. Good enough for a

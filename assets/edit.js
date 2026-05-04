@@ -29,7 +29,6 @@
     statusEl.className = "edit-status " + state;
     statusEl.textContent = text;
   }
-  let lastSavedAt = 0;
   function refresh() {
     if (!document.body.classList.contains("edit-mode")) {
       setStatus("", "viewing");
@@ -39,11 +38,7 @@
     if (errorCount > 0) { setStatus("err", "save failed"); return; }
     if (savingCount > 0) { setStatus("saving", "saving…"); return; }
     if (pending.size > 0) { setStatus("dirty", "unsaved"); revertBtn.style.display = "inline-block"; return; }
-    if (lastSavedAt && Date.now() - lastSavedAt < 90_000) {
-      setStatus("saved", "saved · live in ~1 min");
-    } else {
-      setStatus("saved", "saved");
-    }
+    setStatus("saved", "saved");
     revertBtn.style.display = "none";
   }
 
@@ -107,7 +102,13 @@
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
       })
-      .then(() => { originals.set(field, el.innerHTML); lastSavedAt = Date.now(); })
+      .then(() => {
+        originals.set(field, el.innerHTML);
+        el.classList.remove("just-saved");
+        // Force reflow so re-adding the class restarts the animation.
+        void el.offsetWidth;
+        el.classList.add("just-saved");
+      })
       .catch(err => {
         errorCount++;
         console.error("save failed", err);

@@ -374,3 +374,14 @@ body.edit-mode [data-field]:focus {
 body.edit-mode button:not(#edit-bar button),
 body.edit-mode a:not(#edit-bar a) { pointer-events: none; }
 body.edit-mode [data-field] { pointer-events: auto; }
+
+/* Green flash on the edited element after a successful save. */
+[data-field].just-saved {
+  animation: edit-flash 1.4s cubic-bezier(.2,.6,.2,1);
+  border-radius: 3px;
+}
+@keyframes edit-flash {
+  0%   { background: rgba(168, 232, 184, 0.65); box-shadow: 0 0 0 4px rgba(168, 232, 184, 0.65); }
+  60%  { background: rgba(168, 232, 184, 0.35); box-shadow: 0 0 0 4px rgba(168, 232, 184, 0.35); }
+  100% { background: transparent;                box-shadow: 0 0 0 0 transparent; }
+}

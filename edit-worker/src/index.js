@@ -1,10 +1,12 @@
 // CoP inline-edit worker
-// Receives POST /save {field, text, page, password} from a published page,
-// commits the change to both the source file and the built docs/<page> file.
-// Pages then redeploys and the live URL reflects the edit ~30s later.
+// Receives POST /save {field, text, page} from a published page and writes
+// the edit to two places, in one round-trip each:
+//   1. edits/<page>.json — sidecar dict {field: text}, source of truth.
+//      The Eleventy build transform reads this and applies overrides on
+//      every rebuild so edits never get clobbered.
+//   2. docs/<page>.html — patched in place so other viewers see the change
+//      before Pages redeploys.
 
-// Accept any html filename at the repo root: alphanumerics, dash, underscore.
-// Path-traversal characters (/, .., etc.) are rejected.
 const PAGE_PATTERN = /^[a-zA-Z0-9_-]+\.html$/;
 
 export default {
@@ -37,9 +39,9 @@ export default {
     }
 
     try {
-      const sourceChanged = await updateFile(env, page, field, text);
-      const builtChanged  = await updateFile(env, `docs/${page}`, field, text);
-      if (!sourceChanged && !builtChanged) {
+      const sidecarChanged = await updateSidecar(env, page, field, text);
+      const builtChanged = await updateBuiltHtml(env, page, field, text);
+      if (!sidecarChanged && !builtChanged) {
         return json({ ok: true, noop: true, reason: "field not found or text unchanged" });
       }
       return json({ ok: true });
@@ -64,9 +66,54 @@ function json(obj, status = 200) {
   });
 }
 
-async function updateFile(env, path, field, text) {
-  const apiPath = path.split("/").map(encodeURIComponent).join("/");
-  const fileUrl = `https://api.github.com/repos/${env.GITHUB_REPO}/contents/${apiPath}`;
+// Update the sidecar JSON for a page. Creates the file if missing.
+async function updateSidecar(env, page, field, text) {
+  const slug = page.replace(/\.html$/, "");
+  const path = `edits/${slug}.json`;
+  const fileUrl = `https://api.github.com/repos/${env.GITHUB_REPO}/contents/${encodeURIComponent(path).replace(/%2F/g, "/")}`;
+
+  let existing = {};
+  let sha = undefined;
+
+  const getResp = await fetch(fileUrl, { headers: ghHeaders(env) });
+  if (getResp.ok) {
+    const meta = await getResp.json();
+    sha = meta.sha;
+    try {
+      existing = JSON.parse(b64decodeUtf8(meta.content.replace(/\s/g, "")));
+    } catch { /* malformed sidecar — overwrite */ }
+  } else if (getResp.status !== 404) {
+    throw new Error(`GET ${path} → ${getResp.status}`);
+  }
+
+  if (existing[field] === text) return false;
+  existing[field] = text;
+
+  const putBody = {
+    message: `inline-edit: ${page} · ${field}`,
+    content: b64encodeUtf8(JSON.stringify(existing, null, 2) + "\n"),
+    committer: { name: "CoP edit bot", email: "edit-bot@cityofpromise.local" },
+  };
+  if (sha) putBody.sha = sha;
+
+  const putResp = await fetch(fileUrl, {
+    method: "PUT",
+    headers: ghHeaders(env),
+    body: JSON.stringify(putBody),
+  });
+  if (!putResp.ok) {
+    const t = await putResp.text();
+    throw new Error(`PUT ${path} → ${putResp.status} ${t.slice(0, 200)}`);
+  }
+  return true;
+}
+
+// Patch the built docs/<page>.html in place so other viewers see the change
+// before Pages republishes. If the regex doesn't match, return false (the
+// sidecar still wins on next rebuild).
+async function updateBuiltHtml(env, page, field, text) {
+  const path = `docs/${page}`;
+  const fileUrl = `https://api.github.com/repos/${env.GITHUB_REPO}/contents/${encodeURIComponent(path).replace(/%2F/g, "/")}`;
 
   const getResp = await fetch(fileUrl, { headers: ghHeaders(env) });
   if (getResp.status === 404) return false;
