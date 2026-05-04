@@ -5,23 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Melissa Steppe — City of Promise</title>
 
-<!-- Tell Chromium browsers to prerender same-site pages immediately.
-     "eager" means: prerender all matched links as soon as this page loads,
-     not on hover-intent. Needed because moderate eagerness waits for a
-     heuristic that often doesn't fire before the click on a small site.
-     When the user clicks a nav link the page is already loaded → no flash. -->
-<script type="speculationrules">
-{
-  "prerender": [{
-    "where": { "and": [
-      { "href_matches": "/*" },
-      { "not": { "href_matches": "/constellation.html" } },
-      { "not": { "href_matches": "/*.pdf" } }
-    ]},
-    "eagerness": "eager"
-  }]
-}
-</script>
+<!-- Speculation rules disabled while inline-edit is active. Eager prerender
+     captures stale snapshots of linked pages, which then activate on click
+     and don't reflect the latest deploy — the editor toolbar goes missing
+     until the user refreshes. Re-enable once the editor flow is stable. -->
 
 <!-- Plain prefetch fallback for browsers without Speculation Rules support
      (Safari, Firefox). Loads HTML into HTTP cache during idle time so the
@@ -170,6 +157,14 @@
           </svg>
         </a>
       </div>
+      <div class="footer-seals">
+        <a class="footer-seal" href="https://www.charitynavigator.org/" target="_blank" rel="noopener" aria-label="City of Promise on Charity Navigator — Four-Star">
+          <img src="assets/charity-navigator-4star.png" alt="Charity Navigator Four-Star Rating" width="56" height="56">
+        </a>
+        <a class="footer-seal" href="https://www.candid.org/" target="_blank" rel="noopener" aria-label="City of Promise on Candid">
+          <img src="assets/candid-seal.svg" alt="Candid Gold Transparency 2025 seal" width="56" height="56">
+        </a>
+      </div>
     </div>
     <div>
       <h4>What We Do</h4>
@@ -208,19 +203,8 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-bottom-meta">
-      <span>© 2026 City of Promise</span>
-      <span class="sep">·</span>
-      <span>Charlottesville, Virginia</span>
-    </div>
-    <div class="footer-seals">
-      <a class="footer-seal" href="https://www.charitynavigator.org/" target="_blank" rel="noopener" aria-label="City of Promise on Charity Navigator — Four-Star">
-        <img src="assets/charity-navigator-4star.png" alt="Charity Navigator Four-Star Rating" width="48" height="48">
-      </a>
-      <a class="footer-seal" href="https://www.candid.org/" target="_blank" rel="noopener" aria-label="City of Promise on Candid">
-        <img src="assets/candid-seal.svg" alt="Candid Gold Transparency 2025 seal" width="48" height="48">
-      </a>
-    </div>
+    <span>© 2026 City of Promise</span>
+    <span>Charlottesville, Virginia</span>
   </div>
 </footer>
 
@@ -231,7 +215,7 @@
   <span id="edit-status" class="edit-status">viewing</span>
   <button id="edit-revert" type="button" class="ghost" style="display:none;">Discard</button>
 </div>
-<script src="assets/edit.js?v=1777905113716" defer></script>
+<script src="assets/edit.js?v=1777905845609" defer></script>
 
 
 </body>

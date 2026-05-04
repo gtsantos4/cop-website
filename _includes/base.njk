@@ -5,23 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ title or "City of Promise" }}</title>
 
-<!-- Tell Chromium browsers to prerender same-site pages immediately.
-     "eager" means: prerender all matched links as soon as this page loads,
-     not on hover-intent. Needed because moderate eagerness waits for a
-     heuristic that often doesn't fire before the click on a small site.
-     When the user clicks a nav link the page is already loaded → no flash. -->
-<script type="speculationrules">
-{
-  "prerender": [{
-    "where": { "and": [
-      { "href_matches": "/*" },
-      { "not": { "href_matches": "/constellation.html" } },
-      { "not": { "href_matches": "/*.pdf" } }
-    ]},
-    "eagerness": "eager"
-  }]
-}
-</script>
+<!-- Speculation rules disabled while inline-edit is active. Eager prerender
+     captures stale snapshots of linked pages, which then activate on click
+     and don't reflect the latest deploy — the editor toolbar goes missing
+     until the user refreshes. Re-enable once the editor flow is stable. -->
 
 <!-- Plain prefetch fallback for browsers without Speculation Rules support
      (Safari, Firefox). Loads HTML into HTTP cache during idle time so the
