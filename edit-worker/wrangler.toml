@@ -1,0 +1,10 @@
+name = "cop-edit-worker"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+GITHUB_REPO = "gtsantos4/cop-website"
+
+# Secrets — set via:
+#   wrangler secret put GITHUB_TOKEN
+#   wrangler secret put EDIT_PASSWORD

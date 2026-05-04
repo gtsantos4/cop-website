@@ -3,6 +3,7 @@ layout: base.njk
 title: "Contact — City of Promise"
 activePage: contact
 permalink: /contact.html
+editPage: contact.html
 ---
 <style>
   .gold-rule { width: 64px; height: 3px; background: var(--color-gold); border: 0; margin: 0 0 22px; }
@@ -217,9 +218,9 @@ permalink: /contact.html
 <section class="ct-hero">
   <div class="inner">
     <hr class="gold-rule">
-    <div class="kicker">Contact</div>
-    <h1>Come find us in the neighborhoods we work in.</h1>
-    <p class="lede">A storefront in Charlottesville's 10th &amp; Page neighborhood, plus the work that happens in 7 schools and on the blocks around them.</p>
+    <div class="kicker" data-field="hero.kicker">Contact</div>
+    <h1 data-field="hero.title">Come find us in the neighborhoods we work in.</h1>
+    <p class="lede" data-field="hero.lede">A storefront in Charlottesville's 10th &amp; Page neighborhood, plus the work that happens in 7 schools and on the blocks around them.</p>
   </div>
 </section>
 
@@ -227,28 +228,24 @@ permalink: /contact.html
 <section class="ct-visit">
   <div class="inner">
     <div class="head">
-      <div class="eyebrow">Visit</div>
-      <h2>Walk in. We're here.</h2>
-      <p class="lede">Front desk staffed weekdays. Walk-ins welcome at the main office.</p>
+      <div class="eyebrow" data-field="visit.eyebrow">Visit</div>
+      <h2 data-field="visit.title">Walk in. We're here.</h2>
+      <p class="lede" data-field="visit.lede">Front desk staffed weekdays. Walk-ins welcome at the main office.</p>
     </div>
 
     <div class="visit-card">
       <div class="pad">
-        <div class="num">Main Office</div>
-        <h3>708 Page Street</h3>
-        <div class="addr">Charlottesville, VA 22903<br>10th &amp; Page neighborhood</div>
+        <div class="num" data-field="visit.location-label">Main Office</div>
+        <h3 data-field="visit.address-line1">708 Page Street</h3>
+        <div class="addr" data-field="visit.address-line2">Charlottesville, VA 22903 · 10th &amp; Page neighborhood</div>
 
         <hr class="rule">
 
-        <div class="hours-lbl">Hours</div>
-        <div class="hours">
-          Mon–Fri · 9:00am – 5:00pm<br>
-          Sat–Sun · closed<br>
-          <span class="note">Walk-ins welcome.</span>
-        </div>
+        <div class="hours-lbl" data-field="visit.hours-label">Hours</div>
+        <div class="hours" data-field="visit.hours-body">Mon–Fri · 9:00am – 5:00pm · Sat–Sun closed · Walk-ins welcome.</div>
 
         <div class="ctas">
-          <a class="btn navy" href="https://maps.google.com/?q=708+Page+St+Charlottesville+VA+22903" target="_blank" rel="noopener">Get directions →</a>
+          <a class="btn navy" href="https://maps.google.com/?q=708+Page+St+Charlottesville+VA+22903" target="_blank" rel="noopener"><span data-field="visit.directions-cta">Get directions →</span></a>
         </div>
       </div>
       <div class="map" aria-hidden="true">map placeholder</div>
@@ -260,45 +257,45 @@ permalink: /contact.html
 <section class="ct-switchboard">
   <div class="inner">
     <div class="head">
-      <div class="eyebrow">Email — by who you are</div>
-      <h2>Four doors. Each one opens into a real inbox.</h2>
-      <p class="lede">Pick the line that fits. Each button opens an email to the person who handles it.</p>
+      <div class="eyebrow" data-field="sw.eyebrow">Email — by who you are</div>
+      <h2 data-field="sw.title">Four doors. Each one opens into a real inbox.</h2>
+      <p class="lede" data-field="sw.lede">Pick the line that fits. Each button opens an email to the person who handles it.</p>
     </div>
 
     <div class="sw-grid">
 
       <a class="sw-btn gold" href="mailto:donors@cityofpromise.org">
-        <div class="audience">Donors &amp; Sponsors</div>
-        <h3>Become a partner in the work.</h3>
+        <div class="audience" data-field="sw.donors-audience">Donors &amp; Sponsors</div>
+        <h3 data-field="sw.donors-label">Become a partner in the work.</h3>
         <div class="addr">
-          <span class="em">donors@cityofpromise.org</span>
+          <span class="em" data-field="sw.donors-email">donors@cityofpromise.org</span>
           <span class="arrow">→</span>
         </div>
       </a>
 
       <a class="sw-btn" href="mailto:families@cityofpromise.org">
-        <div class="audience">Families &amp; Services</div>
-        <h3>Connect with a coordinator.</h3>
+        <div class="audience" data-field="sw.families-audience">Families &amp; Services</div>
+        <h3 data-field="sw.families-label">Connect with a coordinator.</h3>
         <div class="addr">
-          <span class="em">families@cityofpromise.org</span>
+          <span class="em" data-field="sw.families-email">families@cityofpromise.org</span>
           <span class="arrow">→</span>
         </div>
       </a>
 
       <a class="sw-btn navy" href="mailto:press@cityofpromise.org">
-        <div class="audience">Media &amp; Partnerships</div>
-        <h3>Press, podcasts, partnership.</h3>
+        <div class="audience" data-field="sw.press-audience">Media &amp; Partnerships</div>
+        <h3 data-field="sw.press-label">Press, podcasts, partnership.</h3>
         <div class="addr">
-          <span class="em">press@cityofpromise.org</span>
+          <span class="em" data-field="sw.press-email">press@cityofpromise.org</span>
           <span class="arrow">→</span>
         </div>
       </a>
 
       <a class="sw-btn canvas" href="mailto:hello@cityofpromise.org">
-        <div class="audience">General Inquiries</div>
-        <h3>Anything else.</h3>
+        <div class="audience" data-field="sw.general-audience">General Inquiries</div>
+        <h3 data-field="sw.general-label">Anything else.</h3>
         <div class="addr">
-          <span class="em">hello@cityofpromise.org</span>
+          <span class="em" data-field="sw.general-email">hello@cityofpromise.org</span>
           <span class="arrow">→</span>
         </div>
       </a>

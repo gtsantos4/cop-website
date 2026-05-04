@@ -59,13 +59,22 @@
 <link rel="stylesheet" href="assets/site.css">
 {% if extraHead %}{{ extraHead | safe }}{% endif %}
 </head>
-<body>
+<body{% if editPage %} data-edit-page="{{ editPage }}"{% endif %}>
 
 {% include "header.njk" %}
 
 {{ content | safe }}
 
 {% include "footer.njk" %}
+
+{% if editPage %}
+<div id="edit-bar">
+  <button id="edit-toggle" type="button">Edit mode</button>
+  <span id="edit-status" class="edit-status">viewing</span>
+  <button id="edit-revert" type="button" class="ghost" style="display:none;">Discard</button>
+</div>
+<script src="assets/edit.js" defer></script>
+{% endif %}
 
 </body>
 </html>

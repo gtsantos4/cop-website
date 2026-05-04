@@ -215,3 +215,48 @@ footer .footer-bottom {
   transition: transform var(--dur, 200ms) var(--ease, ease);
 }
 .team-card-link:hover { transform: translateY(-3px); }
+
+/* ---------- Inline-edit toolbar + edit mode ---------- */
+#edit-bar {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  display: flex; align-items: center; gap: 8px;
+  background: var(--color-navy); color: #fff;
+  padding: 8px 10px; border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(7,48,91,.35);
+  font-family: var(--font-body); font-size: 13px;
+}
+#edit-bar button {
+  background: var(--color-gold); color: var(--color-navy);
+  border: 0; padding: 6px 12px; border-radius: 5px;
+  font-weight: 600; font-size: 13px; font-family: var(--font-body);
+  cursor: pointer;
+}
+#edit-bar button.ghost {
+  background: transparent; color: #fff;
+  border: 1px solid rgba(255,255,255,.3);
+}
+.edit-status { opacity: .75; padding: 0 4px; min-width: 80px; text-align: right; }
+.edit-status.dirty  { color: var(--color-gold); opacity: 1; }
+.edit-status.saving { color: #fff; opacity: .9; }
+.edit-status.saved  { color: #A8E8B8; opacity: 1; }
+.edit-status.err    { color: #FF9A7A; opacity: 1; }
+
+body.edit-mode [data-field] {
+  outline: 1px dashed rgba(213,163,58,.55);
+  outline-offset: 3px;
+  border-radius: 2px;
+  cursor: text;
+  transition: outline-color 150ms;
+}
+body.edit-mode [data-field]:hover {
+  outline: 1px dashed rgba(213,163,58,.95);
+  background: rgba(213,163,58,.08);
+}
+body.edit-mode [data-field]:focus {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  background: rgba(213,163,58,.12);
+}
+body.edit-mode button:not(#edit-bar button),
+body.edit-mode a:not(#edit-bar a) { pointer-events: none; }
+body.edit-mode [data-field] { pointer-events: auto; }
