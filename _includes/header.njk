@@ -11,5 +11,27 @@
     <a href="published-work.html"{% if activePage == "published-work" %} class="is-active"{% endif %}>Published Work</a>
     <a href="contact.html"{% if activePage == "contact" %} class="is-active"{% endif %}>Contact</a>
   </nav>
-  <a href="get-involved.html" class="donate-btn">Donate</a>
+  <div class="header-right">
+    <button type="button" class="search-btn" data-search-open aria-label="Search the site">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true">
+        <circle cx="9" cy="9" r="6"></circle>
+        <line x1="13.5" y1="13.5" x2="17" y2="17" stroke-linecap="round"></line>
+      </svg>
+    </button>
+    <a href="get-involved.html" class="donate-btn">Donate</a>
+  </div>
 </header>
+
+<div class="search-modal" id="site-search-modal" role="dialog" aria-modal="true" aria-label="Search this site" hidden>
+  <div class="search-modal-card" role="document">
+    <div class="search-modal-input-wrap">
+      <svg class="search-modal-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true">
+        <circle cx="9" cy="9" r="6"></circle>
+        <line x1="13.5" y1="13.5" x2="17" y2="17" stroke-linecap="round"></line>
+      </svg>
+      <input id="site-search-input" type="search" placeholder="Search programs, people, reports…" autocomplete="off" spellcheck="false">
+    </div>
+    <div id="site-search-results" class="search-results" role="listbox" aria-label="Search results"></div>
+  </div>
+</div>
+<script src="assets/search.js" defer></script>

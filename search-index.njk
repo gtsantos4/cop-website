@@ -1,0 +1,18 @@
+---
+permalink: /search-index.json
+eleventyExcludeFromCollections: true
+---
+[
+{%- set sep = "" -%}
+{%- for p in collections.all -%}
+  {%- set url = p.url or "" -%}
+  {%- if p.data.title and "Wireframes" not in url and "/docs/" not in url and "/search-index" not in url and "/constellation" not in url -%}
+{{ sep | safe }}{
+  "title": {{ p.data.title | dump | safe }},
+  "url": {{ url | dump | safe }},
+  "body": {{ p.templateContent | striphtml | dump | safe }}
+}
+    {%- set sep = "," -%}
+  {%- endif -%}
+{%- endfor %}
+]

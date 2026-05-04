@@ -5,7 +5,7 @@
 // To deploy a different worker URL, change SAVE_URL below and rebuild.
 
 (function () {
-  const SAVE_URL = "REPLACE_WITH_WORKER_URL";
+  const SAVE_URL = "https://cop-edit-worker.gracetsantos.workers.dev/save";
 
   const page = document.body.dataset.editPage;
   if (!page) return; // page didn't opt in

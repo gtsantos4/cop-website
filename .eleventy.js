@@ -7,8 +7,29 @@ module.exports = function(eleventyConfig) {
   // template processing in .eleventyignore and pass it through verbatim.
   eleventyConfig.addPassthroughCopy("constellation.html");
 
-  // Watch CSS so dev server reloads when shared styles change.
+  // Watch CSS + search assets so dev server reloads on change.
   eleventyConfig.addWatchTarget("assets/site.css");
+  eleventyConfig.addWatchTarget("assets/search.js");
+
+  // Strip HTML for the build-time search index. Removes script/style blocks,
+  // tags, comments, and decodes a few common entities. Good enough for a
+  // small site; no need for a real HTML parser.
+  eleventyConfig.addFilter("striphtml", function(content) {
+    if (!content) return "";
+    return String(content)
+      .replace(/<(script|style)\b[^<]*(?:(?!<\/\1>)<[^<]*)*<\/\1>/gi, " ")
+      .replace(/<!--[\s\S]*?-->/g, " ")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;/g, " ")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&[a-z]+;/gi, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  });
 
 
   return {
