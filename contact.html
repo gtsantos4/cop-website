@@ -1,0 +1,308 @@
+---
+layout: base.njk
+title: "Contact — City of Promise"
+activePage: contact
+permalink: /contact.html
+---
+<style>
+  .gold-rule { width: 64px; height: 3px; background: var(--color-gold); border: 0; margin: 0 0 22px; }
+
+  /* ---------- Hero (navy, matches site pattern) ---------- */
+  .ct-hero { background: var(--color-navy); color: #fff; padding: 96px 48px 104px; }
+  .ct-hero .inner { max-width: 1184px; margin: 0 auto; }
+  .ct-hero .kicker {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,.65); margin-bottom: 22px;
+  }
+  .ct-hero h1 {
+    font-family: var(--font-display); font-size: 88px; font-weight: 700;
+    color: #fff; text-transform: uppercase;
+    letter-spacing: -2px; line-height: 1.02; margin: 0; max-width: 1000px;
+  }
+  .ct-hero .lede {
+    font-family: var(--font-body); font-size: 20px;
+    color: rgba(255,255,255,.82); line-height: 1.55;
+    margin: 32px 0 0; max-width: 720px;
+  }
+
+  /* ---------- Visit section ---------- */
+  .ct-visit { background: var(--color-canvas); padding: 96px 48px; }
+  .ct-visit .inner { max-width: 1184px; margin: 0 auto; }
+  .ct-visit .head { margin-bottom: 48px; }
+  .ct-visit .eyebrow {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: rgba(7,48,91,.60); margin-bottom: 14px;
+  }
+  .ct-visit h2 {
+    font-family: var(--font-display); font-size: 48px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -1px; line-height: 1.1;
+    margin: 0; text-transform: none;
+  }
+  .ct-visit .lede {
+    font-family: var(--font-body); font-size: 18px;
+    color: rgba(7,48,91,.70); line-height: 1.55;
+    margin: 16px 0 0; max-width: 640px;
+  }
+
+  .visit-card {
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+  .visit-card .pad { padding: 44px 40px; display: flex; flex-direction: column; }
+  .visit-card .num {
+    font-family: var(--font-display); font-size: 14px; font-weight: 600;
+    color: var(--color-gold); letter-spacing: 0.4px; margin-bottom: 14px;
+  }
+  .visit-card h3 {
+    font-family: var(--font-display); font-size: 36px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -0.6px; line-height: 1.1;
+    margin: 0; text-transform: none;
+  }
+  .visit-card .addr {
+    font-family: var(--font-body); font-size: 17px;
+    color: rgba(7,48,91,.78); line-height: 1.55;
+    margin: 12px 0 0;
+  }
+  .visit-card .rule { width: 40px; height: 2px; background: var(--color-gold); margin: 28px 0 18px; border: 0; }
+  .visit-card .hours-lbl {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 1.4px; text-transform: uppercase; color: rgba(7,48,91,.55);
+    margin-bottom: 8px;
+  }
+  .visit-card .hours {
+    font-family: var(--font-body); font-size: 15px;
+    color: rgba(7,48,91,.80); line-height: 1.6;
+  }
+  .visit-card .hours .note { color: rgba(7,48,91,.55); }
+  .visit-card .ctas { margin-top: 32px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .visit-card .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 22px; border-radius: 6px; border: 0;
+    font-family: var(--font-body); font-size: 15px; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: all 200ms cubic-bezier(.2,.6,.2,1);
+  }
+  .visit-card .btn:hover { transform: scale(1.04); text-decoration: none; }
+  .visit-card .btn.navy { background: var(--color-navy); color: #fff; }
+
+  .visit-card .map {
+    min-height: 360px;
+    background: var(--color-tan);
+    background-image:
+      linear-gradient(135deg, rgba(7,48,91,.05) 25%, transparent 25%, transparent 50%, rgba(7,48,91,.05) 50%, rgba(7,48,91,.05) 75%, transparent 75%, transparent);
+    background-size: 28px 28px;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(7,48,91,.5);
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 1.4px; text-transform: uppercase;
+  }
+  .visit-card .map::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 22px; height: 22px;
+    background: var(--color-gold);
+    border: 3px solid #fff;
+    border-radius: 999px;
+    transform: translate(-50%,-50%);
+    box-shadow: 0 6px 18px rgba(7,48,91,.25);
+  }
+
+  /* ---------- Switchboard (audience email tiles) ---------- */
+  .ct-switchboard { background: var(--color-tan); padding: 96px 48px; }
+  .ct-switchboard .inner { max-width: 1184px; margin: 0 auto; }
+  .ct-switchboard .head { margin-bottom: 48px; }
+  .ct-switchboard .eyebrow {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: rgba(7,48,91,.60); margin-bottom: 14px;
+  }
+  .ct-switchboard h2 {
+    font-family: var(--font-display); font-size: 48px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -1px; line-height: 1.1;
+    margin: 0; text-transform: none;
+  }
+  .ct-switchboard .lede {
+    font-family: var(--font-body); font-size: 18px;
+    color: rgba(7,48,91,.70); line-height: 1.55;
+    margin: 16px 0 0; max-width: 640px;
+  }
+
+  .sw-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+  }
+  .sw-btn {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 32px;
+    box-shadow: var(--shadow-card);
+    text-decoration: none;
+    color: var(--color-navy);
+    transition: all 200ms cubic-bezier(.2,.6,.2,1);
+  }
+  .sw-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+    text-decoration: none;
+  }
+  .sw-btn .audience {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: rgba(7,48,91,.60); margin-bottom: 12px;
+  }
+  .sw-btn h3 {
+    font-family: var(--font-display); font-size: 28px; font-weight: 600;
+    color: var(--color-navy); letter-spacing: -0.4px; line-height: 1.1;
+    margin: 0 0 18px; text-transform: none;
+  }
+  .sw-btn .addr {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 16px;
+  }
+  .sw-btn .em {
+    font-family: var(--font-body); font-size: 15px; font-weight: 500;
+    color: var(--color-primary);
+  }
+  .sw-btn .arrow {
+    font-family: var(--font-display); font-size: 22px;
+    color: var(--color-gold);
+    transition: transform 200ms cubic-bezier(.2,.6,.2,1);
+  }
+  .sw-btn:hover .arrow { transform: translateX(4px); }
+
+  .sw-btn.gold { background: var(--color-gold); border-color: var(--color-gold); }
+  .sw-btn.gold .audience { color: rgba(7,48,91,.75); }
+  .sw-btn.gold .addr { border-top-color: rgba(7,48,91,.20); }
+  .sw-btn.gold .em { color: var(--color-navy); }
+  .sw-btn.gold .arrow { color: var(--color-navy); }
+
+  .sw-btn.navy { background: var(--color-navy); border-color: var(--color-navy); color: #fff; }
+  .sw-btn.navy h3 { color: #fff; }
+  .sw-btn.navy .audience { color: rgba(255,255,255,.70); }
+  .sw-btn.navy .addr { border-top-color: rgba(255,255,255,.18); }
+  .sw-btn.navy .em { color: var(--color-gold); }
+  .sw-btn.navy .arrow { color: var(--color-gold); }
+
+  .sw-btn.canvas { background: var(--color-canvas); border-color: rgba(7,48,91,.10); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .ct-hero { padding: 72px 24px 80px; }
+    .ct-hero h1 { font-size: 56px; letter-spacing: -1.2px; }
+    .ct-visit, .ct-switchboard { padding: 72px 24px; }
+    .visit-card { grid-template-columns: 1fr; }
+    .visit-card .pad { padding: 32px 28px; }
+    .visit-card .map { min-height: 240px; }
+    .sw-grid { grid-template-columns: 1fr; gap: 14px; }
+    .sw-btn { padding: 26px; }
+    .sw-btn h3 { font-size: 24px; }
+    .ct-visit h2, .ct-switchboard h2 { font-size: 36px; letter-spacing: -0.6px; }
+  }
+</style>
+
+<!-- ============ HERO ============ -->
+<section class="ct-hero">
+  <div class="inner">
+    <hr class="gold-rule">
+    <div class="kicker">Contact</div>
+    <h1>Come find us in the neighborhoods we work in.</h1>
+    <p class="lede">A storefront in Charlottesville's 10th &amp; Page neighborhood, plus the work that happens in 7 schools and on the blocks around them.</p>
+  </div>
+</section>
+
+<!-- ============ VISIT ============ -->
+<section class="ct-visit">
+  <div class="inner">
+    <div class="head">
+      <div class="eyebrow">Visit</div>
+      <h2>Walk in. We're here.</h2>
+      <p class="lede">Front desk staffed weekdays. Walk-ins welcome at the main office.</p>
+    </div>
+
+    <div class="visit-card">
+      <div class="pad">
+        <div class="num">Main Office</div>
+        <h3>708 Page Street</h3>
+        <div class="addr">Charlottesville, VA 22903<br>10th &amp; Page neighborhood</div>
+
+        <hr class="rule">
+
+        <div class="hours-lbl">Hours</div>
+        <div class="hours">
+          Mon–Fri · 9:00am – 5:00pm<br>
+          Sat–Sun · closed<br>
+          <span class="note">Walk-ins welcome.</span>
+        </div>
+
+        <div class="ctas">
+          <a class="btn navy" href="https://maps.google.com/?q=708+Page+St+Charlottesville+VA+22903" target="_blank" rel="noopener">Get directions →</a>
+        </div>
+      </div>
+      <div class="map" aria-hidden="true">map placeholder</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SWITCHBOARD ============ -->
+<section class="ct-switchboard">
+  <div class="inner">
+    <div class="head">
+      <div class="eyebrow">Email — by who you are</div>
+      <h2>Four doors. Each one opens into a real inbox.</h2>
+      <p class="lede">Pick the line that fits. Each button opens an email to the person who handles it.</p>
+    </div>
+
+    <div class="sw-grid">
+
+      <a class="sw-btn gold" href="mailto:donors@cityofpromise.org">
+        <div class="audience">Donors &amp; Sponsors</div>
+        <h3>Become a partner in the work.</h3>
+        <div class="addr">
+          <span class="em">donors@cityofpromise.org</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+      <a class="sw-btn" href="mailto:families@cityofpromise.org">
+        <div class="audience">Families &amp; Services</div>
+        <h3>Connect with a coordinator.</h3>
+        <div class="addr">
+          <span class="em">families@cityofpromise.org</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+      <a class="sw-btn navy" href="mailto:press@cityofpromise.org">
+        <div class="audience">Media &amp; Partnerships</div>
+        <h3>Press, podcasts, partnership.</h3>
+        <div class="addr">
+          <span class="em">press@cityofpromise.org</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+      <a class="sw-btn canvas" href="mailto:hello@cityofpromise.org">
+        <div class="audience">General Inquiries</div>
+        <h3>Anything else.</h3>
+        <div class="addr">
+          <span class="em">hello@cityofpromise.org</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>

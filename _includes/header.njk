@@ -1,15 +1,15 @@
 <header class="site-header">
   <a href="index.html" aria-label="City of Promise home">
-    <img src="assets/logo-horizontal.png" alt="City of Promise">
+    <img src="assets/logo-horizontal.png" alt="City of Promise" width="127" height="48" fetchpriority="high" decoding="sync">
   </a>
   <nav>
     <a href="what-we-do.html"{% if activePage == "what-we-do" %} class="is-active"{% endif %}>What We Do</a>
     <a href="our-approach.html"{% if activePage == "our-approach" %} class="is-active"{% endif %}>Our Approach</a>
     <a href="who-we-are.html"{% if activePage == "who-we-are" %} class="is-active"{% endif %}>Who We Are</a>
-    <a href="#">Access Services</a>
+    <a href="access-services.html"{% if activePage == "access-services" %} class="is-active"{% endif %}>Access Services</a>
     <a href="get-involved.html"{% if activePage == "get-involved" %} class="is-active"{% endif %}>Get Involved</a>
-    <a href="#">Published Work</a>
-    <a href="#">Contact</a>
+    <a href="published-work.html"{% if activePage == "published-work" %} class="is-active"{% endif %}>Published Work</a>
+    <a href="contact.html"{% if activePage == "contact" %} class="is-active"{% endif %}>Contact</a>
   </nav>
   <a href="get-involved.html" class="donate-btn">Donate</a>
 </header>

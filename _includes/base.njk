@@ -29,10 +29,12 @@
 <link rel="prefetch" href="index.html" as="document">
 <link rel="prefetch" href="what-we-do.html" as="document">
 <link rel="prefetch" href="community-schools.html" as="document">
+<link rel="prefetch" href="dreambuilders.html" as="document">
 <link rel="prefetch" href="family-engagement.html" as="document">
 <link rel="prefetch" href="our-approach.html" as="document">
 <link rel="prefetch" href="who-we-are.html" as="document">
 <link rel="prefetch" href="get-involved.html" as="document">
+<link rel="prefetch" href="access-services.html" as="document">
 <link rel="prefetch" href="volunteer.html" as="document">
 
 <!-- Paint the page background BEFORE any external CSS loads, to kill the
@@ -40,13 +42,18 @@
 <style>html, body { background: #EEEEEC; }</style>
 <link rel="icon" href="assets/favicon.png">
 
-<!-- Fonts: preconnect + parallel-load. display=optional means the browser
-     uses fallback if Inter/Fraunces aren't ready in <100ms, then uses real
-     fonts on subsequent page loads (cached). Avoids the visible "text moves"
-     flash when fonts arrive late. -->
+<!-- Preload the header logo so it's already in HTTP cache when the next page
+     paints. Without this, every navigation re-fetches/re-decodes the 217KB PNG,
+     causing a brief flash where the logo box renders empty. -->
+<link rel="preload" as="image" href="assets/logo-horizontal.png" fetchpriority="high">
+
+<!-- Fonts: preconnect + parallel-load. display=swap shows fallback
+     immediately and swaps in Fraunces/Inter when loaded. Used instead
+     of display=optional because optional caused inconsistent rendering
+     across pages (first-load pages got Georgia, cached pages got Fraunces). -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=optional">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap">
 
 <link rel="stylesheet" href="colors_and_type.css">
 <link rel="stylesheet" href="assets/site.css">

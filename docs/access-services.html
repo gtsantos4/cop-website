@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>City of Promise — Access Services</title>
+
+<!-- Tell Chromium browsers to prerender same-site pages immediately.
+     "eager" means: prerender all matched links as soon as this page loads,
+     not on hover-intent. Needed because moderate eagerness waits for a
+     heuristic that often doesn't fire before the click on a small site.
+     When the user clicks a nav link the page is already loaded → no flash. -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "where": { "and": [
+      { "href_matches": "/*" },
+      { "not": { "href_matches": "/constellation.html" } },
+      { "not": { "href_matches": "/*.pdf" } }
+    ]},
+    "eagerness": "eager"
+  }]
+}
+</script>
+
+<!-- Plain prefetch fallback for browsers without Speculation Rules support
+     (Safari, Firefox). Loads HTML into HTTP cache during idle time so the
+     navigation paints from cache instead of from the network. -->
+<link rel="prefetch" href="index.html" as="document">
+<link rel="prefetch" href="what-we-do.html" as="document">
+<link rel="prefetch" href="community-schools.html" as="document">
+<link rel="prefetch" href="dreambuilders.html" as="document">
+<link rel="prefetch" href="family-engagement.html" as="document">
+<link rel="prefetch" href="our-approach.html" as="document">
+<link rel="prefetch" href="who-we-are.html" as="document">
+<link rel="prefetch" href="get-involved.html" as="document">
+<link rel="prefetch" href="access-services.html" as="document">
+<link rel="prefetch" href="volunteer.html" as="document">
+
+<!-- Paint the page background BEFORE any external CSS loads, to kill the
+     white flash between page navigations. Hex must match --color-canvas. -->
+<style>html, body { background: #EEEEEC; }</style>
+<link rel="icon" href="assets/favicon.png">
+
+<!-- Preload the header logo so it's already in HTTP cache when the next page
+     paints. Without this, every navigation re-fetches/re-decodes the 217KB PNG,
+     causing a brief flash where the logo box renders empty. -->
+<link rel="preload" as="image" href="assets/logo-horizontal.png" fetchpriority="high">
+
+<!-- Fonts: preconnect + parallel-load. display=swap shows fallback
+     immediately and swaps in Fraunces/Inter when loaded. Used instead
+     of display=optional because optional caused inconsistent rendering
+     across pages (first-load pages got Georgia, cached pages got Fraunces). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap">
+
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="assets/site.css">
+
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" aria-label="City of Promise home">
+    <img src="assets/logo-horizontal.png" alt="City of Promise" width="127" height="48" fetchpriority="high" decoding="sync">
+  </a>
+  <nav>
+    <a href="what-we-do.html">What We Do</a>
+    <a href="our-approach.html">Our Approach</a>
+    <a href="who-we-are.html">Who We Are</a>
+    <a href="access-services.html" class="is-active">Access Services</a>
+    <a href="get-involved.html">Get Involved</a>
+    <a href="published-work.html">Published Work</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a href="get-involved.html" class="donate-btn">Donate</a>
+</header>
+
+
+<style>
+  .gold-rule { width: 64px; height: 3px; background: var(--color-gold); border: 0; margin: 0 0 22px; }
+
+  /* ---------- Hero (navy, matches WWD / program-detail pages) ---------- */
+  .as-hero { background: var(--color-navy); color: #fff; padding: 96px 48px 104px; }
+  .as-hero .inner { max-width: 1184px; margin: 0 auto; }
+  .as-hero .kicker {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,.65); margin-bottom: 22px;
+  }
+  .as-hero h1 {
+    font-family: var(--font-display); font-size: 88px; font-weight: 700;
+    color: #fff; text-transform: uppercase;
+    letter-spacing: -2px; line-height: 1.02; margin: 0; max-width: 1000px;
+  }
+  .as-hero .lede {
+    font-family: var(--font-body); font-size: 20px;
+    color: rgba(255,255,255,.82); line-height: 1.55;
+    margin: 32px 0 0; max-width: 720px;
+  }
+  .as-hero .hero-ctas {
+    display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; align-items: center;
+  }
+  .as-hero .portal-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 20px; border-radius: 6px;
+    font-family: var(--font-body); font-size: 14px; font-weight: 600;
+    color: #fff; background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.30);
+    text-decoration: none;
+    transition: all 200ms cubic-bezier(.2,.6,.2,1);
+  }
+  .as-hero .portal-link:hover {
+    background: rgba(255,255,255,.14); text-decoration: none;
+    border-color: rgba(255,255,255,.50);
+  }
+  .as-hero .portal-link .lock { font-size: 13px; opacity: .85; }
+
+  /* ---------- Services grid ---------- */
+  .as-services { padding: 96px 48px; background: var(--color-canvas); }
+  .as-services .inner { max-width: 1184px; margin: 0 auto; }
+  .as-services .header-row { margin-bottom: 48px; }
+  .as-services h2 {
+    font-family: var(--font-display); font-size: 44px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -1px; line-height: 1.1; margin: 0;
+    text-transform: none;
+  }
+  .as-services .header-row p {
+    font-family: var(--font-body); font-size: 18px;
+    color: rgba(7,48,91,.70); line-height: 1.55;
+    margin: 16px 0 0; max-width: 640px;
+  }
+
+  .svc-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .svc-card {
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 32px 28px 28px;
+    display: flex; flex-direction: column;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+  .svc-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+  }
+  .svc-card h3 {
+    font-family: var(--font-display); font-size: 28px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -0.6px; line-height: 1.1;
+    margin: 0; text-transform: none;
+  }
+  .svc-card .rule {
+    width: 40px; height: 2px; background: var(--color-gold);
+    margin: 14px 0 16px; border: 0;
+  }
+  .svc-card p {
+    font-family: var(--font-body); font-size: 15px;
+    color: rgba(7,48,91,.75); line-height: 1.55;
+    margin: 0 0 18px;
+  }
+  .svc-card .meta {
+    margin-top: auto; padding-top: 16px;
+    border-top: 1px solid var(--border-subtle);
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .svc-card .chip {
+    display: inline-block; padding: 5px 12px; border-radius: 999px;
+    font-family: var(--font-body); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.4px; color: var(--color-navy);
+    border: 1px solid rgba(7,48,91,.18);
+  }
+  .svc-card .cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-body); font-size: 15px; font-weight: 600;
+    color: var(--color-primary); text-decoration: none;
+  }
+  .svc-card .cta:hover {
+    text-decoration: underline; text-decoration-color: var(--color-gold);
+    text-decoration-thickness: 2px; text-underline-offset: 3px;
+  }
+
+  .svc-card.contact { background: var(--color-tan); border-color: rgba(7,48,91,.12); }
+
+  /* ---------- Final CTA ---------- */
+  .as-cta { background: var(--color-navy); color: #fff; padding: 96px 48px; }
+  .as-cta .inner { max-width: 1184px; margin: 0 auto; }
+  .as-cta h2 {
+    font-family: var(--font-display); font-size: 56px; font-weight: 700;
+    color: #fff; letter-spacing: -1.2px; line-height: 1.05;
+    margin: 0; text-transform: uppercase;
+  }
+  .as-cta p {
+    font-family: var(--font-body); font-size: 19px;
+    color: rgba(255,255,255,.82); line-height: 1.55; margin: 24px 0 0; max-width: 620px;
+  }
+  .as-cta .ctas { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+  .as-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 22px; border-radius: 6px; border: 0;
+    font-family: var(--font-body); font-size: 15px; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: all 200ms cubic-bezier(.2,.6,.2,1);
+  }
+  .as-btn:hover { transform: scale(1.04); text-decoration: none; }
+  .as-btn.gold { background: var(--color-gold); color: var(--color-navy); }
+  .as-btn.outline-dark { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.45); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1100px) {
+    .as-hero h1 { font-size: 60px; letter-spacing: -1.4px; }
+    .svc-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 700px) {
+    .as-hero, .as-services, .as-cta {
+      padding-left: 20px; padding-right: 20px;
+    }
+    .as-hero { padding-top: 56px; padding-bottom: 64px; }
+    .as-hero h1 { font-size: 40px; letter-spacing: -1px; }
+    .as-services, .as-cta { padding-top: 64px; padding-bottom: 64px; }
+    .as-services h2 { font-size: 32px; letter-spacing: -0.6px; }
+    .svc-grid { grid-template-columns: 1fr; }
+    .as-cta h2 { font-size: 36px; letter-spacing: -0.6px; }
+  }
+</style>
+
+<!-- ============ HERO ============ -->
+<section class="as-hero">
+  <div class="inner">
+    <hr class="gold-rule">
+    <div class="kicker">Access Services</div>
+    <h1>How we can<br>help.</h1>
+    <p class="lede">The ways City of Promise families and Charlottesville neighbors connect to support — programs, scholarships, short-term funding, and parent advocacy.</p>
+    <div class="hero-ctas">
+      <a class="portal-link" href="#">
+        <span class="lock" aria-hidden="true">🔒</span>
+        Member portal login
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES GRID ============ -->
+<section class="as-services">
+  <div class="inner">
+    <div class="header-row">
+      <hr class="gold-rule">
+      <h2>Services and supports.</h2>
+      <p>Each service has its own intake. Click through for details, or reach out and we'll walk you through it.</p>
+    </div>
+
+    <div class="svc-grid">
+
+      <!-- Community Schools -->
+      <div class="svc-card">
+        <h3>Community Schools</h3>
+        <hr class="rule">
+        <p>Coordinators embedded at seven Charlottesville school sites. After-school tutoring four days a week, on-site food pantries, and the Walking Bus that gets 25–30 kids to and from Trailblazer every day.</p>
+        <div class="meta">
+          <span class="chip">7 sites</span>
+          <span class="chip">PreK–12</span>
+        </div>
+        <a class="cta" href="community-schools.html">See how it works <span>→</span></a>
+      </div>
+
+      <!-- Dreambuilders -->
+      <div class="svc-card">
+        <h3>Dreambuilders</h3>
+        <hr class="rule">
+        <p>Two-year wraparound program for working Charlottesville families. Parent classes, family learning time, embedded coaching, and up to $7,000 in micro-financing toward self-sufficiency.</p>
+        <div class="meta">
+          <span class="chip">Application required</span>
+          <span class="chip">2-year cohort</span>
+        </div>
+        <a class="cta" href="dreambuilders.html">Program details <span>→</span></a>
+      </div>
+
+      <!-- Family Engagement & Advocacy -->
+      <div class="svc-card">
+        <h3>Family Engagement &amp; Advocacy</h3>
+        <hr class="rule">
+        <p>The parent-facing arm of our model — parenting coaching, school advocacy, and connection to the wider Charlottesville safety net. Open to any CoP family, no application required.</p>
+        <div class="meta">
+          <span class="chip">CoP families</span>
+          <span class="chip">Ongoing</span>
+        </div>
+        <a class="cta" href="family-engagement.html">What support looks like <span>→</span></a>
+      </div>
+
+      <!-- Gateway Services -->
+      <div class="svc-card">
+        <h3>Gateway Services</h3>
+        <hr class="rule">
+        <p>Short-term funding to help CoP families through emergencies — utility shutoffs, late rent, transportation, school supplies, and other one-time needs that get in the way of stability.</p>
+        <div class="meta">
+          <span class="chip">CoP families</span>
+          <span class="chip">One-time</span>
+        </div>
+        <a class="cta" href="#contact">Request support <span>→</span></a>
+      </div>
+
+      <!-- Scholarships -->
+      <div class="svc-card">
+        <h3>Scholarships</h3>
+        <hr class="rule">
+        <p>The <strong>Sarad Davenport Promise of Education Award</strong> and the <strong>DeSoto Jordan Senior of Promise Award</strong> — $1,000 each — for first-generation and low-income graduates of Charlottesville City Schools heading to college, vocational training, or a career.</p>
+        <div class="meta">
+          <span class="chip">CCS graduates</span>
+          <span class="chip">$1,000 awards</span>
+        </div>
+        <a class="cta" href="mailto:jermaine@cityofpromise.org">Apply or ask Jermaine <span>→</span></a>
+      </div>
+
+      <!-- Contact -->
+      <div class="svc-card contact" id="contact">
+        <h3>Contact us.</h3>
+        <hr class="rule">
+        <p>Tell us what's going on. If we can help, we will. If another Charlottesville organization is the better fit, we'll connect you to them — that's part of the constellation of care.</p>
+        <div class="meta">
+          <span class="chip">Open to anyone</span>
+        </div>
+        <a class="cta" href="mailto:info@cityofpromise.org">Start a conversation <span>→</span></a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="as-cta">
+  <div class="inner">
+    <hr class="gold-rule">
+    <h2>Take the first<br>step.</h2>
+    <p>Whether you've been with City of Promise for years or this is the first time you've heard of us — we'd like to hear from you.</p>
+    <div class="ctas">
+      <a class="as-btn gold" href="mailto:info@cityofpromise.org">Email us <span>→</span></a>
+      <a class="as-btn outline-dark" href="tel:+14342938946">(434) 293-8946 <span>→</span></a>
+      <a class="as-btn outline-dark" href="#">Member portal <span>→</span></a>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="grid">
+    <div>
+      <div class="org-name">City of Promise</div>
+      <div class="address">
+        708 Page Street<br>
+        Charlottesville, VA 22903
+      </div>
+    </div>
+    <div>
+      <h4>What We Do</h4>
+      <ul>
+        <li><a href="what-we-do.html">Community Schools</a></li>
+        <li><a href="what-we-do.html">Dreambuilders</a></li>
+        <li><a href="what-we-do.html">Family Engagement</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Who We Are</h4>
+      <ul>
+        <li><a href="who-we-are.html#team">Team</a></li>
+        <li><a href="who-we-are.html#board">Board</a></li>
+        <li><a href="who-we-are.html#history">History</a></li>
+        <li><a href="who-we-are.html#partners">Partners</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get Involved</h4>
+      <ul>
+        <li><a href="get-involved.html">Donate</a></li>
+        <li><a href="volunteer.html">Volunteer</a></li>
+        <li><a href="get-involved.html#partner">Partner with us</a></li>
+        <li><a href="get-involved.html">NAP Tax Credits</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Published Work</h4>
+      <ul>
+        <li><a href="published-work.html#reports">Annual Report</a></li>
+        <li><a href="published-work.html#radio">Envision Radio</a></li>
+        <li><a href="published-work.html#from-the-ed">From the ED</a></li>
+        <li><a href="published-work.html#financials">990s</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 City of Promise</span>
+    <span>Charlottesville, Virginia</span>
+  </div>
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+---
+layout: base.njk
+title: "2025 Annual Report — City of Promise"
+activePage: published-work
+permalink: /ar2025.html
+---
+<style>
+  .ar-page-hero {
+    background: var(--color-navy); color: #fff;
+    padding: 64px 48px 56px;
+  }
+  .ar-page-hero .inner { max-width: 1184px; margin: 0 auto; }
+  .ar-page-hero .gold-rule {
+    width: 64px; height: 3px; background: var(--color-gold);
+    border: 0; margin: 0 0 18px;
+  }
+  .ar-page-hero .kicker {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,.65); margin-bottom: 16px;
+  }
+  .ar-page-hero h1 {
+    font-family: var(--font-display); font-size: 56px; font-weight: 700;
+    color: #fff; letter-spacing: -1.2px; line-height: 1.05;
+    margin: 0; max-width: 900px;
+  }
+  .ar-page-hero p {
+    font-family: var(--font-body); font-size: 18px;
+    color: rgba(255,255,255,.82); line-height: 1.55;
+    margin: 22px 0 0; max-width: 720px;
+  }
+  .ar-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 22px;
+    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    color: rgba(255,255,255,.7); text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 200ms cubic-bezier(.2,.6,.2,1);
+  }
+  .ar-back:hover {
+    color: var(--color-gold);
+    border-bottom-color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .ar-viewer {
+    background: var(--color-canvas);
+    padding: 48px 24px 72px;
+  }
+  .ar-viewer .inner {
+    max-width: 1024px; margin: 0 auto;
+  }
+  .ar-viewer iframe {
+    display: block;
+    width: 100%; max-width: 1012px; height: 720px;
+    margin: 0 auto;
+    background: #fff;
+    border: 0;
+    box-shadow: 0 10px 40px rgba(7,48,91,.18);
+    border-radius: 8px;
+  }
+  .ar-viewer .meta {
+    margin-top: 22px;
+    display: flex; flex-wrap: wrap; gap: 16px;
+    align-items: center; justify-content: center;
+    font-family: var(--font-body); font-size: 13px;
+    color: var(--fg-3);
+  }
+  .ar-viewer .meta a {
+    color: var(--color-primary); font-weight: 600;
+    text-decoration: none;
+  }
+  .ar-viewer .meta a:hover { color: var(--color-gold); }
+
+  .ar-foot {
+    background: #fff; padding: 64px 48px;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .ar-foot .inner {
+    max-width: 1184px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    align-items: start;
+  }
+  .ar-foot h3 {
+    font-family: var(--font-display); font-size: 28px; font-weight: 600;
+    color: var(--color-navy); letter-spacing: -0.4px; margin: 0 0 14px;
+  }
+  .ar-foot p {
+    font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+    color: rgba(7,48,91,.78); margin: 0;
+  }
+  .ar-foot .ctas {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px;
+  }
+  .ar-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 22px; border-radius: 6px; border: 0;
+    font-family: var(--font-body); font-size: 15px; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: all 200ms cubic-bezier(.2,.6,.2,1);
+  }
+  .ar-btn:hover { transform: scale(1.04); text-decoration: none; }
+  .ar-btn.gold { background: var(--color-gold); color: var(--color-navy); }
+  .ar-btn.outline { background: transparent; color: var(--color-navy); border: 1px solid rgba(7,48,91,.30); }
+
+  @media (max-width: 1024px) {
+    .ar-foot .inner { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .ar-page-hero { padding: 48px 20px 40px; }
+    .ar-page-hero h1 { font-size: 36px; letter-spacing: -0.6px; }
+    .ar-viewer { padding: 32px 12px 56px; }
+    .ar-viewer iframe { height: 560px; }
+    .ar-foot { padding: 48px 20px; }
+  }
+</style>
+
+<section class="ar-page-hero">
+  <div class="inner">
+    <a class="ar-back" href="published-work.html#reports">&larr; Back to Published Work</a>
+    <hr class="gold-rule">
+    <h1>2025 Annual Report</h1>
+    <p>A look back on our biggest year of growth, while remaining steadfast in our core commitment: keep showing up.</p>
+  </div>
+</section>
+
+<section class="ar-viewer">
+  <div class="inner">
+    <iframe src="https://simplebooklet.com/embed.php?wpKey=qc5LuFOOZ0qhwldmzgAuYw&source=embed" allowfullscreen scrolling="no" title="2025 Annual Report — flip-through viewer"></iframe>
+    <div class="meta">
+      <span>Use the arrows or swipe to flip through the report.</span>
+      <span>&middot;</span>
+      <a href="https://simplebooklet.com/embed.php?wpKey=qc5LuFOOZ0qhwldmzgAuYw" target="_blank" rel="noopener">Open in fullscreen &rarr;</a>
+    </div>
+  </div>
+</section>
+

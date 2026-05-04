@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our Approach — City of Promise</title>
+
+<!-- Tell Chromium browsers to prerender same-site pages immediately.
+     "eager" means: prerender all matched links as soon as this page loads,
+     not on hover-intent. Needed because moderate eagerness waits for a
+     heuristic that often doesn't fire before the click on a small site.
+     When the user clicks a nav link the page is already loaded → no flash. -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "where": { "and": [
+      { "href_matches": "/*" },
+      { "not": { "href_matches": "/constellation.html" } },
+      { "not": { "href_matches": "/*.pdf" } }
+    ]},
+    "eagerness": "eager"
+  }]
+}
+</script>
+
+<!-- Plain prefetch fallback for browsers without Speculation Rules support
+     (Safari, Firefox). Loads HTML into HTTP cache during idle time so the
+     navigation paints from cache instead of from the network. -->
+<link rel="prefetch" href="index.html" as="document">
+<link rel="prefetch" href="what-we-do.html" as="document">
+<link rel="prefetch" href="community-schools.html" as="document">
+<link rel="prefetch" href="dreambuilders.html" as="document">
+<link rel="prefetch" href="family-engagement.html" as="document">
+<link rel="prefetch" href="our-approach.html" as="document">
+<link rel="prefetch" href="who-we-are.html" as="document">
+<link rel="prefetch" href="get-involved.html" as="document">
+<link rel="prefetch" href="access-services.html" as="document">
+<link rel="prefetch" href="volunteer.html" as="document">
+
+<!-- Paint the page background BEFORE any external CSS loads, to kill the
+     white flash between page navigations. Hex must match --color-canvas. -->
+<style>html, body { background: #EEEEEC; }</style>
+<link rel="icon" href="assets/favicon.png">
+
+<!-- Preload the header logo so it's already in HTTP cache when the next page
+     paints. Without this, every navigation re-fetches/re-decodes the 217KB PNG,
+     causing a brief flash where the logo box renders empty. -->
+<link rel="preload" as="image" href="assets/logo-horizontal.png" fetchpriority="high">
+
+<!-- Fonts: preconnect + parallel-load. display=swap shows fallback
+     immediately and swaps in Fraunces/Inter when loaded. Used instead
+     of display=optional because optional caused inconsistent rendering
+     across pages (first-load pages got Georgia, cached pages got Fraunces). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap">
+
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="assets/site.css">
+
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" aria-label="City of Promise home">
+    <img src="assets/logo-horizontal.png" alt="City of Promise" width="127" height="48" fetchpriority="high" decoding="sync">
+  </a>
+  <nav>
+    <a href="what-we-do.html">What We Do</a>
+    <a href="our-approach.html" class="is-active">Our Approach</a>
+    <a href="who-we-are.html">Who We Are</a>
+    <a href="access-services.html">Access Services</a>
+    <a href="get-involved.html">Get Involved</a>
+    <a href="published-work.html">Published Work</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a href="get-involved.html" class="donate-btn">Donate</a>
+</header>
+
+
+<style>
+
+  /* ---------- Sub-nav ---------- */
+  .sub-nav {
+    position: sticky; top: 81px; z-index: 19;
+    background: #fff; border-bottom: 1px solid var(--border-subtle);
+    padding: 14px 48px;
+    display: flex; gap: 28px; align-items: center;
+  }
+  .sub-nav .lbl {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 1.2px; text-transform: uppercase; color: var(--fg-3);
+  }
+  .sub-nav a {
+    font-family: var(--font-body); font-size: 14px; font-weight: 500;
+    color: var(--fg-2); text-decoration: none;
+    padding: 4px 0; border-bottom: 2px solid transparent;
+  }
+  .sub-nav a:hover { color: var(--color-navy); border-bottom-color: var(--color-gold); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: var(--color-navy); color: #fff;
+    padding: 96px 48px 104px;
+  }
+  .hero-inner { max-width: 1184px; margin: 0 auto; }
+  .hero .gold-rule { background: var(--color-gold); width: 64px; height: 3px; margin: 0 0 22px; border: 0; }
+  .hero .kicker {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,.65); margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 88px; line-height: 1.02; letter-spacing: -2px;
+    text-transform: uppercase; color: #fff;
+    max-width: 1000px; margin: 0;
+  }
+  .hero p {
+    font-family: var(--font-body); font-size: 20px; line-height: 1.55;
+    color: rgba(255,255,255,.82); max-width: 720px; margin: 32px 0 0;
+  }
+
+  /* ---------- Section base ---------- */
+  .section { padding: 96px 48px; }
+  .section-inner { max-width: 1184px; margin: 0 auto; }
+  .section.tan { background: var(--color-tan); }
+  .section.navy { background: var(--color-navy); color: #fff; }
+  .section.navy h2, .section.navy h3, .section.navy p { color: #fff; }
+
+  .marker {
+    display: flex; align-items: baseline; gap: 18px;
+    margin-bottom: 22px;
+  }
+  .marker .n {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 14px; letter-spacing: 1.5px;
+    color: var(--color-gold);
+  }
+  .marker .t {
+    font-family: var(--font-body); font-size: 13px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--color-navy);
+  }
+  .section.navy .marker .t { color: #fff; }
+  .marker .sub {
+    font-family: var(--font-italic); font-style: italic;
+    font-size: 13px; color: var(--fg-3);
+  }
+  .section.navy .marker .sub { color: rgba(255,255,255,.55); }
+
+  .section h2 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 48px; line-height: 1.08; letter-spacing: -1px;
+    color: var(--color-navy); margin: 0;
+  }
+  .section h3 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 32px; line-height: 1.15; letter-spacing: -0.6px;
+    color: var(--color-navy); margin: 0;
+  }
+  .section .lede {
+    font-family: var(--font-body); font-size: 19px; line-height: 1.55;
+    color: var(--fg-2); margin: 18px 0 0; max-width: 760px;
+  }
+  .section.navy .lede { color: rgba(255,255,255,.78); }
+
+  /* ---------- 01 The Problem ---------- */
+  .pullquote {
+    margin: 0 0 28px;
+    padding-left: 24px;
+    border-left: 4px solid var(--color-gold);
+  }
+  .pullquote p {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 36px; line-height: 1.18; letter-spacing: -0.7px;
+    color: var(--color-navy); margin: 0 0 12px;
+    max-width: 920px;
+  }
+  .pullquote .byline {
+    font-family: var(--font-body); font-size: 13px; color: var(--fg-3);
+  }
+
+  .body-lg {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.65;
+    color: var(--color-navy); max-width: 720px;
+  }
+
+  /* Bar chart */
+  .chart-wrap {
+    margin-top: 40px;
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 32px;
+  }
+  .chart-eyebrow {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--fg-3);
+  }
+  .chart-h {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 24px; line-height: 1.2; letter-spacing: -0.4px;
+    color: var(--color-navy); margin: 8px 0 0;
+  }
+  .chart-rule { width: 48px; height: 2px; background: var(--color-gold); border: 0; margin: 14px 0 24px; }
+  .chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1.1fr;
+    gap: 28px;
+    align-items: end;
+  }
+  .barpair {
+    display: flex; gap: 14px; align-items: flex-end;
+    height: 220px;
+    padding: 0 8px 28px;
+    border-bottom: 1.5px solid var(--color-navy);
+    position: relative;
+  }
+  .bar {
+    flex: 1; min-width: 36px;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    display: flex; flex-direction: column-reverse;
+    align-items: center;
+    padding-bottom: 6px;
+  }
+  .bar.white-pop { background: var(--color-gold); }
+  .bar.black-pop { background: var(--color-navy); }
+  .bar .pct {
+    position: absolute; top: -28px;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 20px; color: var(--color-navy);
+    letter-spacing: -0.4px;
+  }
+  .bar .lbl {
+    font-family: var(--font-body); font-size: 11px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: rgba(255,255,255,.85);
+  }
+  .bar.white-pop .lbl { color: var(--color-navy); }
+  .barpair-label {
+    position: absolute; bottom: -28px; left: 0; right: 0;
+    text-align: center;
+    font-family: var(--font-body); font-size: 11px; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--fg-2);
+  }
+  .chart-caption h4 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 22px; line-height: 1.2; letter-spacing: -0.4px;
+    color: var(--color-coral); margin: 0 0 10px;
+  }
+  .chart-caption p {
+    font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+    color: var(--color-navy); margin: 0;
+  }
+  .chart-source {
+    margin-top: 36px;
+    font-family: var(--font-body); font-size: 11px; letter-spacing: 0.6px;
+    color: var(--fg-3);
+  }
+
+  /* 3-column stat row */
+  .stats-3 {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .stat-cell {
+    padding: 24px 0 0;
+    border-top: 2px solid var(--color-navy);
+  }
+  .stat-cell .big {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 64px; line-height: 1; letter-spacing: -1.4px;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+  }
+  .stat-cell .big.gold { color: var(--color-gold); }
+  .stat-cell .big sup {
+    font-size: 28px; color: var(--color-navy); font-weight: 700;
+    margin-left: 2px;
+  }
+  .stat-cell h4 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 20px; line-height: 1.25; letter-spacing: -0.3px;
+    color: var(--color-navy); margin: 0 0 8px;
+  }
+  .stat-cell p {
+    font-family: var(--font-body); font-size: 14px; line-height: 1.55;
+    color: var(--fg-2); margin: 0;
+  }
+
+  /* ---------- 02 Theory of Change ---------- */
+  .theory-grid {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .assumption {
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 28px 26px;
+  }
+  .assumption .num {
+    font-family: var(--font-body); font-size: 11px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--color-gold); margin-bottom: 10px;
+  }
+  .assumption h4 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 24px; letter-spacing: -0.4px; line-height: 1.15;
+    color: var(--color-navy); margin: 0 0 12px;
+  }
+  .assumption hr {
+    width: 32px; height: 2px; background: var(--color-gold); border: 0; margin: 0 0 14px;
+  }
+  .assumption p {
+    font-family: var(--font-body); font-size: 15px; line-height: 1.6;
+    color: var(--fg-2); margin: 0;
+  }
+
+  /* ---------- 03 Dual-Gen ---------- */
+  .dualgen-grid {
+    margin-top: 44px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .dualgen-col {
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .dualgen-col .photo-wrap {
+    height: 220px;
+    background: rgba(7,48,91,.08);
+    overflow: hidden;
+  }
+  .dualgen-col .photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+  .dualgen-col .body {
+    padding: 28px 32px 32px;
+  }
+  .dualgen-col .eyebrow {
+    font-family: var(--font-body); font-size: 11px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--color-primary); margin-bottom: 8px;
+  }
+  .dualgen-col h4 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 26px; letter-spacing: -0.5px; line-height: 1.15;
+    color: var(--color-navy); margin: 0 0 18px;
+  }
+  .dualgen-col ul {
+    list-style: none; padding: 0; margin: 0;
+  }
+  .dualgen-col li {
+    font-family: var(--font-body); font-size: 16px; line-height: 1.5;
+    color: var(--color-navy); padding: 10px 0 10px 22px;
+    border-bottom: 1px solid var(--border-subtle);
+    position: relative;
+  }
+  .dualgen-col li:last-child { border-bottom: 0; }
+  .dualgen-col li::before {
+    content: ''; position: absolute; left: 4px; top: 18px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--color-gold);
+  }
+
+  /* ---------- 04 Constellation ---------- */
+  .constellation-wrap {
+    margin-top: 40px;
+  }
+  .constellation-frame {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    background: #EEEEEC;
+    overflow: hidden;
+  }
+  @media (max-width: 640px) {
+    .constellation-frame { aspect-ratio: 4 / 5; }
+  }
+  .constellation-foot {
+    margin-top: 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .constellation-foot .note {
+    font-family: var(--font-italic); font-style: italic;
+    font-size: 17px; color: var(--fg-2);
+  }
+  .arrow-link {
+    font-family: var(--font-body); font-size: 15px; font-weight: 600;
+    color: var(--color-navy); text-decoration: none;
+    border-bottom: 2px solid var(--color-gold); padding-bottom: 3px;
+  }
+
+  /* ---------- 05 By the Numbers ---------- */
+  .stats-4 {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .bignum {
+    padding: 32px 24px;
+    border: 1px solid rgba(255,255,255,.2);
+    background: rgba(255,255,255,.04);
+    border-radius: 10px;
+  }
+  .bignum .n {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 72px; line-height: 1; letter-spacing: -2px;
+    color: var(--color-gold);
+  }
+  .bignum .n.white { color: #fff; }
+  .bignum .unit {
+    font-family: var(--font-body); font-size: 14px;
+    color: rgba(255,255,255,.78); margin-top: 14px;
+  }
+  .bignum .src {
+    font-family: var(--font-body); font-size: 12px;
+    color: rgba(255,255,255,.5); margin-top: 6px;
+  }
+
+  /* ---------- CTA ---------- */
+  .cta {
+    background: var(--color-tan);
+    padding: 80px 48px;
+    border-top: 3px solid var(--color-gold);
+  }
+  .cta-inner {
+    max-width: 1184px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px;
+  }
+  .cta .left {
+    flex: 1; max-width: 720px;
+  }
+  .cta .eyebrow {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--fg-3); margin-bottom: 10px;
+  }
+  .cta h3 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 36px; line-height: 1.1; letter-spacing: -0.7px;
+    color: var(--color-navy); margin: 0 0 10px;
+  }
+  .cta p {
+    font-family: var(--font-body); font-size: 17px; line-height: 1.55;
+    color: var(--fg-2); margin: 0; max-width: 560px;
+  }
+  .cta .buttons { display: flex; gap: 12px; flex-shrink: 0; }
+  .btn {
+    font-family: var(--font-body); font-weight: 600; font-size: 15px;
+    padding: 14px 24px; border-radius: 6px; border: 0; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: transform 200ms;
+  }
+  .btn:hover { transform: scale(1.04); }
+  .btn-navy { background: var(--color-navy); color: #fff; }
+  .btn-outline { background: transparent; color: var(--color-navy); border: 1px solid var(--color-navy); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1100px) {
+    .hero h1 { font-size: 64px; letter-spacing: -1.4px; }
+    .pullquote p { font-size: 30px; }
+    .chart-grid { grid-template-columns: 1fr 1fr 1fr; }
+    .chart-caption { grid-column: 1 / -1; margin-top: 32px; }
+    .stats-4 { grid-template-columns: repeat(2, 1fr); }
+    .theory-grid { grid-template-columns: 1fr; }
+    .dualgen-grid { grid-template-columns: 1fr; }
+    footer .grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 700px) {
+    .sub-nav { padding: 12px 20px; gap: 16px; overflow-x: auto; }
+    .hero, .section, .cta { padding-left: 20px; padding-right: 20px; }
+    .hero { padding-top: 56px; padding-bottom: 64px; }
+    .hero h1 { font-size: 44px; letter-spacing: -1px; }
+    .hero p { font-size: 17px; }
+    .section { padding-top: 64px; padding-bottom: 64px; }
+    .section h2 { font-size: 32px; letter-spacing: -0.6px; }
+    .pullquote p { font-size: 24px; }
+    .chart-wrap { padding: 20px; }
+    .chart-grid { grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .stats-3 { grid-template-columns: 1fr; gap: 14px; }
+    .stat-cell .big { font-size: 56px; }
+    .stats-4 { grid-template-columns: 1fr; }
+    .bignum .n { font-size: 56px; }
+    .cta-inner { flex-direction: column; align-items: flex-start; }
+    .cta h3 { font-size: 28px; }
+  }
+</style>
+
+<!-- ============================================================
+     SUB-NAV
+     ============================================================ -->
+<div class="sub-nav">
+  <span class="lbl">On this page</span>
+  <a href="#problem">The Problem</a>
+  <a href="#constellation">Constellation of Care</a>
+  <a href="#dualgen">Dual-Generation</a>
+  <a href="#theory">Theory of Change</a>
+  <a href="#numbers">By the Numbers</a>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <div class="hero-inner">
+    <hr class="gold-rule">
+    <div class="kicker">Our Approach</div>
+    <h1>Education is a<br>social issue.</h1>
+    <p>A child's learning starts outside the classroom, in the household and the neighborhood that shape the school day before the bell rings.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     01 THE PROBLEM
+     ============================================================ -->
+<section class="section" id="problem">
+  <div class="section-inner">
+    <div class="marker">
+      <span class="n">01</span>
+      <span class="t">The Problem</span>
+      <span class="sub">why we exist</span>
+    </div>
+
+    <div class="pullquote">
+      <p>In Charlottesville, the literacy gap between Black and White students is 49 percentage points. It's the highest in Virginia.</p>
+      <span class="byline">VDOE Standards of Learning, 2024</span>
+    </div>
+
+    <p class="body-lg">
+      The kids we work with come to class carrying chronic absenteeism, household instability, and a life that school alone can't fix.
+    </p>
+
+    <!-- Bar chart -->
+    <div class="chart-wrap">
+      <div class="chart-eyebrow">3rd–8th Grade Reading SOL · Pass Rate by Race</div>
+      <h3 class="chart-h">The Charlottesville reading gap, in context.</h3>
+      <hr class="chart-rule">
+
+      <div class="chart-grid">
+        <div class="barpair">
+          <div class="bar white-pop" style="height: 82%;"><span class="pct">82%</span><span class="lbl">White</span></div>
+          <div class="bar black-pop" style="height: 33%;"><span class="pct">33%</span><span class="lbl">Black</span></div>
+          <div class="barpair-label">Cville</div>
+        </div>
+        <div class="barpair">
+          <div class="bar white-pop" style="height: 76%;"><span class="pct">76%</span><span class="lbl">White</span></div>
+          <div class="bar black-pop" style="height: 52%;"><span class="pct">52%</span><span class="lbl">Black</span></div>
+          <div class="barpair-label">VA Avg</div>
+        </div>
+        <div class="barpair">
+          <div class="bar white-pop" style="height: 72%;"><span class="pct">72%</span><span class="lbl">White</span></div>
+          <div class="bar black-pop" style="height: 61%;"><span class="pct">61%</span><span class="lbl">Black</span></div>
+          <div class="barpair-label">Best VA Div</div>
+        </div>
+        <div class="chart-caption">
+          <h4>The gap isn't "bad in Charlottesville." It's the worst.</h4>
+          <p>The failure isn't in the teachers, the curriculum, or the funding. It's in the load a child carries into the classroom from <em>outside</em> of it.</p>
+        </div>
+      </div>
+
+      <div class="chart-source">SRC: VDOE SOL 2024</div>
+    </div>
+
+    <!-- 3 column stats -->
+    <div class="stats-3">
+      <div class="stat-cell">
+        <div class="big gold">$18.5K</div>
+        <h4>Cost per pupil, per year</h4>
+        <p>CCS spends more per child than the state average. Outcomes haven't followed.</p>
+      </div>
+      <div class="stat-cell">
+        <div class="big">1 in 3</div>
+        <h4>Chronically absent</h4>
+        <p>Missing ≥10% of school days, the leading indicator for every downstream gap.</p>
+      </div>
+      <div class="stat-cell">
+        <div class="big">49<sup>pp</sup></div>
+        <h4>Literacy gap, highest in VA</h4>
+        <p>Black vs White reading-SOL pass rates, 3rd–8th grade. Detail above.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     02 CONSTELLATION OF CARE
+     ============================================================ -->
+<section class="section tan" id="constellation">
+  <div class="section-inner">
+    <div class="marker">
+      <span class="n">02</span>
+      <span class="t">The Constellation of Care</span>
+      <span class="sub">how it fits together</span>
+    </div>
+    <h2 style="max-width: 880px;">A child's ability to learn is predicated on stability across all dimensions.</h2>
+    <p class="lede">Click on an area to learn more.</p>
+
+    <div class="constellation-wrap">
+      <iframe class="constellation-frame" src="constellation.html" title="The Constellation of Care — interactive diagram" loading="lazy"></iframe>
+      <div class="constellation-foot">
+        <a class="arrow-link" href="what-we-do.html">See the programs →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     03 DUAL-GENERATION MODEL
+     ============================================================ -->
+<section class="section" id="dualgen">
+  <div class="section-inner">
+    <div class="marker">
+      <span class="n">03</span>
+      <span class="t">Dual-Generation Model</span>
+      <span class="sub">who we reach</span>
+    </div>
+    <h2 style="max-width: 880px;">Most programs pick a lane. We do both, in the same household, at the same time.</h2>
+    <p class="lede">Reach the kid, or reach the parent. Most organizations can only afford to choose one. The dual-generation model is the bet that you have to do both, together, or the gains don't compound.</p>
+
+    <div class="dualgen-grid">
+      <div class="dualgen-col">
+        <div class="photo-wrap"><img src="cop-photos/program-kids-group-outdoors.jpg" alt="Kids together at a CoP outdoor event"></div>
+        <div class="body">
+          <div class="eyebrow">Child-side</div>
+          <h4>What we do for the kid</h4>
+          <ul>
+            <li>Embedded Pathway Coach at their school</li>
+            <li>On-site tutoring during the school day</li>
+            <li>Walking Bus to and from class</li>
+            <li>Food pantry access when the household needs it</li>
+          </ul>
+        </div>
+      </div>
+      <div class="dualgen-col">
+        <div class="photo-wrap"><img src="cop-photos/event-award-ceremony-women.png" alt="Parents being recognized at a CoP ceremony"></div>
+        <div class="body">
+          <div class="eyebrow">Parent-side</div>
+          <h4>What we do for the parent</h4>
+          <ul>
+            <li>Parent Time, the weekly cohort</li>
+            <li>P.A.C.T. Time, structured parent-child engagement</li>
+            <li>Up to $7K micro-financing, matched to family goals</li>
+            <li>School navigation and advocacy</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     04 THEORY OF CHANGE
+     ============================================================ -->
+<section class="section tan" id="theory">
+  <div class="section-inner">
+    <div class="marker">
+      <span class="n">04</span>
+      <span class="t">Theory of Change</span>
+      <span class="sub">the argument</span>
+    </div>
+    <h2 style="max-width: 880px;">You can't fix a child's outcomes without changing the household around them.</h2>
+    <p class="lede">Three assumptions. Take any one away and the model collapses.</p>
+
+    <div class="theory-grid">
+      <div class="assumption">
+        <div class="num">Assumption 1</div>
+        <h4>Proximity matters</h4>
+        <hr>
+        <p>Services inside the school the child already attends. Not a referral across town.</p>
+      </div>
+      <div class="assumption">
+        <div class="num">Assumption 2</div>
+        <h4>Parents first</h4>
+        <hr>
+        <p>A parent who's thriving is the single biggest predictor of a child who's thriving.</p>
+      </div>
+      <div class="assumption">
+        <div class="num">Assumption 3</div>
+        <h4>Relationship, not triage</h4>
+        <hr>
+        <p>A coach who knows the family's name, and has been there for two years, can do what a case manager can't.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     05 BY THE NUMBERS
+     ============================================================ -->
+<section class="section navy" id="numbers">
+  <div class="section-inner">
+    <div class="marker">
+      <span class="n">05</span>
+      <span class="t">By the Numbers</span>
+      <span class="sub">the proof</span>
+    </div>
+    <h2>Sixteen years in. Here's what the model produces.</h2>
+
+    <div class="stats-4">
+      <div class="bignum">
+        <div class="n">327</div>
+        <div class="unit">kids in our programs</div>
+        <div class="src">FY25</div>
+      </div>
+      <div class="bignum">
+        <div class="n">94%</div>
+        <div class="unit">avg. attendance</div>
+        <div class="src">vs 78% baseline</div>
+      </div>
+      <div class="bignum">
+        <div class="n">41</div>
+        <div class="unit">Dreambuilders grads</div>
+        <div class="src">since 2022</div>
+      </div>
+      <div class="bignum">
+        <div class="n white">7</div>
+        <div class="unit">school sites</div>
+        <div class="src">Charlottesville</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA
+     ============================================================ -->
+<section class="cta">
+  <div class="cta-inner">
+    <div class="left">
+      <div class="eyebrow">Next</div>
+      <h3>Now see it in practice.</h3>
+      <p>The three programs on <em>What We Do</em> put this argument into practice.</p>
+    </div>
+    <div class="buttons">
+      <a class="btn btn-navy" href="what-we-do.html">What We Do →</a>
+      <a class="btn btn-outline" href="#">Donate</a>
+    </div>
+  </div>
+</section>
+
+
+
+<footer>
+  <div class="grid">
+    <div>
+      <div class="org-name">City of Promise</div>
+      <div class="address">
+        708 Page Street<br>
+        Charlottesville, VA 22903
+      </div>
+    </div>
+    <div>
+      <h4>What We Do</h4>
+      <ul>
+        <li><a href="what-we-do.html">Community Schools</a></li>
+        <li><a href="what-we-do.html">Dreambuilders</a></li>
+        <li><a href="what-we-do.html">Family Engagement</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Who We Are</h4>
+      <ul>
+        <li><a href="who-we-are.html#team">Team</a></li>
+        <li><a href="who-we-are.html#board">Board</a></li>
+        <li><a href="who-we-are.html#history">History</a></li>
+        <li><a href="who-we-are.html#partners">Partners</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get Involved</h4>
+      <ul>
+        <li><a href="get-involved.html">Donate</a></li>
+        <li><a href="volunteer.html">Volunteer</a></li>
+        <li><a href="get-involved.html#partner">Partner with us</a></li>
+        <li><a href="get-involved.html">NAP Tax Credits</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Published Work</h4>
+      <ul>
+        <li><a href="published-work.html#reports">Annual Report</a></li>
+        <li><a href="published-work.html#radio">Envision Radio</a></li>
+        <li><a href="published-work.html#from-the-ed">From the ED</a></li>
+        <li><a href="published-work.html#financials">990s</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 City of Promise</span>
+    <span>Charlottesville, Virginia</span>
+  </div>
+</footer>
+
+
+</body>
+</html>

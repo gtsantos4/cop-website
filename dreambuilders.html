@@ -1,0 +1,453 @@
+---
+layout: base.njk
+title: "City of Promise — Dreambuilders"
+activePage: what-we-do
+permalink: /dreambuilders.html
+---
+<style>
+  .gold-rule { width: 64px; height: 3px; background: var(--color-gold); border: 0; margin: 0 0 22px; }
+
+  /* ---------- Program-detail hero (navy, no photo bleed) ---------- */
+  .pd-hero { background: var(--color-navy); color: #fff; padding: 96px 48px 104px; }
+  .pd-hero .inner { max-width: 1184px; margin: 0 auto; }
+  .pd-hero .kicker {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,.65); margin-bottom: 22px;
+  }
+  .pd-hero h1 {
+    font-family: var(--font-display); font-size: 88px; font-weight: 700;
+    color: #fff; text-transform: uppercase;
+    letter-spacing: -2px; line-height: 1.02; margin: 0; max-width: 1000px;
+  }
+  .pd-hero .lede {
+    font-family: var(--font-body); font-size: 20px;
+    color: rgba(255,255,255,.82); line-height: 1.55;
+    margin: 32px 0 0; max-width: 720px;
+  }
+
+  /* ---------- Shared section pieces ---------- */
+  .section-tag { display: flex; align-items: center; gap: 14px; }
+  .section-tag .n,
+  .section-tag .rule { display: none; }
+  .section-tag .label {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .section-tag.light .label { color: rgba(7,48,91,.70); }
+  .section-tag.dark .label { color: rgba(255,255,255,.75); }
+
+  .stat-cell .v {
+    font-family: var(--font-display); font-size: 56px; font-weight: 700;
+    letter-spacing: -1.4px; line-height: 1;
+  }
+  .stat-cell .l {
+    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    margin-top: 10px; line-height: 1.4; max-width: 200px;
+  }
+  .stat-cell.light .l { color: rgba(7,48,91,.70); }
+  .stat-cell.dark .l { color: rgba(255,255,255,.70); }
+  .v-blue { color: var(--color-primary); }
+  .v-gold { color: var(--color-gold); }
+  .v-white { color: #fff; }
+
+  .chip {
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    font-family: var(--font-body); font-size: 12px; font-weight: 500;
+    letter-spacing: 0.4px; background: transparent;
+  }
+  .chip.light { border: 1px solid rgba(7,48,91,.18); color: var(--color-navy); }
+  .chip.dark  { border: 1px solid rgba(255,255,255,.30); color: rgba(255,255,255,.88); }
+
+  .pd-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 22px; border-radius: 6px; border: 0;
+    font-family: var(--font-body); font-size: 15px; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: all 200ms cubic-bezier(.2,.6,.2,1);
+  }
+  .pd-btn:hover { transform: scale(1.04); }
+  .pd-btn.navy { background: var(--color-navy); color: #fff; }
+  .pd-btn.gold { background: var(--color-gold); color: var(--color-navy); }
+  .pd-btn.outline-light { background: transparent; color: var(--color-navy); border: 1px solid rgba(7,48,91,.30); }
+  .pd-btn.outline-dark  { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.45); }
+
+  /* ---------- §01 Quote ---------- */
+  .pd-quote { background: var(--color-canvas); padding: 112px 48px; }
+  .pd-quote .inner {
+    max-width: 1184px; margin: 0 auto;
+    display: grid; grid-template-columns: minmax(280px, 380px) 1fr; gap: 64px; align-items: center;
+  }
+  .pd-quote .photo {
+    aspect-ratio: 4/5; border-radius: 12px; overflow: hidden;
+    background: var(--color-tan); box-shadow: var(--shadow-card);
+    background-image: url('cop-photos/DJW24765.jpg');
+    background-size: cover; background-position: 52% 30%;
+  }
+  .pd-quote .q {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 32px; line-height: 1.25; font-weight: 500;
+    color: var(--color-navy); margin: 0 0 24px; max-width: 640px;
+  }
+  .pd-quote .attr {
+    font-family: var(--font-body); font-size: 14px; font-weight: 600;
+    color: var(--color-primary); letter-spacing: 0.4px; text-transform: uppercase;
+  }
+  .pd-quote .attr em {
+    font-style: italic; color: rgba(7,48,91,.65);
+    font-weight: 500; text-transform: none; letter-spacing: 0;
+  }
+
+  /* ---------- §02 Model ---------- */
+  .pd-model { background: #fff; padding: 112px 48px; border-top: 1px solid var(--border-subtle); }
+  .pd-model .inner { max-width: 1184px; margin: 0 auto; }
+  .pd-model h2 {
+    font-family: var(--font-display); font-size: 48px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -1px; line-height: 1.05;
+    margin: 18px 0 16px; max-width: 880px;
+  }
+  .pd-model .body-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 32px;
+  }
+  .pd-model p {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.65;
+    color: rgba(7,48,91,.82); margin: 0 0 16px;
+  }
+  .pd-model p strong { color: var(--color-navy); }
+  .pd-model .pills { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+
+  /* ---------- §03 Inside the Program ---------- */
+  .pd-inside { background: var(--color-canvas); padding: 112px 48px; }
+  .pd-inside .inner { max-width: 1184px; margin: 0 auto; }
+  .anchor {
+    display: grid; grid-template-columns: 88px 1fr; gap: 24px;
+    padding: 32px 0; border-top: 1px solid var(--border-subtle);
+  }
+  .anchor:last-of-type { border-bottom: 1px solid var(--border-subtle); }
+  .anchor .num {
+    font-family: var(--font-display); font-size: 44px; font-weight: 700;
+    color: var(--color-gold); letter-spacing: -0.6px; line-height: 1;
+  }
+  .anchor h3 {
+    font-family: var(--font-display); font-size: 26px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -0.4px; margin: 0 0 6px;
+  }
+  .anchor p {
+    font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+    color: rgba(7,48,91,.82); margin: 0; max-width: 720px;
+  }
+
+  /* ---------- §04 By the Numbers ---------- */
+  .pd-numbers { background: var(--color-navy); color: #fff; padding: 112px 48px; }
+  .pd-numbers .inner { max-width: 1184px; margin: 0 auto; }
+  .pd-numbers h2 {
+    font-family: var(--font-display); font-size: 56px; font-weight: 700;
+    color: #fff; letter-spacing: -1.2px; line-height: 1.05;
+    margin: 18px 0 0;
+  }
+  .pd-numbers .stats {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 32px;
+    margin-top: 56px; padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,.15);
+  }
+  .pd-numbers .stat-cell .v { font-size: 72px; }
+
+  /* ---------- §05 Team ---------- */
+  .pd-team { background: #fff; padding: 112px 48px; border-top: 1px solid var(--border-subtle); }
+  .pd-team .inner { max-width: 1184px; margin: 0 auto; }
+  .pd-team h2 {
+    font-family: var(--font-display); font-size: 44px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -1px; line-height: 1.1;
+    margin: 18px 0 12px;
+  }
+  .pd-team .grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    margin-top: 48px;
+  }
+  .person-card { text-align: left; }
+  .person-card .photo {
+    aspect-ratio: 1/1; border-radius: 50%; background: var(--color-tan);
+    margin-bottom: 14px; max-width: 140px; overflow: hidden;
+  }
+  .person-card .photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .person-card .name {
+    font-family: var(--font-display); font-size: 18px; font-weight: 700;
+    color: var(--color-navy); margin: 0;
+  }
+  .person-card .title {
+    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    color: rgba(7,48,91,.65); margin: 4px 0 0; line-height: 1.4;
+  }
+  .person-card .title + .title { margin-top: 4px; }
+
+  /* ---------- §06 Cross-program ---------- */
+  .pd-cross { background: var(--color-tan); padding: 96px 48px; }
+  .pd-cross .inner { max-width: 1184px; margin: 0 auto; }
+  .pd-cross h2 {
+    font-family: var(--font-display); font-size: 36px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -0.8px;
+    margin: 12px 0 36px;
+  }
+  .pd-cross .grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .cross-card {
+    background: #fff; border-radius: 12px; padding: 32px;
+    border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card);
+    text-decoration: none; color: inherit;
+    transition: transform 200ms, box-shadow 200ms;
+  }
+  .cross-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+  .cross-card .meta {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-gold);
+  }
+  .cross-card h3 {
+    font-family: var(--font-display); font-size: 28px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -0.6px; margin: 12px 0;
+  }
+  .cross-card p {
+    font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+    color: rgba(7,48,91,.75); margin: 0 0 20px;
+  }
+  .cross-card .arrow {
+    font-family: var(--font-body); font-size: 14px; font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  /* ---------- Terminal CTA ---------- */
+  .pd-terminal { background: var(--color-navy); padding: 112px 48px; }
+  .pd-terminal .inner {
+    max-width: 1184px; margin: 0 auto; text-align: center;
+  }
+  .pd-terminal h2 {
+    font-family: var(--font-display); font-size: 64px; font-weight: 700;
+    color: #fff; letter-spacing: -1.4px; line-height: 1.05;
+    margin: 0 auto; max-width: 800px;
+  }
+  .pd-terminal .lede {
+    font-family: var(--font-body); font-size: 19px;
+    color: rgba(255,255,255,.82); line-height: 1.55;
+    margin: 24px auto 0; max-width: 600px;
+  }
+  .pd-terminal .ctas {
+    display: flex; gap: 12px; justify-content: center;
+    margin-top: 36px; flex-wrap: wrap;
+  }
+  .pd-terminal .nap {
+    margin: 32px auto 0; padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.15); max-width: 620px;
+  }
+  .pd-terminal .nap-eyebrow {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--color-gold); margin-bottom: 8px;
+  }
+  .pd-terminal .nap-body {
+    font-family: var(--font-body); font-size: 14px;
+    color: rgba(255,255,255,.72); line-height: 1.55;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1100px) {
+    .pd-hero h1 { font-size: 60px; letter-spacing: -1.4px; }
+    .pd-model .body-grid { grid-template-columns: 1fr; gap: 24px; }
+    .pd-numbers .stats { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .pd-quote .inner { grid-template-columns: 1fr; }
+    .pd-quote .photo { max-width: 320px; }
+    .pd-team .grid { grid-template-columns: repeat(2, 1fr); }
+    .pd-cross .grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .pd-hero, .pd-quote, .pd-model, .pd-inside, .pd-numbers, .pd-team, .pd-cross, .pd-terminal {
+      padding-left: 20px; padding-right: 20px;
+    }
+    .pd-hero { padding-top: 56px; padding-bottom: 64px; }
+    .pd-hero h1 { font-size: 40px; letter-spacing: -1px; }
+    .pd-quote, .pd-model, .pd-inside, .pd-numbers, .pd-team, .pd-cross, .pd-terminal {
+      padding-top: 64px; padding-bottom: 64px;
+    }
+    .pd-numbers h2 { font-size: 36px; letter-spacing: -0.6px; }
+    .pd-terminal h2 { font-size: 40px; letter-spacing: -0.8px; }
+    .anchor { grid-template-columns: 1fr; gap: 12px; }
+    .anchor .num { font-size: 36px; }
+    .pd-numbers .stat-cell .v { font-size: 52px; }
+    .pd-team .grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+<!-- 1. HERO (navy, no buttons) -->
+<section class="pd-hero">
+  <div class="inner">
+    <hr class="gold-rule">
+    <div class="kicker">Program 02 · Dreambuilders</div>
+    <h1>Two years.<br>One family.</h1>
+    <p class="lede">A two-year wraparound for working Charlottesville families: weekly classes, family learning time, embedded coaching, and up to $7,000 in stipends toward goals families set for themselves.</p>
+  </div>
+</section>
+
+<!-- 2. §01 — IN THEIR OWN WORDS -->
+<section class="pd-quote">
+  <div class="inner">
+    <div class="photo"></div>
+    <div>
+      <div class="section-tag light" style="margin-bottom: 24px;">
+        <div class="label">In their own words</div>
+      </div>
+      <p class="q">"This program has helped me gain tools to be independent and self-disciplined."</p>
+      <div class="attr">— Dreambuilders participant, <em>Class of 2025</em></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. §02 — OUR MODEL -->
+<section class="pd-model">
+  <div class="inner">
+    <div class="section-tag light">
+      <div class="label">Our Model</div>
+    </div>
+    <h2>A two-year wraparound, built on evidence.</h2>
+    <hr class="gold-rule">
+    <div class="body-grid">
+      <div>
+        <p>Dreambuilders is built on the <strong>National Center for Families Learning (NCFL)</strong> family literacy model. Cohorts of working Charlottesville parents commit to a two-year program — a full school year of weekly classes followed by a lighter year of continued support — anchored on three touchpoints: Parent Time, P.A.C.T. Time, and 1:1 coaching with a Family Empowerment Coach.</p>
+        <div class="pills">
+          <span class="chip light">NCFL family literacy model</span>
+          <span class="chip light">Cohort-based</span>
+          <span class="chip light">Two-year commitment</span>
+        </div>
+      </div>
+      <div>
+        <p>Each family receives a <strong>$5,000 stipend in year one and $2,000 in year two</strong> — $7,000 across the program — paired with goals each family sets for themselves. The coach is in the room when those goals are made. Structured as agency, not charity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. §03 — INSIDE THE PROGRAM -->
+<section class="pd-inside">
+  <div class="inner">
+    <div class="section-tag light">
+      <div class="label">Inside the Program</div>
+    </div>
+
+    <div class="anchor">
+      <div class="num">01</div>
+      <div>
+        <h3>Parent Time</h3>
+        <p>Weekly classes for parents only — parenting practices, financial literacy, working with CCS, advocacy skills, peer connection. Runs the full school year (36–38 weeks). Childcare provided on-site so attendance doesn't depend on it.</p>
+      </div>
+    </div>
+
+    <div class="anchor">
+      <div class="num">02</div>
+      <div>
+        <h3>P.A.C.T. Time (Parents and Children Together)</h3>
+        <p>Guided parent-and-child learning time. Parents learn to be the educator, not just the audience. Weekly cadence, structured around shared activities, with a coach in the room.</p>
+      </div>
+    </div>
+
+    <div class="anchor">
+      <div class="num">03</div>
+      <div>
+        <h3>Family Empowerment Coaches</h3>
+        <p>1:1 coaching across the full two years. Same coach the whole way through — continuity is the point. The coach helps the family weigh the goals they set for themselves and signs off on stipend decisions alongside them.</p>
+      </div>
+    </div>
+
+    <div class="anchor">
+      <div class="num">04</div>
+      <div>
+        <h3>Stipend Support</h3>
+        <p>$5,000 in year one and $2,000 in year two — $7,000 across the program. Families set the goals; the stipend covers what comes up: car repairs to keep a job, housing deposits, certification courses, deferred medical co-pays.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. §04 — BY THE NUMBERS -->
+<section class="pd-numbers">
+  <div class="inner">
+    <div class="section-tag dark">
+      <div class="label">By the Numbers</div>
+    </div>
+    <h2>What two years can do.</h2>
+    <div class="stats">
+      <div class="stat-cell dark"><div class="v v-gold">78%</div><div class="l">of FY25 participants increased self-sufficiency &amp; completed goals</div></div>
+      <div class="stat-cell dark"><div class="v v-gold">2 yr</div><div class="l">wraparound commitment per family</div></div>
+      <div class="stat-cell dark"><div class="v v-gold">$7K</div><div class="l">stipend support across the program</div></div>
+      <div class="stat-cell dark"><div class="v v-gold">26</div><div class="l">adults + youth reached through the FY25 cohort</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. §05 — TEAM -->
+<section class="pd-team">
+  <div class="inner">
+    <div class="section-tag light">
+      <div class="label">The Team Behind It</div>
+    </div>
+    <h2>Director + Family Empowerment Coaches.</h2>
+    <hr class="gold-rule">
+    <div class="grid">
+      <div class="person-card">
+        <div class="photo"><img src="cop-photos/team headshots/MSM.png" alt="Melissa Steppe"></div>
+        <p class="name">Melissa Steppe</p>
+        <p class="title">Director of Parent Engagement &amp; Advocacy</p>
+      </div>
+      <div class="person-card">
+        <div class="photo"><img src="cop-photos/team headshots/DL.jpg" alt="Dawn Lawson"></div>
+        <p class="name">Dawn Lawson</p>
+        <p class="title">Family Empowerment Coach</p>
+      </div>
+      <div class="person-card">
+        <div class="photo"><img src="cop-photos/team headshots/ZH.png" alt="Zeneida Howard"></div>
+        <p class="name">Zeneida Howard</p>
+        <p class="title">Family Empowerment Coach</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. §06 — CROSS-PROGRAM -->
+<section class="pd-cross">
+  <div class="inner">
+    <div class="section-tag light">
+      <div class="label">The dual-generation model in full</div>
+    </div>
+    <h2>Two sibling programs.</h2>
+    <div class="grid">
+      <a class="cross-card" href="community-schools.html">
+        <div class="meta">Program 01 · Sibling program</div>
+        <h3>Community Schools</h3>
+        <p>Community School Coordinators embedded inside seven Charlottesville school sites — coaching kids, brokering resources for families, and closing the literacy gap one classroom at a time.</p>
+        <span class="arrow">Read more →</span>
+      </a>
+      <a class="cross-card" href="family-engagement.html">
+        <div class="meta">Program 03 · Sibling program</div>
+        <h3>Family Engagement &amp; Advocacy</h3>
+        <p>The brokerage layer of the model: parenting practices coaching, school advocacy, and the constellation of care that connects families to housing, childcare, health, and legal support.</p>
+        <span class="arrow">Read more →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 8. TERMINAL CTA -->
+<section class="pd-terminal">
+  <div class="inner">
+    <hr class="gold-rule" style="margin: 0 auto 22px;">
+    <h2>Stand with our families.</h2>
+    <p class="lede">A two-year commitment from a family is a two-year commitment from us. Funders make that horizon possible.</p>
+    <div class="ctas">
+      <a class="pd-btn gold" href="get-involved.html">Donate Now <span>→</span></a>
+      <a class="pd-btn outline-dark" href="#">Talk to Price about funding <span>→</span></a>
+    </div>
+    <div class="nap">
+      <div class="nap-eyebrow">NAP credits</div>
+      <div class="nap-body">Gifts of $500 or more qualify for a 65% Virginia state tax credit through the Neighborhood Assistance Program. CoP uses 100% of its allocation each year.</div>
+    </div>
+  </div>
+</section>

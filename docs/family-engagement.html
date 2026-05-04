@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>City of Promise — Family Engagement &amp; Advocacy</title>
+
+<!-- Tell Chromium browsers to prerender same-site pages immediately.
+     "eager" means: prerender all matched links as soon as this page loads,
+     not on hover-intent. Needed because moderate eagerness waits for a
+     heuristic that often doesn't fire before the click on a small site.
+     When the user clicks a nav link the page is already loaded → no flash. -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "where": { "and": [
+      { "href_matches": "/*" },
+      { "not": { "href_matches": "/constellation.html" } },
+      { "not": { "href_matches": "/*.pdf" } }
+    ]},
+    "eagerness": "eager"
+  }]
+}
+</script>
+
+<!-- Plain prefetch fallback for browsers without Speculation Rules support
+     (Safari, Firefox). Loads HTML into HTTP cache during idle time so the
+     navigation paints from cache instead of from the network. -->
+<link rel="prefetch" href="index.html" as="document">
+<link rel="prefetch" href="what-we-do.html" as="document">
+<link rel="prefetch" href="community-schools.html" as="document">
+<link rel="prefetch" href="dreambuilders.html" as="document">
+<link rel="prefetch" href="family-engagement.html" as="document">
+<link rel="prefetch" href="our-approach.html" as="document">
+<link rel="prefetch" href="who-we-are.html" as="document">
+<link rel="prefetch" href="get-involved.html" as="document">
+<link rel="prefetch" href="access-services.html" as="document">
+<link rel="prefetch" href="volunteer.html" as="document">
+
+<!-- Paint the page background BEFORE any external CSS loads, to kill the
+     white flash between page navigations. Hex must match --color-canvas. -->
+<style>html, body { background: #EEEEEC; }</style>
+<link rel="icon" href="assets/favicon.png">
+
+<!-- Preload the header logo so it's already in HTTP cache when the next page
+     paints. Without this, every navigation re-fetches/re-decodes the 217KB PNG,
+     causing a brief flash where the logo box renders empty. -->
+<link rel="preload" as="image" href="assets/logo-horizontal.png" fetchpriority="high">
+
+<!-- Fonts: preconnect + parallel-load. display=swap shows fallback
+     immediately and swaps in Fraunces/Inter when loaded. Used instead
+     of display=optional because optional caused inconsistent rendering
+     across pages (first-load pages got Georgia, cached pages got Fraunces). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap">
+
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="assets/site.css">
+
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" aria-label="City of Promise home">
+    <img src="assets/logo-horizontal.png" alt="City of Promise" width="127" height="48" fetchpriority="high" decoding="sync">
+  </a>
+  <nav>
+    <a href="what-we-do.html" class="is-active">What We Do</a>
+    <a href="our-approach.html">Our Approach</a>
+    <a href="who-we-are.html">Who We Are</a>
+    <a href="access-services.html">Access Services</a>
+    <a href="get-involved.html">Get Involved</a>
+    <a href="published-work.html">Published Work</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a href="get-involved.html" class="donate-btn">Donate</a>
+</header>
+
+
+<style>
+  .gold-rule { width: 64px; height: 3px; background: var(--color-gold); border: 0; margin: 0 0 22px; }
+
+  /* ---------- Program-detail hero (navy, no photo bleed) ---------- */
+  .pd-hero { background: var(--color-navy); color: #fff; padding: 96px 48px 104px; }
+  .pd-hero .inner { max-width: 1184px; margin: 0 auto; }
+  .pd-hero .kicker {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,.65); margin-bottom: 22px;
+  }
+  .pd-hero h1 {
+    font-family: var(--font-display); font-size: 88px; font-weight: 700;
+    color: #fff; text-transform: uppercase;
+    letter-spacing: -2px; line-height: 1.02; margin: 0; max-width: 1000px;
+  }
+  .pd-hero .lede {
+    font-family: var(--font-body); font-size: 20px;
+    color: rgba(255,255,255,.82); line-height: 1.55;
+    margin: 32px 0 0; max-width: 720px;
+  }
+
+  /* ---------- Shared section pieces ---------- */
+  .section-tag { display: flex; align-items: center; gap: 14px; }
+  .section-tag .n,
+  .section-tag .rule { display: none; }
+  .section-tag .label {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .section-tag.light .label { color: rgba(7,48,91,.70); }
+  .section-tag.dark .label { color: rgba(255,255,255,.75); }
+
+  .stat-cell .v {
+    font-family: var(--font-display); font-size: 56px; font-weight: 700;
+    letter-spacing: -1.4px; line-height: 1;
+  }
+  .stat-cell .l {
+    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    margin-top: 10px; line-height: 1.4; max-width: 200px;
+  }
+  .stat-cell.light .l { color: rgba(7,48,91,.70); }
+  .stat-cell.dark .l { color: rgba(255,255,255,.70); }
+  .v-blue { color: var(--color-primary); }
+  .v-gold { color: var(--color-gold); }
+  .v-white { color: #fff; }
+
+  .chip {
+    display: inline-block; padding: 6px 14px; border-radius: 999px;
+    font-family: var(--font-body); font-size: 12px; font-weight: 500;
+    letter-spacing: 0.4px; background: transparent;
+  }
+  .chip.light { border: 1px solid rgba(7,48,91,.18); color: var(--color-navy); }
+  .chip.dark  { border: 1px solid rgba(255,255,255,.30); color: rgba(255,255,255,.88); }
+
+  .pd-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 22px; border-radius: 6px; border: 0;
+    font-family: var(--font-body); font-size: 15px; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: all 200ms cubic-bezier(.2,.6,.2,1);
+  }
+  .pd-btn:hover { transform: scale(1.04); }
+  .pd-btn.navy { background: var(--color-navy); color: #fff; }
+  .pd-btn.gold { background: var(--color-gold); color: var(--color-navy); }
+  .pd-btn.outline-light { background: transparent; color: var(--color-navy); border: 1px solid rgba(7,48,91,.30); }
+  .pd-btn.outline-dark  { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.45); }
+
+  /* ---------- §01 Quote ---------- */
+  .pd-quote { background: var(--color-canvas); padding: 112px 48px; }
+  .pd-quote .inner {
+    max-width: 1184px; margin: 0 auto;
+    display: grid; grid-template-columns: minmax(280px, 380px) 1fr; gap: 64px; align-items: center;
+  }
+  .pd-quote .photo {
+    aspect-ratio: 4/5; border-radius: 12px; overflow: hidden;
+    background: var(--color-tan); box-shadow: var(--shadow-card);
+    background-image: url('cop-photos/family-engagement-mom-child.jpg');
+    background-size: cover; background-position: center 30%;
+  }
+  .pd-quote .q {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 32px; line-height: 1.25; font-weight: 500;
+    color: var(--color-navy); margin: 0 0 24px; max-width: 640px;
+  }
+  .pd-quote .attr {
+    font-family: var(--font-body); font-size: 14px; font-weight: 600;
+    color: var(--color-primary); letter-spacing: 0.4px; text-transform: uppercase;
+  }
+  .pd-quote .attr em {
+    font-style: italic; color: rgba(7,48,91,.65);
+    font-weight: 500; text-transform: none; letter-spacing: 0;
+  }
+
+  /* ---------- §02 Model ---------- */
+  .pd-model { background: #fff; padding: 112px 48px; border-top: 1px solid var(--border-subtle); }
+  .pd-model .inner { max-width: 1184px; margin: 0 auto; }
+  .pd-model h2 {
+    font-family: var(--font-display); font-size: 48px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -1px; line-height: 1.05;
+    margin: 18px 0 16px; text-transform: uppercase; max-width: 880px;
+  }
+  .pd-model .body-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 32px;
+  }
+  .pd-model p {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.65;
+    color: rgba(7,48,91,.82); margin: 0 0 16px;
+  }
+  .pd-model p strong { color: var(--color-navy); }
+  .pd-model .pills { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+
+  /* ---------- §03 Inside the Program ---------- */
+  .pd-inside { background: var(--color-canvas); padding: 112px 48px; }
+  .pd-inside .inner { max-width: 1184px; margin: 0 auto; }
+  .anchor {
+    display: grid; grid-template-columns: 88px 1fr; gap: 24px;
+    padding: 32px 0; border-top: 1px solid var(--border-subtle);
+  }
+  .anchor:last-of-type { border-bottom: 1px solid var(--border-subtle); }
+  .anchor .num {
+    font-family: var(--font-display); font-size: 44px; font-weight: 700;
+    color: var(--color-gold); letter-spacing: -0.6px; line-height: 1;
+  }
+  .anchor h3 {
+    font-family: var(--font-display); font-size: 26px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -0.4px; margin: 0 0 6px;
+  }
+  .anchor p {
+    font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+    color: rgba(7,48,91,.82); margin: 0; max-width: 720px;
+  }
+
+  /* ---------- §04 Constellation link block ---------- */
+  .pd-constellation { background: var(--color-tan); padding: 96px 48px; }
+  .pd-constellation .inner {
+    max-width: 1184px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: center;
+  }
+  .pd-constellation h2 {
+    font-family: var(--font-display); font-size: 44px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -1px; line-height: 1.1;
+    margin: 18px 0 16px; text-transform: uppercase;
+  }
+  .pd-constellation p {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.65;
+    color: rgba(7,48,91,.82); margin: 0 0 28px; max-width: 540px;
+  }
+  .pd-constellation .preview {
+    position: relative;
+    aspect-ratio: 4/3; border-radius: 12px; overflow: hidden;
+    background: var(--color-canvas); box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-subtle);
+    display: block; cursor: pointer;
+    transition: transform 200ms, box-shadow 200ms;
+  }
+  .pd-constellation .preview:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+  .pd-constellation .preview iframe {
+    position: absolute; top: 50%; left: 50%;
+    width: 130%; height: 130%;
+    transform: translate(-50%, -50%);
+    border: 0; pointer-events: none;
+  }
+
+  /* ---------- §05 By the Numbers ---------- */
+  .pd-numbers { background: var(--color-navy); color: #fff; padding: 112px 48px; }
+  .pd-numbers .inner { max-width: 1184px; margin: 0 auto; }
+  .pd-numbers h2 {
+    font-family: var(--font-display); font-size: 56px; font-weight: 700;
+    color: #fff; letter-spacing: -1.2px; line-height: 1.05;
+    margin: 18px 0 0; text-transform: uppercase;
+  }
+  .pd-numbers .stats {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 32px;
+    margin-top: 56px; padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,.15);
+  }
+  .pd-numbers .stat-cell .v { font-size: 72px; }
+
+  /* ---------- §06 Cross-program ---------- */
+  .pd-cross { background: var(--color-canvas); padding: 96px 48px; }
+  .pd-cross .inner { max-width: 1184px; margin: 0 auto; }
+  .pd-cross h2 {
+    font-family: var(--font-display); font-size: 36px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -0.8px;
+    margin: 12px 0 36px; text-transform: uppercase;
+  }
+  .pd-cross .grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .cross-card {
+    background: #fff; border-radius: 12px; padding: 32px;
+    border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card);
+    text-decoration: none; color: inherit;
+    transition: transform 200ms, box-shadow 200ms;
+  }
+  .cross-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+  .cross-card .meta {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-gold);
+  }
+  .cross-card h3 {
+    font-family: var(--font-display); font-size: 28px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -0.6px; margin: 12px 0;
+  }
+  .cross-card p {
+    font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+    color: rgba(7,48,91,.75); margin: 0 0 20px;
+  }
+  .cross-card .arrow {
+    font-family: var(--font-body); font-size: 14px; font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  /* ---------- Terminal CTA ---------- */
+  .pd-terminal { background: var(--color-navy); padding: 112px 48px; }
+  .pd-terminal .inner {
+    max-width: 1184px; margin: 0 auto; text-align: center;
+  }
+  .pd-terminal h2 {
+    font-family: var(--font-display); font-size: 64px; font-weight: 700;
+    color: #fff; letter-spacing: -1.4px; line-height: 1.05;
+    margin: 0 auto; text-transform: uppercase; max-width: 900px;
+  }
+  .pd-terminal .lede {
+    font-family: var(--font-body); font-size: 19px;
+    color: rgba(255,255,255,.82); line-height: 1.55;
+    margin: 24px auto 0; max-width: 600px;
+  }
+  .pd-terminal .ctas {
+    display: flex; gap: 12px; justify-content: center;
+    margin-top: 36px; flex-wrap: wrap;
+  }
+  .pd-terminal .nap {
+    margin: 32px auto 0; padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.15); max-width: 620px;
+  }
+  .pd-terminal .nap-eyebrow {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--color-gold); margin-bottom: 8px;
+  }
+  .pd-terminal .nap-body {
+    font-family: var(--font-body); font-size: 14px;
+    color: rgba(255,255,255,.72); line-height: 1.55;
+  }
+
+  /* Non-hero headings: sentence case */
+  .pd-model h2,
+  .pd-constellation h2,
+  .pd-numbers h2,
+  .pd-cross h2,
+  .pd-terminal h2 { text-transform: none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1100px) {
+    .pd-hero h1 { font-size: 60px; letter-spacing: -1.4px; }
+    .pd-model .body-grid { grid-template-columns: 1fr; gap: 24px; }
+    .pd-numbers .stats { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .pd-quote .inner { grid-template-columns: 1fr; }
+    .pd-quote .photo { max-width: 320px; }
+    .pd-constellation .inner { grid-template-columns: 1fr; }
+    .pd-cross .grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .pd-hero, .pd-quote, .pd-model, .pd-inside, .pd-constellation, .pd-numbers, .pd-cross, .pd-terminal {
+      padding-left: 20px; padding-right: 20px;
+    }
+    .pd-hero { padding-top: 56px; padding-bottom: 64px; }
+    .pd-hero h1 { font-size: 40px; letter-spacing: -1px; }
+    .pd-quote, .pd-model, .pd-inside, .pd-constellation, .pd-numbers, .pd-cross, .pd-terminal {
+      padding-top: 64px; padding-bottom: 64px;
+    }
+    .pd-numbers h2 { font-size: 36px; letter-spacing: -0.6px; }
+    .pd-terminal h2 { font-size: 40px; letter-spacing: -0.8px; }
+    .anchor { grid-template-columns: 1fr; gap: 12px; }
+    .anchor .num { font-size: 36px; }
+    .pd-numbers .stat-cell .v { font-size: 52px; }
+  }
+</style>
+
+<!-- 1. HERO (navy) -->
+<section class="pd-hero">
+  <div class="inner">
+    <hr class="gold-rule">
+    <div class="kicker">Program 03 · Family Engagement &amp; Advocacy</div>
+    <h1>The phone tree<br>is a person.</h1>
+    <p class="lede">Brokerage with continuity. The same coach goes to the IEP meeting, makes the housing call, and stays through the handoff to Charlottesville's wider safety net — no application, no cohort, ongoing intake.</p>
+  </div>
+</section>
+
+<!-- 2. §01 — IN THEIR OWN WORDS -->
+<section class="pd-quote">
+  <div class="inner">
+    <div class="photo"></div>
+    <div>
+      <div class="section-tag light" style="margin-bottom: 24px;">
+        <div class="label">In their own words</div>
+      </div>
+      <p class="q">"A specific moment a coach showed up — the morning after the eviction notice, the call that got the housing application unstuck, the IEP meeting where the parent didn't have to walk in alone."</p>
+      <div class="attr">— Parent name, <em>F&amp;E participant</em></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. §02 — OUR MODEL -->
+<section class="pd-model">
+  <div class="inner">
+    <div class="section-tag light">
+      <div class="label">Our Model</div>
+    </div>
+    <h2>Brokerage with continuity — the same coach across the full handoff.</h2>
+    <hr class="gold-rule">
+    <div class="body-grid">
+      <div>
+        <p>Family Engagement &amp; Advocacy is the <strong>parent-facing arm</strong> of City of Promise's dual-generation model: parenting practices coaching, school advocacy, and connection to the wider Charlottesville safety net. No application required. No cohort. Ongoing intake.</p>
+        <div class="pills">
+          <span class="chip light">Resource brokers</span>
+          <span class="chip light">No application required</span>
+          <span class="chip light">Ongoing intake</span>
+        </div>
+      </div>
+      <div>
+        <p>The mechanism is brokerage with continuity: the coach who knows the family is the same person who knows which Charlottesville organization has the right service, and stays alongside the family through the handoff so it doesn't drop. F&amp;E is often the first touchpoint that brings a family deeper into Community Schools or Dreambuilders.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. §03 — INSIDE THE PROGRAM -->
+<section class="pd-inside">
+  <div class="inner">
+    <div class="section-tag light">
+      <div class="label">Inside the Program</div>
+    </div>
+
+    <div class="anchor">
+      <div class="num">01</div>
+      <div>
+        <h3>Parenting Practices Coaching</h3>
+        <p>1:1 coaching on the day-to-day craft — discipline, school engagement, routines, sibling dynamics. Frame: parenting as a set of practices, not a personality trait.</p>
+      </div>
+    </div>
+
+    <div class="anchor">
+      <div class="num">02</div>
+      <div>
+        <h3>School Advocacy</h3>
+        <p>Going to the IEP meeting with the parent, calling the principal, working through transfers and discipline issues. CoP shows up for the family, not for the institution.</p>
+      </div>
+    </div>
+
+    <div class="anchor">
+      <div class="num">03</div>
+      <div>
+        <h3>Community Resource Connection</h3>
+        <p>Brokerage into housing, childcare, health, food, transportation, legal, and employment services. The differentiator vs. a referral: the coach stays with the family through the handoff.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. §04 — CONSTELLATION OF CARE (link, not embedded) -->
+<section class="pd-constellation">
+  <div class="inner">
+    <div>
+      <div class="section-tag light">
+        <div class="label">The Constellation of Care</div>
+      </div>
+      <h2>The map of the orgs we broker into.</h2>
+      <hr class="gold-rule">
+      <p>Housing, childcare, health, food, transportation, legal, employment. F&amp;E coaches don't run those services — Charlottesville's existing organizations do. F&amp;E's job is to know which organization fits which family, and to stay with the family until the handoff sticks.</p>
+      <a class="pd-btn navy" href="our-approach.html#constellation">View the Constellation of Care <span>→</span></a>
+    </div>
+    <a href="our-approach.html#constellation" class="preview" aria-label="View the Constellation of Care diagram">
+      <iframe src="constellation.html" title="The Constellation of Care" loading="lazy" tabindex="-1" onload="
+        try {
+          var d = this.contentDocument;
+          var s = d.createElement('style');
+          s.textContent = '.star-label .label{font-size:10px!important}.star-label .hint{font-size:10px!important}';
+          d.head.appendChild(s);
+        } catch(e){}
+      "></iframe>
+    </a>
+  </div>
+</section>
+
+<!-- 6. §05 — BY THE NUMBERS -->
+<section class="pd-numbers">
+  <div class="inner">
+    <div class="section-tag dark">
+      <div class="label">By the Numbers</div>
+    </div>
+    <h2>What brokerage looks like.</h2>
+    <div class="stats">
+      <div class="stat-cell dark"><div class="v v-gold">[FY25]</div><div class="l">families touched (pull from AR2025)</div></div>
+      <div class="stat-cell dark"><div class="v v-gold">[N]</div><div class="l">partner orgs in the constellation</div></div>
+      <div class="stat-cell dark"><div class="v v-gold">[T]</div><div class="l">avg. time-to-first-resource</div></div>
+      <div class="stat-cell dark"><div class="v v-gold">[STAT]</div><div class="l">one outcome stat</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. §06 — CROSS-PROGRAM -->
+<section class="pd-cross">
+  <div class="inner">
+    <div class="section-tag light">
+      <div class="label">The dual-generation model in full</div>
+    </div>
+    <h2>Two sibling programs.</h2>
+    <div class="grid">
+      <a class="cross-card" href="community-schools.html">
+        <div class="meta">Program 01 · Sibling program</div>
+        <h3>Community Schools</h3>
+        <p>Community School Coordinators embedded inside seven Charlottesville school sites — coaching kids, brokering resources for families, and closing the literacy gap one classroom at a time.</p>
+        <span class="arrow">Read more →</span>
+      </a>
+      <a class="cross-card" href="dreambuilders.html">
+        <div class="meta">Program 02 · Sibling program</div>
+        <h3>Dreambuilders</h3>
+        <p>A two-year wraparound for working Charlottesville families: parent classes, family learning time, embedded coaching, and up to $7,000 in micro-financing toward family-set self-sufficiency goals.</p>
+        <span class="arrow">Read more →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 9. TERMINAL CTA -->
+<section class="pd-terminal">
+  <div class="inner">
+    <hr class="gold-rule" style="margin: 0 auto 22px;">
+    <h2>Fund the brokers who stay through the handoff.</h2>
+    <p class="lede">A referral ends at the door. F&amp;E coaches stay until the door opens.</p>
+    <div class="ctas">
+      <a class="pd-btn gold" href="get-involved.html">Donate Now <span>→</span></a>
+      <a class="pd-btn outline-dark" href="#">Talk to Price about funding <span>→</span></a>
+    </div>
+    <div class="nap">
+      <div class="nap-eyebrow">NAP credits</div>
+      <div class="nap-body">Gifts of $500 or more qualify for a 65% Virginia state tax credit through the Neighborhood Assistance Program. CoP uses 100% of its allocation each year.</div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="grid">
+    <div>
+      <div class="org-name">City of Promise</div>
+      <div class="address">
+        708 Page Street<br>
+        Charlottesville, VA 22903
+      </div>
+    </div>
+    <div>
+      <h4>What We Do</h4>
+      <ul>
+        <li><a href="what-we-do.html">Community Schools</a></li>
+        <li><a href="what-we-do.html">Dreambuilders</a></li>
+        <li><a href="what-we-do.html">Family Engagement</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Who We Are</h4>
+      <ul>
+        <li><a href="who-we-are.html#team">Team</a></li>
+        <li><a href="who-we-are.html#board">Board</a></li>
+        <li><a href="who-we-are.html#history">History</a></li>
+        <li><a href="who-we-are.html#partners">Partners</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get Involved</h4>
+      <ul>
+        <li><a href="get-involved.html">Donate</a></li>
+        <li><a href="volunteer.html">Volunteer</a></li>
+        <li><a href="get-involved.html#partner">Partner with us</a></li>
+        <li><a href="get-involved.html">NAP Tax Credits</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Published Work</h4>
+      <ul>
+        <li><a href="published-work.html#reports">Annual Report</a></li>
+        <li><a href="published-work.html#radio">Envision Radio</a></li>
+        <li><a href="published-work.html#from-the-ed">From the ED</a></li>
+        <li><a href="published-work.html#financials">990s</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 City of Promise</span>
+    <span>Charlottesville, Virginia</span>
+  </div>
+</footer>
+
+
+</body>
+</html>

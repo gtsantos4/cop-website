@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Get Involved — Wireframes</title>
+<link rel="icon" href="assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-faint: #8a8a8a;
+    --paper: #f7f3ea;
+    --paper-2: #efe9db;
+    --accent: #D5A33A;
+    --accent-2: #13539A;
+    --red: #b6421a;
+    --sketch: 'Kalam', 'Caveat', sans-serif;
+    --hand: 'Caveat', cursive;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #e8e2d2; font-family: var(--sketch); color: var(--ink); }
+
+  /* ========== Chrome ========== */
+  .chrome {
+    position: sticky; top: 0; z-index: 20;
+    background: #f3ede0;
+    border-bottom: 1.5px solid var(--ink);
+    padding: 14px 24px 0;
+  }
+  .chrome-top {
+    display:flex; align-items:flex-end; justify-content:space-between;
+    gap: 24px; padding-bottom: 10px;
+  }
+  .title-block { flex: 1; min-width: 0; }
+  .title-block h1 {
+    font-family: var(--hand);
+    font-size: 28px; font-weight: 700; color: var(--ink);
+    line-height: 1.1; margin: 0;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .title-block .meta {
+    font-family: var(--sketch);
+    font-size: 13px; color: var(--ink-soft); margin-top: 4px;
+  }
+  .legend {
+    font-family: var(--sketch); font-size: 12px; color: var(--ink-soft);
+    display: flex; gap: 16px; align-items: center;
+  }
+  .legend-dot { display:inline-flex; align-items:center; gap:6px; }
+  .legend-dot::before {
+    content:''; width:10px; height:10px; border-radius:999px;
+    border: 1.5px solid var(--ink);
+  }
+  .legend-dot.gold::before { background: var(--accent); }
+  .legend-dot.navy::before { background: var(--ink); }
+  .legend-dot.paper::before { background: var(--paper); }
+  .legend-dot.photo::before { background: repeating-linear-gradient(45deg, #cfc7b0 0 4px, #b8b098 4px 8px); }
+
+  /* ========== Tabs ========== */
+  .tabs { display:flex; gap: 0; margin-top: 4px; }
+  .tab {
+    font-family: var(--hand);
+    font-size: 20px; font-weight: 600;
+    padding: 8px 18px 10px;
+    background: transparent;
+    border: 1.5px solid var(--ink);
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    color: var(--ink-soft);
+    cursor: pointer;
+    margin-right: -1.5px;
+    position: relative;
+    transform: translateY(1.5px);
+  }
+  .tab:hover { color: var(--ink); background: rgba(255,255,255,.3); }
+  .tab.active {
+    background: var(--paper);
+    color: var(--ink);
+    z-index: 2;
+    box-shadow: 0 -2px 0 var(--accent) inset;
+  }
+  .tab .num {
+    display:inline-block; font-family: var(--sketch); font-size: 12px;
+    color: var(--ink-faint); margin-right: 6px;
+  }
+  .tab.active .num { color: var(--accent-2); }
+
+  /* ========== Canvas ========== */
+  .canvas {
+    background: var(--paper);
+    min-height: calc(100vh - 120px);
+    border-top: 1.5px solid var(--ink);
+  }
+  .frame {
+    max-width: 1200px; margin: 0 auto;
+    padding: 28px 32px 80px;
+    position: relative;
+  }
+
+  /* ========== Primitives ========== */
+  .wf-box {
+    border: 1.5px solid var(--ink);
+    background: #fff;
+    position: relative;
+  }
+  .wf-box.dashed { border-style: dashed; }
+  .wf-photo {
+    background:
+      repeating-linear-gradient(45deg, rgba(0,0,0,.06) 0 1px, transparent 1px 10px),
+      repeating-linear-gradient(-45deg, rgba(0,0,0,.06) 0 1px, transparent 1px 10px),
+      #d8d1bd;
+    color: var(--ink-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--sketch); font-size: 12px;
+    letter-spacing: 1.4px; text-transform: uppercase;
+  }
+  .wf-photo::after { content: 'photo'; }
+  .wf-photo.labeled::after { content: attr(data-label); }
+
+  .wf-rule { height: 3px; width: 64px; background: var(--accent); margin: 10px 0; border: 0; }
+  .wf-rule.thin { height: 2px; width: 48px; }
+  .wf-rule.wide { width: 120px; }
+
+  .wf-head {
+    font-family: var(--hand);
+    font-weight: 700; font-size: 28px; color: var(--ink); line-height: 1.05;
+  }
+  .wf-head.xl { font-size: 44px; line-height: 1.1; }
+  .wf-head.xxl { font-size: 60px; line-height: 1.1; }
+  .wf-head.xxxl { font-size: 84px; line-height: 1.0; }
+  .wf-head.sm { font-size: 22px; }
+  .wf-eyebrow {
+    font-family: var(--sketch); font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--ink-soft);
+  }
+  .wf-body {
+    font-family: var(--sketch); font-size: 14px; color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .wf-body.lg { font-size: 16px; }
+  .wf-label {
+    font-family: var(--sketch); font-size: 12px; color: var(--ink-faint);
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .wf-btn {
+    display:inline-block; padding: 8px 14px; border: 1.5px solid var(--ink);
+    border-radius: 6px; font-family: var(--hand); font-size: 16px;
+    background: #fff; color: var(--ink);
+  }
+  .wf-btn.gold { background: var(--accent); }
+  .wf-btn.navy { background: var(--ink); color: #fff; }
+  .wf-btn.ghost { background: transparent; }
+  .wf-btn.lg { font-size: 20px; padding: 12px 20px; }
+
+  .wf-pill {
+    display:inline-block; padding: 3px 10px; border: 1.2px solid var(--ink);
+    border-radius: 999px; font-family: var(--sketch); font-size: 11px;
+    letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink);
+    background: #fff;
+  }
+  .wf-pill.gold { background: var(--accent); }
+  .wf-pill.navy { background: var(--ink); color: #fff; }
+
+  /* ========== Nav / breadcrumb ========== */
+  .wf-nav {
+    display:flex; justify-content:space-between; align-items:center;
+    border: 1.5px solid var(--ink); background: #fff;
+    padding: 10px 16px; border-radius: 6px;
+  }
+  .wf-nav-logo {
+    display:flex; align-items:center; gap: 8px;
+    font-family: var(--hand); font-weight: 700; font-size: 18px;
+  }
+  .wf-nav-logo::before {
+    content:''; width:22px; height:22px; border-radius:4px;
+    background: var(--accent-2); display:inline-block;
+  }
+  .wf-nav-items {
+    display:flex; gap: 18px; font-family: var(--sketch); font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .wf-nav-items .active {
+    color: var(--ink); font-weight: 700;
+    border-bottom: 2px solid var(--accent); padding-bottom: 2px;
+  }
+  .wf-crumb {
+    font-family: var(--sketch); font-size: 12px; color: var(--ink-faint);
+    margin: 16px 0 6px; letter-spacing: 0.5px;
+  }
+  .wf-crumb b { color: var(--ink-soft); }
+
+  /* ========== Annotations ========== */
+  .annot {
+    font-family: var(--hand);
+    font-size: 16px;
+    color: var(--red);
+    line-height: 1.1;
+  }
+  .annot-label {
+    background: #fff5cf;
+    border: 1px dashed var(--red);
+    padding: 3px 8px;
+    border-radius: 3px;
+    display:inline-block;
+  }
+
+  /* ========== Grid helpers ========== */
+  .row { display:flex; gap: 16px; }
+  .col { display: grid; gap: 16px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+  /* ========== Section ========== */
+  .sect {
+    padding: 22px 20px;
+    border: 1.5px solid var(--ink);
+    border-radius: 4px;
+    background: #fff;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .sect.navy { background: #2a2a2a; color: #fff; }
+  .sect.navy .wf-body { color: rgba(255,255,255,.75); }
+  .sect.navy .wf-head { color: #fff; }
+  .sect.navy .wf-eyebrow { color: rgba(255,255,255,.7); }
+  .sect.tan { background: var(--paper-2); }
+  .sect.dashed { border-style: dashed; background: transparent; }
+
+  .sect-tag {
+    position: absolute; top: -10px; left: 16px;
+    background: var(--paper); padding: 0 8px;
+    font-family: var(--hand); font-size: 13px; color: var(--accent-2);
+    font-weight: 700;
+  }
+  .sect.tan .sect-tag { background: var(--paper-2); }
+  .sect.navy .sect-tag { background: var(--paper); }
+
+  /* ========== notes ========== */
+  .notes {
+    margin-top: 24px;
+    padding: 16px 20px;
+    border: 1.5px dashed var(--ink);
+    border-radius: 4px;
+    background: #fff8e6;
+    font-family: var(--sketch); font-size: 13px; color: var(--ink-soft);
+  }
+  .notes b { color: var(--ink); font-family: var(--hand); font-size: 16px; }
+  .notes ul { margin: 8px 0 0 18px; padding: 0; }
+
+  /* hide inactive panels */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .wobble { transform: rotate(-0.25deg); }
+  .wobble-2 { transform: rotate(0.2deg); }
+
+  /* Section marker ribbon */
+  .marker {
+    display:flex; gap: 14px; align-items: baseline;
+    border-top: 2px solid var(--ink); padding-top: 8px;
+    margin-bottom: 18px;
+  }
+  .marker .n {
+    font-family: var(--hand); font-weight: 700; font-size: 28px;
+    color: var(--accent); line-height: 1;
+  }
+  .marker .t {
+    font-family: var(--hand); font-weight: 700; font-size: 24px;
+    color: var(--ink); line-height: 1;
+  }
+  .marker .sub {
+    font-family: var(--sketch); font-size: 13px; color: var(--ink-faint);
+    margin-left: auto;
+  }
+
+  /* ========== Pull-quote ========== */
+  .pullquote {
+    font-family: var(--hand); font-weight: 700;
+    font-size: 42px; line-height: 1.1;
+    color: var(--ink);
+    border-left: 4px solid var(--accent);
+    padding: 4px 0 4px 18px;
+    margin: 8px 0;
+  }
+  .pullquote .byline {
+    display: block; font-family: var(--sketch); font-weight: 400;
+    font-size: 14px; color: var(--ink-faint);
+    text-transform: uppercase; letter-spacing: 1.5px;
+    margin-top: 8px;
+  }
+
+  /* ========== Option A — three big doors ========== */
+  .door {
+    border: 1.5px solid var(--ink);
+    background: #fff;
+    padding: 26px 22px 22px;
+    position: relative;
+    min-height: 420px;
+    display: flex; flex-direction: column;
+  }
+  .door .door-num {
+    font-family: var(--hand); font-weight: 700; font-size: 60px;
+    line-height: 1; color: var(--accent);
+  }
+  .door .door-num.blue { color: var(--accent-2); }
+  .door .door-title {
+    font-family: var(--hand); font-weight: 700; font-size: 36px;
+    color: var(--ink); line-height: 1.05; margin-top: 4px;
+  }
+  .door .door-tag {
+    font-family: var(--sketch); font-size: 11px;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .door ul {
+    list-style: none; padding: 0; margin: 14px 0 0;
+    font-family: var(--sketch); font-size: 14px; color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .door ul li {
+    padding-left: 18px; position: relative; margin-bottom: 4px;
+  }
+  .door ul li::before {
+    content: '→'; position: absolute; left: 0; color: var(--accent);
+    font-family: var(--hand); font-weight: 700;
+  }
+  .door .door-cta { margin-top: auto; padding-top: 16px; }
+
+  /* ========== Option B — donate-forward ========== */
+  .nap-callout {
+    border: 2px solid var(--ink);
+    background: var(--accent);
+    padding: 26px 24px;
+    position: relative;
+  }
+  .nap-callout .stamp {
+    position: absolute; top: -14px; right: 18px;
+    background: var(--ink); color: #fff;
+    font-family: var(--hand); font-size: 14px; font-weight: 700;
+    padding: 4px 12px; border-radius: 999px;
+    transform: rotate(2deg);
+  }
+  .nap-callout .big {
+    font-family: var(--hand); font-weight: 700; font-size: 96px;
+    line-height: 1; color: var(--ink);
+    letter-spacing: -2px;
+  }
+  .nap-callout .small {
+    font-family: var(--hand); font-weight: 700; font-size: 22px;
+    color: var(--ink); margin-top: 4px;
+  }
+  .nap-math {
+    display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 14px;
+    align-items: center;
+    margin-top: 16px;
+  }
+  .nap-math .step {
+    border: 1.5px solid var(--ink); background: #fff;
+    padding: 12px; text-align: center;
+    font-family: var(--sketch); font-size: 13px; color: var(--ink-soft);
+  }
+  .nap-math .step b {
+    display: block; font-family: var(--hand); font-size: 30px;
+    color: var(--ink); margin-bottom: 2px;
+  }
+  .nap-math .arrow {
+    font-family: var(--hand); font-size: 28px; color: var(--ink); font-weight: 700;
+  }
+  .gift-row {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;
+  }
+  .gift-row .chip {
+    border: 1.5px solid var(--ink); background: #fff;
+    padding: 10px 16px; font-family: var(--hand); font-size: 22px; font-weight: 700;
+    border-radius: 6px;
+  }
+  .gift-row .chip.on { background: var(--ink); color: #fff; }
+  .gift-row .chip.custom { font-family: var(--sketch); font-size: 13px; color: var(--ink-faint); }
+
+  /* ========== Option C — opportunity board ========== */
+  .opp-card {
+    border: 1.5px solid var(--ink); background: #fff;
+    padding: 16px;
+    position: relative;
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 14px;
+    align-items: start;
+  }
+  .opp-card .opp-icon {
+    width: 56px; height: 56px; border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    background: var(--paper-2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--hand); font-weight: 700; font-size: 26px;
+    color: var(--accent-2);
+  }
+  .opp-card .opp-meta {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px;
+  }
+  .opp-card .opp-title {
+    font-family: var(--hand); font-weight: 700; font-size: 22px;
+    color: var(--ink); line-height: 1.1;
+  }
+  .opp-filters {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    padding: 10px 12px;
+    border: 1.5px dashed var(--ink); border-radius: 6px;
+    background: rgba(255,255,255,.6);
+    margin-bottom: 14px;
+  }
+  .opp-filters .chip {
+    border: 1.2px solid var(--ink); background: #fff;
+    padding: 4px 10px; border-radius: 999px;
+    font-family: var(--sketch); font-size: 12px; color: var(--ink-soft);
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .opp-filters .chip.on { background: var(--ink); color: #fff; }
+
+  /* ========== Option D — narrative scroll ========== */
+  .scene {
+    border: 1.5px solid var(--ink);
+    margin-bottom: 18px;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    min-height: 240px;
+    background: #fff;
+  }
+  .scene > .left {
+    padding: 22px;
+    border-right: 1.5px solid var(--ink);
+  }
+  .scene > .right {
+    padding: 22px;
+  }
+  .scene.flip > .left { order: 2; border-right: none; border-left: 1.5px solid var(--ink); }
+  .scene.flip > .right { order: 1; }
+  .scene.tan > .left { background: var(--paper-2); }
+  .scene .scene-num {
+    font-family: var(--hand); font-weight: 700; font-size: 80px;
+    line-height: 1; color: var(--accent); opacity: 0.85;
+  }
+  .scene .scene-title {
+    font-family: var(--hand); font-weight: 700; font-size: 30px;
+    color: var(--ink); line-height: 1.05; margin-top: 6px;
+  }
+  .scene .scene-photo {
+    background:
+      repeating-linear-gradient(45deg, rgba(0,0,0,.06) 0 1px, transparent 1px 10px),
+      repeating-linear-gradient(-45deg, rgba(0,0,0,.06) 0 1px, transparent 1px 10px),
+      #d8d1bd;
+    height: 100%;
+    min-height: 180px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--sketch); font-size: 12px; letter-spacing: 1.4px;
+    text-transform: uppercase; color: var(--ink-soft);
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ============ CHROME ============ -->
+<div class="chrome">
+  <div class="chrome-top">
+    <div class="title-block">
+      <h1>"Get Involved" — page wireframes</h1>
+      <div class="meta">Low-fi structural exploration · City of Promise · /get-involved · 4 directions</div>
+    </div>
+    <div class="legend">
+      <span class="legend-dot paper">paper / canvas</span>
+      <span class="legend-dot navy">navy full-bleed</span>
+      <span class="legend-dot gold">gold accent</span>
+      <span class="legend-dot photo">photo placeholder</span>
+    </div>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-tab="a"><span class="num">A</span>Three doors</button>
+    <button class="tab" data-tab="b"><span class="num">B</span>Donate-forward</button>
+    <button class="tab" data-tab="c"><span class="num">C</span>Opportunity board</button>
+    <button class="tab" data-tab="d"><span class="num">D</span>Narrative scroll</button>
+  </div>
+</div>
+
+<div class="canvas">
+<div class="frame">
+
+<!-- ============================================================= -->
+<!-- OPTION A — THREE DOORS                                        -->
+<!-- ============================================================= -->
+<div class="panel active" data-panel="a">
+
+  <div class="wf-crumb">You are here: <b>Home</b> › <b>Get Involved</b> &nbsp;·&nbsp; three equal paths — Donate · Volunteer · Partner</div>
+
+  <div class="wf-nav wobble">
+    <div class="wf-nav-logo">City of Promise</div>
+    <div class="wf-nav-items">
+      <span>What We Do</span>
+      <span>Our Approach</span>
+      <span>Who We Are</span>
+      <span>Access Services</span>
+      <span class="active">Get Involved</span>
+      <span>Published Work</span>
+    </div>
+    <span class="wf-btn gold" style="font-size:13px; padding:6px 12px;">Donate</span>
+  </div>
+
+  <!-- HERO -->
+  <div class="sect" style="padding: 48px 28px; margin-top: 18px;">
+    <div class="wf-eyebrow">GET INVOLVED</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head xxxl" style="max-width: 940px;">There's no us<br/>without you.</div>
+    <div class="wf-body lg" style="max-width: 620px; margin-top: 18px;">
+      Three ways to put your weight behind the work — pick the one that fits the time and resources you have. None of these are passive.
+    </div>
+    <div class="annot" style="margin-top: 14px;">
+      <span class="annot-label">↑ borrows the homepage refrain "There's no us without you" — confirm w/ Price</span>
+    </div>
+  </div>
+
+  <!-- THREE DOORS -->
+  <div class="grid-3">
+    <div class="door">
+      <div class="door-tag">PATH 01 · MONEY</div>
+      <div class="door-num">$</div>
+      <div class="door-title">Donate</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body">
+        Direct gift, NAP tax credit, corporate partnership, or recurring. The fastest lever you have.
+      </div>
+      <ul>
+        <li>Direct gift (one-time / monthly)</li>
+        <li>NAP tax credits — 65% VA credit on gifts ≥ $500</li>
+        <li>Corporate partnership</li>
+        <li>Bequests &amp; planned giving</li>
+      </ul>
+      <div class="door-cta">
+        <span class="wf-btn gold lg">Donate Now →</span>
+        <div class="wf-label" style="margin-top: 10px;">/donate</div>
+      </div>
+    </div>
+
+    <div class="door" style="background: var(--paper-2);">
+      <div class="door-tag">PATH 02 · TIME</div>
+      <div class="door-num blue">⏱</div>
+      <div class="door-title">Volunteer</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body">
+        Tutor, walk a Walking Bus route, stock a pantry, or join the Nurturing Neighborhood pilot.
+      </div>
+      <ul>
+        <li>Current opportunities (filterable)</li>
+        <li>Nurturing Neighborhood — faith-partner pilot</li>
+        <li>Apply to Volunteer (form)</li>
+        <li>Returning? → Volunteer Portal</li>
+      </ul>
+      <div class="door-cta">
+        <span class="wf-btn navy lg">See Opportunities →</span>
+        <div class="wf-label" style="margin-top: 10px;">/volunteer</div>
+      </div>
+    </div>
+
+    <div class="door">
+      <div class="door-tag">PATH 03 · INSTITUTIONAL</div>
+      <div class="door-num blue">◇</div>
+      <div class="door-title">Partner</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body">
+        Community orgs working alongside us. Researchers studying the model. The constellation gets bigger.
+      </div>
+      <ul>
+        <li>For community orgs</li>
+        <li>For researchers</li>
+        <li>Anchor partners (UWGC, CCS, City)</li>
+        <li>Faith partners (UU, City Church)</li>
+      </ul>
+      <div class="door-cta">
+        <span class="wf-btn lg">Start a Conversation →</span>
+        <div class="wf-label" style="margin-top: 10px;">/partner</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY GIVE / SOCIAL PROOF -->
+  <div class="sect navy" style="margin-top: 26px;">
+    <div class="wf-eyebrow" style="color: var(--accent);">WHY THIS, WHY NOW</div>
+    <hr class="wf-rule"/>
+    <div class="grid-2" style="gap: 32px; align-items: center; margin-top: 12px;">
+      <div>
+        <div class="wf-head xl" style="color:#fff;">49pp literacy gap. Highest in Virginia.</div>
+        <div class="wf-body lg" style="color: rgba(255,255,255,.78); margin-top: 10px;">
+          Charlottesville is one of the wealthiest communities in the state and the most unequal one for kids learning to read. Your time and money are the lever.
+        </div>
+      </div>
+      <div class="wf-photo" style="height: 220px; border-radius: 8px;" data-label="kid + coach photo (placeholder)"></div>
+    </div>
+  </div>
+
+  <!-- DONOR-LIKE / VOLUNTEER-LIKE testimonials -->
+  <div class="grid-2" style="margin-top: 18px;">
+    <div class="sect">
+      <div class="wf-eyebrow">FROM A DONOR</div>
+      <div class="pullquote" style="font-size: 28px;">
+        "The NAP credits made it a no-brainer. We give more, and Virginia gives the rest back."
+        <span class="byline">— [donor name], Charlottesville</span>
+      </div>
+    </div>
+    <div class="sect tan">
+      <div class="wf-eyebrow">FROM A VOLUNTEER</div>
+      <div class="pullquote" style="font-size: 28px;">
+        "Tuesday mornings at the pantry — that's the thing in my week I'd defend last."
+        <span class="byline">— [volunteer name], Walking Bus</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK FAQ -->
+  <div class="sect dashed" style="margin-top: 18px;">
+    <div class="wf-eyebrow">QUICK ANSWERS</div>
+    <hr class="wf-rule thin"/>
+    <div class="grid-3" style="margin-top: 10px;">
+      <div>
+        <div class="wf-head sm">What's a NAP credit?</div>
+        <div class="wf-body" style="margin-top: 4px;">A 65% Virginia state tax credit on gifts of $500+, on top of the federal deduction. Not a write-off — a credit.</div>
+      </div>
+      <div>
+        <div class="wf-head sm">Do I have to live in Cville?</div>
+        <div class="wf-body" style="margin-top: 4px;">For volunteer roles, yes — most are on-site at one of seven schools. For donations &amp; partnerships, no.</div>
+      </div>
+      <div>
+        <div class="wf-head sm">How long is the volunteer commitment?</div>
+        <div class="wf-body" style="margin-top: 4px;">Varies by role — single events to year-long Walking Bus shifts. We'll match you.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <b>Option A — Three doors</b>
+    <ul>
+      <li>Equal-weight cards for Donate / Volunteer / Partner. Hero refrain ("There's no us without you") sets the moral stakes; the navy "why now" band carries the 49pp hook.</li>
+      <li>Strength: matches the sitemap exactly. A donor, volunteer, or community-org lead each see their path immediately. Most defensible default.</li>
+      <li>Risk: three equal paths means the NAP-credit story (CoP's biggest donor-acquisition hook) gets equal real-estate to volunteering — see Option B if we want to lean into that.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- OPTION B — DONATE-FORWARD                                     -->
+<!-- ============================================================= -->
+<div class="panel" data-panel="b">
+
+  <div class="wf-crumb">You are here: <b>Home</b> › <b>Get Involved</b> &nbsp;·&nbsp; donate-forward — NAP tax credit is the headline</div>
+
+  <div class="wf-nav wobble-2">
+    <div class="wf-nav-logo">City of Promise</div>
+    <div class="wf-nav-items">
+      <span>What We Do</span>
+      <span>Our Approach</span>
+      <span>Who We Are</span>
+      <span>Access Services</span>
+      <span class="active">Get Involved</span>
+      <span>Published Work</span>
+    </div>
+    <span class="wf-btn gold" style="font-size:13px; padding:6px 12px;">Donate</span>
+  </div>
+
+  <!-- Hero with NAP callout -->
+  <div class="sect" style="padding: 36px 28px; margin-top: 18px;">
+    <div class="grid-2" style="gap: 32px; align-items: center;">
+      <div>
+        <div class="wf-eyebrow">GET INVOLVED — DONATE</div>
+        <hr class="wf-rule wide"/>
+        <div class="wf-head xxl" style="max-width: 540px;">
+          $350 from you. $1,000 for our kids.
+        </div>
+        <div class="wf-body lg" style="margin-top: 14px; max-width: 480px;">
+          Every kid in Charlottesville deserves to learn to read. Today, only 37% of Black third graders are reading on grade level, compared to 94% of their White peers. Your gift funds the Community Schools and Dreambuilders work closing that gap.
+        </div>
+      </div>
+      <div class="nap-callout">
+        <span class="stamp">VA NAP CREDIT</span>
+        <div class="wf-eyebrow" style="color: var(--ink);">VIRGINIA RETURNS</div>
+        <div class="big">65%</div>
+        <div class="small">back to you, on every gift.</div>
+        <div class="wf-body" style="color: var(--ink); margin-top: 8px;">
+          Eligible on gifts of $500 or more. A state tax credit, not a deduction. Stacks with the federal deduction.
+        </div>
+      </div>
+    </div>
+
+    <!-- math walkthrough — builds UP to the $1K gift -->
+    <div class="nap-math">
+      <div class="step"><b>$350</b>your cost</div>
+      <div class="arrow">→</div>
+      <div class="step"><b>+ $650</b>65% VA credit</div>
+      <div class="arrow">→</div>
+      <div class="step" style="background: var(--accent);"><b>$1,000</b>gift to our kids*</div>
+    </div>
+    <div class="wf-label" style="margin-top: 10px;">* before federal deduction. Talk to your accountant. We'll send the paperwork.</div>
+    <div class="annot" style="margin-top: 10px;">
+      <span class="annot-label">↑ confirm exact mechanics with finance / Price — the 65% figure is from sitemap.md</span>
+    </div>
+  </div>
+
+  <!-- Donate CTA -->
+  <div class="sect" style="background: var(--paper-2);">
+    <div class="wf-eyebrow">GIVE TODAY</div>
+    <hr class="wf-rule thin"/>
+    <div class="row" style="align-items: center; gap: 24px; margin-top: 8px;">
+      <div style="flex: 1;">
+        <div class="wf-head xl">Make your gift.</div>
+        <div class="wf-body lg" style="margin-top: 6px;">
+          Gifts of $500 or more qualify for the NAP tax credit. We'll send the paperwork.
+        </div>
+      </div>
+      <span class="wf-btn navy lg">Donate →</span>
+    </div>
+  </div>
+
+  <!-- Other ways to give -->
+  <div class="sect">
+    <div class="wf-eyebrow">OTHER WAYS TO GIVE</div>
+    <hr class="wf-rule thin"/>
+    <div class="grid-3" style="margin-top: 12px;">
+      <div class="wf-box" style="padding: 16px;">
+        <div class="wf-head sm">Corporate partnership</div>
+        <div class="wf-body" style="margin-top: 6px;">Multi-year commitments, employee match programs, in-kind support.</div>
+        <div class="wf-label" style="margin-top: 10px;">→ talk to development</div>
+      </div>
+      <div class="wf-box" style="padding: 16px; background: var(--paper-2);">
+        <div class="wf-head sm">Stock &amp; donor-advised funds</div>
+        <div class="wf-body" style="margin-top: 6px;">Appreciated securities, DAF grants. Routing details + tax ID.</div>
+        <div class="wf-label" style="margin-top: 10px;">→ EIN / wire info</div>
+      </div>
+      <div class="wf-box" style="padding: 16px;">
+        <div class="wf-head sm">Bequests &amp; planned giving</div>
+        <div class="wf-body" style="margin-top: 6px;">Include CoP in your estate plan. Sample bequest language.</div>
+        <div class="wf-label" style="margin-top: 10px;">→ planned giving guide</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Secondary paths: VOLUNTEER + PARTNER (smaller) -->
+  <div class="grid-2" style="gap: 16px;">
+    <div class="sect">
+      <div class="wf-eyebrow">GIVE TIME INSTEAD</div>
+      <div class="wf-head xl" style="margin-top: 6px;">Volunteer</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body lg">
+        Tutoring, Walking Bus, food pantries, Nurturing Neighborhood faith-partner pilot. On-site at our seven Community Schools.
+      </div>
+      <div class="row" style="gap: 8px; margin-top: 12px;">
+        <span class="wf-btn navy">See opportunities →</span>
+        <span class="wf-btn ghost">Volunteer Portal</span>
+      </div>
+    </div>
+    <div class="sect tan">
+      <div class="wf-eyebrow">REPRESENT AN ORG?</div>
+      <div class="wf-head xl" style="margin-top: 6px;">Partner with us</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body lg">
+        Community orgs joining the Constellation of care. Researchers studying our dual-generation model.
+      </div>
+      <div class="row" style="gap: 8px; margin-top: 12px;">
+        <span class="wf-btn">For community orgs →</span>
+        <span class="wf-btn">For researchers →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trust band -->
+  <div class="sect navy" style="margin-top: 18px;">
+    <div class="wf-eyebrow" style="color: var(--accent);">WHERE THE MONEY GOES</div>
+    <hr class="wf-rule"/>
+    <div class="grid-4" style="margin-top: 14px;">
+      <div>
+        <div class="wf-head xl" style="color: var(--accent);">87¢</div>
+        <div class="wf-label" style="color: rgba(255,255,255,.7);">of every dollar to programs</div>
+      </div>
+      <div>
+        <div class="wf-head xl" style="color: var(--accent);">7</div>
+        <div class="wf-label" style="color: rgba(255,255,255,.7);">school sites funded</div>
+      </div>
+      <div>
+        <div class="wf-head xl" style="color: var(--accent);">327</div>
+        <div class="wf-label" style="color: rgba(255,255,255,.7);">kids in the program · FY25</div>
+      </div>
+      <div>
+        <div class="wf-head xl" style="color: var(--accent);">★</div>
+        <div class="wf-label" style="color: rgba(255,255,255,.7);">990s &amp; annual reports public</div>
+      </div>
+    </div>
+    <div class="annot" style="color: #ffcfa8; margin-top: 14px;">
+      <span class="annot-label" style="border-color:#ffcfa8; color: var(--ink);">→ pull real %s from FY25 990</span>
+    </div>
+  </div>
+
+  <div class="notes">
+    <b>Option B — Donate-forward</b>
+    <ul>
+      <li>NAP tax credit is the headline. The math builds UP to the $1,000 gift (your $350 → +$650 VA credit → $1,000 to our kids), not down to a net cost. Volunteer + Partner are secondary cards under the donate CTA.</li>
+      <li>Strength: leans into the brand's data-forward voice. "$350 from you, $1,000 for our kids" is a hook a major-gift donor will repeat to their accountant.</li>
+      <li>Risk: tilts the page toward dollars. A volunteer landing here from social may feel they're in the wrong place. Mitigated by the "Give time instead" pivot.</li>
+      <li>Donate CTA is a single link out to the donation processor. No on-page amount picker.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- OPTION C — OPPORTUNITY BOARD                                  -->
+<!-- ============================================================= -->
+<div class="panel" data-panel="c">
+
+  <div class="wf-crumb">You are here: <b>Home</b> › <b>Get Involved</b> &nbsp;·&nbsp; filterable list of every concrete way to plug in</div>
+
+  <div class="wf-nav">
+    <div class="wf-nav-logo">City of Promise</div>
+    <div class="wf-nav-items">
+      <span>What We Do</span>
+      <span>Our Approach</span>
+      <span>Who We Are</span>
+      <span>Access Services</span>
+      <span class="active">Get Involved</span>
+      <span>Published Work</span>
+    </div>
+    <span class="wf-btn gold" style="font-size:13px; padding:6px 12px;">Donate</span>
+  </div>
+
+  <!-- Compact hero -->
+  <div class="sect" style="padding: 32px 28px; margin-top: 18px;">
+    <div class="wf-eyebrow">GET INVOLVED</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head xl" style="max-width: 820px;">
+      Every open opportunity at City of Promise — money, time, partnership — on one page.
+    </div>
+    <div class="wf-body lg" style="max-width: 580px; margin-top: 10px;">
+      Filter by what you have to give and what you care about. Live count, updated weekly by staff.
+    </div>
+    <div class="row" style="gap: 12px; margin-top: 14px; align-items: center;">
+      <span class="wf-pill gold">12 open right now</span>
+      <span class="wf-pill">last updated · this week</span>
+      <span class="wf-btn ghost" style="margin-left: auto;">Subscribe to weekly digest</span>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="sect" style="padding: 14px 16px;">
+    <div class="row" style="gap: 18px; align-items: center;">
+      <div class="wf-label" style="white-space: nowrap;">I HAVE TO GIVE:</div>
+      <div class="opp-filters" style="margin: 0; flex: 1; border: none; background: transparent; padding: 0;">
+        <span class="chip on">all</span>
+        <span class="chip">money</span>
+        <span class="chip">time</span>
+        <span class="chip">expertise</span>
+        <span class="chip">space / goods</span>
+      </div>
+    </div>
+    <div class="row" style="gap: 18px; align-items: center; margin-top: 10px;">
+      <div class="wf-label" style="white-space: nowrap;">I CARE ABOUT:</div>
+      <div class="opp-filters" style="margin: 0; flex: 1; border: none; background: transparent; padding: 0;">
+        <span class="chip">community schools</span>
+        <span class="chip">dreambuilders</span>
+        <span class="chip">family engagement</span>
+        <span class="chip">walking bus</span>
+        <span class="chip">food pantry</span>
+        <span class="chip">tutoring</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Opportunity cards -->
+  <div class="col" style="gap: 12px;">
+
+    <div class="opp-card">
+      <div class="opp-icon">$</div>
+      <div>
+        <span class="wf-pill gold">MONEY</span>
+        <span class="wf-pill">NAP eligible</span>
+        <div class="opp-title" style="margin-top: 6px;">Make a NAP-credit gift ($500+)</div>
+        <div class="wf-body" style="margin-top: 4px;">65% Virginia state tax credit on gifts of $500 or more. The cleanest way to give.</div>
+        <div class="opp-meta">
+          <span class="wf-label">↻ ongoing</span>
+          <span class="wf-label">· any donor</span>
+        </div>
+      </div>
+      <span class="wf-btn gold">Give →</span>
+    </div>
+
+    <div class="opp-card">
+      <div class="opp-icon">⏱</div>
+      <div>
+        <span class="wf-pill">TIME</span>
+        <span class="wf-pill">community schools</span>
+        <div class="opp-title" style="margin-top: 6px;">Walking Bus chaperone — Trailblazer ES</div>
+        <div class="wf-body" style="margin-top: 4px;">Mon/Wed/Fri 7:30-8:15am. Walk the route with kids from 10th &amp; Page to school.</div>
+        <div class="opp-meta">
+          <span class="wf-label">↻ school year · 2 spots</span>
+          <span class="wf-label">· background check req'd</span>
+        </div>
+      </div>
+      <span class="wf-btn">Apply →</span>
+    </div>
+
+    <div class="opp-card">
+      <div class="opp-icon">⏱</div>
+      <div>
+        <span class="wf-pill">TIME</span>
+        <span class="wf-pill">dreambuilders</span>
+        <div class="opp-title" style="margin-top: 6px;">Childcare during Parent Time — Tuesday evenings</div>
+        <div class="wf-body" style="margin-top: 4px;">Watch DB kids 5–7pm Tues while their parents are in cohort. 708 Page St.</div>
+        <div class="opp-meta">
+          <span class="wf-label">↻ weekly · 4 spots</span>
+        </div>
+      </div>
+      <span class="wf-btn">Apply →</span>
+    </div>
+
+    <div class="opp-card">
+      <div class="opp-icon" style="background: var(--accent);">▲</div>
+      <div>
+        <span class="wf-pill gold">PILOT</span>
+        <span class="wf-pill">faith partner</span>
+        <div class="opp-title" style="margin-top: 6px;">Nurturing Neighborhood — UU + City Church</div>
+        <div class="wf-body" style="margin-top: 4px;">Faith-partner pilot adopting two CoP families. 6-month commitment, monthly check-ins.</div>
+        <div class="opp-meta">
+          <span class="wf-label">↻ rolling intake</span>
+        </div>
+      </div>
+      <span class="wf-btn">Learn more →</span>
+    </div>
+
+    <div class="opp-card">
+      <div class="opp-icon">📦</div>
+      <div>
+        <span class="wf-pill">GOODS</span>
+        <span class="wf-pill">pantries</span>
+        <div class="opp-title" style="margin-top: 6px;">Stock the on-site food pantries</div>
+        <div class="wf-body" style="margin-top: 4px;">Drive food from Loaves &amp; Fishes to four school-site pantries. Mornings.</div>
+        <div class="opp-meta">
+          <span class="wf-label">↻ weekly · 1 spot</span>
+        </div>
+      </div>
+      <span class="wf-btn">Apply →</span>
+    </div>
+
+    <div class="opp-card">
+      <div class="opp-icon">◇</div>
+      <div>
+        <span class="wf-pill navy">PARTNER</span>
+        <span class="wf-pill">community orgs</span>
+        <div class="opp-title" style="margin-top: 6px;">Become a constellation partner org</div>
+        <div class="wf-body" style="margin-top: 4px;">For Cville orgs whose services map onto a CoP family's needs. Co-referral pipeline.</div>
+        <div class="opp-meta">
+          <span class="wf-label">↻ ongoing intake</span>
+        </div>
+      </div>
+      <span class="wf-btn">Reach out →</span>
+    </div>
+
+    <div class="opp-card">
+      <div class="opp-icon">📚</div>
+      <div>
+        <span class="wf-pill navy">PARTNER</span>
+        <span class="wf-pill">research</span>
+        <div class="opp-title" style="margin-top: 6px;">Researchers studying dual-gen / community schools</div>
+        <div class="wf-body" style="margin-top: 4px;">UVA, JMU, &amp; out-of-state research collabs. Data sharing agreements available.</div>
+        <div class="opp-meta">
+          <span class="wf-label">↻ rolling</span>
+        </div>
+      </div>
+      <span class="wf-btn">Reach out →</span>
+    </div>
+
+    <div class="opp-card" style="background: var(--paper-2);">
+      <div class="opp-icon">+</div>
+      <div>
+        <span class="wf-pill">RETURNING</span>
+        <div class="opp-title" style="margin-top: 6px;">Already a volunteer? Log a shift / update availability</div>
+        <div class="wf-body" style="margin-top: 4px;">Volunteer Portal — sign-in for current vols.</div>
+      </div>
+      <span class="wf-btn ghost">Portal →</span>
+    </div>
+
+  </div>
+
+  <!-- Bottom: nothing matches? -->
+  <div class="sect dashed" style="margin-top: 18px;">
+    <div class="row" style="align-items: center; gap: 24px;">
+      <div style="flex: 1;">
+        <div class="wf-eyebrow">DON'T SEE A FIT?</div>
+        <div class="wf-head" style="margin-top: 6px;">Tell us what you'd want to do.</div>
+        <div class="wf-body" style="max-width: 540px; margin-top: 6px;">
+          One-line form. We read it. New roles open most weeks.
+        </div>
+      </div>
+      <div style="display:flex; gap: 8px;">
+        <span class="wf-btn navy">Pitch a role →</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <b>Option C — Opportunity board</b>
+    <ul>
+      <li>Treats Get Involved like a job board: every concrete way to help is a row, filterable by what you have to give and which program. Cards mix donate / volunteer / partner.</li>
+      <li>Strength: most action-forward. Highest information density. A returning volunteer or a curious researcher both convert in one click.</li>
+      <li>Risk: needs an actual content-management workflow — somebody has to keep the board fresh. Falls flat if it shows the same 4 things for six months.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- OPTION D — NARRATIVE SCROLL                                   -->
+<!-- ============================================================= -->
+<div class="panel" data-panel="d">
+
+  <div class="wf-crumb">You are here: <b>Home</b> › <b>Get Involved</b> &nbsp;·&nbsp; tells the story of one volunteer's year, a donor's gift, and a partner's referral</div>
+
+  <div class="wf-nav wobble">
+    <div class="wf-nav-logo">City of Promise</div>
+    <div class="wf-nav-items">
+      <span>What We Do</span>
+      <span>Our Approach</span>
+      <span>Who We Are</span>
+      <span>Access Services</span>
+      <span class="active">Get Involved</span>
+      <span>Published Work</span>
+    </div>
+    <span class="wf-btn gold" style="font-size:13px; padding:6px 12px;">Donate</span>
+  </div>
+
+  <!-- Hero -->
+  <div class="sect" style="padding: 48px 28px; margin-top: 18px;">
+    <div class="wf-eyebrow">GET INVOLVED</div>
+    <hr class="wf-rule wide"/>
+    <div class="wf-head xxl" style="max-width: 940px;">
+      Three Charlottesville people. Three different things they gave us. Same week last spring.
+    </div>
+    <div class="wf-body lg" style="max-width: 580px; margin-top: 14px;">
+      We don't ask for "support." We ask for specific things from specific people. Here's what that looked like, in their words.
+    </div>
+  </div>
+
+  <!-- Scene 1 — Volunteer -->
+  <div class="scene">
+    <div class="left">
+      <div class="scene-num">01</div>
+      <div class="wf-eyebrow">SCENE · TUESDAY 7:42 AM</div>
+      <div class="scene-title">Maya walks 4 kids to school.</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body lg" style="margin-top: 10px;">
+        She joined the Walking Bus three Septembers ago. Two of those four kids were in the first cohort she walked. One is now in middle school.
+      </div>
+      <div class="pullquote" style="font-size: 22px; margin-top: 14px;">
+        "It's the most boring 30 minutes of my week and the most important."
+        <span class="byline">— Maya · Trailblazer Walking Bus</span>
+      </div>
+      <div class="row" style="gap: 8px; margin-top: 14px;">
+        <span class="wf-btn navy">Volunteer like Maya →</span>
+        <span class="wf-btn ghost">All opportunities</span>
+      </div>
+    </div>
+    <div class="right" style="padding: 0;">
+      <div class="scene-photo" style="border-radius: 0;">photo · walking bus, morning light</div>
+    </div>
+  </div>
+
+  <!-- Scene 2 — Donor -->
+  <div class="scene flip tan">
+    <div class="left">
+      <div class="scene-num" style="color: var(--accent-2);">02</div>
+      <div class="wf-eyebrow">SCENE · WEDNESDAY 4:15 PM</div>
+      <div class="scene-title">Rob signs a $5,000 NAP-credit gift.</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body lg" style="margin-top: 10px;">
+        He'd been giving $500 a year for a decade. His accountant flagged the NAP credit. He gave 10× — and his net cost was the same as last year.
+      </div>
+      <div class="grid-2" style="gap: 12px; margin-top: 14px;">
+        <div class="wf-box" style="padding: 12px;">
+          <div class="wf-head" style="color: var(--accent-2); font-size: 30px;">$5,000</div>
+          <div class="wf-label">gift to CoP</div>
+        </div>
+        <div class="wf-box" style="padding: 12px; background: var(--accent);">
+          <div class="wf-head" style="font-size: 30px;">$1,750</div>
+          <div class="wf-label">net to Rob, after VA + federal</div>
+        </div>
+      </div>
+      <div class="row" style="gap: 8px; margin-top: 14px;">
+        <span class="wf-btn gold">Give like Rob →</span>
+        <span class="wf-btn ghost">How NAP credits work</span>
+      </div>
+    </div>
+    <div class="right" style="padding: 0;">
+      <div class="scene-photo" style="border-radius: 0;">photo · NAP paperwork on a desk</div>
+    </div>
+  </div>
+
+  <!-- Scene 3 — Partner -->
+  <div class="scene">
+    <div class="left">
+      <div class="scene-num">03</div>
+      <div class="wf-eyebrow">SCENE · THURSDAY 9:00 AM</div>
+      <div class="scene-title">Pastor T sends two families to Dreambuilders.</div>
+      <hr class="wf-rule thin"/>
+      <div class="wf-body lg" style="margin-top: 10px;">
+        UU Congregation joined the Nurturing Neighborhood pilot last fall. Their adopted families now sit at City of Promise's table — and vice versa.
+      </div>
+      <div class="pullquote" style="font-size: 22px; margin-top: 14px;">
+        "We stopped trying to <i>be</i> a service. We became a referral."
+        <span class="byline">— Pastor T · UU Congregation</span>
+      </div>
+      <div class="row" style="gap: 8px; margin-top: 14px;">
+        <span class="wf-btn">Partner like UU →</span>
+        <span class="wf-btn ghost">Nurturing Neighborhood</span>
+      </div>
+    </div>
+    <div class="right" style="padding: 0;">
+      <div class="scene-photo" style="border-radius: 0;">photo · pastor + DB coach at 708 Page</div>
+    </div>
+  </div>
+
+  <!-- Closer: three doors collapsed into one bar -->
+  <div class="sect navy" style="margin-top: 18px;">
+    <div class="wf-eyebrow" style="color: var(--accent);">YOUR TURN</div>
+    <hr class="wf-rule"/>
+    <div class="wf-head xl" style="color:#fff; max-width: 720px;">
+      Pick the one that's actually you, this month.
+    </div>
+    <div class="grid-3" style="margin-top: 18px; gap: 14px;">
+      <div style="padding: 16px; border: 1.5px solid rgba(255,255,255,.3); border-radius: 6px;">
+        <div class="wf-label" style="color: var(--accent);">PATH 01</div>
+        <div class="wf-head" style="color:#fff; margin-top: 4px;">Donate</div>
+        <div class="wf-body" style="color: rgba(255,255,255,.7); margin-top: 4px;">$ · NAP credit · monthly</div>
+        <div style="margin-top: 12px;"><span class="wf-btn gold">Donate →</span></div>
+      </div>
+      <div style="padding: 16px; border: 1.5px solid rgba(255,255,255,.3); border-radius: 6px;">
+        <div class="wf-label" style="color: var(--accent);">PATH 02</div>
+        <div class="wf-head" style="color:#fff; margin-top: 4px;">Volunteer</div>
+        <div class="wf-body" style="color: rgba(255,255,255,.7); margin-top: 4px;">on-site · 7 schools</div>
+        <div style="margin-top: 12px;"><span class="wf-btn">See roles →</span></div>
+      </div>
+      <div style="padding: 16px; border: 1.5px solid rgba(255,255,255,.3); border-radius: 6px;">
+        <div class="wf-label" style="color: var(--accent);">PATH 03</div>
+        <div class="wf-head" style="color:#fff; margin-top: 4px;">Partner</div>
+        <div class="wf-body" style="color: rgba(255,255,255,.7); margin-top: 4px;">orgs · researchers · faith</div>
+        <div style="margin-top: 12px;"><span class="wf-btn">Talk to us →</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes">
+    <b>Option D — Narrative scroll</b>
+    <ul>
+      <li>Three vignettes — a volunteer, a donor, a partner — show what "getting involved" actually looks like on a Tuesday morning. Each scene ends with the door it opens. Hard CTAs collapsed into a single navy band at the bottom.</li>
+      <li>Strength: the only option that uses CoP's storytelling muscle. Speaks to a first-time visitor who isn't sure they belong. Fixes the homepage gap where participant testimony lived but volunteer/donor stories didn't.</li>
+      <li>Risk: scroll-heavy. A returning donor who just wants to click "Donate" has to scroll past two scenes — mitigated by the persistent gold "Donate" in the nav.</li>
+    </ul>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+  // tab switching
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      const id = t.dataset.tab;
+      document.querySelector('.panel[data-panel="' + id + '"]').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Published Work — Wireframe</title>
+<link rel="icon" href="assets/favicon.png"/>
+<link rel="stylesheet" href="colors_and_type.css"/>
+<style>
+  /* ============================================================
+     Wireframe styling — keeps the brand's type and rhythm,
+     replaces color/imagery with annotated grayscale boxes.
+     ============================================================ */
+  :root{
+    --wf-line:#07305B;
+    --wf-line-soft:rgba(7,48,91,.28);
+    --wf-line-faint:rgba(7,48,91,.14);
+    --wf-fill:rgba(7,48,91,.04);
+    --wf-fill-2:rgba(7,48,91,.08);
+    --wf-anno:rgba(7,48,91,.55);
+    --wf-accent:#D5A33A;
+  }
+  html,body{margin:0;background:#F5F4F1;color:#07305B;font-family:Inter,sans-serif;}
+  body{padding-bottom:0;}
+  *{box-sizing:border-box;}
+  a{color:inherit;}
+
+  /* Wireframe primitives */
+  .wf-box{
+    border:1.5px dashed var(--wf-line-soft);
+    background:var(--wf-fill);
+    border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--wf-anno);
+    font-family:Inter,sans-serif; font-size:12px; font-weight:500;
+    letter-spacing:1.2px; text-transform:uppercase;
+    text-align:center; padding:16px;
+  }
+  .wf-box.solid{ border-style:solid; border-color:var(--wf-line); background:#fff; }
+  .wf-box.fill{ background:var(--wf-fill-2); }
+  .wf-text{
+    background:repeating-linear-gradient(
+      to bottom,
+      rgba(7,48,91,.32) 0 8px,
+      transparent 8px 18px
+    );
+    border-radius:2px;
+    height:auto;
+  }
+  .wf-text.short{ width:60%; }
+  .wf-text.med{ width:80%; }
+  .wf-text.long{ width:100%; }
+  .wf-line{
+    height:8px; border-radius:2px; background:rgba(7,48,91,.22);
+  }
+  .wf-line.thin{ height:6px; background:rgba(7,48,91,.16); }
+  .wf-rule{ height:3px; width:64px; background:var(--wf-accent); border-radius:2px; }
+  .wf-eyebrow{
+    font-family:Inter,sans-serif; font-size:11px; font-weight:600;
+    letter-spacing:1.6px; text-transform:uppercase; color:#13539A;
+  }
+  .wf-h1{
+    font-family:Fraunces,serif; font-size:64px; font-weight:700;
+    text-transform:uppercase; letter-spacing:-1.4px; line-height:1.05; margin:0;
+    color:#07305B;
+  }
+  .wf-h2{
+    font-family:Fraunces,serif; font-size:40px; font-weight:700;
+    letter-spacing:-0.8px; line-height:1.1; margin:0; color:#07305B;
+  }
+  .wf-h2.up{ text-transform:uppercase; }
+  .wf-h3{
+    font-family:Fraunces,serif; font-size:24px; font-weight:600;
+    letter-spacing:-0.3px; line-height:1.2; margin:0; color:#07305B;
+  }
+  .wf-lede{
+    font-family:Inter,sans-serif; font-size:17px; font-weight:400;
+    line-height:1.55; color:rgba(7,48,91,.7); max-width:680px; margin:0;
+  }
+  .wf-meta{
+    font-family:Inter,sans-serif; font-size:12px; color:var(--wf-anno);
+    letter-spacing:.4px;
+  }
+  .wf-anchor-tag{
+    display:inline-block;
+    font-family:'JetBrains Mono', ui-monospace, monospace;
+    font-size:11px; padding:3px 8px; border-radius:999px;
+    background:#fff; border:1px solid var(--wf-line-faint);
+    color:var(--wf-anno);
+  }
+
+  /* Annotation callouts */
+  .wf-anno{
+    position:absolute; max-width:240px;
+    font-family:Inter,sans-serif; font-size:11px; line-height:1.4;
+    color:var(--wf-anno); font-style:italic;
+  }
+  .wf-anno b{ color:#07305B; font-style:normal; font-weight:600; }
+  .wf-anno-pin{
+    display:inline-block; padding:3px 7px; border-radius:3px;
+    background:#D5A33A; color:#07305B; font-style:normal; font-weight:600;
+    font-size:10px; letter-spacing:.6px; text-transform:uppercase;
+    margin-bottom:4px;
+  }
+
+  /* Wireframe button */
+  .wf-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:10px 16px; border-radius:6px; border:1.5px solid var(--wf-line);
+    background:#fff; color:#07305B;
+    font-family:Inter,sans-serif; font-size:13px; font-weight:600;
+  }
+  .wf-btn.primary{ background:#07305B; color:#fff; }
+  .wf-btn.gold{ background:#D5A33A; border-color:#D5A33A; color:#07305B; }
+  .wf-btn.ghost{ background:transparent; border-style:dashed; }
+
+  /* Layout */
+  .wrap{ max-width:1240px; margin:0 auto; padding:0 32px; }
+  section{ position:relative; }
+  .section-pad{ padding:80px 0; }
+  .section-pad-sm{ padding:56px 0; }
+
+  /* Top wireframe meta strip */
+  .wf-stripe{
+    background:#07305B; color:#fff; padding:10px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:Inter,sans-serif; font-size:11px; letter-spacing:1.4px;
+    text-transform:uppercase;
+  }
+  .wf-stripe .dot{ display:inline-block;width:8px;height:8px;border-radius:99px;background:#D5A33A;margin-right:8px;vertical-align:1px; }
+
+  /* Header (chrome — keep close to real) */
+  .hdr{
+    background:#fff; border-bottom:1px solid rgba(7,48,91,.08);
+    padding:14px 32px; display:flex; align-items:center; justify-content:space-between;
+    position:sticky; top:0; z-index:20;
+  }
+  .hdr nav{ display:flex; gap:24px; }
+  .hdr nav a{
+    font-family:Inter,sans-serif; font-size:14px; font-weight:500;
+    color:#07305B; padding:4px 0; border-bottom:2px solid transparent;
+    text-decoration:none;
+  }
+  .hdr nav a.active{ border-bottom-color:#D5A33A; }
+  .hdr .logo{ height:42px; width:auto; display:block; }
+
+  /* Hero */
+  .hero{
+    background:#07305B; color:#fff; padding:88px 0 96px; position:relative;
+    overflow:hidden;
+  }
+  .hero .photo-ghost{
+    position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,.04) 0 12px, transparent 12px 24px),
+      #07305B;
+  }
+  .hero .photo-ghost::after{
+    content:'HERO PHOTO  ·  EDITORIAL DESK / RECORDING SETUP / READING ROOM';
+    position:absolute; right:32px; bottom:24px;
+    font-family:Inter,sans-serif; font-size:10px; letter-spacing:1.6px;
+    color:rgba(255,255,255,.45);
+  }
+  .hero .wrap{ position:relative; }
+  .hero .wf-h1{ color:#fff; max-width:880px; }
+  .hero .wf-lede{ color:rgba(255,255,255,.78); max-width:620px; margin-top:20px; }
+  .hero .gold-rule{ width:64px; height:3px; background:#D5A33A; margin-bottom:18px; }
+
+  /* Sub-nav (anchor jumps) */
+  .subnav{
+    background:#EEEEEC; border-bottom:1px solid rgba(7,48,91,.08);
+    padding:14px 0;
+  }
+  .subnav-row{
+    display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+  }
+  .subnav-row .label{
+    font-family:Inter,sans-serif; font-size:11px; font-weight:600;
+    letter-spacing:1.4px; text-transform:uppercase;
+    color:rgba(7,48,91,.55); margin-right:12px;
+  }
+  .anchor-chip{
+    padding:8px 14px; border-radius:999px; background:#fff;
+    border:1px solid rgba(7,48,91,.12);
+    font-family:Inter,sans-serif; font-size:13px; font-weight:500;
+    color:#07305B; text-decoration:none;
+  }
+  .anchor-chip .num{ color:rgba(7,48,91,.4); margin-right:6px; font-variant-numeric:tabular-nums; }
+
+  /* Section labels */
+  .sec-label{
+    display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;
+    margin-bottom:24px;
+  }
+  .sec-label .num{
+    font-family:Fraunces,serif; font-size:14px; font-weight:600;
+    color:#D5A33A; letter-spacing:.6px;
+  }
+
+  /* Grid utilities */
+  .grid{ display:grid; gap:24px; }
+  .grid.c2{ grid-template-columns:1fr 1fr; }
+  .grid.c3{ grid-template-columns:repeat(3,1fr); }
+  .grid.c4{ grid-template-columns:repeat(4,1fr); }
+  .stack{ display:flex; flex-direction:column; gap:16px; }
+  .row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+
+  /* Cards */
+  .card{
+    background:#fff; border:1px solid rgba(7,48,91,.1);
+    border-radius:8px; padding:20px; display:flex; flex-direction:column;
+    gap:12px;
+  }
+  .card.dashed{ background:transparent; border:1.5px dashed var(--wf-line-soft); }
+
+  /* Episode / podcast row */
+  .ep-row{
+    display:grid; grid-template-columns:80px 1fr auto; gap:16px;
+    padding:16px 0; border-bottom:1px solid rgba(7,48,91,.1);
+    align-items:center;
+  }
+  .ep-row:last-child{ border-bottom:0; }
+  .ep-thumb{
+    width:80px; height:80px; border-radius:6px; background:var(--wf-fill-2);
+    border:1.5px dashed var(--wf-line-soft);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--wf-anno); font-size:10px; letter-spacing:1.2px;
+  }
+  .ep-meta{ display:flex; flex-direction:column; gap:6px; }
+
+  /* Medium card */
+  .med-card{
+    background:#fff; border:1px solid rgba(7,48,91,.1); border-radius:8px;
+    padding:20px; display:flex; flex-direction:column; gap:12px;
+    min-height:200px;
+  }
+  .med-card .pin{
+    align-self:flex-start; padding:3px 8px; border-radius:999px;
+    background:#D5A33A; color:#07305B;
+    font-family:Inter,sans-serif; font-size:10px; font-weight:600;
+    letter-spacing:1px; text-transform:uppercase;
+  }
+  .med-card .title{
+    font-family:Fraunces,serif; font-size:20px; font-weight:600;
+    line-height:1.25; color:#07305B; letter-spacing:-0.2px;
+  }
+  .med-card .sub{
+    font-family:Inter,sans-serif; font-size:13px; color:rgba(7,48,91,.7);
+    line-height:1.5;
+  }
+  .med-card .foot{
+    margin-top:auto; display:flex; justify-content:space-between; align-items:center;
+    font-family:Inter,sans-serif; font-size:12px; color:rgba(7,48,91,.55);
+  }
+  .med-card .foot a{ color:#13539A; font-weight:500; }
+
+  /* Reports card */
+  .rep-card{
+    background:#fff; border:1px solid rgba(7,48,91,.1); border-radius:8px;
+    padding:20px; display:flex; gap:16px;
+  }
+  .rep-cover{
+    width:88px; flex-shrink:0; aspect-ratio:8.5/11; border-radius:4px;
+    background:var(--wf-fill-2); border:1.5px dashed var(--wf-line-soft);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--wf-anno); font-size:9px; letter-spacing:1px; text-align:center;
+    padding:6px;
+  }
+  .rep-body{ display:flex; flex-direction:column; gap:6px; flex:1; min-width:0; }
+
+  /* 990 row */
+  .fin-row{
+    display:grid; grid-template-columns:80px 1fr 120px 100px;
+    gap:16px; align-items:center; padding:14px 16px;
+    border-bottom:1px solid rgba(7,48,91,.08);
+    font-family:Inter,sans-serif; font-size:14px;
+  }
+  .fin-row.head{
+    font-size:11px; font-weight:600; letter-spacing:1.2px; text-transform:uppercase;
+    color:rgba(7,48,91,.55); border-bottom:1.5px solid #07305B;
+  }
+  .fin-row.featured{
+    background:#fff; border:1px solid rgba(7,48,91,.12); border-radius:8px;
+    padding:18px 20px; margin-bottom:16px;
+  }
+
+  /* Side annotations gutter */
+  .with-anno{ position:relative; }
+  .anno-right{
+    position:absolute; right:-280px; top:0; width:240px;
+    padding:14px; background:rgba(213,163,58,.1);
+    border-left:3px solid #D5A33A; border-radius:0 6px 6px 0;
+    font-family:Inter,sans-serif; font-size:12px; line-height:1.45;
+    color:#07305B;
+  }
+  @media (max-width:1640px){
+    .anno-right{ position:static; width:auto; margin:12px 0 0; right:auto; border-radius:6px; }
+  }
+  .anno-tag{
+    display:inline-block; font-size:9px; font-weight:700; letter-spacing:1.3px;
+    text-transform:uppercase; color:#7a5f1f; margin-bottom:6px;
+  }
+
+  /* Terminal / footer */
+  .terminal{
+    background:#07305B; color:#fff; padding:80px 0;
+  }
+  .terminal .wf-h2{ color:#fff; }
+  .terminal .wf-lede{ color:rgba(255,255,255,.78); }
+  .ftr{
+    background:#07305B; color:#fff; padding:48px 0 24px;
+    border-top:1px solid rgba(255,255,255,.12);
+  }
+  .ftr .wf-box{ background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.18); color:rgba(255,255,255,.55); }
+
+  /* Voice intro pull-quote (verbatim copy from sitemap) */
+  .verbatim{
+    background:#fff; border-left:3px solid #D5A33A; padding:20px 24px;
+    border-radius:0 6px 6px 0;
+    font-family:Inter,sans-serif; font-size:14px; line-height:1.6;
+    color:#07305B;
+  }
+  .verbatim p{ margin:0 0 12px; }
+  .verbatim p:last-child{ margin-bottom:0; }
+  .verbatim .src{
+    font-size:10px; font-weight:600; letter-spacing:1.4px;
+    text-transform:uppercase; color:rgba(7,48,91,.55);
+    margin-bottom:10px;
+  }
+
+  /* Player ghost */
+  .player{
+    background:#fff; border:1.5px dashed var(--wf-line-soft); border-radius:8px;
+    padding:20px; display:flex; gap:16px; align-items:center;
+  }
+  .player .play{
+    width:56px; height:56px; border-radius:999px;
+    border:1.5px dashed var(--wf-line-soft); background:var(--wf-fill);
+    display:flex; align-items:center; justify-content:center; color:var(--wf-anno);
+    font-size:11px; letter-spacing:1.2px;
+  }
+
+  /* Tag pill */
+  .tag{
+    display:inline-block; font-family:Inter,sans-serif; font-size:10px;
+    font-weight:600; letter-spacing:1.2px; text-transform:uppercase;
+    color:rgba(7,48,91,.6); padding:3px 8px; border-radius:999px;
+    background:rgba(7,48,91,.06);
+  }
+
+  /* Stat cell */
+  .stat{
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .stat .num{
+    font-family:Fraunces,serif; font-size:64px; font-weight:700;
+    color:#13539A; letter-spacing:-1.4px; line-height:1;
+  }
+  .stat .lbl{
+    font-family:Inter,sans-serif; font-size:13px; color:rgba(7,48,91,.7);
+    line-height:1.4; max-width:200px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Wireframe stripe -->
+<div class="wf-stripe">
+  <span><span class="dot"></span>Wireframe · /published-work · v0.1 · Lo-fi</span>
+  <span>Mirrors structure of /programs detail template</span>
+</div>
+
+<!-- Header (real chrome) -->
+<header class="hdr">
+  <img class="logo" src="assets/logo-horizontal.png" alt="City of Promise"/>
+  <nav>
+    <a href="#">What We Do</a>
+    <a href="#">Our Approach</a>
+    <a href="#">Who We Are</a>
+    <a href="#">Access Services</a>
+    <a href="#">Get Involved</a>
+    <a href="#" class="active">Published Work</a>
+    <a href="#">Contact</a>
+  </nav>
+  <button class="wf-btn gold">Donate Now</button>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="photo-ghost"></div>
+  <div class="wrap">
+    <div class="gold-rule"></div>
+    <div class="wf-eyebrow" style="color:#D5A33A; margin-bottom:14px;">Published Work</div>
+    <h1 class="wf-h1">A reading room, not a&nbsp;funnel.</h1>
+    <p class="wf-lede">
+      Everything City of Promise has put on the record — the podcast, the column, the reports, the
+      990s. Positions CoP as an intellectual actor on the Charlottesville literacy gap, not just a
+      service provider.
+    </p>
+    <div style="margin-top:28px;">
+      <span class="wf-meta" style="color:rgba(255,255,255,.55);">
+        H1 voice options to choose from: "On the record." · "We write it down." · "Published work." · current placeholder above. — No CTA buttons in hero (this is a reading room, not a funnel).
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ANCHOR SUBNAV ============ -->
+<nav class="subnav">
+  <div class="wrap subnav-row">
+    <span class="label">On this page</span>
+    <a class="anchor-chip" href="#radio"><span class="num">01</span>Envision Radio</a>
+    <a class="anchor-chip" href="#from-the-ed"><span class="num">02</span>From the ED</a>
+    <a class="anchor-chip" href="#reports"><span class="num">03</span>Reports</a>
+    <a class="anchor-chip" href="#financials"><span class="num">04</span>990s &amp; Tax Forms</a>
+  </div>
+</nav>
+
+<!-- ============ 01 · ENVISION RADIO ============ -->
+<section id="radio" class="section-pad" style="background:#EEEEEC;" data-screen-label="02 Envision Radio">
+  <div class="wrap">
+    <div class="sec-label">
+      <span class="wf-rule"></span>
+      <span class="num">01 / 05</span>
+      <span class="wf-eyebrow" style="color:#13539A;">Podcast</span>
+    </div>
+    <h2 class="wf-h2 up">Envision Radio</h2>
+    <p class="wf-lede" style="margin-top:14px;">
+      Co-hosted with United Way of Greater Charlottesville. Airs Saturdays, 7:30AM, on WINA.
+    </p>
+
+    <!-- Partner logo strip -->
+    <div class="row" style="margin-top:28px; gap:24px;">
+      <div class="wf-box" style="width:140px; height:48px;">WINA logo</div>
+      <div class="wf-box" style="width:160px; height:48px;">UWGC logo</div>
+      <div class="wf-box" style="width:140px; height:48px;">CoP logo</div>
+      <span class="wf-meta">Three partner marks, locked-up sizing</span>
+    </div>
+
+    <!-- Verbatim intro -->
+    <div class="grid c2" style="grid-template-columns:1.1fr 1fr; margin-top:36px;">
+      <div class="verbatim">
+        <div class="src">Verbatim intro from /stories — do not edit</div>
+        <p>Co-hosted by Markiana Smith and Price Thomas, Envision Radio is a partnership between WINA, United Way of Greater Charlottesville, and City of Promise to have authentic and candid conversations about our community, focused on racial equity as it relates to economic mobility rooted in education, health, housing, and workforce development.</p>
+        <p>The show airs every Saturday morning at 7:30AM. You can listen to every episode on your favorite podcast app or use the plugin.</p>
+      </div>
+      <div class="stack">
+        <div class="player">
+          <div class="play">▶ PLAY</div>
+          <div style="flex:1;">
+            <div class="wf-line" style="width:70%;"></div>
+            <div class="wf-line thin" style="width:40%; margin-top:8px;"></div>
+            <div class="wf-line thin" style="width:90%; margin-top:14px;"></div>
+          </div>
+        </div>
+        <div class="row" style="gap:8px;">
+          <button class="wf-btn">▶ Apple Podcasts</button>
+          <button class="wf-btn">▶ Spotify</button>
+          <button class="wf-btn">▶ Google</button>
+        </div>
+        <span class="wf-meta">Embedded plugin = same player currently on /stories.</span>
+      </div>
+    </div>
+
+    <!-- Episode list -->
+    <div style="margin-top:48px;">
+      <div class="row" style="justify-content:space-between; align-items:flex-end; margin-bottom:8px;">
+        <h3 class="wf-h3">Recent episodes</h3>
+        <span class="wf-meta">Most recent first · paginated · 10 per page</span>
+      </div>
+      <div class="card" style="padding:0 20px;">
+        <div class="ep-row">
+          <div class="ep-thumb">EP ART</div>
+          <div class="ep-meta">
+            <div class="row" style="gap:8px;"><span class="tag">EP 142</span><span class="wf-meta">May 2026 · 38 min</span></div>
+            <div style="font-family:Fraunces,serif; font-size:18px; font-weight:600;">Episode title placeholder — guest, topic, hook.</div>
+            <div class="wf-line" style="width:70%;"></div>
+          </div>
+          <button class="wf-btn">Listen →</button>
+        </div>
+        <div class="ep-row">
+          <div class="ep-thumb">EP ART</div>
+          <div class="ep-meta">
+            <div class="row" style="gap:8px;"><span class="tag">EP 141</span><span class="wf-meta">Apr 2026 · 42 min</span></div>
+            <div style="font-family:Fraunces,serif; font-size:18px; font-weight:600;">Episode title placeholder.</div>
+            <div class="wf-line" style="width:60%;"></div>
+          </div>
+          <button class="wf-btn">Listen →</button>
+        </div>
+        <div class="ep-row">
+          <div class="ep-thumb">EP ART</div>
+          <div class="ep-meta">
+            <div class="row" style="gap:8px;"><span class="tag">EP 140</span><span class="wf-meta">Apr 2026 · 35 min</span></div>
+            <div style="font-family:Fraunces,serif; font-size:18px; font-weight:600;">Episode title placeholder.</div>
+            <div class="wf-line" style="width:80%;"></div>
+          </div>
+          <button class="wf-btn">Listen →</button>
+        </div>
+        <div class="ep-row">
+          <div class="ep-thumb">EP ART</div>
+          <div class="ep-meta">
+            <div class="row" style="gap:8px;"><span class="tag">EP 139</span><span class="wf-meta">Mar 2026 · 31 min</span></div>
+            <div style="font-family:Fraunces,serif; font-size:18px; font-weight:600;">Episode title placeholder.</div>
+            <div class="wf-line" style="width:55%;"></div>
+          </div>
+          <button class="wf-btn">Listen →</button>
+        </div>
+      </div>
+      <div class="row" style="margin-top:20px; justify-content:center; gap:8px;">
+        <button class="wf-btn ghost">‹</button>
+        <button class="wf-btn">1</button>
+        <button class="wf-btn ghost">2</button>
+        <button class="wf-btn ghost">3</button>
+        <span class="wf-meta">…</span>
+        <button class="wf-btn ghost">15</button>
+        <button class="wf-btn ghost">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 · FROM THE ED ============ -->
+<section id="from-the-ed" class="section-pad" style="background:#E8DFD1;" data-screen-label="03 From the ED">
+  <div class="wrap">
+    <div class="sec-label">
+      <span class="wf-rule"></span>
+      <span class="num">02 / 05</span>
+      <span class="wf-eyebrow" style="color:#13539A;">Column · Medium</span>
+    </div>
+    <h2 class="wf-h2 up">From the ED</h2>
+    <p class="wf-lede" style="margin-top:14px;">
+      Price Thomas's column — usually blunt, occasionally irreverent, always on the record.
+    </p>
+
+    <!-- Verbatim intro -->
+    <div class="verbatim" style="margin-top:28px; max-width:880px;">
+      <div class="src">Verbatim intro from /stories — do not edit</div>
+      <p>Usually blunt, occasionally irreverent, but always authentic and thought-provoking, Price Thomas discusses the reality of what's happening in the education and nonprofit world in Charlottesville.</p>
+      <p>Check out "The Reeducation of Charlottesville" and Follow along as we ask the hard questions about the cycle of generational poverty in Charlottesville, hold ourselves and partners (both non-profit, for profit, and municipal) accountable to tangible progress, and entertain solutions just a bit outside the box.</p>
+    </div>
+
+    <!-- Featured: Daily Progress link + pinned post -->
+    <div class="grid c2" style="margin-top:32px;">
+      <div class="card" style="background:#07305B; color:#fff; border-color:rgba(255,255,255,.18); padding:28px;">
+        <span class="tag" style="background:rgba(213,163,58,.2); color:#D5A33A;">Featured · External</span>
+        <div style="font-family:Fraunces,serif; font-size:26px; font-weight:600; letter-spacing:-0.4px; line-height:1.2; margin-top:8px;">
+          The Reeducation of Charlottesville
+        </div>
+        <div style="font-family:Inter,sans-serif; font-size:14px; color:rgba(255,255,255,.78); line-height:1.55; margin-top:10px;">
+          Price's anchor essay, published in the Daily Progress. The frame for everything that follows.
+        </div>
+        <div class="row" style="margin-top:16px; justify-content:space-between;">
+          <span class="wf-meta" style="color:rgba(255,255,255,.55);">dailyprogress.com →</span>
+          <button class="wf-btn gold">Read in Daily Progress →</button>
+        </div>
+      </div>
+      <div class="med-card">
+        <span class="pin">Pinned · Latest</span>
+        <div class="title">Welcome to 2026</div>
+        <div class="sub">A lot can happen in a year. In just the last 365 days we've evolved and deepened our community school pilot at Trailblazer and put pen to…</div>
+        <div class="foot">
+          <span>Jan 19, 2026 · 6 min read</span>
+          <a href="#">Read on Medium →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medium feed grid -->
+    <div class="row" style="justify-content:space-between; align-items:flex-end; margin-top:48px; margin-bottom:16px;">
+      <h3 class="wf-h3">Recent posts</h3>
+      <div class="row">
+        <span class="wf-meta">10 most recent · live RSS feed from medium.com/@cityofpromise</span>
+      </div>
+    </div>
+
+    <div class="grid c3 with-anno">
+      <div class="med-card">
+        <div class="title">Economics of Education 💰📚</div>
+        <div class="sub">How closely correlated are economics and education?</div>
+        <div class="foot"><span>Nov 4, 2025</span><a href="#">Read →</a></div>
+      </div>
+      <div class="med-card">
+        <div class="title">We need more working buses, not "walking buses"</div>
+        <div class="sub">Showing up is half the battle. And it's one that we seem OK with our kids losing.</div>
+        <div class="foot"><span>Aug 24, 2025</span><a href="#">Read →</a></div>
+      </div>
+      <div class="med-card">
+        <div class="title">School Vouchers Are Welfare for the Wealthy</div>
+        <div class="sub">School choice doesn't present much of a choice for the kids who can't pay up.</div>
+        <div class="foot"><span>Mar 25, 2025</span><a href="#">Read →</a></div>
+      </div>
+      <div class="med-card">
+        <div class="title">Charlottesville is sacrificing basic reading skills for graduation rates</div>
+        <div class="sub">Only half of Charlottesville's Black and economically disadvantaged students can read on grade level at age 17. Most of them will still…</div>
+        <div class="foot"><span>Jan 14, 2025</span><a href="#">Read →</a></div>
+      </div>
+      <div class="med-card">
+        <div class="title">Schools are not equipped to solve large-scale problems</div>
+        <div class="sub">We're asking them to do too many things, and ultimately, it's hurting our kids and families who need the most support.</div>
+        <div class="foot"><span>Nov 12, 2024</span><a href="#">Read →</a></div>
+      </div>
+      <div class="med-card">
+        <div class="title">Outside Looking In</div>
+        <div class="sub">We're facing the wrong way on the community vs. school issue.</div>
+        <div class="foot"><span>Jun 21, 2024</span><a href="#">Read →</a></div>
+      </div>
+      <div class="med-card">
+        <div class="title">Numbers Don't Lie… Except When They Do</div>
+        <div class="sub">Non-profit impact reporting gone wild.</div>
+        <div class="foot"><span>May 17, 2024</span><a href="#">Read →</a></div>
+      </div>
+      <div class="med-card">
+        <div class="title">A Love Letter to Charlottesville</div>
+        <div class="sub">As published in Cville Weekly.</div>
+        <div class="foot"><span>Mar 27, 2024</span><a href="#">Read →</a></div>
+      </div>
+      <div class="med-card">
+        <div class="title">CoP nonprofit helps low-income families build their dreams…</div>
+        <div class="sub">City of Promise's Dreambuilders program is changing lives.</div>
+        <div class="foot"><span>Feb 20, 2024</span><a href="#">Read →</a></div>
+      </div>
+    </div>
+
+    <!-- Open question annotation -->
+    <div style="margin-top:28px; padding:18px 22px; background:rgba(213,163,58,.18); border-left:3px solid #D5A33A; border-radius:0 6px 6px 0; max-width:880px;">
+      <span class="anno-tag">Open question</span>
+      <div style="font-family:Inter,sans-serif; font-size:13px; color:#07305B; line-height:1.5;">
+        <b style="font-weight:600;">Live RSS or hand-curated?</b> Recommendation: pull live from
+        <code style="font-family:ui-monospace,monospace;">medium.com/feed/@cityofpromise</code> at build time
+        +&nbsp;one pinned-featured slot at the top (above). Confirm with Price.
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:24px;">
+      <button class="wf-btn primary">Follow on Medium →</button>
+      <button class="wf-btn">RSS feed</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 · REPORTS (Annual + Research, combined) ============ -->
+<section id="reports" class="section-pad" style="background:#EEEEEC;" data-screen-label="04 Reports">
+  <div class="wrap">
+    <div class="sec-label">
+      <span class="wf-rule"></span>
+      <span class="num">03 / 04</span>
+      <span class="wf-eyebrow" style="color:#13539A;">Annual + Research</span>
+    </div>
+    <h2 class="wf-h2 up">Reports</h2>
+    <p class="wf-lede" style="margin-top:14px;">
+      The annual report on top, then evaluations, white papers, partner research, and conference
+      talks. One combined library — CoP as research contributor, not just research subject.
+    </p>
+
+    <!-- ---- Featured: Annual Report 2025 ---- -->
+    <div style="margin-top:36px; padding:32px; background:#fff; border:1px solid rgba(7,48,91,.1); border-radius:8px;">
+      <div class="grid" style="grid-template-columns:280px 1fr; gap:40px; align-items:center;">
+        <div class="rep-cover" style="width:100%; aspect-ratio:8.5/11; font-size:11px; padding:14px;">
+          AR2025 COVER<br/><span style="text-transform:none; letter-spacing:0; font-size:10px; color:rgba(7,48,91,.4); margin-top:8px; display:block;">(use the live report cover image)</span>
+        </div>
+        <div class="stack" style="gap:14px;">
+          <span class="tag" style="background:#D5A33A; color:#07305B;">Featured · Current edition · FY2025</span>
+          <h3 class="wf-h2" style="font-size:36px;">Annual Report 2025</h3>
+          <p class="wf-lede">
+            A year of expansion: Trailblazer pilot deepened, Walking Bus launched at Westhaven, Dreambuilders cohort grew, $1.3M raised.
+          </p>
+          <ul style="margin:0; padding-left:18px; font-family:Inter,sans-serif; font-size:14px; color:rgba(7,48,91,.75); line-height:1.7;">
+            <li>Letter from Price · program-by-program recap</li>
+            <li>By the numbers · staff list · partner list · financials</li>
+          </ul>
+          <div class="row" style="gap:8px; margin-top:8px;">
+            <button class="wf-btn primary">View report →</button>
+            <button class="wf-btn">Download PDF (4.8 MB)</button>
+            <span class="wf-meta">Currently lives at /ar2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---- Library divider ---- -->
+    <div class="row" style="justify-content:space-between; align-items:flex-end; margin-top:56px; margin-bottom:16px;">
+      <h3 class="wf-h3">The full library</h3>
+      <span class="wf-meta">Annual reports · evaluations · white papers · partner research · conference talks</span>
+    </div>
+
+    <!-- Filter row -->
+    <div class="row" style="gap:8px;">
+      <span class="anchor-chip" style="background:#07305B; color:#fff; border-color:#07305B;">All</span>
+      <span class="anchor-chip">Annual reports</span>
+      <span class="anchor-chip">Program evaluation</span>
+      <span class="anchor-chip">Partner research</span>
+      <span class="anchor-chip">White papers</span>
+      <span class="anchor-chip">Conference talks</span>
+      <span class="wf-meta" style="margin-left:auto;">Sort: Newest first ▾</span>
+    </div>
+
+    <!-- Reports grid -->
+    <div class="grid c2" style="margin-top:24px;">
+      <div class="rep-card">
+        <div class="rep-cover">REPORT COVER</div>
+        <div class="rep-body">
+          <span class="tag">Program evaluation</span>
+          <div style="font-family:Fraunces,serif; font-size:20px; font-weight:600; letter-spacing:-0.2px; line-height:1.25; margin-top:4px;">
+            Report title placeholder — three to ten words.
+          </div>
+          <div style="font-family:Fraunces,serif; font-style:italic; font-size:13px; color:rgba(7,48,91,.7);">Author / authors · Publication venue · 2026</div>
+          <div class="wf-line" style="width:90%; margin-top:6px;"></div>
+          <div class="wf-line thin" style="width:70%;"></div>
+          <div class="row" style="margin-top:10px; gap:8px;">
+            <button class="wf-btn">Download PDF (1.2 MB)</button>
+            <button class="wf-btn ghost">Cite</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rep-card">
+        <div class="rep-cover">REPORT COVER</div>
+        <div class="rep-body">
+          <span class="tag">White paper</span>
+          <div style="font-family:Fraunces,serif; font-size:20px; font-weight:600; letter-spacing:-0.2px; line-height:1.25; margin-top:4px;">
+            Report title placeholder.
+          </div>
+          <div style="font-family:Fraunces,serif; font-style:italic; font-size:13px; color:rgba(7,48,91,.7);">Author · Publication venue · 2025</div>
+          <div class="wf-line" style="width:80%; margin-top:6px;"></div>
+          <div class="wf-line thin" style="width:60%;"></div>
+          <div class="row" style="margin-top:10px; gap:8px;">
+            <button class="wf-btn">View on partner site →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rep-card">
+        <div class="rep-cover">REPORT COVER</div>
+        <div class="rep-body">
+          <span class="tag">Partner research</span>
+          <div style="font-family:Fraunces,serif; font-size:20px; font-weight:600; letter-spacing:-0.2px; line-height:1.25; margin-top:4px;">
+            Report title placeholder.
+          </div>
+          <div style="font-family:Fraunces,serif; font-style:italic; font-size:13px; color:rgba(7,48,91,.7);">Author · UVA / partner org · 2025</div>
+          <div class="wf-line" style="width:85%; margin-top:6px;"></div>
+          <div class="wf-line thin" style="width:65%;"></div>
+          <div class="row" style="margin-top:10px; gap:8px;">
+            <button class="wf-btn">Download PDF</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rep-card">
+        <div class="rep-cover">REPORT COVER</div>
+        <div class="rep-body">
+          <span class="tag">Conference talk</span>
+          <div style="font-family:Fraunces,serif; font-size:20px; font-weight:600; letter-spacing:-0.2px; line-height:1.25; margin-top:4px;">
+            Talk title placeholder.
+          </div>
+          <div style="font-family:Fraunces,serif; font-style:italic; font-size:13px; color:rgba(7,48,91,.7);">Speaker · Conference · 2024</div>
+          <div class="wf-line" style="width:75%; margin-top:6px;"></div>
+          <div class="wf-line thin" style="width:55%;"></div>
+          <div class="row" style="margin-top:10px; gap:8px;">
+            <button class="wf-btn">Watch (YouTube) →</button>
+            <button class="wf-btn ghost">Slides</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Library: prior annual reports inline with research items -->
+    <div class="grid c2" style="margin-top:24px;">
+      <div class="rep-card">
+        <div class="rep-cover">AR24 COVER</div>
+        <div class="rep-body">
+          <span class="tag">Annual report</span>
+          <div style="font-family:Fraunces,serif; font-size:20px; font-weight:600; letter-spacing:-0.2px; line-height:1.25; margin-top:4px;">
+            Annual Report 2024
+          </div>
+          <div style="font-family:Fraunces,serif; font-style:italic; font-size:13px; color:rgba(7,48,91,.7);">City of Promise · 2024</div>
+          <div class="wf-line" style="width:80%; margin-top:6px;"></div>
+          <div class="wf-line thin" style="width:60%;"></div>
+          <div class="row" style="margin-top:10px; gap:8px;">
+            <button class="wf-btn">View report →</button>
+            <button class="wf-btn ghost">Download PDF</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rep-card">
+        <div class="rep-cover">REPORT COVER</div>
+        <div class="rep-body">
+          <span class="tag">Program evaluation</span>
+          <div style="font-family:Fraunces,serif; font-size:20px; font-weight:600; letter-spacing:-0.2px; line-height:1.25; margin-top:4px;">
+            Report title placeholder — three to ten words.
+          </div>
+          <div style="font-family:Fraunces,serif; font-style:italic; font-size:13px; color:rgba(7,48,91,.7);">Author / authors · Publication venue · 2024</div>
+          <div class="wf-line" style="width:90%; margin-top:6px;"></div>
+          <div class="wf-line thin" style="width:70%;"></div>
+          <div class="row" style="margin-top:10px; gap:8px;">
+            <button class="wf-btn">Download PDF (1.2 MB)</button>
+            <button class="wf-btn ghost">Cite</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rep-card">
+        <div class="rep-cover">AR23 COVER</div>
+        <div class="rep-body">
+          <span class="tag">Annual report</span>
+          <div style="font-family:Fraunces,serif; font-size:20px; font-weight:600; letter-spacing:-0.2px; line-height:1.25; margin-top:4px;">
+            Annual Report 2023
+          </div>
+          <div style="font-family:Fraunces,serif; font-style:italic; font-size:13px; color:rgba(7,48,91,.7);">City of Promise · 2023</div>
+          <div class="wf-line" style="width:80%; margin-top:6px;"></div>
+          <div class="wf-line thin" style="width:55%;"></div>
+          <div class="row" style="margin-top:10px; gap:8px;">
+            <button class="wf-btn">View report →</button>
+            <button class="wf-btn ghost">Download PDF</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rep-card">
+        <div class="rep-cover">REPORT COVER</div>
+        <div class="rep-body">
+          <span class="tag">White paper</span>
+          <div style="font-family:Fraunces,serif; font-size:20px; font-weight:600; letter-spacing:-0.2px; line-height:1.25; margin-top:4px;">
+            Report title placeholder.
+          </div>
+          <div style="font-family:Fraunces,serif; font-style:italic; font-size:13px; color:rgba(7,48,91,.7);">Author · Publication venue · 2024</div>
+          <div class="wf-line" style="width:80%; margin-top:6px;"></div>
+          <div class="wf-line thin" style="width:60%;"></div>
+          <div class="row" style="margin-top:10px; gap:8px;">
+            <button class="wf-btn">View on partner site →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rep-card">
+        <div class="rep-cover">REPORT COVER</div>
+        <div class="rep-body">
+          <span class="tag">Partner research</span>
+          <div style="font-family:Fraunces,serif; font-size:20px; font-weight:600; letter-spacing:-0.2px; line-height:1.25; margin-top:4px;">
+            Report title placeholder.
+          </div>
+          <div style="font-family:Fraunces,serif; font-style:italic; font-size:13px; color:rgba(7,48,91,.7);">Author · UVA / partner org · 2024</div>
+          <div class="wf-line" style="width:85%; margin-top:6px;"></div>
+          <div class="wf-line thin" style="width:65%;"></div>
+          <div class="row" style="margin-top:10px; gap:8px;">
+            <button class="wf-btn">Download PDF</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="rep-card">
+        <div class="rep-cover">REPORT COVER</div>
+        <div class="rep-body">
+          <span class="tag">Conference talk</span>
+          <div style="font-family:Fraunces,serif; font-size:20px; font-weight:600; letter-spacing:-0.2px; line-height:1.25; margin-top:4px;">
+            Talk title placeholder.
+          </div>
+          <div style="font-family:Fraunces,serif; font-style:italic; font-size:13px; color:rgba(7,48,91,.7);">Speaker · Conference · 2024</div>
+          <div class="wf-line" style="width:75%; margin-top:6px;"></div>
+          <div class="wf-line thin" style="width:55%;"></div>
+          <div class="row" style="margin-top:10px; gap:8px;">
+            <button class="wf-btn">Watch (YouTube) →</button>
+            <button class="wf-btn ghost">Slides</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Show more / prior years -->
+    <div class="row" style="margin-top:24px; justify-content:center;">
+      <button class="wf-btn ghost">Show all reports (12) ▾</button>
+    </div>
+
+    <!-- Open question annotation -->
+    <div style="margin-top:28px; padding:18px 22px; background:rgba(213,163,58,.18); border-left:3px solid #D5A33A; border-radius:0 6px 6px 0; max-width:880px;">
+      <span class="anno-tag">Confirm with Price</span>
+      <div style="font-family:Inter,sans-serif; font-size:13px; color:#07305B; line-height:1.5;">
+        <b style="font-weight:600;">Combined Reports + Annual Reports into one section.</b> Annual report
+        gets featured treatment at top; prior annuals + research items intermix in the library grid below,
+        filterable by type. Initial research inventory still needed.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 · 990s & TAX FORMS ============ -->
+<section id="financials" class="section-pad" style="background:#FFFFFF;" data-screen-label="05 Financials">
+  <div class="wrap">
+    <div class="sec-label">
+      <span class="wf-rule"></span>
+      <span class="num">04 / 04</span>
+      <span class="wf-eyebrow" style="color:#13539A;">Financial transparency</span>
+    </div>
+    <h2 class="wf-h2 up">990s &amp; Tax Forms</h2>
+    <p class="wf-lede" style="margin-top:14px;">
+      Most-recent 990 promoted; prior years compact. One line on 501(c)(3) status and the NAP credit
+      — full donor copy lives on /donate.
+    </p>
+
+    <!-- Featured 990 -->
+    <div class="fin-row featured" style="grid-template-columns:80px 1fr 160px 160px;">
+      <div style="font-family:Fraunces,serif; font-size:42px; font-weight:700; color:#D5A33A; line-height:1;">'24</div>
+      <div class="stack" style="gap:4px;">
+        <span class="tag">Most recent</span>
+        <div style="font-family:Fraunces,serif; font-size:22px; font-weight:600;">Form 990 · Fiscal Year 2024</div>
+        <div class="wf-meta">Filed Q1 2025 · 28 pages · 2.1 MB · Prepared by [accounting firm]</div>
+      </div>
+      <div class="wf-meta">PDF · 2.1 MB</div>
+      <button class="wf-btn primary">Download →</button>
+    </div>
+
+    <!-- Prior year table -->
+    <div style="margin-top:24px; background:#fff; border:1px solid rgba(7,48,91,.1); border-radius:8px;">
+      <div class="fin-row head"><span>Year</span><span>Document</span><span>Size</span><span></span></div>
+      <div class="fin-row"><span>2023</span><span>Form 990 · FY2023</span><span class="wf-meta">PDF · 1.9 MB</span><a href="#" style="color:#13539A; font-size:13px; font-weight:500;">Download →</a></div>
+      <div class="fin-row"><span>2022</span><span>Form 990 · FY2022</span><span class="wf-meta">PDF · 1.7 MB</span><a href="#" style="color:#13539A; font-size:13px; font-weight:500;">Download →</a></div>
+      <div class="fin-row"><span>2021</span><span>Form 990 · FY2021</span><span class="wf-meta">PDF · 1.6 MB</span><a href="#" style="color:#13539A; font-size:13px; font-weight:500;">Download →</a></div>
+      <div class="fin-row"><span>2020</span><span>Form 990 · FY2020</span><span class="wf-meta">PDF · 1.5 MB</span><a href="#" style="color:#13539A; font-size:13px; font-weight:500;">Download →</a></div>
+    </div>
+
+    <!-- 501c3 + NAP one-liner -->
+    <div style="margin-top:24px; padding:18px 22px; background:#fff; border:1px solid rgba(7,48,91,.1); border-radius:8px; font-family:Inter,sans-serif; font-size:13px; color:rgba(7,48,91,.8); line-height:1.55;">
+      City of Promise is a 501(c)(3) public charity (EIN 27-XXXXXXX). Gifts of $500 or more qualify
+      for a 65% Virginia state tax credit through the Neighborhood Assistance Program —
+      <a href="#" style="color:#13539A; font-weight:500;">full details on /donate →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TERMINAL CTA ============ -->
+<section class="terminal" data-screen-label="07 Terminal CTA">
+  <div class="wrap">
+    <div class="wf-rule" style="margin-bottom:18px;"></div>
+    <h2 class="wf-h2" style="text-transform:uppercase;">If you read it, fund it.</h2>
+    <p class="wf-lede" style="margin-top:18px; max-width:680px;">
+      The work behind the words is funded gift by gift. Gifts of $500 or more qualify for a 65%
+      Virginia state tax credit through the Neighborhood Assistance Program.
+    </p>
+    <div class="row" style="margin-top:28px;">
+      <button class="wf-btn gold">Donate Now</button>
+      <button class="wf-btn" style="background:transparent; border-color:rgba(255,255,255,.5); color:#fff;">Subscribe to Envision Radio</button>
+    </div>
+    <div style="margin-top:36px; font-family:Fraunces,serif; font-style:italic; font-size:14px; color:rgba(255,255,255,.55);">
+      Headline alts to consider: "On the record." · "We write it down." · "If you read it, fund it." (above)
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER (placeholder) ============ -->
+<footer class="ftr" data-screen-label="08 Footer">
+  <div class="wrap">
+    <div class="wf-box" style="height:140px; color:rgba(255,255,255,.5);">
+      Persistent footer — unchanged from /home<br/>
+      (address · social · newsletter · NAP callout · donate CTA)
+    </div>
+  </div>
+</footer>
+
+<!-- ============ WIREFRAME LEGEND (page-bottom dev key) ============ -->
+<section style="background:#fff; border-top:2px dashed rgba(7,48,91,.2); padding:36px 0;">
+  <div class="wrap">
+    <div class="row" style="justify-content:space-between; align-items:flex-start; gap:32px;">
+      <div style="max-width:540px;">
+        <div class="wf-eyebrow" style="color:#D5A33A;">Wireframe legend</div>
+        <h3 class="wf-h3" style="margin-top:8px;">Structural choices that mirror What We Do</h3>
+        <ul style="margin:14px 0 0; padding-left:18px; font-family:Inter,sans-serif; font-size:13px; line-height:1.65; color:rgba(7,48,91,.8);">
+          <li>Hero with kicker + uppercase Fraunces title + outcome-led one-liner.</li>
+          <li>Anchor sub-nav directly under the hero (matches the /programs detail template's section jumps).</li>
+          <li>Five anchored sub-sections, each with: gold rule · numbered chip · uppercase H2 · short lede · content.</li>
+          <li>Alternating canvas colors (warm-gray ↔ tan ↔ white) as section rhythm — same cadence as /programs.</li>
+          <li>Two open-question / confirm-with-Price annotations in gold-accent blocks.</li>
+          <li>Terminal navy CTA block at end (matches every program page) — substitutes "donate" framing for a "read &amp; fund" framing since this page isn't a program.</li>
+          <li>Persistent footer untouched.</li>
+        </ul>
+      </div>
+      <div style="max-width:540px;">
+        <div class="wf-eyebrow" style="color:#D5A33A;">Open questions</div>
+        <h3 class="wf-h3" style="margin-top:8px;">Decide before hi-fi</h3>
+        <ol style="margin:14px 0 0; padding-left:18px; font-family:Inter,sans-serif; font-size:13px; line-height:1.65; color:rgba(7,48,91,.8);">
+          <li><b style="font-weight:600;">Hero photo concept:</b> editorial desk, recording setup, or a reading-room metaphor? Or no photo — pure typographic hero on navy?</li>
+          <li><b style="font-weight:600;">Live RSS or curated</b> Medium feed? Recommend live + 1 pinned slot.</li>
+          <li><b style="font-weight:600;">Reports inventory</b> needs definition — confirm with Price.</li>
+          <li><b style="font-weight:600;">Terminal CTA</b>: read-and-fund framing, or a softer "subscribe" framing only? Currently shows both.</li>
+          <li><b style="font-weight:600;">Search / filter</b> across all sections, or only in Reports? Currently filter chips only on Reports.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

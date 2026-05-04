@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get Involved — City of Promise</title>
+
+<!-- Tell Chromium browsers to prerender same-site pages immediately.
+     "eager" means: prerender all matched links as soon as this page loads,
+     not on hover-intent. Needed because moderate eagerness waits for a
+     heuristic that often doesn't fire before the click on a small site.
+     When the user clicks a nav link the page is already loaded → no flash. -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "where": { "and": [
+      { "href_matches": "/*" },
+      { "not": { "href_matches": "/constellation.html" } },
+      { "not": { "href_matches": "/*.pdf" } }
+    ]},
+    "eagerness": "eager"
+  }]
+}
+</script>
+
+<!-- Plain prefetch fallback for browsers without Speculation Rules support
+     (Safari, Firefox). Loads HTML into HTTP cache during idle time so the
+     navigation paints from cache instead of from the network. -->
+<link rel="prefetch" href="index.html" as="document">
+<link rel="prefetch" href="what-we-do.html" as="document">
+<link rel="prefetch" href="community-schools.html" as="document">
+<link rel="prefetch" href="dreambuilders.html" as="document">
+<link rel="prefetch" href="family-engagement.html" as="document">
+<link rel="prefetch" href="our-approach.html" as="document">
+<link rel="prefetch" href="who-we-are.html" as="document">
+<link rel="prefetch" href="get-involved.html" as="document">
+<link rel="prefetch" href="access-services.html" as="document">
+<link rel="prefetch" href="volunteer.html" as="document">
+
+<!-- Paint the page background BEFORE any external CSS loads, to kill the
+     white flash between page navigations. Hex must match --color-canvas. -->
+<style>html, body { background: #EEEEEC; }</style>
+<link rel="icon" href="assets/favicon.png">
+
+<!-- Preload the header logo so it's already in HTTP cache when the next page
+     paints. Without this, every navigation re-fetches/re-decodes the 217KB PNG,
+     causing a brief flash where the logo box renders empty. -->
+<link rel="preload" as="image" href="assets/logo-horizontal.png" fetchpriority="high">
+
+<!-- Fonts: preconnect + parallel-load. display=swap shows fallback
+     immediately and swaps in Fraunces/Inter when loaded. Used instead
+     of display=optional because optional caused inconsistent rendering
+     across pages (first-load pages got Georgia, cached pages got Fraunces). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap">
+
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="assets/site.css">
+
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" aria-label="City of Promise home">
+    <img src="assets/logo-horizontal.png" alt="City of Promise" width="127" height="48" fetchpriority="high" decoding="sync">
+  </a>
+  <nav>
+    <a href="what-we-do.html">What We Do</a>
+    <a href="our-approach.html">Our Approach</a>
+    <a href="who-we-are.html">Who We Are</a>
+    <a href="access-services.html">Access Services</a>
+    <a href="get-involved.html" class="is-active">Get Involved</a>
+    <a href="published-work.html">Published Work</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a href="get-involved.html" class="donate-btn">Donate</a>
+</header>
+
+
+<style>
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: var(--color-canvas);
+    padding: 96px 48px;
+  }
+  .hero-inner { max-width: 1184px; margin: 0 auto; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .hero .gold-rule { background: var(--color-gold); width: 64px; height: 3px; margin: 0 0 22px; border: 0; }
+  .hero .kicker {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--fg-3); margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 72px; line-height: 1.04; letter-spacing: -1.6px;
+    color: var(--color-navy); margin: 0;
+    text-transform: none;
+  }
+  .hero p {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.6;
+    color: var(--fg-2); margin: 24px 0 0; max-width: 520px;
+  }
+
+  /* Hero photo */
+  .hero-photo {
+    aspect-ratio: 4/3;
+    border-radius: var(--radius-photo);
+    background-size: cover;
+    background-position: center 35%;
+    box-shadow: 0 4px 20px rgba(7, 48, 91, 0.08);
+  }
+
+  /* ---------- Math calculator ---------- */
+  .math { margin-top: 72px; }
+  .math .eyebrow {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--fg-3); margin: 0 0 18px;
+  }
+
+  .calc {
+    background: var(--color-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    box-shadow: 0 1px 0 rgba(7,48,91,.04), 0 24px 48px -32px rgba(7,48,91,.18);
+    overflow: hidden;
+  }
+
+  .calc-top {
+    padding: 40px 48px 32px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .calc-top .hed {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.4vw, 42px); line-height: 1.2;
+    font-weight: 600; letter-spacing: -0.01em;
+    color: var(--color-navy); margin: 0;
+  }
+  .calc-top .hed .v {
+    font-weight: 700; color: var(--color-navy);
+    font-variant-numeric: tabular-nums;
+  }
+  .calc-top .hed .v.gold { color: var(--color-gold); }
+  .calc-top .sub {
+    margin: 14px 0 0;
+    color: var(--fg-2);
+    font-size: 15px;
+  }
+
+  .input-row { padding: 28px 48px 8px; }
+  .slider-wrap { position: relative; padding: 8px 0 0; }
+  .slider {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 28px; background: transparent;
+    margin: 0; cursor: pointer;
+  }
+  .slider:focus { outline: none; }
+  .slider::-webkit-slider-runnable-track {
+    height: 6px;
+    background: linear-gradient(to right, var(--color-navy) var(--pct,30%), rgba(7,48,91,.12) var(--pct,30%));
+    border-radius: 999px;
+  }
+  .slider::-moz-range-track {
+    height: 6px; background: rgba(7,48,91,.12); border-radius: 999px;
+  }
+  .slider::-moz-range-progress {
+    height: 6px; background: var(--color-navy); border-radius: 999px;
+  }
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--color-gold); border: 2px solid #fff;
+    box-shadow: 0 0 0 1px rgba(168,130,30,.6), 0 2px 6px rgba(7,48,91,.25);
+    margin-top: -8px; cursor: grab;
+    transition: transform .12s;
+  }
+  .slider::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.08); }
+  .slider::-moz-range-thumb {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--color-gold); border: 2px solid #fff;
+    box-shadow: 0 0 0 1px rgba(168,130,30,.6), 0 2px 6px rgba(7,48,91,.25);
+    cursor: grab;
+  }
+  .ticks {
+    display: flex; justify-content: space-between;
+    margin: 14px 2px 0;
+    font-size: 11px; letter-spacing: 0.08em; font-weight: 500;
+    color: var(--fg-3); text-transform: uppercase;
+  }
+
+  .results {
+    padding: 32px 48px 44px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 2fr;
+    align-items: stretch;
+    gap: 0;
+  }
+  .cell {
+    padding: 20px 24px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-input);
+    background: #fff;
+    display: flex; flex-direction: column; justify-content: center;
+    min-width: 0;
+  }
+  .cell.gold {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+    color: var(--color-navy);
+  }
+  .cell .v {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(30px, 3.6vw, 44px); line-height: 1;
+    color: var(--color-navy); letter-spacing: -0.015em;
+    font-variant-numeric: tabular-nums;
+    margin: 0 0 8px;
+    transition: color .2s;
+    white-space: nowrap;
+  }
+  .cell.gold .v { color: var(--color-navy); }
+  .cell .lab {
+    font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--fg-2);
+  }
+  .cell.gold .lab { color: var(--color-navy); opacity: 0.78; }
+  .cell .sub-lab {
+    display: block; margin-top: 2px;
+    letter-spacing: 0.06em; font-weight: 500;
+    text-transform: none; font-size: 12px;
+    opacity: 0.78;
+  }
+  .arrow {
+    align-self: center; padding: 0 14px;
+    font-size: 18px; color: var(--fg-3);
+    user-select: none;
+  }
+  .cell.split { flex-direction: row; align-items: stretch; padding: 0; }
+  .cell.split .half {
+    flex: 1; padding: 20px 22px;
+    display: flex; flex-direction: column; justify-content: center;
+    min-width: 0;
+  }
+  .cell.split .half + .half { border-left: 1px solid rgba(7,48,91,.18); }
+  .cell.split .half .lab-top {
+    font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; font-weight: 700;
+    color: var(--color-navy); opacity: 0.7;
+    margin-bottom: 8px;
+  }
+
+  .math .math-footnote {
+    width: 100%; max-width: none;
+    margin: 18px 4px 0;
+    font-size: 10px; line-height: 1.55;
+    color: var(--fg-3);
+  }
+  .math .math-footnote a { color: var(--color-navy); }
+
+  @keyframes pulse-num {
+    0% { color: var(--color-gold); }
+    100% { color: var(--color-navy); }
+  }
+  .pulse { animation: pulse-num .35s ease-out; }
+  .cell.gold .v.pulse { animation-name: pulse-num-gold; }
+  @keyframes pulse-num-gold {
+    0% { color: #fff; }
+    100% { color: var(--color-navy); }
+  }
+
+  /* ---------- Give Today ---------- */
+  .give {
+    background: var(--color-tan);
+    padding: 96px 48px;
+  }
+  .give-inner { max-width: 1184px; margin: 0 auto; }
+  .give-grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .give-photo {
+    aspect-ratio: 3/2;
+    border-radius: var(--radius-photo);
+    background-size: cover; background-position: center 40%;
+    box-shadow: 0 4px 20px rgba(7, 48, 91, 0.08);
+  }
+  .give h2 {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 56px; line-height: 1.05; letter-spacing: -1.2px;
+    color: var(--color-navy); margin: 0;
+  }
+  .give .eyebrow {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--fg-3); margin-bottom: 14px;
+  }
+  .give p {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.55;
+    color: var(--fg-2); margin: 18px 0 0; max-width: 520px;
+  }
+  .donate-link {
+    display: inline-block;
+    background: var(--color-navy); color: #fff;
+    font-family: var(--font-body); font-weight: 600; font-size: 18px;
+    padding: 18px 36px; border-radius: var(--radius-button);
+    text-decoration: none; margin-top: 32px;
+    transition: background var(--dur) var(--ease);
+  }
+  .donate-link:hover { background: var(--color-primary); text-decoration: none; }
+
+  /* ---------- Section base ---------- */
+  .section { padding: 96px 48px; }
+  .section.tan { background: var(--color-tan); }
+  .section.navy { background: var(--color-navy); color: #fff; }
+  .section-inner { max-width: 1184px; margin: 0 auto; }
+  .section .gold-rule { background: var(--color-gold); width: 64px; height: 3px; margin: 0 0 22px; border: 0; }
+  .section h2 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 36px; line-height: 1.1; letter-spacing: -0.6px;
+    color: var(--color-navy); margin: 0;
+  }
+  .section.navy h2 { color: #fff; }
+  .section .lede {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.55;
+    color: var(--fg-2); margin: 16px 0 0; max-width: 640px;
+  }
+  .section.navy .lede { color: rgba(255,255,255,.78); }
+
+  /* Other ways to give */
+  .other-grid {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .other-card {
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 28px;
+  }
+  .other-card h3 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 22px; line-height: 1.2; letter-spacing: -0.3px;
+    color: var(--color-navy); margin: 0 0 12px;
+  }
+  .other-card p {
+    font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+    color: var(--fg-2); margin: 0 0 16px;
+  }
+  .other-card a {
+    font-family: var(--font-body); font-size: 15px; font-weight: 500;
+    color: var(--color-primary); text-decoration: none;
+  }
+  .other-card a:hover { text-decoration: underline; text-decoration-color: var(--color-gold); }
+
+  /* Volunteer + Partner */
+  .secondary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .secondary-card {
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 36px 32px;
+  }
+  .secondary-card.tan { background: var(--color-tan); }
+  .secondary-card .eyebrow {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--color-gold); margin-bottom: 10px;
+  }
+  .secondary-card.tan .eyebrow { color: var(--color-primary); }
+  .secondary-card h3 {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 32px; line-height: 1.1; letter-spacing: -0.5px;
+    color: var(--color-navy); margin: 0 0 14px;
+  }
+  .secondary-card p {
+    font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+    color: var(--fg-2); margin: 0 0 22px;
+  }
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    font-family: var(--font-body); font-weight: 600; font-size: 14px;
+    padding: 10px 20px; border-radius: var(--radius-button);
+    text-decoration: none;
+    transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+  }
+  .btn.primary {
+    background: var(--color-navy); color: #fff;
+  }
+  .btn.primary:hover { background: var(--color-primary); text-decoration: none; }
+  .btn.ghost {
+    background: transparent; color: var(--color-navy);
+    border: 1px solid var(--border-strong);
+  }
+  .btn.ghost:hover { background: rgba(7,48,91,.05); text-decoration: none; }
+  .btn.white {
+    background: #fff; color: var(--color-navy);
+    border: 1px solid var(--border-strong);
+  }
+  .btn.white:hover { background: rgba(7,48,91,.05); text-decoration: none; }
+
+  /* Trust band */
+  .trust-grid {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .trust-cell .num {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 72px; line-height: 1; letter-spacing: -1.4px;
+    color: var(--color-gold);
+  }
+  .trust-cell .label {
+    font-family: var(--font-body); font-size: 14px; line-height: 1.45;
+    color: rgba(255,255,255,.8); margin-top: 12px; max-width: 200px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .hero { padding: 64px 24px; }
+    .hero h1 { font-size: 48px; letter-spacing: -1px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-photo { aspect-ratio: 4/3; }
+    .calc-top { padding: 28px 24px 24px; }
+    .input-row { padding: 22px 24px 4px; }
+    .results { padding: 24px; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .results .arrow { display: none; }
+    .cell.split { grid-column: 1 / -1; }
+    .give { padding: 64px 24px; }
+    .give-grid { grid-template-columns: 1fr; gap: 32px; }
+    .give-photo { aspect-ratio: 4/3; }
+    .give h2 { font-size: 40px; letter-spacing: -0.8px; }
+    .section { padding: 64px 24px; }
+    .other-grid { grid-template-columns: 1fr; }
+    .secondary-grid { grid-template-columns: 1fr; }
+    .trust-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .results { grid-template-columns: 1fr; }
+    .cell.split { flex-direction: column; }
+    .cell.split .half + .half { border-left: none; border-top: 1px solid rgba(7,48,91,.18); }
+  }
+
+</style>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-grid">
+      <div>
+        <hr class="gold-rule">
+        <div class="kicker">Get Involved — Donate</div>
+        <h1>Your dollars go further.</h1>
+        <p>Every kid in Charlottesville deserves to learn to read. Today, only 37% of Black third graders are reading on grade level, compared to 94% of their White peers. Your gift funds the Community Schools work closing that gap.</p>
+      </div>
+      <div class="hero-photo" style="background-image: url('cop-photos/DJW20026.jpg');"></div>
+    </div>
+
+    <!-- Math calculator — slider builds UP to the gift -->
+    <div class="math">
+      <div class="eyebrow">How the math works</div>
+      <section class="calc" aria-label="Donation impact calculator">
+
+        <div class="calc-top">
+          <p class="hed">
+            <span class="v" id="hed-cost">$350</span> from you.<br>
+            <span class="v gold" id="hed-give">$1,000</span> to our kids.
+          </p>
+          <p class="sub">Virginia returns 65% of qualifying donations as a state tax credit. Drag the slider to see what your number looks like.</p>
+        </div>
+
+        <div class="input-row">
+          <div class="slider-wrap">
+            <input type="range" id="calc-slider" class="slider" min="0" max="1000" value="0" step="1" aria-label="Donation amount slider" />
+            <div class="ticks" aria-hidden="true">
+              <span>$1K</span>
+              <span>$5K</span>
+              <span>$10K</span>
+              <span>$25K</span>
+              <span>$50K</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="results">
+          <div class="cell">
+            <div class="v" id="r-give">$1,000</div>
+            <div class="lab">Donation</div>
+          </div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="cell">
+            <div class="v" id="r-back">$650</div>
+            <div class="lab">Back to you</div>
+          </div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="cell gold split">
+            <div class="half">
+              <div class="lab-top">Cost to you</div>
+              <div class="v" id="r-cost">$350</div>
+            </div>
+            <div class="half">
+              <div class="lab-top">Gift to our kids</div>
+              <div class="v" id="r-kids">$1,000</div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+      <p class="math-footnote">Calculator assumes the maximum 65% Virginia state tax credit on qualifying donations of $500 or more, with sufficient Virginia state tax liability to absorb the credit. Federal and additional state deductions may further reduce your net cost.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GIVE TODAY ============ -->
+<section class="give">
+  <div class="give-inner">
+    <div class="give-grid">
+      <div class="give-photo" style="background-image: url('cop-photos/DJW22846.jpg');"></div>
+      <div>
+        <hr class="gold-rule">
+        <div class="eyebrow">Give today</div>
+        <h2>Make your gift.</h2>
+        <p>Gifts of $500 or more qualify for the NAP tax credit. We'll send the paperwork.</p>
+        <a href="#" class="donate-link">Donate →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OTHER WAYS TO GIVE ============ -->
+<section class="section">
+  <div class="section-inner">
+    <hr class="gold-rule">
+    <h2>Other ways to give.</h2>
+    <p class="lede">For donors and partners with more to give than a one-time gift.</p>
+    <div class="other-grid">
+      <div class="other-card">
+        <h3>Corporate partnership</h3>
+        <p>Multi-year commitments, employee match programs, in-kind support.</p>
+        <a href="mailto:price@cityofpromise.org">Talk to development →</a>
+      </div>
+      <div class="other-card">
+        <h3>Stock &amp; donor-advised funds</h3>
+        <p>Appreciated securities and DAF grants. Routing details and tax ID on request.</p>
+        <a href="mailto:price@cityofpromise.org">Get wire info →</a>
+      </div>
+      <div class="other-card">
+        <h3>Bequests &amp; planned giving</h3>
+        <p>Include City of Promise in your estate plan. Sample bequest language available.</p>
+        <a href="mailto:price@cityofpromise.org">Planned giving guide →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VOLUNTEER + PARTNER ============ -->
+<section class="section" style="padding-top:0;">
+  <div class="section-inner">
+    <div class="secondary-grid">
+      <div class="secondary-card" id="volunteer">
+        <div class="eyebrow">Give time instead</div>
+        <h3>Volunteer.</h3>
+        <p>Tutoring, Walking Bus, food pantries, Nurturing Neighborhood faith-partner pilot. On-site at our seven Community Schools.</p>
+        <div class="btn-row">
+          <a href="volunteer.html" class="btn primary">See opportunities</a>
+          <a href="https://volunteer.cityofpromise.org" class="btn ghost" target="_blank" rel="noopener">Volunteer Portal</a>
+        </div>
+      </div>
+      <div class="secondary-card tan" id="partner">
+        <div class="eyebrow">Represent an org?</div>
+        <h3>Partner with us.</h3>
+        <p>Community orgs joining the Constellation of care. Researchers studying our dual-generation model.</p>
+        <div class="btn-row">
+          <a href="#" class="btn white">For community orgs</a>
+          <a href="#" class="btn white">For researchers</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHERE THE MONEY GOES ============ -->
+<section class="section navy">
+  <div class="section-inner">
+    <hr class="gold-rule">
+    <h2>Where the money goes.</h2>
+    <p class="lede">The work, in numbers. 990s and annual reports public.</p>
+    <div class="trust-grid">
+      <div class="trust-cell">
+        <div class="num">87¢</div>
+        <div class="label">of every dollar to programs</div>
+      </div>
+      <div class="trust-cell">
+        <div class="num">7</div>
+        <div class="label">Community School sites</div>
+      </div>
+      <div class="trust-cell">
+        <div class="num">327</div>
+        <div class="label">kids in the program · FY25</div>
+      </div>
+      <div class="trust-cell">
+        <div class="num">$1.3M</div>
+        <div class="label">raised in FY2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  const CREDIT_RATE = 0.65;
+  // Slider position (0-1000) → dollar amount, piecewise linear so the labeled
+  // stops sit at evenly-spaced positions (0%, 25%, 50%, 75%, 100%).
+  const STOPS = [
+    { pos: 0,    val: 1000 },
+    { pos: 250,  val: 5000 },
+    { pos: 500,  val: 10000 },
+    { pos: 750,  val: 25000 },
+    { pos: 1000, val: 50000 }
+  ];
+  function sliderToAmount(s) {
+    for (let i = 1; i < STOPS.length; i++) {
+      if (s <= STOPS[i].pos) {
+        const t = (s - STOPS[i-1].pos) / (STOPS[i].pos - STOPS[i-1].pos);
+        return snap(STOPS[i-1].val + t * (STOPS[i].val - STOPS[i-1].val));
+      }
+    }
+    return STOPS[STOPS.length - 1].val;
+  }
+  function snap(v) {
+    if (v < 5000)  return Math.round(v / 100) * 100;
+    if (v < 10000) return Math.round(v / 250) * 250;
+    if (v < 25000) return Math.round(v / 500) * 500;
+    return Math.round(v / 1000) * 1000;
+  }
+  function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+
+  const $ = (id) => document.getElementById(id);
+  const slider  = $('calc-slider');
+  const hedCost = $('hed-cost');
+  const hedGive = $('hed-give');
+  const rGive   = $('r-give');
+  const rBack   = $('r-back');
+  const rCost   = $('r-cost');
+  const rKids   = $('r-kids');
+
+  function render(amount) {
+    const credit = amount * CREDIT_RATE;
+    const cost   = amount - credit;
+
+    hedCost.textContent = fmt(cost);
+    hedGive.textContent = fmt(amount);
+    rGive.textContent   = fmt(amount);
+    rBack.textContent   = fmt(credit);
+    rCost.textContent   = fmt(cost);
+    rKids.textContent   = fmt(amount);
+
+    slider.style.setProperty('--pct', (slider.value / 10) + '%');
+  }
+
+  slider.addEventListener('input', (e) => {
+    const a = sliderToAmount(Number(e.target.value));
+    render(a);
+  });
+
+  render(1000);
+})();
+</script>
+
+
+<footer>
+  <div class="grid">
+    <div>
+      <div class="org-name">City of Promise</div>
+      <div class="address">
+        708 Page Street<br>
+        Charlottesville, VA 22903
+      </div>
+    </div>
+    <div>
+      <h4>What We Do</h4>
+      <ul>
+        <li><a href="what-we-do.html">Community Schools</a></li>
+        <li><a href="what-we-do.html">Dreambuilders</a></li>
+        <li><a href="what-we-do.html">Family Engagement</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Who We Are</h4>
+      <ul>
+        <li><a href="who-we-are.html#team">Team</a></li>
+        <li><a href="who-we-are.html#board">Board</a></li>
+        <li><a href="who-we-are.html#history">History</a></li>
+        <li><a href="who-we-are.html#partners">Partners</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get Involved</h4>
+      <ul>
+        <li><a href="get-involved.html">Donate</a></li>
+        <li><a href="volunteer.html">Volunteer</a></li>
+        <li><a href="get-involved.html#partner">Partner with us</a></li>
+        <li><a href="get-involved.html">NAP Tax Credits</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Published Work</h4>
+      <ul>
+        <li><a href="published-work.html#reports">Annual Report</a></li>
+        <li><a href="published-work.html#radio">Envision Radio</a></li>
+        <li><a href="published-work.html#from-the-ed">From the ED</a></li>
+        <li><a href="published-work.html#financials">990s</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 City of Promise</span>
+    <span>Charlottesville, Virginia</span>
+  </div>
+</footer>
+
+
+</body>
+</html>
