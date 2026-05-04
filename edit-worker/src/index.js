@@ -22,12 +22,9 @@ export default {
     try { body = await request.json(); }
     catch { return json({ error: "invalid json" }, 400); }
 
-    const { field, text, page, password } = body || {};
-    if (!field || typeof text !== "string" || !page || !password) {
-      return json({ error: "missing field/text/page/password" }, 400);
-    }
-    if (password !== env.EDIT_PASSWORD) {
-      return json({ error: "unauthorized" }, 401);
+    const { field, text, page } = body || {};
+    if (!field || typeof text !== "string" || !page) {
+      return json({ error: "missing field/text/page" }, 400);
     }
     if (!ALLOWED_PAGES.has(page)) {
       return json({ error: `page not editable: ${page}` }, 400);

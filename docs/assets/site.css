@@ -177,6 +177,15 @@ footer .social-row a:hover {
   color: var(--color-navy);
   transform: translateY(-2px);
 }
+footer .candid-seal {
+  display: inline-block; margin-top: 16px;
+  line-height: 0;
+  transition: transform var(--dur, 200ms) var(--ease, ease),
+              opacity var(--dur, 200ms) var(--ease, ease);
+  opacity: .92;
+}
+footer .candid-seal:hover { transform: translateY(-2px); opacity: 1; }
+footer .candid-seal img { width: 64px; height: 64px; display: block; }
 footer .footer-bottom {
   max-width: 1184px; margin: 40px auto 0; padding-top: 24px;
   border-top: 1px solid rgba(255,255,255,.12);

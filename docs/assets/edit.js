@@ -16,8 +16,6 @@
   const revertBtn = document.getElementById("edit-revert");
   if (!bar || !toggleBtn || !statusEl) return;
 
-  let password = sessionStorage.getItem("cop-edit-pw") || "";
-
   const originals = new Map();
   const pending = new Map();
   let savingCount = 0;
@@ -31,6 +29,7 @@
     statusEl.className = "edit-status " + state;
     statusEl.textContent = text;
   }
+  let lastSavedAt = 0;
   function refresh() {
     if (!document.body.classList.contains("edit-mode")) {
       setStatus("", "viewing");
@@ -40,16 +39,15 @@
     if (errorCount > 0) { setStatus("err", "save failed"); return; }
     if (savingCount > 0) { setStatus("saving", "saving…"); return; }
     if (pending.size > 0) { setStatus("dirty", "unsaved"); revertBtn.style.display = "inline-block"; return; }
-    setStatus("saved", "saved"); revertBtn.style.display = "none";
+    if (lastSavedAt && Date.now() - lastSavedAt < 90_000) {
+      setStatus("saved", "saved · live in ~1 min");
+    } else {
+      setStatus("saved", "saved");
+    }
+    revertBtn.style.display = "none";
   }
 
   function enable() {
-    if (!password) {
-      const pw = window.prompt("Edit password:");
-      if (!pw) return;
-      password = pw;
-      sessionStorage.setItem("cop-edit-pw", pw);
-    }
     document.body.classList.add("edit-mode");
     toggleBtn.textContent = "Exit edit";
     document.querySelectorAll("[data-field]").forEach(el => {
@@ -103,18 +101,13 @@
     fetch(SAVE_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ field, text, page, password }),
+      body: JSON.stringify({ field, text, page }),
     })
       .then(r => {
-        if (r.status === 401) {
-          sessionStorage.removeItem("cop-edit-pw");
-          password = "";
-          throw new Error("wrong password");
-        }
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
       })
-      .then(() => { originals.set(field, el.innerHTML); })
+      .then(() => { originals.set(field, el.innerHTML); lastSavedAt = Date.now(); })
       .catch(err => {
         errorCount++;
         console.error("save failed", err);
