@@ -1,374 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Price A. Thomas — City of Promise</title>
-<link rel="icon" href="assets/favicon.png">
-<link rel="stylesheet" href="colors_and_type.css">
-<style>
-  body { background: var(--color-canvas); color: var(--color-navy); }
-  * { box-sizing: border-box; }
-  img { display: block; max-width: 100%; }
-
-  /* ---------- Header (matches Who We Are) ---------- */
-  .site-header {
-    position: sticky; top: 0; z-index: 20;
-    background: #fff;
-    border-bottom: 1px solid var(--border-subtle);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 48px;
-  }
-  .site-header img { height: 48px; width: auto; }
-  .site-header nav { display: flex; gap: 28px; }
-  .site-header nav a {
-    font-family: var(--font-body); font-size: 14px; font-weight: 500;
-    color: var(--color-navy); text-decoration: none;
-    padding: 4px 0; border-bottom: 2px solid transparent;
-    transition: border-color 200ms;
-  }
-  .site-header nav a.is-active { border-bottom-color: var(--color-gold); }
-  .site-header .donate-btn {
-    background: var(--color-gold); color: var(--color-navy);
-    font-family: var(--font-body); font-weight: 600; font-size: 14px;
-    padding: 10px 20px; border-radius: 6px; border: 0; cursor: pointer;
-  }
-
-  /* ---------- Breadcrumb ---------- */
-  .crumb {
-    max-width: 1184px; margin: 0 auto;
-    padding: 18px 48px;
-    font-family: var(--font-body); font-size: 13px; color: var(--fg-3);
-    display: flex; gap: 8px; align-items: center;
-  }
-  .crumb a {
-    color: var(--fg-2); text-decoration: none;
-    border-bottom: 1px solid transparent;
-  }
-  .crumb a:hover { border-bottom-color: var(--color-gold); }
-  .crumb .sep { color: var(--fg-3); }
-  .crumb .current { color: var(--color-navy); font-weight: 600; }
-
-  /* ---------- Bio card ---------- */
-  .bio-wrap { padding: 12px 48px 96px; }
-  .bio-card {
-    max-width: 1184px; margin: 0 auto;
-    background: #fff;
-    border: 1px solid var(--border-subtle);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: var(--shadow-card);
-    display: grid;
-    grid-template-columns: 380px 1fr;
-  }
-
-  /* ---------- Left column ---------- */
-  .bio-left {
-    background: var(--color-tan);
-    padding: 56px 40px;
-    border-right: 1px solid var(--border-subtle);
-  }
-  .portrait {
-    width: 240px; height: 240px;
-    margin: 0 auto 32px;
-    border-radius: 50%;
-    overflow: hidden;
-    background: rgba(7, 48, 91, 0.06);
-    border: 1px solid var(--border-subtle);
-  }
-  .portrait img { width: 100%; height: 100%; object-fit: cover; }
-
-  .bio-name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 1.05;
-    letter-spacing: -0.6px;
-    color: var(--color-navy);
-    margin: 0 0 6px;
-  }
-  .bio-title {
-    font-family: var(--font-italic);
-    font-style: italic;
-    font-size: 15px;
-    color: var(--fg-2);
-    margin: 0 0 28px;
-  }
-
-  .field { margin-bottom: 20px; }
-  .field-label {
-    font-family: var(--font-body); font-size: 11px; font-weight: 700;
-    letter-spacing: 1.4px; text-transform: uppercase;
-    color: var(--fg-3); margin-bottom: 6px;
-  }
-  .field-value {
-    font-family: var(--font-body); font-size: 15px;
-    color: var(--color-navy);
-  }
-
-  .email-btn {
-    display: block; width: 100%;
-    margin-top: 28px;
-    padding: 14px 20px;
-    background: var(--color-navy); color: #fff;
-    font-family: var(--font-body); font-weight: 600; font-size: 15px;
-    text-align: center; text-decoration: none;
-    border-radius: 6px;
-    transition: background 200ms;
-  }
-  .email-btn:hover { background: var(--color-primary); }
-
-  /* ---------- Right column ---------- */
-  .bio-right {
-    padding: 56px 56px 56px 56px;
-  }
-  .eyebrow {
-    font-family: var(--font-body); font-size: 12px; font-weight: 700;
-    letter-spacing: 1.6px; text-transform: uppercase;
-    color: var(--fg-3); margin-bottom: 12px;
-  }
-  .bio-h2 {
-    font-family: var(--font-display); font-weight: 700;
-    font-size: 36px; line-height: 1.1; letter-spacing: -0.6px;
-    color: var(--color-navy); margin: 0 0 28px;
-  }
-  .bio-body p {
-    font-family: var(--font-body); font-size: 17px; line-height: 1.7;
-    color: var(--color-navy); margin: 0 0 18px;
-  }
-
-  .what-i-do {
-    margin-top: 36px;
-    padding: 28px 32px;
-    background: rgba(213, 163, 58, 0.10);
-    border: 1px solid rgba(213, 163, 58, 0.4);
-    border-radius: 8px;
-  }
-  .what-i-do .eyebrow { color: var(--color-primary); margin-bottom: 14px; }
-  .what-i-do ul { margin: 0; padding: 0; list-style: none; }
-  .what-i-do li {
-    font-family: var(--font-body); font-size: 16px; line-height: 1.5;
-    color: var(--color-navy);
-    padding: 8px 0 8px 22px;
-    position: relative;
-  }
-  .what-i-do li::before {
-    content: '';
-    position: absolute; left: 4px; top: 17px;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--color-gold);
-  }
-
-  .pullquote {
-    margin-top: 36px;
-    padding-left: 22px;
-    border-left: 3px solid var(--color-gold);
-  }
-  .pullquote p {
-    font-family: var(--font-italic); font-style: italic;
-    font-size: 22px; line-height: 1.4;
-    color: var(--color-navy); margin: 0 0 10px;
-  }
-  .pullquote .attr {
-    font-family: var(--font-body); font-size: 13px;
-    color: var(--fg-2);
-  }
-
-  /* ---------- Footer ---------- */
-  footer {
-    background: var(--color-navy); color: #fff;
-    border-top: 3px solid var(--color-gold);
-    padding: 56px 48px 36px;
-  }
-  footer .grid {
-    max-width: 1184px; margin: 0 auto;
-    display: grid; grid-template-columns: 1.3fr repeat(4, 1fr); gap: 40px;
-  }
-  footer h4 {
-    font-family: var(--font-body); font-size: 12px; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--color-gold); margin: 0 0 16px;
-  }
-  footer ul { list-style: none; padding: 0; margin: 0; }
-  footer ul li { margin-bottom: 10px; }
-  footer ul a {
-    font-family: var(--font-body); font-size: 14px;
-    color: rgba(255,255,255,.78); text-decoration: none;
-  }
-  footer ul a:hover { color: var(--color-gold); }
-  footer .org-name {
-    font-family: var(--font-display); font-weight: 700; font-size: 22px;
-    margin-bottom: 14px;
-  }
-  footer .address {
-    font-family: var(--font-body); font-size: 14px;
-    color: rgba(255,255,255,.7); line-height: 1.6;
-  }
-  footer .footer-bottom {
-    max-width: 1184px; margin: 40px auto 0; padding-top: 24px;
-    border-top: 1px solid rgba(255,255,255,.12);
-    font-family: var(--font-body); font-size: 12px;
-    color: rgba(255,255,255,.5);
-    display: flex; justify-content: space-between;
-  }
-
-  /* ---------- Responsive ---------- */
-  @media (max-width: 900px) {
-    .bio-card { grid-template-columns: 1fr; }
-    .bio-left {
-      border-right: 0;
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 40px 28px;
-      text-align: center;
-    }
-    .portrait { width: 180px; height: 180px; }
-    .bio-right { padding: 40px 28px; }
-    .field-label, .field-value { text-align: center; }
-    .crumb { padding: 14px 20px; flex-wrap: wrap; }
-    .bio-wrap { padding: 8px 16px 64px; }
-    .site-header { padding: 14px 20px; flex-wrap: wrap; gap: 14px; }
-    .site-header nav { display: none; }
-    footer { padding: 48px 20px 28px; }
-    footer .grid { grid-template-columns: 1fr; }
-  }
-</style>
-</head>
-<body>
-
-<!-- ============================================================
-     HEADER
-     ============================================================ -->
-<header class="site-header">
-  <a href="index.html" aria-label="City of Promise home">
-    <img src="assets/logo-horizontal.png" alt="City of Promise">
-  </a>
-  <nav>
-    <a href="what-we-do.html">What We Do</a>
-    <a href="our-approach.html">Our Approach</a>
-    <a href="who-we-are.html" class="is-active">Who We Are</a>
-    <a href="#">Access Services</a>
-    <a href="#">Get Involved</a>
-    <a href="#">Published Work</a>
-    <a href="#">Contact</a>
-  </nav>
-  <button class="donate-btn">Donate</button>
-</header>
-
-<!-- ============================================================
-     BREADCRUMB
-     ============================================================ -->
-<div class="crumb">
+---
+layout: base.njk
+title: "Price Thomas — City of Promise"
+activePage: who-we-are
+permalink: /bio-price-thomas.html
+---
+<div class="bio-crumb">
   <a href="who-we-are.html#team">← Back to team</a>
 </div>
 
-<!-- ============================================================
-     BIO CARD
-     ============================================================ -->
 <div class="bio-wrap">
   <article class="bio-card">
 
-    <!-- LEFT: portrait + key facts -->
     <aside class="bio-left">
-      <div class="portrait">
-        <img src="cop-photos/team headshots/PT.jpg" alt="Price A. Thomas">
+      <div class="bio-portrait">
+        <img src="cop-photos/team headshots/PT.jpg" alt="Price Thomas">
       </div>
       <h1 class="bio-name">Price A. Thomas</h1>
       <p class="bio-title">Executive Director</p>
 
-      <div class="field">
-        <div class="field-label">Phone</div>
-        <div class="field-value"><a href="tel:+14342285153" style="color: var(--color-navy); text-decoration: none;">434.228.5153</a></div>
+      <div class="bio-field">
+        <div class="bio-field-label">Phone</div>
+        <div class="bio-field-value"><a href="tel:+14342285153">434.228.5153</a></div>
       </div>
 
-      <a class="email-btn" href="mailto:price@cityofpromise.org">Email Price</a>
+      <a class="bio-email-btn" href="mailto:price@cityofpromise.org">Email Price</a>
     </aside>
 
-    <!-- RIGHT: bio + what I do + pullquote -->
     <section class="bio-right">
       <div class="eyebrow">Bio</div>
       <h2 class="bio-h2">About Price.</h2>
 
       <div class="bio-body">
         <p>
-          Price leads City of Promise as Executive Director. He runs the work of Community School Coordinators across seven Charlottesville City Schools, the Dreambuilders program for parents and their children, and the Pathways to Family Success coalition CoP convenes.
+          Price was named Executive Director in May 2023. Born and raised in Charlottesville, Price Thomas brings extensive experience as a communications expert and campaign strategist in addition to his deep knowledge of the Charlottesville community. His nonprofit leadership experience with both the Montpelier Foundation and United Way combined with his dedication to young people, made him the ideal choice to follow in the impactful footsteps of departing Executive Director, Mary Coleman.
         </p>
         <p>
-          He's the public voice of dual-generation early intervention in Charlottesville. He writes the From the ED column, hosts Envision Radio with the United Way of Greater Charlottesville on WINA, and argues the case in front of City Council and the General Assembly.
+          Price noted, &ldquo;I&rsquo;m humbled and thrilled to have the opportunity to build on the strong existing foundation at City of Promise and continue the work that Mary and the staff are doing. I owe a debt of gratitude to the leadership of the United Way and I&rsquo;m looking forward to applying what I&rsquo;ve learned to growing the scope and impact of City of Promise. I was raised here, I&rsquo;m raising my kids here, and I&rsquo;m excited for the opportunity to have a positive impact on the place I call home.&rdquo;
         </p>
       </div>
 
-      <div class="what-i-do">
-        <div class="eyebrow">What I do here</div>
-        <ul>
-          <li>Set strategy and lead CoP's external relationships</li>
-          <li>Convene the Pathways to Family Success coalition</li>
-          <li>Speak for CoP through From the ED, Envision Radio, and policy testimony</li>
-        </ul>
-      </div>
-
-      <blockquote class="pullquote">
-        <p>"All we're doing as parents is remaking versions of what we are introduced to."</p>
-        <div class="attr">— Price A. Thomas</div>
+      <blockquote class="bio-pullquote">
+        <p>&ldquo;I want to create opportunities and access for children and parents so that no one has their dreams deferred.&rdquo;</p>
+        <div class="attr">— Price Thomas</div>
       </blockquote>
     </section>
 
   </article>
 </div>
-
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
-<footer>
-  <div class="grid">
-    <div>
-      <div class="org-name">City of Promise</div>
-      <div class="address">
-        708 Page Street<br>
-        Charlottesville, VA 22903
-      </div>
-    </div>
-    <div>
-      <h4>What We Do</h4>
-      <ul>
-        <li><a href="#">Community Schools</a></li>
-        <li><a href="#">Dreambuilders</a></li>
-        <li><a href="#">Family Engagement</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Who We Are</h4>
-      <ul>
-        <li><a href="who-we-are.html#team">Team</a></li>
-        <li><a href="who-we-are.html#board">Board</a></li>
-        <li><a href="who-we-are.html#history">History</a></li>
-        <li><a href="who-we-are.html#partners">Partners</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Get Involved</h4>
-      <ul>
-        <li><a href="#">Donate</a></li>
-        <li><a href="volunteer.html">Volunteer</a></li>
-        <li><a href="#">Partner with us</a></li>
-        <li><a href="#">NAP Tax Credits</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Published Work</h4>
-      <ul>
-        <li><a href="#">Annual Report</a></li>
-        <li><a href="#">Envision Radio</a></li>
-        <li><a href="#">From the ED</a></li>
-        <li><a href="#">990s</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 City of Promise</span>
-    <span>Charlottesville, Virginia</span>
-  </div>
-</footer>
-
-</body>
-</html>

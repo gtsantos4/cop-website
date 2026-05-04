@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dawn Lawson — City of Promise</title>
+
+<!-- Tell Chromium browsers to prerender same-site pages immediately.
+     "eager" means: prerender all matched links as soon as this page loads,
+     not on hover-intent. Needed because moderate eagerness waits for a
+     heuristic that often doesn't fire before the click on a small site.
+     When the user clicks a nav link the page is already loaded → no flash. -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "where": { "and": [
+      { "href_matches": "/*" },
+      { "not": { "href_matches": "/constellation.html" } },
+      { "not": { "href_matches": "/*.pdf" } }
+    ]},
+    "eagerness": "eager"
+  }]
+}
+</script>
+
+<!-- Plain prefetch fallback for browsers without Speculation Rules support
+     (Safari, Firefox). Loads HTML into HTTP cache during idle time so the
+     navigation paints from cache instead of from the network. -->
+<link rel="prefetch" href="index.html" as="document">
+<link rel="prefetch" href="what-we-do.html" as="document">
+<link rel="prefetch" href="community-schools.html" as="document">
+<link rel="prefetch" href="dreambuilders.html" as="document">
+<link rel="prefetch" href="family-engagement.html" as="document">
+<link rel="prefetch" href="our-approach.html" as="document">
+<link rel="prefetch" href="who-we-are.html" as="document">
+<link rel="prefetch" href="get-involved.html" as="document">
+<link rel="prefetch" href="access-services.html" as="document">
+<link rel="prefetch" href="volunteer.html" as="document">
+
+<!-- Paint the page background BEFORE any external CSS loads, to kill the
+     white flash between page navigations. Hex must match --color-canvas. -->
+<style>html, body { background: #EEEEEC; }</style>
+<link rel="icon" href="assets/favicon.png">
+
+<!-- Preload the header logo so it's already in HTTP cache when the next page
+     paints. Without this, every navigation re-fetches/re-decodes the 217KB PNG,
+     causing a brief flash where the logo box renders empty. -->
+<link rel="preload" as="image" href="assets/logo-horizontal.png" fetchpriority="high">
+
+<!-- Fonts: preconnect + parallel-load. display=swap shows fallback
+     immediately and swaps in Fraunces/Inter when loaded. Used instead
+     of display=optional because optional caused inconsistent rendering
+     across pages (first-load pages got Georgia, cached pages got Fraunces). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap">
+
+<link rel="stylesheet" href="colors_and_type.css">
+<link rel="stylesheet" href="assets/site.css">
+
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" aria-label="City of Promise home">
+    <img src="assets/logo-horizontal.png" alt="City of Promise" width="127" height="48" fetchpriority="high" decoding="sync">
+  </a>
+  <nav>
+    <a href="what-we-do.html">What We Do</a>
+    <a href="our-approach.html">Our Approach</a>
+    <a href="who-we-are.html" class="is-active">Who We Are</a>
+    <a href="access-services.html">Access Services</a>
+    <a href="get-involved.html">Get Involved</a>
+    <a href="published-work.html">Published Work</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a href="get-involved.html" class="donate-btn">Donate</a>
+</header>
+
+
+<div class="bio-crumb">
+  <a href="who-we-are.html#team">← Back to team</a>
+</div>
+
+<div class="bio-wrap">
+  <article class="bio-card">
+
+    <aside class="bio-left">
+      <div class="bio-portrait">
+        <img src="cop-photos/team headshots/DL.jpg" alt="Dawn Lawson">
+      </div>
+      <h1 class="bio-name">Dawn Lawson</h1>
+      <p class="bio-title">Family Empowerment Coach</p>
+
+      <div class="bio-field">
+        <div class="bio-field-label">Phone</div>
+        <div class="bio-field-value"><a href="tel:+14349892593">434.989.2593</a></div>
+      </div>
+
+      <a class="bio-email-btn" href="mailto:dlawson@cityofpromise.org">Email Dawn</a>
+    </aside>
+
+    <section class="bio-right">
+      <div class="eyebrow">Bio</div>
+      <h2 class="bio-h2">About Dawn.</h2>
+
+      <div class="bio-body">
+        <p>
+          A native of Charlottesville, Dawn Lawson attended Virginia Wesleyan College where she was scholarship chairman for Phi Sigma Sigma. Dawn received her master&rsquo;s degree in Human Service/Marriage and Family Counseling from Liberty University. Her community service has included participation in Make a Difference Day and fundraisers for the National Kidney Foundation at VWC, as well as volunteering with Love Inc. and Covenant Church.
+        </p>
+        <p>
+          Her work experience includes case management, substance abuse counseling, working with at-risk children in a school setting, and community-based services that included teaching her clients skills to achieve their goals, and working with families in the foster care system. Dawn would love to become a foster parent. She loves sports and animals.
+        </p>
+      </div>
+
+      <blockquote class="bio-pullquote">
+        <p>&ldquo;I want to encourage, motivate, and help others recognize their strengths so they can reach their personal goals. In return, they can take their skills to empower and uplift others.&rdquo;</p>
+        <div class="attr">— Dawn Lawson</div>
+      </blockquote>
+    </section>
+
+  </article>
+</div>
+
+
+<footer>
+  <div class="grid">
+    <div>
+      <div class="org-name">City of Promise</div>
+      <div class="address">
+        708 Page Street<br>
+        Charlottesville, VA 22903
+      </div>
+    </div>
+    <div>
+      <h4>What We Do</h4>
+      <ul>
+        <li><a href="what-we-do.html">Community Schools</a></li>
+        <li><a href="what-we-do.html">Dreambuilders</a></li>
+        <li><a href="what-we-do.html">Family Engagement</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Who We Are</h4>
+      <ul>
+        <li><a href="who-we-are.html#team">Team</a></li>
+        <li><a href="who-we-are.html#board">Board</a></li>
+        <li><a href="who-we-are.html#history">History</a></li>
+        <li><a href="who-we-are.html#partners">Partners</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Get Involved</h4>
+      <ul>
+        <li><a href="get-involved.html">Donate</a></li>
+        <li><a href="volunteer.html">Volunteer</a></li>
+        <li><a href="get-involved.html#partner">Partner with us</a></li>
+        <li><a href="get-involved.html">NAP Tax Credits</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Published Work</h4>
+      <ul>
+        <li><a href="published-work.html#reports">Annual Report</a></li>
+        <li><a href="published-work.html#radio">Envision Radio</a></li>
+        <li><a href="published-work.html#from-the-ed">From the ED</a></li>
+        <li><a href="published-work.html#financials">990s</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 City of Promise</span>
+    <span>Charlottesville, Virginia</span>
+  </div>
+</footer>
+
+
+</body>
+</html>
