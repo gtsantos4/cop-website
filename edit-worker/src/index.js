@@ -3,9 +3,9 @@
 // commits the change to both the source file and the built docs/<page> file.
 // Pages then redeploys and the live URL reflects the edit ~30s later.
 
-const ALLOWED_PAGES = new Set([
-  "contact.html",
-]);
+// Accept any html filename at the repo root: alphanumerics, dash, underscore.
+// Path-traversal characters (/, .., etc.) are rejected.
+const PAGE_PATTERN = /^[a-zA-Z0-9_-]+\.html$/;
 
 export default {
   async fetch(request, env) {
@@ -26,8 +26,8 @@ export default {
     if (!field || typeof text !== "string" || !page) {
       return json({ error: "missing field/text/page" }, 400);
     }
-    if (!ALLOWED_PAGES.has(page)) {
-      return json({ error: `page not editable: ${page}` }, 400);
+    if (!PAGE_PATTERN.test(page)) {
+      return json({ error: `invalid page: ${page}` }, 400);
     }
     if (text.length > 50000) {
       return json({ error: "text too long" }, 413);

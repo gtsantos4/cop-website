@@ -177,22 +177,30 @@ footer .social-row a:hover {
   color: var(--color-navy);
   transform: translateY(-2px);
 }
-footer .candid-seal {
-  display: inline-block; margin-top: 16px;
-  line-height: 0;
-  transition: transform var(--dur, 200ms) var(--ease, ease),
-              opacity var(--dur, 200ms) var(--ease, ease);
-  opacity: .92;
-}
-footer .candid-seal:hover { transform: translateY(-2px); opacity: 1; }
-footer .candid-seal img { width: 64px; height: 64px; display: block; }
 footer .footer-bottom {
   max-width: 1184px; margin: 40px auto 0; padding-top: 24px;
   border-top: 1px solid rgba(255,255,255,.12);
   font-family: var(--font-body); font-size: 12px;
   color: rgba(255,255,255,.5);
-  display: flex; justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px;
 }
+footer .footer-bottom-meta {
+  display: flex; align-items: center; gap: 8px;
+}
+footer .footer-bottom-meta .sep { opacity: .5; }
+footer .footer-seals {
+  display: flex; align-items: center; gap: 12px;
+}
+footer .footer-seal {
+  display: inline-block; line-height: 0;
+  background: #fff; padding: 4px; border-radius: 6px;
+  transition: transform var(--dur, 200ms) var(--ease, ease),
+              opacity var(--dur, 200ms) var(--ease, ease);
+  opacity: .95;
+}
+footer .footer-seal:hover { transform: translateY(-2px); opacity: 1; }
+footer .footer-seal img { width: 48px; height: 48px; display: block; }
 
 @media (max-width: 1100px) {
   footer .grid { grid-template-columns: 1fr 1fr; }
