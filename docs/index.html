@@ -181,6 +181,11 @@
     background: #fff; border-radius: 8px; padding: 24px;
     border: 1px solid var(--border-subtle);
     box-shadow: var(--shadow-card);
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+  .program-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
   }
   .program-card .photo {
     width: 100%; aspect-ratio: 16/10; border-radius: 12px; margin-bottom: 20px;
@@ -236,16 +241,16 @@
   }
 
   /* ---------- Video feature ---------- */
-  .home-video { background: var(--color-navy); padding: 96px 48px; }
+  .home-video { background: var(--color-canvas); padding: 96px 48px; }
   .home-video .inner { max-width: 980px; margin: 0 auto; text-align: center; }
   .home-video .gold-rule { margin: 0 auto 20px; }
   .home-video h2 {
     font-family: var(--font-display); font-size: 48px; font-weight: 700;
-    color: #fff; text-transform: uppercase; letter-spacing: -1px; line-height: 1.1; margin: 0;
+    color: var(--color-navy); text-transform: uppercase; letter-spacing: -1px; line-height: 1.1; margin: 0;
   }
   .home-video .lede {
     font-family: var(--font-body); font-size: 18px;
-    color: rgba(255,255,255,.78); max-width: 640px; margin: 18px auto 0; line-height: 1.55;
+    color: rgba(7,48,91,.75); max-width: 640px; margin: 18px auto 0; line-height: 1.55;
   }
   .home-video .frame {
     position: relative; aspect-ratio: 16 / 9; margin-top: 48px;
@@ -396,69 +401,11 @@
   </div>
 </section>
 
-<section class="programs">
-  <div class="inner">
-    <hr class="gold-rule">
-    <h2 data-field="f-14">Three programs. One family.</h2>
-    <p class="lede" data-field="f-15">A cradle-to-career continuum that serves kids and the adults who raise them, because education is a social issue no school can solve alone.</p>
-    <div class="cards">
-      <div class="program-card">
-        <div class="photo pc-1"></div>
-        <h3 data-field="f-16">Community Schools</h3>
-        <p data-field="f-17">Community School Coordinators embedded at 7 Charlottesville school sites. After-school tutoring four days a week, on-site food pantries, and the Walking Bus.</p>
-        <a href="community-schools.html" data-field="f-18">Learn more →</a>
-      </div>
-      <div class="program-card">
-        <div class="photo pc-2"></div>
-        <h3 data-field="f-19">Dreambuilders</h3>
-        <p data-field="f-20">A two-year wraparound program for working Charlottesville families. Parent classes, family learning, and up to $7,000 in micro-financing to invest in self-sufficiency.</p>
-        <a href="dreambuilders.html" data-field="f-21">Learn more →</a>
-      </div>
-      <div class="program-card">
-        <div class="photo pc-3"></div>
-        <h3 data-field="f-22">Family Engagement &amp; Advocacy</h3>
-        <p data-field="f-23">The parent-facing arm of our model. Parenting coaching, school advocacy, and connection to the wider Charlottesville safety net, because a child's trajectory tracks their parent's.</p>
-        <a href="family-engagement.html" data-field="f-24">Learn more →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="numbers">
-  <div class="inner">
-    <hr class="gold-rule">
-    <h2 data-field="f-25">By the Numbers</h2>
-    <p class="lede" data-field="f-26">What a decade of dual-generation work looks like.</p>
-    <div class="grid">
-      <div class="num-cell blue">
-        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div>
-        <div class="v" data-field="f-27">10+</div>
-        <div class="l" data-field="f-28">years serving Charlottesville</div>
-      </div>
-      <div class="num-cell gold">
-        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div>
-        <div class="v" data-field="f-29">3</div>
-        <div class="l" data-field="f-30">programs, one family</div>
-      </div>
-      <div class="num-cell blue">
-        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div>
-        <div class="v" data-field="f-31">122</div>
-        <div class="l" data-field="f-32">households servicing</div>
-      </div>
-      <div class="num-cell gold">
-        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div>
-        <div class="v" data-field="f-33">11</div>
-        <div class="l" data-field="f-34">staff members (growing to 20–25)</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="home-video">
   <div class="inner">
     <hr class="gold-rule">
-    <h2 data-field="f-35">See the work in motion.</h2>
-    <p class="lede" data-field="f-36">Two minutes inside City of Promise — the families, the coordinators, and the constellation of care.</p>
+    <h2 data-field="f-14">See the work in motion.</h2>
+    <p class="lede" data-field="f-15">Two minutes inside City of Promise — the families, the coordinators, and the constellation of care.</p>
     <div class="frame">
       <!-- ============================================================
            CLOUDFLARE STREAM VIDEO
@@ -475,8 +422,66 @@
              title="City of Promise"></iframe>
            ============================================================ -->
       <div class="placeholder">
-        <div class="play" aria-hidden="true" data-field="f-37">▶</div>
-        <div class="ph-label" data-field="f-38">Video coming soon</div>
+        <div class="play" aria-hidden="true" data-field="f-16">▶</div>
+        <div class="ph-label" data-field="f-17">Video coming soon</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="programs">
+  <div class="inner">
+    <hr class="gold-rule">
+    <h2 data-field="f-18">Three programs. One family.</h2>
+    <p class="lede" data-field="f-19">A cradle-to-career continuum that serves kids and the adults who raise them, because education is a social issue no school can solve alone.</p>
+    <div class="cards">
+      <div class="program-card">
+        <div class="photo pc-1"></div>
+        <h3 data-field="f-20">Community Schools</h3>
+        <p data-field="f-21">Community School Coordinators embedded at 7 Charlottesville school sites. After-school tutoring four days a week, on-site food pantries, and the Walking Bus.</p>
+        <a href="community-schools.html" data-field="f-22">Learn more →</a>
+      </div>
+      <div class="program-card">
+        <div class="photo pc-2"></div>
+        <h3 data-field="f-23">Dreambuilders</h3>
+        <p data-field="f-24">A two-year wraparound program for working Charlottesville families. Parent classes, family learning, and up to $7,000 in micro-financing to invest in self-sufficiency.</p>
+        <a href="dreambuilders.html" data-field="f-25">Learn more →</a>
+      </div>
+      <div class="program-card">
+        <div class="photo pc-3"></div>
+        <h3 data-field="f-26">Family Engagement &amp; Advocacy</h3>
+        <p data-field="f-27">The parent-facing arm of our model. Parenting coaching, school advocacy, and connection to the wider Charlottesville safety net, because a child's trajectory tracks their parent's.</p>
+        <a href="family-engagement.html" data-field="f-28">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="numbers">
+  <div class="inner">
+    <hr class="gold-rule">
+    <h2 data-field="f-29">By the Numbers</h2>
+    <p class="lede" data-field="f-30">What a decade of dual-generation work looks like.</p>
+    <div class="grid">
+      <div class="num-cell blue">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div>
+        <div class="v" data-field="f-31">10+</div>
+        <div class="l" data-field="f-32">years serving Charlottesville</div>
+      </div>
+      <div class="num-cell gold">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div>
+        <div class="v" data-field="f-33">3</div>
+        <div class="l" data-field="f-34">programs, one family</div>
+      </div>
+      <div class="num-cell blue">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div>
+        <div class="v" data-field="f-35">122</div>
+        <div class="l" data-field="f-36">households servicing</div>
+      </div>
+      <div class="num-cell gold">
+        <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div>
+        <div class="v" data-field="f-37">11</div>
+        <div class="l" data-field="f-38">staff members (growing to 20–25)</div>
       </div>
     </div>
   </div>
@@ -613,7 +618,7 @@
   <span id="edit-status" class="edit-status">viewing</span>
   <button id="edit-revert" type="button" class="ghost" style="display:none;">Discard</button>
 </div>
-<script src="assets/edit.js?v=1780585314562" defer></script>
+<script src="assets/edit.js?v=1780586842532" defer></script>
 
 
 </body>
