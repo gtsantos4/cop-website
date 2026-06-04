@@ -118,6 +118,10 @@ editPage: community-schools.html
     font-family: var(--font-display); font-size: 44px; font-weight: 700;
     color: var(--color-gold); letter-spacing: -0.6px; line-height: 1;
   }
+  .anchor .num svg {
+    width: 42px; height: 42px; display: block;
+    fill: var(--color-gold);
+  }
   .anchor h3 {
     font-family: var(--font-display); font-size: 26px; font-weight: 700;
     color: var(--color-navy); letter-spacing: -0.4px; margin: 0 0 6px;
@@ -243,7 +247,7 @@ editPage: community-schools.html
     text-decoration: none; color: inherit;
     transition: transform 200ms, box-shadow 200ms;
   }
-  .cross-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+  .cross-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); text-decoration: none; }
   .cross-card .meta {
     font-family: var(--font-body); font-size: 12px; font-weight: 600;
     letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-gold);
@@ -331,6 +335,7 @@ editPage: community-schools.html
     .pd-terminal h2 { font-size: 40px; letter-spacing: -0.8px; }
     .anchor { grid-template-columns: 1fr; gap: 12px; }
     .anchor .num { font-size: 36px; }
+    .anchor .num svg { width: 34px; height: 34px; }
     .pd-numbers .stat-cell .v { font-size: 52px; }
     .sites-grid { grid-template-columns: repeat(2, 1fr); }
     .pd-team .grid { grid-template-columns: 1fr 1fr; }
@@ -398,7 +403,7 @@ editPage: community-schools.html
       <div class="label">Inside the Program</div>
     </div>
     <div class="anchor">
-      <div class="num">01</div>
+      <div class="num"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"/></svg></div>
       <div>
         <h3>The Coordinator Role</h3>
         <p>Coach, resource broker, and family liaison — the hub that connects the other mechanisms to the family. The coordinator knows the kid, knows the parent, and is the same person from week to week.</p>
@@ -406,7 +411,7 @@ editPage: community-schools.html
     </div>
 
     <div class="anchor">
-      <div class="num">02</div>
+      <div class="num"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z"/></svg></div>
       <div>
         <h3>After-School Tutoring</h3>
         <p>Four days a week, K–12. The coordinator refers students in based on what they see in the classroom and at home; VLP-certified tutors deliver the instruction.</p>
@@ -414,7 +419,7 @@ editPage: community-schools.html
     </div>
 
     <div class="anchor">
-      <div class="num">03</div>
+      <div class="num"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 7c-1-.6-2.8-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06s2.75 1.06 4 1.06c3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2Z"/><path d="M13 6.5c0-2.4.9-4.1 3-4.5a.6.6 0 0 1 .7.7c-.4 2.3-1.8 3.3-3.7 3.8Z"/></svg></div>
       <div>
         <h3>On-Site Food Pantries</h3>
         <p>Backpack model. The coordinator manages on-site distribution; food is sourced and stocked by an external Charlottesville partner organization. <em style="color: rgba(7,48,91,.55);">(partner to confirm)</em></p>
@@ -422,7 +427,7 @@ editPage: community-schools.html
     </div>
 
     <div class="anchor">
-      <div class="num">04</div>
+      <div class="num"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 2C6.3 2 5 4.5 5 7.6c0 2.1.9 3.1.9 5.1V13a2 2 0 0 0 4 0v-.3c0-2.5 1.1-4.6 1.1-7.1C11 2.9 9.7 2 8 2Z"/><path d="M16 8c-1.7 0-3 .9-3 3.5 0 2.5 1.1 4.6 1.1 7.1V19a2 2 0 0 0 4 0v-.3c0-2 .9-3 .9-5.1C19 10.5 17.7 8 16 8Z"/></svg></div>
       <div>
         <h3>The Walking Bus</h3>
         <p>Trailblazer-specific. 25–30 kids walked to school every day by a rotating team of volunteers from the Nurturing Neighborhood pilot. The coordinator coordinates; volunteers walk.</p>

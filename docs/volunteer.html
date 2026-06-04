@@ -126,6 +126,7 @@
     color: rgba(255,255,255,.82); line-height: 1.55;
     margin: 32px 0 0; max-width: 720px;
   }
+  .vol-hero .ctas { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
 
   /* ---------- Shared section pieces ---------- */
   .section-tag { display: flex; align-items: center; gap: 14px; }
@@ -231,7 +232,7 @@
   .self-screen li b { display: block; color: var(--color-navy); margin-bottom: 4px; font-weight: 600; }
 
   /* ---------- Role section (modeled on .program) ---------- */
-  .role { padding: 112px 48px; scroll-margin-top: 80px; }
+  .role { padding: 112px 48px; scroll-margin-top: 64px; }
   .role .inner {
     max-width: 1280px; margin: 0 auto;
     display: grid; gap: 72px; align-items: center;
@@ -294,8 +295,66 @@
   .role.navy p  { color: rgba(255,255,255,.82); }
   .role.navy p strong, .role.navy p b { color: #fff; }
 
+  /* ---------- Other ways to volunteer (secondary roles) ---------- */
+  .other-roles { background: var(--color-canvas); padding: 96px 48px 56px; scroll-margin-top: 80px; }
+  .other-roles .inner { max-width: 1280px; margin: 0 auto; }
+  .other-roles .other-h2 {
+    font-family: var(--font-display); font-size: 48px; font-weight: 700;
+    letter-spacing: -1.1px; line-height: 1.06;
+    margin: 18px 0 14px; color: var(--color-navy);
+  }
+  .other-roles .other-lede {
+    font-family: var(--font-body); font-size: 18px; line-height: 1.55;
+    color: rgba(7,48,91,.75); margin: 0; max-width: 640px;
+  }
+  .other-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 48px;
+  }
+  .other-card {
+    background: #fff; border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card); padding: 28px 28px 30px;
+    box-shadow: var(--shadow-card);
+    display: flex; flex-direction: column;
+    transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
+  }
+  .other-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+  .other-card .thumb {
+    width: 100%; aspect-ratio: 16/9; border-radius: var(--radius-photo);
+    background-size: cover; background-position: center; margin-bottom: 22px;
+  }
+  .other-card .role-name {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(7,48,91,.55); margin: 0 0 10px;
+  }
+  .other-card h3 {
+    font-family: var(--font-display); font-size: 26px; font-weight: 700;
+    letter-spacing: -0.5px; line-height: 1.1; color: var(--color-navy); margin: 0 0 12px;
+  }
+  .other-card p {
+    font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+    color: rgba(7,48,91,.78); margin: 0 0 22px;
+  }
+  .other-card p strong { color: var(--color-navy); font-weight: 600; }
+  .other-card .ostats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    padding-top: 22px; margin-top: auto;
+    border-top: 1px solid rgba(7,48,91,.10);
+  }
+  .other-card .ostats .v { font-size: 38px; letter-spacing: -1px; }
+  .other-card .ostats .l { font-size: 12px; }
+  .other-card .cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: auto; padding-top: 22px; align-self: flex-start;
+    font-family: var(--font-body); font-size: 15px; font-weight: 600;
+    color: var(--color-primary); text-decoration: none;
+  }
+  .other-card .cta span { transition: transform 200ms var(--ease); }
+  .other-card .cta:hover span { transform: translateX(3px); }
+  @media (max-width: 900px) { .other-grid { grid-template-columns: 1fr; } }
+
   /* ---------- Sign-up + prereq band ---------- */
-  .signup { background: var(--color-canvas); padding: 112px 48px; }
+  .signup { background: var(--color-canvas); padding: 64px 48px 112px; scroll-margin-top: 112px; }
   .signup .inner { max-width: 1280px; margin: 0 auto; }
   .signup .header { max-width: 720px; margin-bottom: 48px; }
   .signup h2 {
@@ -439,18 +498,21 @@
 <div class="sub-nav">
   <span class="lbl" data-field="f-1">On this page</span>
   <a href="#nurturing-neighborhood" data-field="f-2">Nurturing Neighborhood</a>
-  <a href="#mentoring-transportation" data-field="f-3">Mentoring &amp; Transportation</a>
-  <a href="#reading-tutoring" data-field="f-4">Reading Tutoring</a>
-  <a href="#sign-up" data-field="f-5">How to sign up</a>
+  <a href="#other-roles" data-field="f-3">Other ways to help</a>
+  <a href="#sign-up" data-field="f-4">How to sign up</a>
 </div>
 
 <!-- ============ HERO ============ -->
 <section class="vol-hero">
   <div class="inner">
     <hr class="gold-rule">
-    <div class="kicker" data-field="f-6">Get Involved — Volunteer</div>
-    <h1 data-field="f-7">We can't make change alone.</h1>
-    <p data-field="f-8">Kids spend about 80% of their waking hours out of school. That time is either a tailwind or a headwind. CoP volunteers are how it becomes a tailwind. We run three volunteer roles, each one a relationship with a kid or family in Westhaven or 10th and Page that runs at least a full school semester, often longer.</p>
+    <div class="kicker" data-field="f-5">Get Involved — Nurturing Neighborhood</div>
+    <h1 data-field="f-6">When parents thrive,<br>children thrive.</h1>
+    <p data-field="f-7">Kids spend about 80% of their waking hours out of school — time that becomes a tailwind or a headwind. Nurturing Neighborhood is how CoP makes it a tailwind: a pod of 4–5 volunteers is matched to one family in Westhaven or 10th and Page and stays with them over months and years. It's our flagship volunteer role, and the place we most need you.</p>
+    <div class="ctas">
+      <a class="vol-btn gold" href="#nurturing-neighborhood" data-field="f-8">Sign up for Nurturing Neighborhood <span>→</span></a>
+      <a class="vol-btn outline-dark" href="#other-roles" data-field="f-9">See other ways to help <span>→</span></a>
+    </div>
   </div>
 </section>
 
@@ -460,8 +522,6 @@
     <div class="copy">
       <hr class="gold-rule">
       <div class="section-tag light">
-        <div class="n" data-field="f-9">01</div>
-        <div class="rule"></div>
         <div class="label" data-field="f-10">The Work</div>
       </div>
       <h2 data-field="f-11">Repeat contact,<br>same families.</h2>
@@ -486,111 +546,60 @@
     <div class="photo" style="background-image: url('cop-photos/DJW11527.jpg'); background-position: center 25%;"></div>
     <div>
       <div class="section-tag light">
-        <div class="n" data-field="f-18">02·a</div>
-        <div class="rule"></div>
-        <div class="label" data-field="f-19">Nurturing Neighborhood</div>
+        <div class="label" data-field="f-18">Nurturing Neighborhood</div>
       </div>
-      <h2 data-field="f-20">When parents thrive,<br>children thrive.</h2>
+      <h2 data-field="f-19">When parents thrive,<br>children thrive.</h2>
       <hr class="gold-rule">
       <div class="body-block">
-        <div class="lab" data-field="f-21">What it is</div>
-        <p data-field="f-22">Nurturing Neighborhood is a faith-partner pilot CoP runs with the <strong>Thomas Jefferson Memorial Church Unitarian Universalist congregation</strong> and <strong>City Church</strong>. A pod of 4–5 volunteers is matched to one family in Westhaven or 10th and Page and stays with that family over months and years.</p>
+        <div class="lab" data-field="f-20">What it is</div>
+        <p data-field="f-21">A pod of 4–5 volunteers is matched to one family in Westhaven or 10th and Page and stays with that family over months and years.</p>
       </div>
       <div class="body-block">
-        <div class="lab" data-field="f-23">What you'd do</div>
-        <p data-field="f-24">Pods address the everyday non-monetary barriers a family faces: rides to appointments, after-school pickup, moving help, an extra adult at a school meeting. CoP staff coordinate scheduling and check-ins, and brief each pod before placement.</p>
+        <div class="lab" data-field="f-22">What you'd do</div>
+        <p data-field="f-23">Pods address the everyday non-monetary barriers a family faces: rides to appointments, after-school pickup, moving help, an extra adult at a school meeting. CoP staff coordinate scheduling and check-ins, and brief each pod before placement.</p>
       </div>
       <div class="stats" style="grid-template-columns: 1fr 1.5fr 1fr;">
-        <div class="stat-cell light"><div class="v v-blue" data-field="f-25">4–5</div><div class="l" data-field="f-26">volunteers per pod</div></div>
-        <div class="stat-cell light"><div class="v v-blue" data-field="f-27">Multi-yr</div><div class="l" data-field="f-28">horizon per family</div></div>
-        <div class="stat-cell light"><div class="v v-gold" data-field="f-29">2</div><div class="l" data-field="f-30">active families</div></div>
-      </div>
-      <div class="pills">
-        <span class="chip solid-gold" data-field="f-31">Partner Pilot</span>
-        <span class="chip light" data-field="f-32">UU + City Church</span>
-        <span class="chip light" data-field="f-33">Westhaven</span>
-        <span class="chip light" data-field="f-34">10th and Page</span>
+        <div class="stat-cell light"><div class="v v-blue" data-field="f-24">4–5</div><div class="l" data-field="f-25">volunteers per pod</div></div>
+        <div class="stat-cell light"><div class="v v-blue" data-field="f-26">Multi-yr</div><div class="l" data-field="f-27">horizon per family</div></div>
+        <div class="stat-cell light"><div class="v v-gold" data-field="f-28">2</div><div class="l" data-field="f-29">active families</div></div>
       </div>
       <div class="ctas">
-        <a class="vol-btn navy" href="#sign-up" data-field="f-35">Sign up for Nurturing Neighborhood <span>→</span></a>
+        <a class="vol-btn navy" href="#sign-up" data-field="f-30">Sign up for Nurturing Neighborhood <span>→</span></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ ROLE 02 — Mentoring & Transportation ============ -->
-<section class="role navy photo-right" id="mentoring-transportation">
+<!-- ============ OTHER WAYS TO VOLUNTEER (secondary roles) ============ -->
+<section class="other-roles" id="other-roles">
   <div class="inner">
-    <div>
-      <div class="section-tag dark">
-        <div class="n" data-field="f-36">02·b</div>
-        <div class="rule"></div>
-        <div class="label" data-field="f-37">Mentoring &amp; Transportation</div>
-      </div>
-      <h2 data-field="f-38">Rides plus mentorship<br>for CCS extracurriculars.</h2>
-      <hr class="gold-rule">
-      <div class="body-block">
-        <div class="lab" data-field="f-39">What it is</div>
-        <p data-field="f-40">CoP volunteers drive Charlottesville City Schools students to and from sports practices, music lessons, and other extracurriculars they would otherwise miss for lack of transportation. The mentorship happens in the car, on repeated trips with the same kid.</p>
-      </div>
-      <div class="body-block">
-        <div class="lab" data-field="f-41">What you'd do</div>
-        <p data-field="f-42">Two to four trips per week during the season, typically afternoons and early evenings. CoP matches volunteers to students based on geography, schedule, and the kid's activity.</p>
-      </div>
-      <div class="stats">
-        <div class="stat-cell dark"><div class="v v-gold" data-field="f-43">2–4</div><div class="l" data-field="f-44">trips per week</div></div>
-        <div class="stat-cell dark"><div class="v v-gold" data-field="f-45">1:1</div><div class="l" data-field="f-46">volunteer to student</div></div>
-        <div class="stat-cell dark"><div class="v v-white" data-field="f-47">3</div><div class="l" data-field="f-48">match windows per year</div></div>
-        <div class="stat-cell dark"><div class="v v-white" data-field="f-49">CCS</div><div class="l" data-field="f-50">partner schools</div></div>
-      </div>
-      <div class="pills">
-        <span class="chip dark" data-field="f-51">Mentoring</span>
-        <span class="chip dark" data-field="f-52">Transportation</span>
-        <span class="chip dark" data-field="f-53">Sports + Music</span>
-        <span class="chip dark" data-field="f-54">Seasonal Matching</span>
-      </div>
-      <div class="ctas">
-        <a class="vol-btn gold" href="#sign-up" data-field="f-55">Sign up for Mentoring &amp; Transportation <span>→</span></a>
-      </div>
+    <hr class="gold-rule">
+    <div class="section-tag light">
+      <div class="label" data-field="f-31">Other ways to volunteer</div>
     </div>
-    <div class="photo" style="background-image: url('cop-photos/program-soccer-kids-field.jpg');"></div>
-  </div>
-</section>
+    <h2 class="other-h2" data-field="f-32">Two more roles,<br>same commitment to the same kids.</h2>
+    <p class="other-lede" data-field="f-33">Not a fit for a Nurturing Neighborhood pod right now? These roles run on the same principle — repeat contact with the same student, all season long.</p>
 
-<!-- ============ ROLE 03 — Reading Tutoring ============ -->
-<section class="role canvas photo-left" id="reading-tutoring">
-  <div class="inner">
-    <div class="photo" style="background-image: url('cop-photos/DJW20034.jpg'); background-position: center 35%;"></div>
-    <div>
-      <div class="section-tag light">
-        <div class="n" data-field="f-56">02·c</div>
-        <div class="rule"></div>
-        <div class="label" data-field="f-57">Reading Tutoring</div>
-      </div>
-      <h2 data-field="f-58">Every kid deserves<br>to learn to read.</h2>
-      <hr class="gold-rule">
-      <div class="body-block">
-        <div class="lab" data-field="f-59">What it is</div>
-        <p data-field="f-60">Reading Tutoring is one-on-one literacy support for CCS students. Volunteers complete <strong>VA Literacy Partnerships</strong> certification before being matched, then meet weekly with the same student through the school year.</p>
-      </div>
-      <div class="body-block">
-        <div class="lab" data-field="f-61">What you'd do</div>
-        <p data-field="f-62">A one-hour session each week, in the school day or just after, at one of CoP's partner schools. VA Literacy Partnerships provides the training and the curriculum. Your job is to show up consistently for the same student over a school year.</p>
-      </div>
-      <div class="stats" style="grid-template-columns: repeat(3, 1fr);">
-        <div class="stat-cell light"><div class="v v-gold" data-field="f-63">40%</div><div class="l" data-field="f-64">Black students reading on grade level (CCS)</div></div>
-        <div class="stat-cell light"><div class="v v-blue" data-field="f-65">89%</div><div class="l" data-field="f-66">White peers, same grade</div></div>
-        <div class="stat-cell light"><div class="v v-blue" data-field="f-67">1 hr</div><div class="l" data-field="f-68">weekly with the same student</div></div>
-      </div>
-      <div class="pills">
-        <span class="chip solid-gold" data-field="f-69">Cert required</span>
-        <span class="chip light" data-field="f-70">VA Literacy Partnerships</span>
-        <span class="chip light" data-field="f-71">1:1 Tutoring</span>
-        <span class="chip light" data-field="f-72">School-year long</span>
-      </div>
-      <div class="ctas">
-        <a class="vol-btn navy" href="#sign-up" data-field="f-73">Sign up for Reading Tutoring <span>→</span></a>
-      </div>
+    <div class="other-grid">
+
+      <!-- Mentoring & Transportation -->
+      <article class="other-card">
+        <div class="thumb" style="background-image: url('cop-photos/program-soccer-kids-field.jpg');"></div>
+        <div class="role-name" data-field="f-34">Mentoring &amp; Transportation</div>
+        <h3 data-field="f-35">Rides plus mentorship for CCS extracurriculars.</h3>
+        <p data-field="f-36">Drive Charlottesville City Schools students to the practices, lessons, and activities they'd otherwise miss for lack of a ride. The mentorship happens in the car, on repeated trips with the same kid.</p>
+        <a class="cta" href="#sign-up" data-field="f-37">Sign up for Mentoring &amp; Transportation <span>→</span></a>
+      </article>
+
+      <!-- Reading Tutoring -->
+      <article class="other-card">
+        <div class="thumb" style="background-image: url('cop-photos/DJW20034.jpg'); background-position: center 35%;"></div>
+        <div class="role-name" data-field="f-38">Reading Tutoring</div>
+        <h3 data-field="f-39">Every kid deserves to learn to read.</h3>
+        <p data-field="f-40">One-on-one weekly literacy support for CCS students. Complete <strong>VA Literacy Partnerships</strong> certification (provided by CoP), then meet with the same student through the school year.</p>
+        <a class="cta" href="#sign-up" data-field="f-41">Sign up for Reading Tutoring <span>→</span></a>
+      </article>
+
     </div>
   </div>
 </section>
@@ -601,38 +610,36 @@
     <div class="header">
       <hr class="gold-rule">
       <div class="section-tag light">
-        <div class="n" data-field="f-74">03</div>
-        <div class="rule"></div>
-        <div class="label" data-field="f-75">How to sign up</div>
+        <div class="label" data-field="f-42">How to sign up</div>
       </div>
-      <h2 data-field="f-76">The same flow,<br>for all three roles.</h2>
-      <p class="lede" data-field="f-77">Account, matching form, interview, match notification. Background check is run by CoP in parallel.</p>
+      <h2 data-field="f-43">The same flow,<br>for all three roles.</h2>
+      <p class="lede" data-field="f-44">Account, matching form, interview, match notification. Background check is run by CoP in parallel.</p>
     </div>
 
     <div class="steps">
       <div class="step">
-        <div class="num" data-field="f-78">01</div>
-        <div class="title" data-field="f-79">Create a portal account</div>
+        <div class="num" data-field="f-45">01</div>
+        <div class="title" data-field="f-46">Create a portal account</div>
         <div class="rule"></div>
-        <p data-field="f-80">Sign up at <code>volunteer.cityofpromise.org</code> with your name, email, and a password. About a minute.</p>
+        <p data-field="f-47">Sign up at <code>volunteer.cityofpromise.org</code> with your name, email, and a password. About a minute.</p>
       </div>
       <div class="step">
-        <div class="num" data-field="f-81">02</div>
-        <div class="title" data-field="f-82">Matching form</div>
+        <div class="num" data-field="f-48">02</div>
+        <div class="title" data-field="f-49">Matching form</div>
         <div class="rule"></div>
-        <p data-field="f-83">Background, interests, weekly availability, and the role(s) you would consider. You can pick one role or all three.</p>
+        <p data-field="f-50">Background, interests, weekly availability, and the role(s) you would consider. You can pick one role or all three.</p>
       </div>
       <div class="step">
-        <div class="num" data-field="f-84">03</div>
-        <div class="title" data-field="f-85">Interview</div>
+        <div class="num" data-field="f-51">03</div>
+        <div class="title" data-field="f-52">Interview</div>
         <div class="rule"></div>
-        <p data-field="f-86">A 15-to-20-minute conversation with CoP's Assistant Director, by phone or in person. Both sides decide whether to move forward.</p>
+        <p data-field="f-53">A 15-to-20-minute conversation with CoP's Assistant Director, by phone or in person. Both sides decide whether to move forward.</p>
       </div>
       <div class="step">
-        <div class="num" data-field="f-87">04</div>
-        <div class="title" data-field="f-88">Match notification</div>
+        <div class="num" data-field="f-54">04</div>
+        <div class="title" data-field="f-55">Match notification</div>
         <div class="rule"></div>
-        <p data-field="f-89">When CoP pairs you with a family, student, or pod, you get an email and onboarding starts from there.</p>
+        <p data-field="f-56">When CoP pairs you with a family, student, or pod, you get an email and onboarding starts from there.</p>
       </div>
     </div>
 
@@ -645,14 +652,13 @@
   <div class="scrim"></div>
   <div class="inner">
     <hr class="gold-rule">
-    <div class="kicker" data-field="f-90">04 — Start here</div>
-    <h2 data-field="f-91">All four steps<br>live in the portal.</h2>
-    <p class="lede" data-field="f-92">Account creation, matching form, interview scheduling, and ongoing engagement all happen at <strong style="color:#fff">volunteer.cityofpromise.org</strong>. Same portal for current volunteers, who sign in there to log shifts and update availability.</p>
+    <div class="kicker" data-field="f-57">Start here</div>
+    <h2 data-field="f-58">All four steps<br>live in the portal.</h2>
+    <p class="lede" data-field="f-59">Account creation, matching form, interview scheduling, and ongoing engagement all happen at <strong style="color:#fff">volunteer.cityofpromise.org</strong>. Same portal for current volunteers, who sign in there to log shifts and update availability.</p>
     <div class="ctas">
-      <a class="vol-btn gold" href="https://volunteer.cityofpromise.org" target="_blank" rel="noopener" data-field="f-93">Open the Volunteer Portal <span>→</span></a>
-      <a class="vol-btn outline-dark" href="https://volunteer.cityofpromise.org" target="_blank" rel="noopener" data-field="f-94">I'm already signed up <span>→</span></a>
+      <a class="vol-btn gold" href="https://volunteer.cityofpromise.org" target="_blank" rel="noopener" data-field="f-60">Open the Volunteer Portal <span>→</span></a>
+      <a class="vol-btn outline-dark" href="https://volunteer.cityofpromise.org" target="_blank" rel="noopener" data-field="f-61">I'm already signed up <span>→</span></a>
     </div>
-    <div class="external" data-field="f-95">↗ external · volunteer.cityofpromise.org</div>
   </div>
 </section>
 
@@ -742,7 +748,7 @@
   <span id="edit-status" class="edit-status">viewing</span>
   <button id="edit-revert" type="button" class="ghost" style="display:none;">Discard</button>
 </div>
-<script src="assets/edit.js?v=1777906540565" defer></script>
+<script src="assets/edit.js?v=1780586355664" defer></script>
 
 
 </body>

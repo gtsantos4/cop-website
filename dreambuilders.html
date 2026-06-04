@@ -129,6 +129,10 @@ editPage: dreambuilders.html
     font-family: var(--font-display); font-size: 44px; font-weight: 700;
     color: var(--color-gold); letter-spacing: -0.6px; line-height: 1;
   }
+  .anchor .num svg {
+    width: 42px; height: 42px; display: block;
+    fill: var(--color-gold);
+  }
   .anchor h3 {
     font-family: var(--font-display); font-size: 26px; font-weight: 700;
     color: var(--color-navy); letter-spacing: -0.4px; margin: 0 0 6px;
@@ -200,7 +204,7 @@ editPage: dreambuilders.html
     text-decoration: none; color: inherit;
     transition: transform 200ms, box-shadow 200ms;
   }
-  .cross-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+  .cross-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); text-decoration: none; }
   .cross-card .meta {
     font-family: var(--font-body); font-size: 12px; font-weight: 600;
     letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-gold);
@@ -274,6 +278,7 @@ editPage: dreambuilders.html
     .pd-terminal h2 { font-size: 40px; letter-spacing: -0.8px; }
     .anchor { grid-template-columns: 1fr; gap: 12px; }
     .anchor .num { font-size: 36px; }
+    .anchor .num svg { width: 34px; height: 34px; }
     .pd-numbers .stat-cell .v { font-size: 52px; }
     .pd-team .grid { grid-template-columns: 1fr 1fr; }
   }
@@ -335,7 +340,7 @@ editPage: dreambuilders.html
     </div>
 
     <div class="anchor">
-      <div class="num">01</div>
+      <div class="num"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z"/></svg></div>
       <div>
         <h3>Parent Time</h3>
         <p>Weekly classes for parents only — parenting practices, financial literacy, working with CCS, advocacy skills, peer connection. Runs the full school year (36–38 weeks). Childcare provided on-site so attendance doesn't depend on it.</p>
@@ -343,7 +348,7 @@ editPage: dreambuilders.html
     </div>
 
     <div class="anchor">
-      <div class="num">02</div>
+      <div class="num"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"/></svg></div>
       <div>
         <h3>P.A.C.T. Time (Parents and Children Together)</h3>
         <p>Guided parent-and-child learning time. Parents learn to be the educator, not just the audience. Weekly cadence, structured around shared activities, with a coach in the room.</p>
@@ -351,7 +356,7 @@ editPage: dreambuilders.html
     </div>
 
     <div class="anchor">
-      <div class="num">03</div>
+      <div class="num"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg></div>
       <div>
         <h3>Family Empowerment Coaches</h3>
         <p>1:1 coaching across the full two years. Same coach the whole way through — continuity is the point. The coach helps the family weigh the goals they set for themselves and signs off on stipend decisions alongside them.</p>
@@ -359,7 +364,7 @@ editPage: dreambuilders.html
     </div>
 
     <div class="anchor">
-      <div class="num">04</div>
+      <div class="num"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.273 5.625A4.483 4.483 0 0 1 5.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 3H5.25a3 3 0 0 0-2.977 2.625ZM2.273 8.625A4.483 4.483 0 0 1 5.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 6H5.25a3 3 0 0 0-2.977 2.625ZM5.25 9a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3H15a.75.75 0 0 0-.75.75 2.25 2.25 0 0 1-4.5 0A.75.75 0 0 0 9 9H5.25Z"/></svg></div>
       <div>
         <h3>Stipend Support</h3>
         <p>$5,000 in year one and $2,000 in year two — $7,000 across the program. Families set the goals; the stipend covers what comes up: car repairs to keep a job, housing deposits, certification courses, deferred medical co-pays.</p>

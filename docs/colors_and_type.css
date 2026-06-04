@@ -265,6 +265,11 @@ a:hover {
   text-underline-offset: 4px;
 }
 
+/* Buttons should never show the link underline on hover */
+a[class*="btn"]:hover {
+  text-decoration: none;
+}
+
 /* ---------- Gold accent rule — signature element ---------- */
 
 .gold-rule {

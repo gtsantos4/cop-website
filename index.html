@@ -42,7 +42,7 @@ editPage: index.html
   .btn { display: inline-block; padding: 14px 24px; border-radius: 6px; border: 0;
          font-family: var(--font-body); font-weight: 600; font-size: 16px;
          cursor: pointer; text-decoration: none; transition: all 200ms; }
-  .btn:hover { transform: scale(1.04); }
+  .btn:hover { transform: scale(1.04); text-decoration: none; }
   .btn-gold { background: var(--color-gold); color: var(--color-navy); }
   .btn-navy { background: var(--color-navy); color: #fff; }
   .btn-outline-light { background: transparent; color: var(--color-navy); border: 1px solid var(--color-navy); }
@@ -151,6 +151,46 @@ editPage: index.html
     font-family: var(--font-body); font-size: 14px;
     color: var(--color-navy); margin-top: 10px;
     max-width: 180px; line-height: 1.4;
+  }
+
+  /* ---------- Video feature ---------- */
+  .home-video { background: var(--color-navy); padding: 96px 48px; }
+  .home-video .inner { max-width: 980px; margin: 0 auto; text-align: center; }
+  .home-video .gold-rule { margin: 0 auto 20px; }
+  .home-video h2 {
+    font-family: var(--font-display); font-size: 48px; font-weight: 700;
+    color: #fff; text-transform: uppercase; letter-spacing: -1px; line-height: 1.1; margin: 0;
+  }
+  .home-video .lede {
+    font-family: var(--font-body); font-size: 18px;
+    color: rgba(255,255,255,.78); max-width: 640px; margin: 18px auto 0; line-height: 1.55;
+  }
+  .home-video .frame {
+    position: relative; aspect-ratio: 16 / 9; margin-top: 48px;
+    border-radius: 12px; overflow: hidden; background: #000;
+    box-shadow: var(--shadow-card-hover);
+  }
+  .home-video .frame iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+  }
+  .home-video .placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+    background: linear-gradient(135deg, #0a2540, #07305b);
+  }
+  .home-video .placeholder .play {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--color-gold); color: var(--color-navy);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; padding-left: 4px;
+  }
+  .home-video .placeholder .ph-label {
+    font-family: var(--font-body); font-size: 13px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.65);
+  }
+  @media (max-width: 700px) {
+    .home-video { padding: 64px 20px; }
+    .home-video h2 { font-size: 32px; letter-spacing: -0.6px; }
   }
 
   /* ---------- Story ---------- */
@@ -320,13 +360,41 @@ editPage: index.html
       </div>
       <div class="num-cell blue">
         <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-        <div class="v">$1.3M</div>
-        <div class="l">raised in FY2026</div>
+        <div class="v">122</div>
+        <div class="l">households servicing</div>
       </div>
       <div class="num-cell gold">
         <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
         <div class="v">11</div>
         <div class="l">staff members (growing to 20–25)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="home-video">
+  <div class="inner">
+    <hr class="gold-rule">
+    <h2>See the work in motion.</h2>
+    <p class="lede">Two minutes inside City of Promise — the families, the coordinators, and the constellation of care.</p>
+    <div class="frame">
+      <!-- ============================================================
+           CLOUDFLARE STREAM VIDEO
+           Once the video is uploaded to Cloudflare Stream, delete the
+           <div class="placeholder"> below and paste the embed iframe here.
+           Get it from: Cloudflare dashboard → Stream → (your video) → Embed → Code.
+           It will look like this (swap in your real customer code + video UID):
+
+           <iframe
+             src="https://customer-XXXXXXXX.cloudflarestream.com/VIDEO_UID/iframe"
+             loading="lazy"
+             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+             allowfullscreen="true"
+             title="City of Promise"></iframe>
+           ============================================================ -->
+      <div class="placeholder">
+        <div class="play" aria-hidden="true">▶</div>
+        <div class="ph-label">Video coming soon</div>
       </div>
     </div>
   </div>

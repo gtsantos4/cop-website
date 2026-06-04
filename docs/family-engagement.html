@@ -211,6 +211,10 @@
     font-family: var(--font-display); font-size: 44px; font-weight: 700;
     color: var(--color-gold); letter-spacing: -0.6px; line-height: 1;
   }
+  .anchor .num svg {
+    width: 42px; height: 42px; display: block;
+    fill: var(--color-gold);
+  }
   .anchor h3 {
     font-family: var(--font-display); font-size: 26px; font-weight: 700;
     color: var(--color-navy); letter-spacing: -0.4px; margin: 0 0 6px;
@@ -283,7 +287,7 @@
     text-decoration: none; color: inherit;
     transition: transform 200ms, box-shadow 200ms;
   }
-  .cross-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+  .cross-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); text-decoration: none; }
   .cross-card .meta {
     font-family: var(--font-body); font-size: 12px; font-weight: 600;
     letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-gold);
@@ -364,6 +368,7 @@
     .pd-terminal h2 { font-size: 40px; letter-spacing: -0.8px; }
     .anchor { grid-template-columns: 1fr; gap: 12px; }
     .anchor .num { font-size: 36px; }
+    .anchor .num svg { width: 34px; height: 34px; }
     .pd-numbers .stat-cell .v { font-size: 52px; }
   }
 </style>
@@ -424,26 +429,26 @@
     </div>
 
     <div class="anchor">
-      <div class="num" data-field="f-15">01</div>
+      <div class="num"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"></path></svg></div>
       <div>
-        <h3 data-field="f-16">Parenting Practices Coaching</h3>
-        <p data-field="f-17">1:1 coaching on the day-to-day craft — discipline, school engagement, routines, sibling dynamics. Frame: parenting as a set of practices, not a personality trait.</p>
+        <h3 data-field="f-15">Parenting Practices Coaching</h3>
+        <p data-field="f-16">1:1 coaching on the day-to-day craft — discipline, school engagement, routines, sibling dynamics. Frame: parenting as a set of practices, not a personality trait.</p>
       </div>
     </div>
 
     <div class="anchor">
-      <div class="num" data-field="f-18">02</div>
+      <div class="num"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.881 4.346A23.112 23.112 0 0 1 8.25 6H7.5a5.25 5.25 0 0 0-.88 10.427 21.593 21.593 0 0 0 1.378 3.94c.464 1.004 1.674 1.32 2.582.796l.657-.379c.88-.508 1.165-1.592.772-2.468a17.116 17.116 0 0 1-.628-1.607c1.918.258 3.76.75 5.5 1.446A21.727 21.727 0 0 0 18 11.25c0-2.413-.393-4.735-1.119-6.904ZM18.26 3.74a23.22 23.22 0 0 1 1.24 7.51 23.22 23.22 0 0 1-1.24 7.51c-.055.161-.111.322-.17.482a.75.75 0 1 0 1.409.516 24.555 24.555 0 0 0 1.415-6.43 2.992 2.992 0 0 0 .836-2.078c0-.806-.319-1.54-.836-2.078a24.65 24.65 0 0 0-1.415-6.43.75.75 0 1 0-1.409.516c.059.16.115.321.17.483Z"></path></svg></div>
       <div>
-        <h3 data-field="f-19">School Advocacy</h3>
-        <p data-field="f-20">Going to the IEP meeting with the parent, calling the principal, working through transfers and discipline issues. CoP shows up for the family, not for the institution.</p>
+        <h3 data-field="f-17">School Advocacy</h3>
+        <p data-field="f-18">Going to the IEP meeting with the parent, calling the principal, working through transfers and discipline issues. CoP shows up for the family, not for the institution.</p>
       </div>
     </div>
 
     <div class="anchor">
-      <div class="num" data-field="f-21">03</div>
+      <div class="num"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.7 10.7l6.6-3.9M8.7 13.3l6.6 3.9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg></div>
       <div>
-        <h3 data-field="f-22">Community Resource Connection</h3>
-        <p data-field="f-23">Brokerage into housing, childcare, health, food, transportation, legal, and employment services. The differentiator vs. a referral: the coach stays with the family through the handoff.</p>
+        <h3 data-field="f-19">Community Resource Connection</h3>
+        <p data-field="f-20">Brokerage into housing, childcare, health, food, transportation, legal, and employment services. The differentiator vs. a referral: the coach stays with the family through the handoff.</p>
       </div>
     </div>
   </div>
@@ -454,12 +459,12 @@
   <div class="inner">
     <div>
       <div class="section-tag light">
-        <div class="label" data-field="f-24">The Constellation of Care</div>
+        <div class="label" data-field="f-21">The Constellation of Care</div>
       </div>
-      <h2 data-field="f-25">The map of the orgs we broker into.</h2>
+      <h2 data-field="f-22">The map of the orgs we broker into.</h2>
       <hr class="gold-rule">
-      <p data-field="f-26">Housing, childcare, health, food, transportation, legal, employment. F&amp;E coaches don't run those services — Charlottesville's existing organizations do. F&amp;E's job is to know which organization fits which family, and to stay with the family until the handoff sticks.</p>
-      <a class="pd-btn navy" href="our-approach.html#constellation" data-field="f-27">View the Constellation of Care <span>→</span></a>
+      <p data-field="f-23">Housing, childcare, health, food, transportation, legal, employment. F&amp;E coaches don't run those services — Charlottesville's existing organizations do. F&amp;E's job is to know which organization fits which family, and to stay with the family until the handoff sticks.</p>
+      <a class="pd-btn navy" href="our-approach.html#constellation" data-field="f-24">View the Constellation of Care <span>→</span></a>
     </div>
     <a href="our-approach.html#constellation" class="preview" aria-label="View the Constellation of Care diagram">
       <iframe src="constellation.html" title="The Constellation of Care" loading="lazy" tabindex="-1" onload="
@@ -478,14 +483,14 @@
 <section class="pd-numbers">
   <div class="inner">
     <div class="section-tag dark">
-      <div class="label" data-field="f-28">By the Numbers</div>
+      <div class="label" data-field="f-25">By the Numbers</div>
     </div>
-    <h2 data-field="f-29">What brokerage looks like.</h2>
+    <h2 data-field="f-26">What brokerage looks like.</h2>
     <div class="stats">
-      <div class="stat-cell dark"><div class="v v-gold" data-field="f-30">[FY25]</div><div class="l" data-field="f-31">families touched (pull from AR2025)</div></div>
-      <div class="stat-cell dark"><div class="v v-gold" data-field="f-32">[N]</div><div class="l" data-field="f-33">partner orgs in the constellation</div></div>
-      <div class="stat-cell dark"><div class="v v-gold" data-field="f-34">[T]</div><div class="l" data-field="f-35">avg. time-to-first-resource</div></div>
-      <div class="stat-cell dark"><div class="v v-gold" data-field="f-36">[STAT]</div><div class="l" data-field="f-37">one outcome stat</div></div>
+      <div class="stat-cell dark"><div class="v v-gold" data-field="f-27">[FY25]</div><div class="l" data-field="f-28">families touched (pull from AR2025)</div></div>
+      <div class="stat-cell dark"><div class="v v-gold" data-field="f-29">[N]</div><div class="l" data-field="f-30">partner orgs in the constellation</div></div>
+      <div class="stat-cell dark"><div class="v v-gold" data-field="f-31">[T]</div><div class="l" data-field="f-32">avg. time-to-first-resource</div></div>
+      <div class="stat-cell dark"><div class="v v-gold" data-field="f-33">[STAT]</div><div class="l" data-field="f-34">one outcome stat</div></div>
     </div>
   </div>
 </section>
@@ -494,21 +499,21 @@
 <section class="pd-cross">
   <div class="inner">
     <div class="section-tag light">
-      <div class="label" data-field="f-38">The dual-generation model in full</div>
+      <div class="label" data-field="f-35">The dual-generation model in full</div>
     </div>
-    <h2 data-field="f-39">Two sibling programs.</h2>
+    <h2 data-field="f-36">Two sibling programs.</h2>
     <div class="grid">
       <a class="cross-card" href="community-schools.html">
-        <div class="meta" data-field="f-40">Program 01 · Sibling program</div>
-        <h3 data-field="f-41">Community Schools</h3>
-        <p data-field="f-42">Community School Coordinators embedded inside seven Charlottesville school sites — coaching kids, brokering resources for families, and closing the literacy gap one classroom at a time.</p>
-        <span class="arrow" data-field="f-43">Read more →</span>
+        <div class="meta" data-field="f-37">Program 01 · Sibling program</div>
+        <h3 data-field="f-38">Community Schools</h3>
+        <p data-field="f-39">Community School Coordinators embedded inside seven Charlottesville school sites — coaching kids, brokering resources for families, and closing the literacy gap one classroom at a time.</p>
+        <span class="arrow" data-field="f-40">Read more →</span>
       </a>
       <a class="cross-card" href="dreambuilders.html">
-        <div class="meta" data-field="f-44">Program 02 · Sibling program</div>
-        <h3 data-field="f-45">Dreambuilders</h3>
-        <p data-field="f-46">A two-year wraparound for working Charlottesville families: parent classes, family learning time, embedded coaching, and up to $7,000 in micro-financing toward family-set self-sufficiency goals.</p>
-        <span class="arrow" data-field="f-47">Read more →</span>
+        <div class="meta" data-field="f-41">Program 02 · Sibling program</div>
+        <h3 data-field="f-42">Dreambuilders</h3>
+        <p data-field="f-43">A two-year wraparound for working Charlottesville families: parent classes, family learning time, embedded coaching, and up to $7,000 in micro-financing toward family-set self-sufficiency goals.</p>
+        <span class="arrow" data-field="f-44">Read more →</span>
       </a>
     </div>
   </div>
@@ -518,15 +523,15 @@
 <section class="pd-terminal">
   <div class="inner">
     <hr class="gold-rule" style="margin: 0 auto 22px;">
-    <h2 data-field="f-48">Fund the brokers who stay through the handoff.</h2>
-    <p class="lede" data-field="f-49">A referral ends at the door. F&amp;E coaches stay until the door opens.</p>
+    <h2 data-field="f-45">Fund the brokers who stay through the handoff.</h2>
+    <p class="lede" data-field="f-46">A referral ends at the door. F&amp;E coaches stay until the door opens.</p>
     <div class="ctas">
-      <a class="pd-btn gold" href="get-involved.html" data-field="f-50">Donate Now <span>→</span></a>
-      <a class="pd-btn outline-dark" href="mailto:price@cityofpromise.org" data-field="f-51">Talk to Price about funding <span>→</span></a>
+      <a class="pd-btn gold" href="get-involved.html" data-field="f-47">Donate Now <span>→</span></a>
+      <a class="pd-btn outline-dark" href="mailto:price@cityofpromise.org" data-field="f-48">Talk to Price about funding <span>→</span></a>
     </div>
     <div class="nap">
-      <div class="nap-eyebrow" data-field="f-52">NAP credits</div>
-      <div class="nap-body" data-field="f-53">Gifts of $500 or more qualify for a 65% Virginia state tax credit through the Neighborhood Assistance Program. CoP uses 100% of its allocation each year.</div>
+      <div class="nap-eyebrow" data-field="f-49">NAP credits</div>
+      <div class="nap-body" data-field="f-50">Gifts of $500 or more qualify for a 65% Virginia state tax credit through the Neighborhood Assistance Program. CoP uses 100% of its allocation each year.</div>
     </div>
   </div>
 </section>
@@ -617,7 +622,7 @@
   <span id="edit-status" class="edit-status">viewing</span>
   <button id="edit-revert" type="button" class="ghost" style="display:none;">Discard</button>
 </div>
-<script src="assets/edit.js?v=1777906540565" defer></script>
+<script src="assets/edit.js?v=1780585269068" defer></script>
 
 
 </body>
