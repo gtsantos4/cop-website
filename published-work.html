@@ -417,10 +417,12 @@ editPage: published-work.html
     aspect-ratio: 8.5/11;
     border-radius: 8px;
     background: linear-gradient(155deg, var(--color-navy) 0%, var(--color-primary) 100%);
+    background-size: cover; background-position: center top;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 8px; padding: 24px;
     color: #fff; text-align: center;
     box-shadow: 0 8px 28px rgba(7,48,91,.18);
+    overflow: hidden;
   }
   .ar-cover .yr {
     font-family: var(--font-display); font-size: 64px; font-weight: 700;
@@ -502,10 +504,12 @@ editPage: published-work.html
   .rep-cover {
     width: 96px; aspect-ratio: 8.5/11; border-radius: 6px;
     background: linear-gradient(155deg, var(--color-tan) 0%, #d8ccb6 100%);
+    background-size: cover; background-position: center top;
     display: flex; align-items: center; justify-content: center;
     color: rgba(7,48,91,.55); padding: 10px; text-align: center;
     font-family: var(--font-body); font-size: 10px; font-weight: 600;
     letter-spacing: 1.2px; text-transform: uppercase;
+    overflow: hidden;
   }
   .rep-cover.navy {
     background: linear-gradient(155deg, var(--color-navy) 0%, var(--color-primary) 100%);
@@ -922,11 +926,7 @@ editPage: published-work.html
     <p class="lede">What we've learned, on paper. Annual reports plus research briefs on poverty, education, and economic mobility in Charlottesville.</p>
 
     <div class="ar-feature">
-      <div class="ar-cover" aria-hidden="true">
-        <span class="lbl">Annual Report</span>
-        <span class="yr">'25</span>
-        <span class="org">City of Promise</span>
-      </div>
+      <div class="ar-cover" aria-hidden="true" style="background-image:url('assets/reports/ar2025.jpg')"></div>
       <div>
         <span class="ar-tag">Featured &middot; Current edition</span>
         <h3>2025 Annual Report</h3>
@@ -944,53 +944,49 @@ editPage: published-work.html
 
     <div class="reports-grid">
       <article class="rep-card">
-        <div class="rep-cover navy">AR<br>'24</div>
+        <div class="rep-cover" style="background-image:url('assets/reports/ar2024.jpg')"></div>
         <div class="rep-body">
           <span class="tag">Annual report</span>
           <div class="title">2024 Annual Report</div>
-          <div class="cite">City of Promise &middot; 2024</div>
           <p style="font-family: var(--font-body); font-size: 14px; color: rgba(7,48,91,.72); line-height: 1.5; margin: 4px 0 0;">Recapping a year of expanded capacity and strategic recentering, while looking toward the future.</p>
           <div class="actions">
-            <a class="pw-btn outline-light sm" href="https://www.cityofpromise.org/annual-report" target="_blank" rel="noopener">Read the report <span>&rarr;</span></a>
+            <a class="pw-btn outline-light sm" href="ar2024.html">Read <span>&rarr;</span></a>
           </div>
         </div>
       </article>
 
       <article class="rep-card">
-        <div class="rep-cover">Research<br>brief</div>
+        <div class="rep-cover" style="background-image:url('assets/reports/econ-ed-full.jpg')"></div>
         <div class="rep-body">
           <span class="tag">Research brief</span>
           <div class="title">Economics of Education (Full)</div>
-          <div class="cite">City of Promise</div>
           <p style="font-family: var(--font-body); font-size: 14px; color: rgba(7,48,91,.72); line-height: 1.5; margin: 4px 0 0;">Exploring the correlation between economics and education in Charlottesville.</p>
           <div class="actions">
-            <a class="pw-btn outline-light sm" href="https://www.cityofpromise.org/econ-ed-full" target="_blank" rel="noopener">Read <span>&rarr;</span></a>
+            <a class="pw-btn outline-light sm" href="econ-ed-full.html">Read <span>&rarr;</span></a>
           </div>
         </div>
       </article>
 
       <article class="rep-card">
-        <div class="rep-cover">Research<br>brief</div>
+        <div class="rep-cover" style="background-image:url('assets/reports/econ-ed-short.jpg')"></div>
         <div class="rep-body">
           <span class="tag">Research brief</span>
           <div class="title">Economics of Education (Short)</div>
-          <div class="cite">City of Promise</div>
           <p style="font-family: var(--font-body); font-size: 14px; color: rgba(7,48,91,.72); line-height: 1.5; margin: 4px 0 0;">A briefer version of the same argument &mdash; the correlation between economics and education in Charlottesville.</p>
           <div class="actions">
-            <a class="pw-btn outline-light sm" href="https://www.cityofpromise.org/econ-ed-short" target="_blank" rel="noopener">Read <span>&rarr;</span></a>
+            <a class="pw-btn outline-light sm" href="econ-ed-short.html">Read <span>&rarr;</span></a>
           </div>
         </div>
       </article>
 
       <article class="rep-card">
-        <div class="rep-cover">Summit<br>report</div>
+        <div class="rep-cover" style="background-image:url('assets/reports/summit.jpg')"></div>
         <div class="rep-body">
           <span class="tag">Summit report</span>
           <div class="title">Community School Summit Report</div>
-          <div class="cite">City of Promise &middot; TomTom Summit</div>
           <p style="font-family: var(--font-body); font-size: 14px; color: rgba(7,48,91,.72); line-height: 1.5; margin: 4px 0 0;">A debrief from the TomTom Summit: exploring what a Community School model would look like in Charlottesville.</p>
           <div class="actions">
-            <a class="pw-btn outline-light sm" href="https://www.cityofpromise.org/summit-report" target="_blank" rel="noopener">Read <span>&rarr;</span></a>
+            <a class="pw-btn outline-light sm" href="summit-report.html">Read <span>&rarr;</span></a>
           </div>
         </div>
       </article>

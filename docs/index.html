@@ -407,7 +407,8 @@
     <h2 data-field="f-14">See the work in motion.</h2>
     <p class="lede" data-field="f-15">Two minutes inside City of Promise — the families, the coordinators, and the constellation of care.</p>
     <div class="frame">
-      <iframe         src="https://customer-7oi8hon3079tnu0r.cloudflarestream.com/168a5d88d0169a0391e6b7513cd9eff0/iframe?poster=https%3A%2F%2Fcustomer-7oi8hon3079tnu0r.cloudflarestream.com%2F168a5d88d0169a0391e6b7513cd9eff0%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600"
+      <iframe         id="cop-video"
+        src="https://customer-7oi8hon3079tnu0r.cloudflarestream.com/168a5d88d0169a0391e6b7513cd9eff0/iframe?muted=true&poster=https%3A%2F%2Fcustomer-7oi8hon3079tnu0r.cloudflarestream.com%2F168a5d88d0169a0391e6b7513cd9eff0%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600"
         loading="lazy"
         allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
         allowfullscreen="true"
@@ -415,6 +416,28 @@
     </div>
   </div>
 </section>
+
+<!-- Autoplay (muted) the homepage video when it scrolls into view; pause when it leaves. -->
+<script src="https://embed.cloudflarestream.com/embed/sdk.latest.js"></script>
+<script>
+  (function () {
+    var iframe = document.getElementById('cop-video');
+    if (!iframe || typeof Stream === 'undefined' || !('IntersectionObserver' in window)) return;
+    var player = Stream(iframe);
+    player.muted = true;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var p = player.play();
+          if (p && p.catch) p.catch(function () {});
+        } else {
+          player.pause();
+        }
+      });
+    }, { threshold: 0.5 });
+    io.observe(iframe);
+  })();
+</script>
 
 <section class="programs">
   <div class="inner">
@@ -605,7 +628,7 @@
   <span id="edit-status" class="edit-status">viewing</span>
   <button id="edit-revert" type="button" class="ghost" style="display:none;">Discard</button>
 </div>
-<script src="assets/edit.js?v=1780594647059" defer></script>
+<script src="assets/edit.js?v=1780594894173" defer></script>
 
 
 </body>

@@ -499,10 +499,12 @@
     aspect-ratio: 8.5/11;
     border-radius: 8px;
     background: linear-gradient(155deg, var(--color-navy) 0%, var(--color-primary) 100%);
+    background-size: cover; background-position: center top;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 8px; padding: 24px;
     color: #fff; text-align: center;
     box-shadow: 0 8px 28px rgba(7,48,91,.18);
+    overflow: hidden;
   }
   .ar-cover .yr {
     font-family: var(--font-display); font-size: 64px; font-weight: 700;
@@ -584,10 +586,12 @@
   .rep-cover {
     width: 96px; aspect-ratio: 8.5/11; border-radius: 6px;
     background: linear-gradient(155deg, var(--color-tan) 0%, #d8ccb6 100%);
+    background-size: cover; background-position: center top;
     display: flex; align-items: center; justify-content: center;
     color: rgba(7,48,91,.55); padding: 10px; text-align: center;
     font-family: var(--font-body); font-size: 10px; font-weight: 600;
     letter-spacing: 1.2px; text-transform: uppercase;
+    overflow: hidden;
   }
   .rep-cover.navy {
     background: linear-gradient(155deg, var(--color-navy) 0%, var(--color-primary) 100%);
@@ -1004,75 +1008,67 @@
     <p class="lede" data-field="f-93">What we've learned, on paper. Annual reports plus research briefs on poverty, education, and economic mobility in Charlottesville.</p>
 
     <div class="ar-feature">
-      <div class="ar-cover" aria-hidden="true">
-        <span class="lbl" data-field="f-94">Annual Report</span>
-        <span class="yr" data-field="f-95">'25</span>
-        <span class="org" data-field="f-96">City of Promise</span>
-      </div>
+      <div class="ar-cover" aria-hidden="true" style="background-image:url('assets/reports/ar2025.jpg')"></div>
       <div>
-        <span class="ar-tag" data-field="f-97">Featured &middot; Current edition</span>
-        <h3 data-field="f-98">2025 Annual Report</h3>
-        <p data-field="f-99">A look back on our biggest year of growth, while remaining steadfast in our core commitment: keep showing up.</p>
+        <span class="ar-tag" data-field="f-94">Featured &middot; Current edition</span>
+        <h3 data-field="f-95">2025 Annual Report</h3>
+        <p data-field="f-96">A look back on our biggest year of growth, while remaining steadfast in our core commitment: keep showing up.</p>
         <div class="ctas">
-          <a class="pw-btn navy" href="ar2025.html" data-field="f-100">Read the report <span>&rarr;</span></a>
+          <a class="pw-btn navy" href="ar2025.html" data-field="f-97">Read the report <span>&rarr;</span></a>
         </div>
       </div>
     </div>
 
     <div class="library-head">
-      <h3 data-field="f-101">The full library</h3>
-      <span class="meta" data-field="f-102">Annual reports &middot; research briefs</span>
+      <h3 data-field="f-98">The full library</h3>
+      <span class="meta" data-field="f-99">Annual reports &middot; research briefs</span>
     </div>
 
     <div class="reports-grid">
       <article class="rep-card">
-        <div class="rep-cover navy" data-field="f-103">AR<br>'24</div>
+        <div class="rep-cover" style="background-image:url('assets/reports/ar2024.jpg')"></div>
         <div class="rep-body">
-          <span class="tag" data-field="f-104">Annual report</span>
-          <div class="title" data-field="f-105">2024 Annual Report</div>
-          <div class="cite" data-field="f-106">City of Promise &middot; 2024</div>
-          <p style="font-family: var(--font-body); font-size: 14px; color: rgba(7,48,91,.72); line-height: 1.5; margin: 4px 0 0;" data-field="f-107">Recapping a year of expanded capacity and strategic recentering, while looking toward the future.</p>
+          <span class="tag" data-field="f-100">Annual report</span>
+          <div class="title" data-field="f-101">2024 Annual Report</div>
+          <p style="font-family: var(--font-body); font-size: 14px; color: rgba(7,48,91,.72); line-height: 1.5; margin: 4px 0 0;" data-field="f-102">Recapping a year of expanded capacity and strategic recentering, while looking toward the future.</p>
           <div class="actions">
-            <a class="pw-btn outline-light sm" href="https://www.cityofpromise.org/annual-report" target="_blank" rel="noopener" data-field="f-108">Read the report <span>&rarr;</span></a>
+            <a class="pw-btn outline-light sm" href="ar2024.html" data-field="f-103">Read <span>&rarr;</span></a>
           </div>
         </div>
       </article>
 
       <article class="rep-card">
-        <div class="rep-cover" data-field="f-109">Research<br>brief</div>
+        <div class="rep-cover" style="background-image:url('assets/reports/econ-ed-full.jpg')"></div>
         <div class="rep-body">
-          <span class="tag" data-field="f-110">Research brief</span>
-          <div class="title" data-field="f-111">Economics of Education (Full)</div>
-          <div class="cite" data-field="f-112">City of Promise</div>
-          <p style="font-family: var(--font-body); font-size: 14px; color: rgba(7,48,91,.72); line-height: 1.5; margin: 4px 0 0;" data-field="f-113">Exploring the correlation between economics and education in Charlottesville.</p>
+          <span class="tag" data-field="f-104">Research brief</span>
+          <div class="title" data-field="f-105">Economics of Education (Full)</div>
+          <p style="font-family: var(--font-body); font-size: 14px; color: rgba(7,48,91,.72); line-height: 1.5; margin: 4px 0 0;" data-field="f-106">Exploring the correlation between economics and education in Charlottesville.</p>
           <div class="actions">
-            <a class="pw-btn outline-light sm" href="https://www.cityofpromise.org/econ-ed-full" target="_blank" rel="noopener" data-field="f-114">Read <span>&rarr;</span></a>
+            <a class="pw-btn outline-light sm" href="econ-ed-full.html" data-field="f-107">Read <span>&rarr;</span></a>
           </div>
         </div>
       </article>
 
       <article class="rep-card">
-        <div class="rep-cover" data-field="f-115">Research<br>brief</div>
+        <div class="rep-cover" style="background-image:url('assets/reports/econ-ed-short.jpg')"></div>
         <div class="rep-body">
-          <span class="tag" data-field="f-116">Research brief</span>
-          <div class="title" data-field="f-117">Economics of Education (Short)</div>
-          <div class="cite" data-field="f-118">City of Promise</div>
-          <p style="font-family: var(--font-body); font-size: 14px; color: rgba(7,48,91,.72); line-height: 1.5; margin: 4px 0 0;" data-field="f-119">A briefer version of the same argument &mdash; the correlation between economics and education in Charlottesville.</p>
+          <span class="tag" data-field="f-108">Research brief</span>
+          <div class="title" data-field="f-109">Economics of Education (Short)</div>
+          <p style="font-family: var(--font-body); font-size: 14px; color: rgba(7,48,91,.72); line-height: 1.5; margin: 4px 0 0;" data-field="f-110">A briefer version of the same argument &mdash; the correlation between economics and education in Charlottesville.</p>
           <div class="actions">
-            <a class="pw-btn outline-light sm" href="https://www.cityofpromise.org/econ-ed-short" target="_blank" rel="noopener" data-field="f-120">Read <span>&rarr;</span></a>
+            <a class="pw-btn outline-light sm" href="econ-ed-short.html" data-field="f-111">Read <span>&rarr;</span></a>
           </div>
         </div>
       </article>
 
       <article class="rep-card">
-        <div class="rep-cover" data-field="f-121">Summit<br>report</div>
+        <div class="rep-cover" style="background-image:url('assets/reports/summit.jpg')"></div>
         <div class="rep-body">
-          <span class="tag" data-field="f-122">Summit report</span>
-          <div class="title" data-field="f-123">Community School Summit Report</div>
-          <div class="cite" data-field="f-124">City of Promise &middot; TomTom Summit</div>
-          <p style="font-family: var(--font-body); font-size: 14px; color: rgba(7,48,91,.72); line-height: 1.5; margin: 4px 0 0;" data-field="f-125">A debrief from the TomTom Summit: exploring what a Community School model would look like in Charlottesville.</p>
+          <span class="tag" data-field="f-112">Summit report</span>
+          <div class="title" data-field="f-113">Community School Summit Report</div>
+          <p style="font-family: var(--font-body); font-size: 14px; color: rgba(7,48,91,.72); line-height: 1.5; margin: 4px 0 0;" data-field="f-114">A debrief from the TomTom Summit: exploring what a Community School model would look like in Charlottesville.</p>
           <div class="actions">
-            <a class="pw-btn outline-light sm" href="https://www.cityofpromise.org/summit-report" target="_blank" rel="noopener" data-field="f-126">Read <span>&rarr;</span></a>
+            <a class="pw-btn outline-light sm" href="summit-report.html" data-field="f-115">Read <span>&rarr;</span></a>
           </div>
         </div>
       </article>
@@ -1084,33 +1080,33 @@
 <section id="financials" class="pw-section surface">
   <div class="inner">
     <div class="section-tag light">
-      <div class="n" data-field="f-127">04</div>
+      <div class="n" data-field="f-116">04</div>
       <div class="rule"></div>
-      <div class="label" data-field="f-128">Financial transparency</div>
+      <div class="label" data-field="f-117">Financial transparency</div>
     </div>
-    <h2 data-field="f-129">990s &amp; Tax Forms</h2>
+    <h2 data-field="f-118">990s &amp; Tax Forms</h2>
     <hr class="gold-rule">
-    <p class="lede" data-field="f-130">Open books. Our IRS Form 990 filings, plus our 501(c)(3) status and a note on the Virginia Neighborhood Assistance Program tax credit.</p>
+    <p class="lede" data-field="f-119">Open books. Our IRS Form 990 filings, plus our 501(c)(3) status and a note on the Virginia Neighborhood Assistance Program tax credit.</p>
 
     <div class="fin-featured">
-      <div class="fin-yr" data-field="f-131">'24</div>
+      <div class="fin-yr" data-field="f-120">'24</div>
       <div class="fin-meta">
-        <span class="tag" data-field="f-132">Most recent</span>
-        <div class="title" data-field="f-133">Form 990 &middot; Fiscal Year 2024</div>
-        <div class="sub" data-field="f-134">Filed May 14, 2025 &middot; total revenue $1,024,108 &middot; total expenses $810,651</div>
+        <span class="tag" data-field="f-121">Most recent</span>
+        <div class="title" data-field="f-122">Form 990 &middot; Fiscal Year 2024</div>
+        <div class="sub" data-field="f-123">Filed May 14, 2025 &middot; total revenue $1,024,108 &middot; total expenses $810,651</div>
       </div>
-      <span class="fin-size" data-field="f-135">Hosted on ProPublica</span>
-      <a class="pw-btn navy" href="https://projects.propublica.org/nonprofits/display_990/831439722/IRS%2F831439722_202406_990_2025052323452585" target="_blank" rel="noopener" data-field="f-136">View 990 <span>&rarr;</span></a>
+      <span class="fin-size" data-field="f-124">Hosted on ProPublica</span>
+      <a class="pw-btn navy" href="https://projects.propublica.org/nonprofits/display_990/831439722/IRS%2F831439722_202406_990_2025052323452585" target="_blank" rel="noopener" data-field="f-125">View 990 <span>&rarr;</span></a>
     </div>
 
     <div class="fin-table">
-      <div class="fin-row head"><span data-field="f-137">Year</span><span data-field="f-138">Document</span><span data-field="f-139">Source</span><span></span></div>
-      <div class="fin-row"><span data-field="f-140">2023</span><span data-field="f-141">Form 990 &middot; FY2023</span><span class="fin-size" data-field="f-142">ProPublica</span><a href="https://projects.propublica.org/nonprofits/organizations/831439722" target="_blank" rel="noopener" data-field="f-143">View &rarr;</a></div>
-      <div class="fin-row"><span data-field="f-144">2022</span><span data-field="f-145">Form 990 &middot; FY2022</span><span class="fin-size" data-field="f-146">ProPublica</span><a href="https://projects.propublica.org/nonprofits/display_990/831439722/IRS%2F831439722_202206_990_2023060821415120" target="_blank" rel="noopener" data-field="f-147">View &rarr;</a></div>
-      <div class="fin-row"><span data-field="f-148">2021</span><span data-field="f-149">Form 990 &middot; FY2021</span><span class="fin-size" data-field="f-150">ProPublica</span><a href="https://projects.propublica.org/nonprofits/display_990/831439722/download990pdf_07_2022_prefixes_82-94%2F831439722_202106_990_2022071120203980" target="_blank" rel="noopener" data-field="f-151">View &rarr;</a></div>
+      <div class="fin-row head"><span data-field="f-126">Year</span><span data-field="f-127">Document</span><span data-field="f-128">Source</span><span></span></div>
+      <div class="fin-row"><span data-field="f-129">2023</span><span data-field="f-130">Form 990 &middot; FY2023</span><span class="fin-size" data-field="f-131">ProPublica</span><a href="https://projects.propublica.org/nonprofits/organizations/831439722" target="_blank" rel="noopener" data-field="f-132">View &rarr;</a></div>
+      <div class="fin-row"><span data-field="f-133">2022</span><span data-field="f-134">Form 990 &middot; FY2022</span><span class="fin-size" data-field="f-135">ProPublica</span><a href="https://projects.propublica.org/nonprofits/display_990/831439722/IRS%2F831439722_202206_990_2023060821415120" target="_blank" rel="noopener" data-field="f-136">View &rarr;</a></div>
+      <div class="fin-row"><span data-field="f-137">2021</span><span data-field="f-138">Form 990 &middot; FY2021</span><span class="fin-size" data-field="f-139">ProPublica</span><a href="https://projects.propublica.org/nonprofits/display_990/831439722/download990pdf_07_2022_prefixes_82-94%2F831439722_202106_990_2022071120203980" target="_blank" rel="noopener" data-field="f-140">View &rarr;</a></div>
     </div>
 
-    <div class="fin-note" data-field="f-152">
+    <div class="fin-note" data-field="f-141">
       City of Promise is a 501(c)(3) public charity (EIN 83-1439722). Gifts of $500 or more qualify for a 65% Virginia state tax credit through the Neighborhood Assistance Program &mdash; <a href="get-involved.html">full details on Get Involved &rarr;</a>
     </div>
   </div>
@@ -1120,15 +1116,15 @@
 <section class="pw-final-cta">
   <div class="inner">
     <hr class="gold-rule">
-    <h2 data-field="f-153">Read it. Then move it forward.</h2>
-    <p class="lede" data-field="f-154">The show, the column, the reports &mdash; they all come from the same place: a small team showing up alongside Charlottesville families, week after week. If that's worth backing, the most direct way to help is a gift.</p>
+    <h2 data-field="f-142">Read it. Then move it forward.</h2>
+    <p class="lede" data-field="f-143">The show, the column, the reports &mdash; they all come from the same place: a small team showing up alongside Charlottesville families, week after week. If that's worth backing, the most direct way to help is a gift.</p>
     <div class="ctas">
-      <a class="pw-btn gold" href="get-involved.html" data-field="f-155">Donate Now <span>&rarr;</span></a>
-      <a class="pw-btn outline-dark" href="#radio" data-field="f-156">Subscribe to Envision Radio <span>&rarr;</span></a>
+      <a class="pw-btn gold" href="get-involved.html" data-field="f-144">Donate Now <span>&rarr;</span></a>
+      <a class="pw-btn outline-dark" href="#radio" data-field="f-145">Subscribe to Envision Radio <span>&rarr;</span></a>
     </div>
     <div class="nap">
-      <div class="nap-eyebrow" data-field="f-157">NAP credits</div>
-      <div class="nap-body" data-field="f-158">Gifts of $500 or more qualify for a 65% Virginia state tax credit through the Neighborhood Assistance Program.</div>
+      <div class="nap-eyebrow" data-field="f-146">NAP credits</div>
+      <div class="nap-body" data-field="f-147">Gifts of $500 or more qualify for a 65% Virginia state tax credit through the Neighborhood Assistance Program.</div>
     </div>
   </div>
 </section>
@@ -1219,7 +1215,7 @@
   <span id="edit-status" class="edit-status">viewing</span>
   <button id="edit-revert" type="button" class="ghost" style="display:none;">Discard</button>
 </div>
-<script src="assets/edit.js?v=1777907314864" defer></script>
+<script src="assets/edit.js?v=1780597160718" defer></script>
 
 
 </body>
