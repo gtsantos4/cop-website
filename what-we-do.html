@@ -152,7 +152,10 @@ editPage: what-we-do.html
     background: #fff; border-radius: 8px; padding: 24px;
     border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card);
     display: flex; flex-direction: column;
+    text-decoration: none;
+    transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
   }
+  a.scale-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); text-decoration: none; }
   .scale-card .num {
     font-family: var(--font-display); font-size: 14px; font-weight: 600;
     color: var(--color-gold); letter-spacing: 0.4px;
@@ -230,6 +233,216 @@ editPage: what-we-do.html
     .stat-cell .v { font-size: 44px; }
     .final-cta h2 { font-size: 36px; letter-spacing: -0.6px; }
   }
+  /* ---------- A Family's Journey (headline interactive) ---------- */
+  .fj-sec { padding: 64px 48px 96px; }
+  .fj-inner { max-width: 1280px; margin: 0 auto; }
+  .fj-kicker {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase; color: rgba(7,48,91,.60);
+    margin-bottom: 14px;
+  }
+  .fj-h2 {
+    font-family: var(--font-display); font-size: 48px; font-weight: 700;
+    color: var(--color-navy); letter-spacing: -1px; line-height: 1.08;
+    margin: 0 0 18px; max-width: 880px;
+  }
+  .fj-lede {
+    font-family: var(--font-body); font-size: 19px; line-height: 1.55;
+    color: var(--fg-2); margin: 0; max-width: 760px;
+  }
+  a.fj-ms.blue { text-decoration: none; }
+  a.fj-ms.blue:hover { text-decoration: underline; text-decoration-color: var(--color-gold); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  @media (max-width: 700px) {
+    .fj-sec { padding: 64px 20px; }
+    .fj-h2 { font-size: 32px; letter-spacing: -0.6px; }
+    .fj-lede { font-size: 16px; }
+  }
+  .fj-lineup {
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-photo);
+    padding: 24px 32px 30px;
+  }
+  .fj-lineup-hint {
+    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    color: var(--fg-3); text-align: center;
+    margin: 26px 0 0;
+  }
+  .fj-lineup-row {
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: clamp(16px, 8vw, 120px); width: 100%;
+  }
+  .fj-figure-btn {
+    all: unset;
+    cursor: pointer;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-end;
+    flex: 0 0 auto; text-align: center;
+  }
+  .fj-figure-btn:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 8px; border-radius: 6px;
+  }
+  .fj-silhouette {
+    background-color: var(--color-navy);
+    opacity: 0.72;
+    -webkit-mask-size: contain; mask-size: contain;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-position: bottom center; mask-position: bottom center;
+    transition: background-color 180ms var(--ease), opacity 180ms var(--ease);
+  }
+  .fj-figure-btn[data-selected="true"] .fj-silhouette { background-color: var(--color-gold); opacity: 1; }
+  .fj-figure-btn:hover .fj-silhouette { opacity: 1; }
+  .fj-figure-meta {
+    margin-top: 14px;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    min-width: 90px;
+  }
+  .fj-figure-name {
+    font-family: var(--font-display); font-size: 20px; font-weight: 600;
+    letter-spacing: -0.3px; color: var(--color-navy);
+    transition: color 180ms var(--ease);
+  }
+  .fj-figure-btn[data-selected="true"] .fj-figure-name { color: var(--color-gold); }
+  .fj-ms {
+    font-family: var(--font-body); font-size: 11px; font-weight: 600;
+    letter-spacing: 1.2px; text-transform: uppercase; color: var(--fg-3);
+  }
+  .fj-ms.blue { color: var(--color-primary); }
+
+  .fj-detail-head {
+    margin-top: 56px; padding-bottom: 28px;
+    border-bottom: 1px solid var(--border-strong);
+    display: flex; flex-direction: column;
+  }
+  .fj-detail-eyebrow {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--color-gold); margin-bottom: 14px;
+  }
+  .fj-detail-name {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 44px; letter-spacing: -0.9px; line-height: 1.05;
+    color: var(--color-navy); margin: 0;
+  }
+  .fj-detail-name em {
+    color: var(--fg-3); font-style: italic; font-weight: 400; font-size: 0.6em;
+  }
+  .fj-detail-bio {
+    font-family: var(--font-body); font-size: 16.5px; line-height: 1.65;
+    color: var(--fg-2); margin: 16px 0 0; max-width: 820px;
+  }
+
+  .fj-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 40px; padding-top: 32px; align-items: start;
+  }
+  .fj-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .fj-card {
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: 22px 24px;
+    display: flex; flex-direction: column; gap: 12px;
+    min-width: 0;
+    transition: opacity 180ms var(--ease), box-shadow 180ms var(--ease), transform 180ms var(--ease);
+    animation: fj-card-in .45s var(--ease) backwards;
+  }
+  .fj-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+  .fj-card:nth-child(1) { animation-delay: 0s; }
+  .fj-card:nth-child(2) { animation-delay: .05s; }
+  .fj-card:nth-child(3) { animation-delay: .10s; }
+  .fj-card:nth-child(4) { animation-delay: .15s; }
+  .fj-card:nth-child(5) { animation-delay: .20s; }
+  .fj-card:nth-child(n+6) { animation-delay: .25s; }
+  @keyframes fj-card-in {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .fj-layout.is-filtering .fj-card[data-match="true"] {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 1px var(--color-gold), var(--shadow-card-hover);
+  }
+  .fj-layout.is-filtering .fj-card[data-match="false"] { opacity: 0.4; }
+
+  .fj-card-head { display: flex; justify-content: space-between; align-items: center; gap: 8px 12px; flex-wrap: wrap; }
+  .fj-pill {
+    font-family: var(--font-body); font-size: 10px; font-weight: 700;
+    letter-spacing: 1.1px; text-transform: uppercase;
+    background: rgba(213, 163, 58, 0.14);
+    border: 1px solid rgba(213, 163, 58, 0.45);
+    border-radius: var(--radius-pill);
+    padding: 4px 11px; white-space: nowrap;
+    color: var(--color-navy);
+  }
+  .fj-card-title {
+    font-family: var(--font-display); font-size: 22px; font-weight: 600;
+    letter-spacing: -0.35px; line-height: 1.2; margin: 0;
+    color: var(--color-navy);
+  }
+  .fj-card-summary {
+    font-family: var(--font-body); font-size: 14.5px; line-height: 1.6;
+    color: var(--fg-2); margin: 0;
+  }
+
+  .fj-cat-menu {
+    position: sticky; top: 100px;
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 18px;
+  }
+  .fj-cat-title {
+    font-family: var(--font-body); font-size: 11px; font-weight: 700;
+    letter-spacing: 1.4px; text-transform: uppercase;
+    color: var(--color-navy);
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 14px;
+  }
+  .fj-cat-title::before { content: ''; width: 16px; height: 2px; background: var(--color-gold); }
+  .fj-cat-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+  .fj-cat-item {
+    all: unset; box-sizing: border-box;
+    display: block; width: 100%; cursor: pointer;
+    font-family: var(--font-body); font-size: 14px; line-height: 1.35;
+    color: var(--fg-2);
+    padding: 9px 12px;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    transition: background 140ms var(--ease), color 140ms var(--ease), border-color 140ms var(--ease);
+  }
+  .fj-cat-item:hover { background: rgba(7, 48, 91, 0.05); }
+  .fj-cat-item:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 2px; }
+  .fj-cat-item[aria-pressed="true"] {
+    color: var(--color-navy); font-weight: 600;
+    border-color: var(--color-gold);
+    background: rgba(213, 163, 58, 0.14);
+  }
+  #fj-detail { padding-bottom: 8px; }
+
+  @media (max-width: 1100px) {
+    .fj-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .fj-cat-menu { position: static; order: -1; }
+    .fj-cat-list { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+    .fj-cat-item { width: auto; }
+  }
+  @media (max-width: 700px) {
+    .fj-lineup { padding: 20px 12px 16px; overflow: hidden; }
+    .fj-lineup-row { gap: 16px; transform: scale(0.55); transform-origin: bottom center; margin-bottom: -26px; }
+    .fj-grid { grid-template-columns: minmax(0, 1fr); }
+    .fj-detail-name { font-size: 32px; letter-spacing: -0.5px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fj-card { animation: none; }
+    .fj-card:hover { transform: none; }
+    .fj-silhouette, .fj-figure-btn { transition: none; }
+  }
 </style>
 
 <section class="wwd-hero">
@@ -237,103 +450,230 @@ editPage: what-we-do.html
     <hr class="gold-rule">
     <div class="kicker">What We Do</div>
     <h1>Three programs.<br>One family.</h1>
-    <p>A cradle-to-career continuum for kids and the adults who raise them, because education is a social issue no school can solve alone.</p>
+    <p>A full-family early intervention approach for kids and the adults who raise them, because education is a social issue no school can solve alone.</p>
   </div>
 </section>
 
-<section class="program canvas photo-left">
-  <div class="inner">
-    <div class="photo photo-cs"></div>
-    <div>
-      <div class="section-tag light">
-        <div class="n">01</div>
-        <div class="rule"></div>
-        <div class="label">Program One</div>
-      </div>
-      <h2>Community<br>Schools</h2>
-      <hr class="gold-rule">
-      <p>Community School Coordinators embedded at <strong>seven Charlottesville school sites</strong>: ELC, Trailblazer, Tall Oaks, Summit, CMS, Lugo-McGinness, and CHS. After-school tutoring four days a week, on-site food pantries, and the Walking Bus that gets 25–30 kids to and from Trailblazer every day.</p>
-      <div class="stats">
-        <div class="stat-cell light"><div class="v v-blue">7</div><div class="l">CCS school sites</div></div>
-        <div class="stat-cell light"><div class="v v-blue">75%</div><div class="l">drop in absences (Spring→Fall 2025)</div></div>
-        <div class="stat-cell light"><div class="v v-gold">40+</div><div class="l">hours added instruction</div></div>
-        <div class="stat-cell light"><div class="v v-gold">4×/wk</div><div class="l">after-school tutoring</div></div>
-      </div>
-      <div class="pills">
-        <span class="chip light">Coordinators</span>
-        <span class="chip light">On-Site Tutoring</span>
-        <span class="chip light">Food Pantries</span>
-        <span class="chip light">Walking Bus</span>
-        <span class="chip light">Resource Brokering</span>
-      </div>
-      <div class="ctas">
-        <a class="wwd-btn navy" href="community-schools.html">See how it works <span>→</span></a>
-      </div>
+<section class="fj-sec" id="family">
+  <div class="fj-inner">
+    <div class="fj-lineup" aria-label="Family lineup">
+      <div class="fj-lineup-row" id="fj-lineup-row"></div>
+      <p class="fj-lineup-hint">Select a family member to see how City of Promise supports them.</p>
     </div>
+
+    <div id="fj-detail" aria-live="polite"></div>
   </div>
 </section>
 
-<section class="program navy photo-right">
-  <div class="inner">
-    <div>
-      <div class="section-tag dark">
-        <div class="n">02</div>
-        <div class="rule"></div>
-        <div class="label">Program Two</div>
-      </div>
-      <h2>Dreambuilders</h2>
-      <hr class="gold-rule">
-      <p>Dreambuilders is a <strong>two-year wraparound program</strong> for working Charlottesville families: parent classes, family learning time, embedded coaching, and up to $7,000 in micro-financing to invest in self-sufficiency.</p>
-      <div class="stats">
-        <div class="stat-cell dark"><div class="v v-gold">2 yr</div><div class="l">commitment per family</div></div>
-        <div class="stat-cell dark"><div class="v v-gold">$7K</div><div class="l">in micro-financing</div></div>
-        <div class="stat-cell dark"><div class="v v-white">Weekly</div><div class="l">parent + family learning</div></div>
-        <div class="stat-cell dark"><div class="v v-white">NCFL</div><div class="l">evidence-based model</div></div>
-      </div>
-      <div class="pills">
-        <span class="chip dark">Parent Time</span>
-        <span class="chip dark">P.A.C.T. Time</span>
-        <span class="chip dark">Micro-Financing</span>
-        <span class="chip dark">School Coordination</span>
-      </div>
-      <div class="ctas">
-        <a class="wwd-btn gold" href="dreambuilders.html">Program Details <span>→</span></a>
-      </div>
-    </div>
-    <div class="photo photo-db"></div>
-  </div>
-</section>
+<script>
+(function () {
+  const FAMILY = [
+    { id: 'mom',     name: 'Keisha', age: 32, role: 'Single parent',        scale: 1.0, aspect: 0.844, mask: 'assets/masks/person-mask-mom.png',
+      bio: "Keisha is a single mom raising three kids — Isaiah, Jada, and Malik — while working full time. Long days, a schedule that rarely lines up with school pickups, and no slack in the budget when something breaks. City of Promise's job is to make sure she isn't carrying it alone: one coach who knows the whole picture, and every program pulling in the same direction." },
+    { id: 'teen',    name: 'Isaiah', age: 14, role: 'CHS freshman',         scale: 1.2, aspect: 0.840, mask: 'assets/masks/person-mask-teen.png',
+      bio: "Isaiah just started his freshman year at Charlottesville High — one of the six school sites where CoP staff are embedded. He's sharp and curious but still finding his footing in a bigger building, and he lights up when an adult actually asks what he thinks." },
+    { id: 'child',   name: 'Jada',   age:  8, role: 'Grade 3',              scale: 1.2, aspect: 0.754, mask: 'assets/masks/person-mask-child.png',
+      bio: "Jada is in third grade at Trailblazer Elementary. She loves reading out loud and draws horses in the margins of everything. Reading clicked a little late for her, so the tutoring matters — and so does knowing there's a snack waiting and a familiar adult who notices when her day has been hard." },
+    { id: 'toddler', name: 'Malik',  age:  2, role: 'Pre-K age',            scale: 1.2, aspect: 0.606, mask: 'assets/masks/person-mask-toddler.png',
+      bio: "Malik is two and into everything — stacking blocks, naming every truck that drives by, and testing every 'no.' The years before kindergarten are where the gap starts, so the model starts here too: learning time with his mom, a path to quality childcare, and a neighborhood of adults who know his name." },
+  ];
 
-<section class="program tan photo-right">
-  <div class="inner">
-    <div>
-      <div class="section-tag light">
-        <div class="n">03</div>
-        <div class="rule"></div>
-        <div class="label">Program Three</div>
+  const PROGRAMS = {
+    cs: { name: 'Community Schools',             href: 'community-schools.html' },
+    db: { name: 'Dreambuilders',                 href: 'dreambuilders.html' },
+    fe: { name: 'Family Engagement & Advocacy',  href: 'family-engagement.html' },
+  };
+
+  // The same 13 life-domains as the Constellation of Care diagram above.
+  const CAT_LABEL = {
+    healthcare:     'Healthcare',
+    childcare:      'Childcare',
+    workforce:      'Workforce',
+    housing:        'Housing',
+    transport:      'Transportation',
+    safety:         'Community Safety',
+    'continuing-ed':'Continuing Ed.',
+    tech:           'Tech Access',
+    mentoring:      'Mentoring',
+    capital:        'Access to Capital',
+    extras:         'Extracurriculars',
+    food:           'Food Security',
+    finlit:         'Financial Literacy',
+  };
+  const CAT_ORDER = [
+    'healthcare','childcare','workforce','housing','transport','safety',
+    'continuing-ed','tech','mentoring','capital','extras','food','finlit',
+  ];
+
+  const SERVICES = {
+    mom: [
+      { program:'fe', title:'Family Empowerment Coach', cadence:'Ongoing', cats:['mentoring'],
+        summary:'A long-term 1:1 coach who walks alongside the family — goals, paperwork, school enrollment, and the connection to every other support on this page. No application required; any CoP family can start a conversation.' },
+      { program:'db', title:'Dreambuilders', cadence:'2-year cohort', cats:['finlit','continuing-ed'],
+        summary:'A two-year wraparound commitment built on the evidence-based NCFL model: parent classes, family learning time, and embedded coaching toward self-sufficiency.' },
+      { program:'db', title:'Micro-financing', cadence:'Up to $7K', cats:['capital','finlit'],
+        summary:'Up to $7,000 matched to family goals — a certification, a car repair, a security deposit. The capital that turns a plan into motion instead of a wish.' },
+      { program:'db', title:'Parent Time', cadence:'Weekly', cats:['continuing-ed','finlit'],
+        summary:'The weekly parent cohort: parenting practices, financial literacy, and peer support from other Charlottesville parents doing the same work.' },
+      { program:'fe', title:'School navigation & advocacy', cadence:'As needed', cats:['mentoring'],
+        summary:'Someone who knows the school system sitting on her side of the table — enrollment, conferences, and advocacy when the household and the school need to hear each other.' },
+      { program:'fe', title:'Safety-net connection', cadence:'As needed', cats:['housing','healthcare','food','childcare'],
+        summary:'Connection to the wider Charlottesville safety net — housing, healthcare, childcare, food — through one trusted relationship instead of twenty cold phone calls.' },
+    ],
+    teen: [
+      { program:'cs', title:'Community School Coordinator', cadence:'Daily · in-school', cats:['mentoring'],
+        summary:'CoP staff embedded at Charlottesville High — a trusted adult inside the building who knows Isaiah, his teachers, and his mom, and catches the hard days early.' },
+      { program:'cs', title:'After-school tutoring', cadence:'4×/week', cats:['mentoring','extras'],
+        summary:'Small-group tutoring four days a week — 40+ hours of added instruction a year, in the building he already attends.' },
+      { program:'cs', title:'Tour of the Town', cadence:'Year-round trips', cats:['workforce','extras'],
+        summary:'Career-exposure trips to local employers and institutions — UVA Surgery, the Fontaine Fire Department, Kiwanis Club, Getting Word. Designed for kids to see what their lives could look like.' },
+    ],
+    child: [
+      { program:'cs', title:'Afterschool literacy tutoring', cadence:'After school', cats:['mentoring'],
+        summary:'Literacy tutoring at Trailblazer Elementary, in small groups or 1:1, focused on fluency and comprehension — with a snack from the on-site pantry.' },
+      { program:'cs', title:'Walking Bus', cadence:'Every school day', cats:['transport','safety'],
+        summary:'A staffed walking bus that gets 25–30 kids to and from Trailblazer every day. 104 days last school year were rain, snow, or below freezing. It ran anyway.' },
+      { program:'cs', title:'On-site food pantry', cadence:'Daily access', cats:['food'],
+        summary:'A dry and refrigerated pantry inside the school. 40 students access it daily, and holiday bags go home over winter break — no one has to leave the building.' },
+      { program:'cs', title:'Summer tutoring + YMCA', cadence:'Summer mornings', cats:['extras','childcare'],
+        summary:'A summer literacy program that staves off the "summer slide" of 10+ unstructured weeks. Participation also unlocks YMCA enrollment, easing the childcare load on a working parent.' },
+      { program:'cs', title:'Community School Coordinator', cadence:'Daily · in-school', cats:['mentoring'],
+        summary:'A trusted adult embedded at Trailblazer who knows Jada, her teachers, and her family — the bridge between school routines and home life.' },
+    ],
+    toddler: [
+      { program:'db', title:'P.A.C.T. Time', cadence:'Weekly', cats:['childcare','mentoring'],
+        summary:"Structured Parent And Child Together time — Keisha and Malik learning side by side as part of the Dreambuilders week, building school readiness before there's a school." },
+      { program:'fe', title:'Childcare navigation', cadence:'As needed', cats:['childcare'],
+        summary:'Help finding, applying for, and holding a quality childcare and Pre-K spot — the difference between Keisha keeping full-time hours and losing them.' },
+      { program:'fe', title:'Nurturing Neighborhood', cadence:'Ongoing', cats:['safety','mentoring'],
+        summary:'A volunteer initiative that builds an "extended family" around the household — 4–5 volunteers contributing rides, meals, mentoring, and weekend outings.' },
+    ],
+  };
+
+  function heightForAge(age) {
+    const min = 80, max = 220, ageMin = 2, ageMax = 32;
+    const t = Math.max(0, Math.min(1, (age - ageMin) / (ageMax - ageMin)));
+    return min + t * (max - min);
+  }
+
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function renderLineup(selId) {
+    const ordered = [...FAMILY].sort((a, b) => b.age - a.age);
+    const row = document.getElementById('fj-lineup-row');
+    row.innerHTML = ordered.map(p => {
+      const h = heightForAge(p.age) * (p.scale ?? 1) * 0.7875;
+      const w = h * (p.aspect ?? 0.62);
+      return `
+        <button type="button" class="fj-figure-btn" data-id="${p.id}" data-selected="${p.id === selId}" aria-pressed="${p.id === selId}">
+          <div class="fj-silhouette" style="
+            width: ${w}px; height: ${h}px;
+            -webkit-mask-image: url('${p.mask}');
+                    mask-image: url('${p.mask}');"></div>
+          <div class="fj-figure-meta">
+            <div class="fj-figure-name">${esc(p.name)}</div>
+            <div class="fj-ms">Age ${esc(p.age)}</div>
+          </div>
+        </button>`;
+    }).join('');
+    row.querySelectorAll('.fj-figure-btn').forEach(btn => {
+      btn.addEventListener('click', () => select(btn.dataset.id));
+    });
+  }
+
+  function renderDetail(selId) {
+    const person = FAMILY.find(p => p.id === selId);
+    const services = SERVICES[selId] || [];
+
+    const cards = services.map(s => `
+        <article class="fj-card" data-cats="${esc(s.cats.join(' '))}">
+          <header class="fj-card-head">
+            <span class="fj-pill">${esc(s.cadence)}</span>
+            <a class="fj-ms blue" href="${PROGRAMS[s.program].href}">${esc(PROGRAMS[s.program].name)}</a>
+          </header>
+          <h3 class="fj-card-title">${esc(s.title)}</h3>
+          <p class="fj-card-summary">${esc(s.summary)}</p>
+        </article>`).join('');
+
+    const present = new Set();
+    services.forEach(s => s.cats.forEach(c => present.add(c)));
+    const catItems = CAT_ORDER.filter(c => present.has(c)).map(c => `
+      <li>
+        <button type="button" class="fj-cat-item" data-cat="${esc(c)}" aria-pressed="false">
+          ${esc(CAT_LABEL[c] || c)}
+        </button>
+      </li>`).join('');
+
+    document.getElementById('fj-detail').innerHTML = `
+      <div class="fj-detail-head">
+        <div class="fj-detail-eyebrow">What City of Promise provides for</div>
+        <h3 class="fj-detail-name">${esc(person.name)}<em>, age ${person.age}</em></h3>
+        <p class="fj-detail-bio">${esc(person.bio)}</p>
       </div>
-      <h2>Family Engagement<br>&amp; Advocacy</h2>
-      <hr class="gold-rule">
-      <p>The parent-facing arm of our model offers <strong>parenting coaching, school advocacy, and connection to the wider Charlottesville safety net</strong>, because a child's trajectory tracks their parent's. Any CoP family can start a conversation, no application required.</p>
-      <div class="stats">
-        <div class="stat-cell light"><div class="v v-blue">1:1</div><div class="l">parent coaching</div></div>
-        <div class="stat-cell light"><div class="v v-blue">All</div><div class="l">CoP families eligible</div></div>
-        <div class="stat-cell light"><div class="v v-gold">Ongoing</div><div class="l">intake, no cohorts</div></div>
-        <div class="stat-cell light"><div class="v v-gold">LIFT</div><div class="l">integrated team model</div></div>
+      <div class="fj-layout">
+        <div class="fj-grid">${cards}</div>
+        <aside class="fj-cat-menu" aria-label="Care categories">
+          <div class="fj-cat-title">Constellation of care</div>
+          <ul class="fj-cat-list">${catItems}</ul>
+        </aside>
       </div>
-      <div class="pills">
-        <span class="chip light">Parenting Practices</span>
-        <span class="chip light">School Advocacy</span>
-        <span class="chip light">Academic Involvement</span>
-        <span class="chip light">Community Support</span>
-      </div>
-      <div class="ctas">
-        <a class="wwd-btn navy" href="family-engagement.html">What parent support looks like <span>→</span></a>
-      </div>
-    </div>
-    <div class="photo photo-fe"></div>
-  </div>
-</section>
+    `;
+
+    wireCategoryMenu();
+  }
+
+  function wireCategoryMenu() {
+    const layout = document.querySelector('.fj-layout');
+    if (!layout) return;
+    const items = layout.querySelectorAll('.fj-cat-item');
+    const cards = layout.querySelectorAll('.fj-card');
+
+    function clear() {
+      layout.classList.remove('is-filtering');
+      items.forEach(b => b.setAttribute('aria-pressed', 'false'));
+      cards.forEach(c => c.removeAttribute('data-match'));
+    }
+
+    items.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const active = btn.getAttribute('aria-pressed') === 'true';
+        clear();
+        if (active) return;
+        btn.setAttribute('aria-pressed', 'true');
+        layout.classList.add('is-filtering');
+        const cat = btn.dataset.cat;
+        cards.forEach(c => {
+          const has = (c.dataset.cats || '').split(' ').includes(cat);
+          c.setAttribute('data-match', has ? 'true' : 'false');
+        });
+        const firstMatch = layout.querySelector('.fj-card[data-match="true"]');
+        if (firstMatch) {
+          const r = firstMatch.getBoundingClientRect();
+          const visible = r.top >= 16 && r.bottom <= window.innerHeight;
+          if (!visible) firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  }
+
+  function select(id) {
+    document.querySelectorAll('.fj-figure-btn').forEach(btn => {
+      const sel = btn.dataset.id === id;
+      btn.dataset.selected = sel;
+      btn.setAttribute('aria-pressed', sel);
+    });
+    renderDetail(id);
+  }
+
+  renderLineup('mom');
+  renderDetail('mom');
+})();
+</script>
+
 
 <section class="tieback">
   <div class="inner">
@@ -341,30 +681,30 @@ editPage: what-we-do.html
       <div class="kicker">Why three, why together</div>
       <hr class="gold-rule" style="margin: 18px 0 24px;">
       <h2>Dual-generation, by design.</h2>
-      <p>We coach the child, support the parent, and connect the family to the "constellation of care" around them: housing, childcare, health, food. A single coordinator may touch all three programs for the same household in a single week.</p>
+      <p>We coach the child, support the parent, and connect the family to the &quot;constellation of care&quot; around them: housing, childcare, health, food. A single coordinator may touch all three programs for the same household in a single week.</p>
       <div style="margin-top: 32px;">
         <a class="wwd-btn navy" href="our-approach.html">Read our approach <span>→</span></a>
       </div>
     </div>
     <div class="scale-grid">
-      <div class="scale-card">
+      <a class="scale-card" href="community-schools.html">
         <div class="num">01</div>
         <div class="scale">Child</div>
         <div class="rule"></div>
         <div class="program-name">Community Schools</div>
-      </div>
-      <div class="scale-card">
+      </a>
+      <a class="scale-card" href="dreambuilders.html">
         <div class="num">02</div>
         <div class="scale">Family</div>
         <div class="rule"></div>
         <div class="program-name">Dreambuilders</div>
-      </div>
-      <div class="scale-card">
+      </a>
+      <a class="scale-card" href="family-engagement.html">
         <div class="num">03</div>
         <div class="scale">Community</div>
         <div class="rule"></div>
         <div class="program-name">Family Engagement</div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
