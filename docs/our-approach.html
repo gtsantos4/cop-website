@@ -422,7 +422,7 @@
   }
   .fj-lineup-row {
     display: flex; align-items: flex-end; justify-content: center;
-    gap: 120px; width: 100%;
+    gap: clamp(16px, 8vw, 120px); width: 100%;
   }
   .fj-figure-btn {
     all: unset;
@@ -674,6 +674,7 @@
     footer .grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 700px) {
+    html, body { overflow-x: hidden; }
     .sub-nav { padding: 12px 20px; gap: 16px; overflow-x: auto; }
     .hero, .section, .cta { padding-left: 20px; padding-right: 20px; }
     .hero { padding-top: 56px; padding-bottom: 64px; }
@@ -682,8 +683,13 @@
     .section { padding-top: 64px; padding-bottom: 64px; }
     .section h2 { font-size: 32px; letter-spacing: -0.6px; }
     .pullquote p { font-size: 24px; }
-    .chart-wrap { padding: 20px; }
-    .chart-grid { grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .chart-wrap { padding: 20px 14px; }
+    .chart-grid { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .barpair { gap: 8px; padding: 0 4px 24px; height: 180px; }
+    .bar { min-width: 0; }
+    .bar .pct { font-size: 15px; top: -24px; letter-spacing: -0.2px; }
+    .bar .lbl { font-size: 8px; letter-spacing: 0.4px; }
+    .barpair-label { font-size: 10px; letter-spacing: 0.8px; bottom: -24px; }
     .stats-3 { grid-template-columns: 1fr; gap: 14px; }
     .stat-cell .big { font-size: 56px; }
     .stats-4 { grid-template-columns: 1fr; }
@@ -1259,7 +1265,7 @@
   <span id="edit-status" class="edit-status">viewing</span>
   <button id="edit-revert" type="button" class="ghost" style="display:none;">Discard</button>
 </div>
-<script src="assets/edit.js?v=1785196534820" defer></script>
+<script src="assets/edit.js?v=1785196922512" defer></script>
 
 
 </body>
