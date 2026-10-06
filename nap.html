@@ -173,10 +173,67 @@ editPage: nap.html
   }
   .disclaimer a { color: var(--color-navy); }
 
+  /* ---------- Claim: path chooser ---------- */
+  .claim-q {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 24px; line-height: 1.25; color: var(--color-navy);
+    margin: 48px 0 0;
+  }
+  .claim-q .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 50%; margin-right: 10px;
+    background: var(--color-navy); color: #fff; font-size: 16px; vertical-align: 2px;
+  }
+  .claim-gift {
+    margin: 16px 0 0; max-width: 820px;
+    font-family: var(--font-body); font-size: 16px; line-height: 1.55; color: var(--fg-2);
+  }
+  .claim-gift a { color: var(--color-primary); font-weight: 600; }
+  .choices {
+    margin-top: 20px; max-width: 820px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .choice {
+    text-align: left; cursor: pointer;
+    background: #fff; border: 1.5px solid var(--border-subtle);
+    border-radius: var(--radius-card); padding: 22px 24px;
+    font: inherit; color: inherit;
+    transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+  .choice:hover { border-color: var(--color-navy); }
+  .choice:focus-visible { outline: 3px solid var(--color-gold); outline-offset: 2px; }
+  .choice[aria-selected="true"] {
+    border-color: var(--color-navy);
+    box-shadow: inset 0 0 0 1.5px var(--color-navy);
+  }
+  .choice .tag {
+    display: inline-block; margin-bottom: 10px;
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700;
+    color: var(--color-navy); background: var(--color-gold);
+    padding: 3px 8px; border-radius: 4px;
+  }
+  .choice .tag.plain { background: var(--color-tan); }
+  .choice .t {
+    display: block;
+    font-family: var(--font-display); font-weight: 600; font-size: 20px;
+    color: var(--color-navy); margin: 0 0 6px;
+  }
+  .choice .d { display: block; font-size: 15px; line-height: 1.5; color: var(--fg-2); }
+  .claim-path[hidden] { display: none; }
+  .claim-path .steps { margin-top: 24px; }
+  .claim-path .btn-row { margin-top: 24px; }
+  .claim-hint { margin: 16px 0 0; font-size: 14px; color: var(--fg-3); }
+  .claim-after {
+    margin: 32px 0 0; max-width: 820px;
+    font-family: var(--font-body); font-size: 16px; line-height: 1.55; color: var(--fg-2);
+  }
+  .claim-after strong { color: var(--color-navy); }
+
   @media (max-width: 900px) {
     .hero, .section { padding-left: 24px; padding-right: 24px; }
     .hero h1 { font-size: 44px; }
     .tiers, .impact { grid-template-columns: 1fr; }
+    .choices { grid-template-columns: 1fr; }
   }
   @media (max-width: 520px) {
     .hero h1 { font-size: 36px; }
@@ -264,18 +321,78 @@ editPage: nap.html
     <hr class="gold-rule">
     <h2>How to claim your credit.</h2>
     <p class="lede">Make your gift, then send us the NAP tax credit request form. We handle the filing with the state.</p>
-    <ol class="steps">
-      <li><strong>Make your gift.</strong> Donate online or by check.</li>
-      <li><strong>Complete the tax credit request form.</strong> Download it, fill in every field, and save it.</li>
-      <li><strong>Upload the completed form</strong> to our <a href="https://www.dropbox.com/request/HeJAvdgr6lMaOvpkvHzh" target="_blank" rel="noopener">secure Dropbox folder</a>.</li>
-      <li><strong>Email us</strong> at <a href="mailto:tmorris@cityofpromise.org?subject=%5BYOUR%20LAST%20NAME%5D_NAP%20COMPLETE">tmorris@cityofpromise.org</a> with the subject line “[YOUR LAST NAME]_NAP COMPLETE”.</li>
-      <li><strong>We take it from there.</strong> City of Promise signs the form, submits it to VDOE, and sends you your tax certificate once it is approved.</li>
-    </ol>
-    <div class="btn-row">
-      <a href="https://cityofpromise.salsalabs.org/donationform2024/index.html" class="btn primary" target="_blank" rel="noopener">Donate →</a>
-      <a href="https://www.dropbox.com/scl/fi/hxolulejjya5gy81xrnie/Tax-Credit-Request_BLANK.docx?rlkey=0j6yv2n8bv7i5530om2dz97s1&amp;st=e699wlef&amp;dl=0" class="btn ghost" target="_blank" rel="noopener">Download the form</a>
-      <a href="https://www.dropbox.com/scl/fi/txcef5x4j3af6lop66dj3/NAP-Terms-Conditions.pdf?rlkey=nzaj4lnu4yau95tuettba35ht&amp;e=1&amp;st=rtykxgad&amp;dl=0" class="btn ghost" target="_blank" rel="noopener">Terms &amp; details</a>
+
+    <p class="claim-q"><span class="num">1</span>Make your gift.</p>
+    <p class="claim-gift"><a href="https://cityofpromise.salsalabs.org/donationform2024/index.html" target="_blank" rel="noopener">Donate online</a> or mail a check. Gifts of $500 or more qualify.</p>
+
+    <p class="claim-q" id="claim-q"><span class="num">2</span>How would you like to send your NAP form?</p>
+    <div class="choices" role="tablist" aria-labelledby="claim-q">
+      <button type="button" class="choice" role="tab" id="tab-online" aria-controls="claim-online" aria-selected="false">
+        <span class="tag">Fastest</span>
+        <span class="t">Fill out &amp; sign online</span>
+        <span class="d">Complete and e-sign the form in your browser. Nothing to download or email.</span>
+      </button>
+      <button type="button" class="choice" role="tab" id="tab-download" aria-controls="claim-download" aria-selected="false">
+        <span class="tag plain">Prefer paper?</span>
+        <span class="t">Download &amp; upload</span>
+        <span class="d">Fill out the form on your computer or by hand, then upload it to our secure folder.</span>
+      </button>
     </div>
+    <p class="claim-hint" id="claim-hint" hidden>Choose an option to see the steps.</p>
+
+    <div class="claim-path" id="claim-online" role="tabpanel" aria-labelledby="tab-online">
+      <ol class="steps">
+        <li><strong>Open the secure form.</strong> It is your copy of the NAP tax credit request form.</li>
+        <li><strong>Fill in every field and sign.</strong> Your information, including your Social Security number, goes straight to our encrypted e-signature service, never to email.</li>
+        <li><strong>Done.</strong> You will get a signed copy by email, and we are notified automatically.</li>
+      </ol>
+      <div class="btn-row">
+        <a href="NAP_SIGN_LINK" class="btn primary" target="_blank" rel="noopener">Fill out &amp; sign the form →</a>
+      </div>
+    </div>
+
+    <div class="claim-path" id="claim-download" role="tabpanel" aria-labelledby="tab-download">
+      <ol class="steps">
+        <li><strong>Download the form</strong> and fill in every field.</li>
+        <li><strong>Upload the completed form</strong> to our <a href="https://www.dropbox.com/request/HeJAvdgr6lMaOvpkvHzh" target="_blank" rel="noopener">secure Dropbox folder</a>.</li>
+        <li><strong>Email us</strong> at <a href="mailto:tmorris@cityofpromise.org?subject=%5BYOUR%20LAST%20NAME%5D_NAP%20COMPLETE">tmorris@cityofpromise.org</a> with the subject line “[YOUR LAST NAME]_NAP COMPLETE”.</li>
+      </ol>
+      <div class="btn-row">
+        <a href="https://www.dropbox.com/scl/fi/hxolulejjya5gy81xrnie/Tax-Credit-Request_BLANK.docx?rlkey=0j6yv2n8bv7i5530om2dz97s1&amp;st=e699wlef&amp;dl=0" class="btn primary" target="_blank" rel="noopener">Download the form</a>
+        <a href="https://www.dropbox.com/request/HeJAvdgr6lMaOvpkvHzh" class="btn ghost" target="_blank" rel="noopener">Upload completed form</a>
+      </div>
+    </div>
+
+    <p class="claim-after"><strong>Then we take it from there.</strong> City of Promise signs the form, submits it to VDOE, and sends you your tax certificate once it is approved. See the <a href="https://www.dropbox.com/scl/fi/txcef5x4j3af6lop66dj3/NAP-Terms-Conditions.pdf?rlkey=nzaj4lnu4yau95tuettba35ht&amp;e=1&amp;st=rtykxgad&amp;dl=0" target="_blank" rel="noopener">terms &amp; details</a>.</p>
     <p class="disclaimer">Questions? Email <a href="mailto:tmorris@cityofpromise.org">tmorris@cityofpromise.org</a>. Please consult your tax professional or financial advisor to evaluate how these programs affect your individual tax situation.</p>
   </div>
 </section>
+
+<script>
+(function() {
+  // Path chooser: both panels show if JS never runs; once it does, hide
+  // them until the donor picks one. #claim-online / #claim-download in the
+  // URL preselects a path (handy for emails to donors).
+  const tabs = document.querySelectorAll('.choices [role="tab"]');
+  const hint = document.getElementById('claim-hint');
+  function select(tab, focus) {
+    tabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    hint.hidden = true;
+    if (focus) tab.focus();
+  }
+  hint.hidden = false;
+  tabs.forEach(t => {
+    document.getElementById(t.getAttribute('aria-controls')).hidden = true;
+    t.addEventListener('click', () => {
+      select(t);
+      history.replaceState(null, '', '#' + t.getAttribute('aria-controls'));
+    });
+  });
+  const pre = document.querySelector('[aria-controls="' + location.hash.slice(1) + '"]');
+  if (pre) select(pre);
+})();
+</script>

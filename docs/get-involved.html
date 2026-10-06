@@ -317,7 +317,10 @@
     font-family: var(--font-body); font-size: 18px; line-height: 1.55;
     color: var(--fg-2); margin: 18px 0 0; max-width: 520px;
   }
-  .give p a { color: var(--color-navy); font-weight: 600; }
+  .give-btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .give-btns .donate-link { margin-top: 0; }
+  .donate-link.nap { background: transparent; color: var(--color-navy); box-shadow: inset 0 0 0 2px var(--color-navy); }
+  .donate-link.nap:hover { background: var(--color-navy); color: #fff; }
   .donate-link {
     display: inline-block;
     background: var(--color-navy); color: #fff;
@@ -547,8 +550,11 @@
         <hr class="gold-rule">
         <div class="eyebrow" data-field="f-23">Give today</div>
         <h2 data-field="f-24">Make your gift.</h2>
-        <p data-field="f-25">Gifts of $500 or more qualify for the NAP tax credit. We'll send the paperwork. <a href="nap.html">How NAP credits work →</a></p>
-        <a href="https://cityofpromise.salsalabs.org/donationform2024/index.html" class="donate-link" target="_blank" rel="noopener" data-field="f-26">Donate →</a>
+        <p data-field="f-25">Gifts of $500 or more qualify for the NAP tax credit. We'll send the paperwork.</p>
+        <div class="give-btns">
+          <a href="https://cityofpromise.salsalabs.org/donationform2024/index.html" class="donate-link" target="_blank" rel="noopener" data-field="f-26">Donate →</a>
+          <a href="nap.html" class="donate-link nap" data-field="f-27">NAP tax credit →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -558,23 +564,23 @@
 <section class="section">
   <div class="section-inner">
     <hr class="gold-rule">
-    <h2 data-field="f-27">Other ways to give.</h2>
-    <p class="lede" data-field="f-28">For donors and partners with more to give than a one-time gift.</p>
+    <h2 data-field="f-28">Other ways to give.</h2>
+    <p class="lede" data-field="f-29">For donors and partners with more to give than a one-time gift.</p>
     <div class="other-grid">
       <div class="other-card">
-        <h3 data-field="f-29">Corporate partnership</h3>
-        <p data-field="f-30">Multi-year commitments, employee match programs, in-kind support.</p>
-        <a href="mailto:price@cityofpromise.org" data-field="f-31">Talk to development →</a>
+        <h3 data-field="f-30">Corporate partnership</h3>
+        <p data-field="f-31">Multi-year commitments, employee match programs, in-kind support.</p>
+        <a href="mailto:price@cityofpromise.org" data-field="f-32">Talk to development →</a>
       </div>
       <div class="other-card">
-        <h3 data-field="f-32">Stock &amp; donor-advised funds</h3>
-        <p data-field="f-33">Appreciated securities and DAF grants. We have details.</p>
-        <a href="mailto:price@cityofpromise.org" data-field="f-34">Get wire info →</a>
+        <h3 data-field="f-33">Stock &amp; donor-advised funds</h3>
+        <p data-field="f-34">Appreciated securities and DAF grants. We have details.</p>
+        <a href="mailto:price@cityofpromise.org" data-field="f-35">Get wire info →</a>
       </div>
       <div class="other-card">
-        <h3 data-field="f-35">Bequests &amp; planned giving</h3>
-        <p data-field="f-36">Include City of Promise in your estate plan. Sample bequest language available.</p>
-        <a href="mailto:price@cityofpromise.org" data-field="f-37">Planned giving guide →</a>
+        <h3 data-field="f-36">Bequests &amp; planned giving</h3>
+        <p data-field="f-37">Include City of Promise in your estate plan. Sample bequest language available.</p>
+        <a href="mailto:price@cityofpromise.org" data-field="f-38">Planned giving guide →</a>
       </div>
     </div>
   </div>
@@ -585,21 +591,21 @@
   <div class="section-inner">
     <div class="secondary-grid">
       <div class="secondary-card" id="volunteer">
-        <div class="eyebrow" data-field="f-38">Give time instead</div>
-        <h3 data-field="f-39">Volunteer.</h3>
-        <p data-field="f-40">Tutoring, Walking Bus, food pantries, Nurturing Neighborhood faith-partner pilot. On-site at our seven Community Schools.</p>
+        <div class="eyebrow" data-field="f-39">Give time instead</div>
+        <h3 data-field="f-40">Volunteer.</h3>
+        <p data-field="f-41">Tutoring, Walking Bus, food pantries, Nurturing Neighborhood faith-partner pilot. On-site at our seven Community Schools.</p>
         <div class="btn-row">
-          <a href="volunteer.html" class="btn primary" data-field="f-41">See opportunities</a>
-          <a href="https://volunteer.cityofpromise.org" class="btn ghost" target="_blank" rel="noopener" data-field="f-42">Volunteer Portal</a>
+          <a href="volunteer.html" class="btn primary" data-field="f-42">See opportunities</a>
+          <a href="https://volunteer.cityofpromise.org" class="btn ghost" target="_blank" rel="noopener" data-field="f-43">Volunteer Portal</a>
         </div>
       </div>
       <div class="secondary-card tan" id="partner">
-        <div class="eyebrow" data-field="f-43">Represent an org?</div>
-        <h3 data-field="f-44">Partner with us.</h3>
-        <p data-field="f-45">Community orgs joining the Constellation of care. Researchers studying our dual-generation model.</p>
+        <div class="eyebrow" data-field="f-44">Represent an org?</div>
+        <h3 data-field="f-45">Partner with us.</h3>
+        <p data-field="f-46">Community orgs joining the Constellation of care. Researchers studying our dual-generation model.</p>
         <div class="btn-row">
-          <a href="mailto:info@cityofpromise.org?subject=Partnership%20inquiry%20%E2%80%94%20community%20org" class="btn white" data-field="f-46">For community orgs</a>
-          <a href="mailto:info@cityofpromise.org?subject=Partnership%20inquiry%20%E2%80%94%20researcher" class="btn white" data-field="f-47">For researchers</a>
+          <a href="mailto:info@cityofpromise.org?subject=Partnership%20inquiry%20%E2%80%94%20community%20org" class="btn white" data-field="f-47">For community orgs</a>
+          <a href="mailto:info@cityofpromise.org?subject=Partnership%20inquiry%20%E2%80%94%20researcher" class="btn white" data-field="f-48">For researchers</a>
         </div>
       </div>
     </div>
@@ -610,24 +616,24 @@
 <section class="section navy">
   <div class="section-inner">
     <hr class="gold-rule">
-    <h2 data-field="f-48">Where the money goes.</h2>
-    <p class="lede" data-field="f-49">The work, in numbers. 990s and annual reports public.</p>
+    <h2 data-field="f-49">Where the money goes.</h2>
+    <p class="lede" data-field="f-50">The work, in numbers. 990s and annual reports public.</p>
     <div class="trust-grid">
       <div class="trust-cell">
-        <div class="num" data-field="f-50">3</div>
-        <div class="label" data-field="f-51">connected programs, one family</div>
+        <div class="num" data-field="f-51">3</div>
+        <div class="label" data-field="f-52">connected programs, one family</div>
       </div>
       <div class="trust-cell">
-        <div class="num" data-field="f-52">6</div>
-        <div class="label" data-field="f-53">Community School sites</div>
+        <div class="num" data-field="f-53">6</div>
+        <div class="label" data-field="f-54">Community School sites</div>
       </div>
       <div class="trust-cell">
-        <div class="num" data-field="f-54">334</div>
-        <div class="label" data-field="f-55">people servicing</div>
+        <div class="num" data-field="f-55">334</div>
+        <div class="label" data-field="f-56">people servicing</div>
       </div>
       <div class="trust-cell">
-        <div class="num" data-field="f-56">$1.3M</div>
-        <div class="label" data-field="f-57">raised in FY2026</div>
+        <div class="num" data-field="f-57">$1.3M</div>
+        <div class="label" data-field="f-58">raised in FY2026</div>
       </div>
     </div>
   </div>
@@ -780,7 +786,7 @@
   <span id="edit-status" class="edit-status">viewing</span>
   <button id="edit-revert" type="button" class="ghost" style="display:none;">Discard</button>
 </div>
-<script src="assets/edit.js?v=1791231357492" defer></script>
+<script src="assets/edit.js?v=1791290925715" defer></script>
 
 
 </body>
