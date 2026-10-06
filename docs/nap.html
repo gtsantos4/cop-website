@@ -186,29 +186,6 @@
     margin: 14px 4px 0; font-size: 13px; line-height: 1.55; color: var(--fg-3);
   }
 
-  /* ---------- Impact ---------- */
-  .impact {
-    margin-top: 40px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-  .impact-card {
-    background: #fff;
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-card);
-    padding: 28px;
-  }
-  .impact-card h3 {
-    font-family: var(--font-display); font-weight: 600;
-    font-size: 22px; line-height: 1.2; letter-spacing: -0.3px;
-    color: var(--color-navy); margin: 0 0 12px;
-  }
-  .impact-card p {
-    font-family: var(--font-body); font-size: 15px; line-height: 1.55;
-    color: var(--fg-2); margin: 0;
-  }
-
   /* ---------- Steps ---------- */
   .steps {
     list-style: none; padding: 0; margin: 40px 0 0;
@@ -318,7 +295,7 @@
   @media (max-width: 900px) {
     .hero, .section { padding-left: 24px; padding-right: 24px; }
     .hero h1 { font-size: 44px; }
-    .tiers, .impact { grid-template-columns: 1fr; }
+    .tiers { grid-template-columns: 1fr; }
     .choices { grid-template-columns: 1fr; }
   }
   @media (max-width: 520px) {
@@ -379,83 +356,61 @@
   </div>
 </section>
 
-<!-- ============ WHAT IT FUNDS ============ -->
-<section class="section tan">
-  <div class="section-inner">
-    <hr class="gold-rule">
-    <h2 data-field="f-36">What your NAP gift funds.</h2>
-    <div class="impact">
-      <div class="impact-card">
-        <h3 data-field="f-37">Dreambuilders</h3>
-        <p data-field="f-38">Families pursuing their own self-sufficiency goals.</p>
-      </div>
-      <div class="impact-card">
-        <h3 data-field="f-39">Pathways</h3>
-        <p data-field="f-40">Coached students exploring college and career opportunities.</p>
-      </div>
-      <div class="impact-card">
-        <h3 data-field="f-41">LaunchPad</h3>
-        <p data-field="f-42">The Community School model at Venable Elementary, focused on closing literacy and attendance gaps.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ HOW TO CLAIM ============ -->
-<section class="section" id="claim">
+<section class="section tan" id="claim">
   <div class="section-inner">
     <hr class="gold-rule">
-    <h2 data-field="f-43">How to claim your credit.</h2>
-    <p class="lede" data-field="f-44">Make your gift, then send us the NAP tax credit request form. We handle the filing with the state.</p>
+    <h2 data-field="f-36">How to claim your credit.</h2>
+    <p class="lede" data-field="f-37">Make your gift, then send us the NAP tax credit request form. We handle the filing with the state.</p>
 
-    <p class="claim-q" data-field="f-45"><span class="num">1</span>Make your gift.</p>
-    <p class="claim-gift" data-field="f-46"><a href="https://cityofpromise.salsalabs.org/donationform2024/index.html" target="_blank" rel="noopener">Donate online</a> or mail a check. Gifts of $500 or more qualify.</p>
+    <p class="claim-q" data-field="f-38"><span class="num">1</span>Make your gift.</p>
+    <p class="claim-gift" data-field="f-39"><a href="https://cityofpromise.salsalabs.org/donationform2024/index.html" target="_blank" rel="noopener">Donate online</a> or mail a check. Gifts of $500 or more qualify.</p>
 
-    <p class="claim-q" id="claim-q"><span class="num" data-field="f-47">2</span><span id="claim-q-text" data-field="f-48">How would you like to send your NAP form?</span></p>
+    <p class="claim-q" id="claim-q"><span class="num" data-field="f-40">2</span><span id="claim-q-text" data-field="f-41">How would you like to send your NAP form?</span></p>
     <div class="choices" role="tablist" aria-labelledby="claim-q">
       <button type="button" class="choice" role="tab" id="tab-online" aria-controls="claim-online" aria-selected="false">
-        <span class="tag" data-field="f-49">Fastest</span>
-        <span class="t" data-field="f-50">Fill out &amp; sign online</span>
-        <span class="d" data-field="f-51">Complete and e-sign the form in your browser. Nothing to download or email.</span>
+        <span class="tag" data-field="f-42">Fastest</span>
+        <span class="t" data-field="f-43">Fill out &amp; sign online</span>
+        <span class="d" data-field="f-44">Complete and e-sign the form in your browser. Nothing to download or email.</span>
       </button>
       <button type="button" class="choice" role="tab" id="tab-download" aria-controls="claim-download" aria-selected="false">
-        <span class="tag plain" data-field="f-52">Prefer paper?</span>
-        <span class="t" data-field="f-53">Download &amp; upload</span>
-        <span class="d" data-field="f-54">Fill out the form on your computer or by hand, then upload it to our secure folder.</span>
+        <span class="tag plain" data-field="f-45">Prefer paper?</span>
+        <span class="t" data-field="f-46">Download &amp; upload</span>
+        <span class="d" data-field="f-47">Fill out the form on your computer or by hand, then upload it to our secure folder.</span>
       </button>
     </div>
-    <p class="claim-hint" id="claim-hint" hidden data-field="f-55">Choose an option to see the steps.</p>
+    <p class="claim-hint" id="claim-hint" hidden data-field="f-48">Choose an option to see the steps.</p>
 
     <div class="claim-path" id="claim-online" role="tabpanel" aria-labelledby="tab-online">
       <ol class="steps">
-        <li data-field="f-56"><strong>Open the secure form.</strong> It is your copy of the NAP tax credit request form.</li>
-        <li data-field="f-57"><strong>Fill in every field and sign.</strong> Your information, including your Social Security number, goes straight to our encrypted e-signature service, never to email.</li>
-        <li data-field="f-58"><strong>Done.</strong> You will get a signed copy by email, and we are notified automatically.</li>
+        <li data-field="f-49"><strong>Open the secure form.</strong> It is your copy of the NAP tax credit request form.</li>
+        <li data-field="f-50"><strong>Fill in every field and sign.</strong> Your information, including your Social Security number, goes straight to our encrypted e-signature service, never to email.</li>
+        <li data-field="f-51"><strong>Done.</strong> You will get a signed copy by email, and we are notified automatically.</li>
       </ol>
       <div class="btn-row">
         <!-- Coming soon until the Dropbox Sign template link exists. To go
              live: replace this span with
              <a href="DROPBOX_SIGN_LINK" class="btn primary" target="_blank" rel="noopener">Fill out &amp; sign the form →</a>
              and delete the .soon-note paragraph. -->
-        <span class="btn primary is-disabled" aria-disabled="true" data-field="f-59">Online form coming soon</span>
+        <span class="btn primary is-disabled" aria-disabled="true" data-field="f-52">Online form coming soon</span>
       </div>
-      <p class="soon-note" data-field="f-60">Online signing is almost ready. In the meantime, please use <a href="#claim-download" data-switch="tab-download">Download &amp; upload</a>.</p>
+      <p class="soon-note" data-field="f-53">Online signing is almost ready. In the meantime, please use <a href="#claim-download" data-switch="tab-download">Download &amp; upload</a>.</p>
     </div>
 
     <div class="claim-path" id="claim-download" role="tabpanel" aria-labelledby="tab-download">
       <ol class="steps">
-        <li data-field="f-61"><strong>Download the form</strong> and fill in every field.</li>
-        <li data-field="f-62"><strong>Upload the completed form</strong> to our <a href="https://www.dropbox.com/request/HeJAvdgr6lMaOvpkvHzh" target="_blank" rel="noopener">secure Dropbox folder</a>.</li>
-        <li data-field="f-63"><strong>Email us</strong> at <a href="mailto:tmorris@cityofpromise.org?subject=%5BYOUR%20LAST%20NAME%5D_NAP%20COMPLETE">tmorris@cityofpromise.org</a> with the subject line “[YOUR LAST NAME]_NAP COMPLETE”.</li>
+        <li data-field="f-54"><strong>Download the form</strong> and fill in every field.</li>
+        <li data-field="f-55"><strong>Upload the completed form</strong> to our <a href="https://www.dropbox.com/request/HeJAvdgr6lMaOvpkvHzh" target="_blank" rel="noopener">secure Dropbox folder</a>.</li>
+        <li data-field="f-56"><strong>Email us</strong> at <a href="mailto:tmorris@cityofpromise.org?subject=%5BYOUR%20LAST%20NAME%5D_NAP%20COMPLETE">tmorris@cityofpromise.org</a> with the subject line “[YOUR LAST NAME]_NAP COMPLETE”.</li>
       </ol>
       <div class="btn-row">
-        <a href="https://www.dropbox.com/scl/fi/hxolulejjya5gy81xrnie/Tax-Credit-Request_BLANK.docx?rlkey=0j6yv2n8bv7i5530om2dz97s1&amp;st=e699wlef&amp;dl=0" class="btn primary" target="_blank" rel="noopener" data-field="f-64">Download the form</a>
-        <a href="https://www.dropbox.com/request/HeJAvdgr6lMaOvpkvHzh" class="btn ghost" target="_blank" rel="noopener" data-field="f-65">Upload completed form</a>
+        <a href="https://www.dropbox.com/scl/fi/hxolulejjya5gy81xrnie/Tax-Credit-Request_BLANK.docx?rlkey=0j6yv2n8bv7i5530om2dz97s1&amp;st=e699wlef&amp;dl=0" class="btn primary" target="_blank" rel="noopener" data-field="f-57">Download the form</a>
+        <a href="https://www.dropbox.com/request/HeJAvdgr6lMaOvpkvHzh" class="btn ghost" target="_blank" rel="noopener" data-field="f-58">Upload completed form</a>
       </div>
     </div>
 
-    <p class="claim-after" data-field="f-66"><strong>Then we take it from there.</strong> City of Promise signs the form, submits it to VDOE, and sends you your tax certificate once it is approved. See the <a href="https://www.dropbox.com/scl/fi/txcef5x4j3af6lop66dj3/NAP-Terms-Conditions.pdf?rlkey=nzaj4lnu4yau95tuettba35ht&amp;e=1&amp;st=rtykxgad&amp;dl=0" target="_blank" rel="noopener">terms &amp; details</a>.</p>
-    <p class="disclaimer" data-field="f-67">Questions? Email <a href="mailto:tmorris@cityofpromise.org">tmorris@cityofpromise.org</a>. Please consult your tax professional or financial advisor to evaluate how these programs affect your individual tax situation.</p>
+    <p class="claim-after" data-field="f-59"><strong>Then we take it from there.</strong> City of Promise signs the form, submits it to VDOE, and sends you your tax certificate once it is approved. See the <a href="https://www.dropbox.com/scl/fi/txcef5x4j3af6lop66dj3/NAP-Terms-Conditions.pdf?rlkey=nzaj4lnu4yau95tuettba35ht&amp;e=1&amp;st=rtykxgad&amp;dl=0" target="_blank" rel="noopener">terms &amp; details</a>.</p>
+    <p class="disclaimer" data-field="f-60">Questions? Email <a href="mailto:tmorris@cityofpromise.org">tmorris@cityofpromise.org</a>. Please consult your tax professional or financial advisor to evaluate how these programs affect your individual tax situation.</p>
   </div>
 </section>
 
@@ -587,7 +542,7 @@
   <span id="edit-status" class="edit-status">viewing</span>
   <button id="edit-revert" type="button" class="ghost" style="display:none;">Discard</button>
 </div>
-<script src="assets/edit.js?v=1791291224111" defer></script>
+<script src="assets/edit.js?v=1791292079300" defer></script>
 
 
 </body>

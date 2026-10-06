@@ -104,29 +104,6 @@ editPage: nap.html
     margin: 14px 4px 0; font-size: 13px; line-height: 1.55; color: var(--fg-3);
   }
 
-  /* ---------- Impact ---------- */
-  .impact {
-    margin-top: 40px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-  .impact-card {
-    background: #fff;
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-card);
-    padding: 28px;
-  }
-  .impact-card h3 {
-    font-family: var(--font-display); font-weight: 600;
-    font-size: 22px; line-height: 1.2; letter-spacing: -0.3px;
-    color: var(--color-navy); margin: 0 0 12px;
-  }
-  .impact-card p {
-    font-family: var(--font-body); font-size: 15px; line-height: 1.55;
-    color: var(--fg-2); margin: 0;
-  }
-
   /* ---------- Steps ---------- */
   .steps {
     list-style: none; padding: 0; margin: 40px 0 0;
@@ -236,7 +213,7 @@ editPage: nap.html
   @media (max-width: 900px) {
     .hero, .section { padding-left: 24px; padding-right: 24px; }
     .hero h1 { font-size: 44px; }
-    .tiers, .impact { grid-template-columns: 1fr; }
+    .tiers { grid-template-columns: 1fr; }
     .choices { grid-template-columns: 1fr; }
   }
   @media (max-width: 520px) {
@@ -297,30 +274,8 @@ editPage: nap.html
   </div>
 </section>
 
-<!-- ============ WHAT IT FUNDS ============ -->
-<section class="section tan">
-  <div class="section-inner">
-    <hr class="gold-rule">
-    <h2>What your NAP gift funds.</h2>
-    <div class="impact">
-      <div class="impact-card">
-        <h3>Dreambuilders</h3>
-        <p>Families pursuing their own self-sufficiency goals.</p>
-      </div>
-      <div class="impact-card">
-        <h3>Pathways</h3>
-        <p>Coached students exploring college and career opportunities.</p>
-      </div>
-      <div class="impact-card">
-        <h3>LaunchPad</h3>
-        <p>The Community School model at Venable Elementary, focused on closing literacy and attendance gaps.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ HOW TO CLAIM ============ -->
-<section class="section" id="claim">
+<section class="section tan" id="claim">
   <div class="section-inner">
     <hr class="gold-rule">
     <h2>How to claim your credit.</h2>
