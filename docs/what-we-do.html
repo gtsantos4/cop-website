@@ -343,12 +343,12 @@
     background: #fff;
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-photo);
-    padding: 24px 32px 30px;
+    padding: 18px 32px 22px;
   }
   .fj-lineup-hint {
     font-family: var(--font-body); font-size: 13px; font-weight: 500;
     color: var(--fg-3); text-align: center;
-    margin: 26px 0 0;
+    margin: 18px 0 0;
   }
   .fj-lineup-row {
     display: flex; align-items: flex-end; justify-content: center;
@@ -376,12 +376,12 @@
   .fj-figure-btn[data-selected="true"] .fj-silhouette { background-color: var(--color-gold); opacity: 1; }
   .fj-figure-btn:hover .fj-silhouette { opacity: 1; }
   .fj-figure-meta {
-    margin-top: 14px;
+    margin-top: 10px;
     display: flex; flex-direction: column; align-items: center; gap: 4px;
     min-width: 90px;
   }
   .fj-figure-name {
-    font-family: var(--font-display); font-size: 20px; font-weight: 600;
+    font-family: var(--font-display); font-size: 18px; font-weight: 600;
     letter-spacing: -0.3px; color: var(--color-navy);
     transition: color 180ms var(--ease);
   }
@@ -516,7 +516,8 @@
   }
   @media (max-width: 700px) {
     .fj-lineup { padding: 20px 12px 16px; overflow: hidden; }
-    .fj-lineup-row { gap: 16px; transform: scale(0.55); transform-origin: bottom center; margin-bottom: -26px; }
+    .fj-lineup-hint { margin-top: 26px; }
+    .fj-lineup-row { gap: 16px; transform: scale(0.72); transform-origin: bottom center; margin-bottom: -26px; }
     .fj-grid { grid-template-columns: minmax(0, 1fr); }
     .fj-detail-name { font-size: 32px; letter-spacing: -0.5px; }
   }
@@ -648,7 +649,7 @@
     const ordered = [...FAMILY].sort((a, b) => b.age - a.age);
     const row = document.getElementById('fj-lineup-row');
     row.innerHTML = ordered.map(p => {
-      const h = heightForAge(p.age) * (p.scale ?? 1) * 0.7875;
+      const h = heightForAge(p.age) * (p.scale ?? 1) * 0.6;
       const w = h * (p.aspect ?? 0.62);
       return `
         <button type="button" class="fj-figure-btn" data-id="${p.id}" data-selected="${p.id === selId}" aria-pressed="${p.id === selId}">
@@ -895,7 +896,7 @@
   <span id="edit-status" class="edit-status">viewing</span>
   <button id="edit-revert" type="button" class="ghost" style="display:none;">Discard</button>
 </div>
-<script src="assets/edit.js?v=1785197644586" defer></script>
+<script src="assets/edit.js?v=1791291308682" defer></script>
 
 
 </body>
