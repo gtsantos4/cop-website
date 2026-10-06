@@ -348,7 +348,7 @@
   .fj-lineup-hint {
     font-family: var(--font-body); font-size: 13px; font-weight: 500;
     color: var(--fg-3); text-align: center;
-    margin: 18px 0 0;
+    margin: 28px 0 0;
   }
   .fj-lineup-row {
     display: flex; align-items: flex-end; justify-content: center;
@@ -516,8 +516,9 @@
   }
   @media (max-width: 700px) {
     .fj-lineup { padding: 20px 12px 16px; overflow: hidden; }
-    .fj-lineup-hint { margin-top: 26px; }
-    .fj-lineup-row { gap: 16px; transform: scale(0.72); transform-origin: bottom center; margin-bottom: -26px; }
+    .fj-lineup-hint { margin-top: 32px; }
+    .fj-lineup-row { flex-wrap: wrap; row-gap: 28px; column-gap: 0; }
+    .fj-figure-btn { flex: 0 0 50%; }
     .fj-grid { grid-template-columns: minmax(0, 1fr); }
     .fj-detail-name { font-size: 32px; letter-spacing: -0.5px; }
   }
@@ -896,7 +897,7 @@
   <span id="edit-status" class="edit-status">viewing</span>
   <button id="edit-revert" type="button" class="ghost" style="display:none;">Discard</button>
 </div>
-<script src="assets/edit.js?v=1791291308682" defer></script>
+<script src="assets/edit.js?v=1791291426526" defer></script>
 
 
 </body>
