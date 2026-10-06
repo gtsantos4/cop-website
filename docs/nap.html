@@ -305,6 +305,10 @@
   .claim-path .steps { margin-top: 24px; }
   .claim-path .btn-row { margin-top: 24px; }
   .claim-hint { margin: 16px 0 0; font-size: 14px; color: var(--fg-3); }
+  .btn.is-disabled { opacity: .45; cursor: not-allowed; }
+  .btn.is-disabled:hover { background: var(--color-navy); }
+  .soon-note { margin: 12px 0 0; font-size: 14px; color: var(--fg-3); }
+  .soon-note a { color: var(--color-primary); }
   .claim-after {
     margin: 32px 0 0; max-width: 820px;
     font-family: var(--font-body); font-size: 16px; line-height: 1.55; color: var(--fg-2);
@@ -409,7 +413,7 @@
 
     <p class="claim-q" id="claim-q"><span class="num" data-field="f-47">2</span><span id="claim-q-text" data-field="f-48">How would you like to send your NAP form?</span></p>
     <div class="choices" role="tablist" aria-labelledby="claim-q">
-      <button type="button" class="choice" role="tab" id="tab-online" aria-controls="claim-online" aria-selected="false" hidden>
+      <button type="button" class="choice" role="tab" id="tab-online" aria-controls="claim-online" aria-selected="false">
         <span class="tag" data-field="f-49">Fastest</span>
         <span class="t" data-field="f-50">Fill out &amp; sign online</span>
         <span class="d" data-field="f-51">Complete and e-sign the form in your browser. Nothing to download or email.</span>
@@ -422,33 +426,36 @@
     </div>
     <p class="claim-hint" id="claim-hint" hidden data-field="f-55">Choose an option to see the steps.</p>
 
-    <!-- Online path is hidden until the Dropbox Sign template link exists:
-         swap NAP_SIGN_LINK below and remove `hidden` here and on #tab-online. -->
-    <div class="claim-path" id="claim-online" role="tabpanel" aria-labelledby="tab-online" hidden>
+    <div class="claim-path" id="claim-online" role="tabpanel" aria-labelledby="tab-online">
       <ol class="steps">
         <li data-field="f-56"><strong>Open the secure form.</strong> It is your copy of the NAP tax credit request form.</li>
         <li data-field="f-57"><strong>Fill in every field and sign.</strong> Your information, including your Social Security number, goes straight to our encrypted e-signature service, never to email.</li>
         <li data-field="f-58"><strong>Done.</strong> You will get a signed copy by email, and we are notified automatically.</li>
       </ol>
       <div class="btn-row">
-        <a href="NAP_SIGN_LINK" class="btn primary" target="_blank" rel="noopener" data-field="f-59">Fill out &amp; sign the form →</a>
+        <!-- Coming soon until the Dropbox Sign template link exists. To go
+             live: replace this span with
+             <a href="DROPBOX_SIGN_LINK" class="btn primary" target="_blank" rel="noopener">Fill out &amp; sign the form →</a>
+             and delete the .soon-note paragraph. -->
+        <span class="btn primary is-disabled" aria-disabled="true" data-field="f-59">Online form coming soon</span>
       </div>
+      <p class="soon-note" data-field="f-60">Online signing is almost ready. In the meantime, please use <a href="#claim-download" data-switch="tab-download">Download &amp; upload</a>.</p>
     </div>
 
     <div class="claim-path" id="claim-download" role="tabpanel" aria-labelledby="tab-download">
       <ol class="steps">
-        <li data-field="f-60"><strong>Download the form</strong> and fill in every field.</li>
-        <li data-field="f-61"><strong>Upload the completed form</strong> to our <a href="https://www.dropbox.com/request/HeJAvdgr6lMaOvpkvHzh" target="_blank" rel="noopener">secure Dropbox folder</a>.</li>
-        <li data-field="f-62"><strong>Email us</strong> at <a href="mailto:tmorris@cityofpromise.org?subject=%5BYOUR%20LAST%20NAME%5D_NAP%20COMPLETE">tmorris@cityofpromise.org</a> with the subject line “[YOUR LAST NAME]_NAP COMPLETE”.</li>
+        <li data-field="f-61"><strong>Download the form</strong> and fill in every field.</li>
+        <li data-field="f-62"><strong>Upload the completed form</strong> to our <a href="https://www.dropbox.com/request/HeJAvdgr6lMaOvpkvHzh" target="_blank" rel="noopener">secure Dropbox folder</a>.</li>
+        <li data-field="f-63"><strong>Email us</strong> at <a href="mailto:tmorris@cityofpromise.org?subject=%5BYOUR%20LAST%20NAME%5D_NAP%20COMPLETE">tmorris@cityofpromise.org</a> with the subject line “[YOUR LAST NAME]_NAP COMPLETE”.</li>
       </ol>
       <div class="btn-row">
-        <a href="https://www.dropbox.com/scl/fi/hxolulejjya5gy81xrnie/Tax-Credit-Request_BLANK.docx?rlkey=0j6yv2n8bv7i5530om2dz97s1&amp;st=e699wlef&amp;dl=0" class="btn primary" target="_blank" rel="noopener" data-field="f-63">Download the form</a>
-        <a href="https://www.dropbox.com/request/HeJAvdgr6lMaOvpkvHzh" class="btn ghost" target="_blank" rel="noopener" data-field="f-64">Upload completed form</a>
+        <a href="https://www.dropbox.com/scl/fi/hxolulejjya5gy81xrnie/Tax-Credit-Request_BLANK.docx?rlkey=0j6yv2n8bv7i5530om2dz97s1&amp;st=e699wlef&amp;dl=0" class="btn primary" target="_blank" rel="noopener" data-field="f-64">Download the form</a>
+        <a href="https://www.dropbox.com/request/HeJAvdgr6lMaOvpkvHzh" class="btn ghost" target="_blank" rel="noopener" data-field="f-65">Upload completed form</a>
       </div>
     </div>
 
-    <p class="claim-after" data-field="f-65"><strong>Then we take it from there.</strong> City of Promise signs the form, submits it to VDOE, and sends you your tax certificate once it is approved. See the <a href="https://www.dropbox.com/scl/fi/txcef5x4j3af6lop66dj3/NAP-Terms-Conditions.pdf?rlkey=nzaj4lnu4yau95tuettba35ht&amp;e=1&amp;st=rtykxgad&amp;dl=0" target="_blank" rel="noopener">terms &amp; details</a>.</p>
-    <p class="disclaimer" data-field="f-66">Questions? Email <a href="mailto:tmorris@cityofpromise.org">tmorris@cityofpromise.org</a>. Please consult your tax professional or financial advisor to evaluate how these programs affect your individual tax situation.</p>
+    <p class="claim-after" data-field="f-66"><strong>Then we take it from there.</strong> City of Promise signs the form, submits it to VDOE, and sends you your tax certificate once it is approved. See the <a href="https://www.dropbox.com/scl/fi/txcef5x4j3af6lop66dj3/NAP-Terms-Conditions.pdf?rlkey=nzaj4lnu4yau95tuettba35ht&amp;e=1&amp;st=rtykxgad&amp;dl=0" target="_blank" rel="noopener">terms &amp; details</a>.</p>
+    <p class="disclaimer" data-field="f-67">Questions? Email <a href="mailto:tmorris@cityofpromise.org">tmorris@cityofpromise.org</a>. Please consult your tax professional or financial advisor to evaluate how these programs affect your individual tax situation.</p>
   </div>
 </section>
 
@@ -483,6 +490,12 @@
       history.replaceState(null, '', '#' + t.getAttribute('aria-controls'));
     });
   });
+  document.querySelectorAll('[data-switch]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.getElementById(a.dataset.switch);
+    select(t, true);
+    history.replaceState(null, '', '#' + t.getAttribute('aria-controls'));
+  }));
   const pre = document.querySelector('[aria-controls="' + location.hash.slice(1) + '"]');
   if (pre) select(pre);
 })();
@@ -574,7 +587,7 @@
   <span id="edit-status" class="edit-status">viewing</span>
   <button id="edit-revert" type="button" class="ghost" style="display:none;">Discard</button>
 </div>
-<script src="assets/edit.js?v=1791291075386" defer></script>
+<script src="assets/edit.js?v=1791291224111" defer></script>
 
 
 </body>
