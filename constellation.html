@@ -116,6 +116,8 @@
     position:absolute;top:0;left:0;
     width:var(--world-w);height:var(--world-h);
     transform-origin:0 0;will-change:transform;
+    /* Above the wires so lines pass behind the child and the stars */
+    z-index:2;
   }
   svg.wires{
     position:absolute;top:0;left:0;width:100%;height:100%;
@@ -134,8 +136,8 @@
     display:block;
     width:100%;height:100%;
     object-fit:contain;
-    /* slight paper-printed warmth */
-    opacity:.92;
+    /* fully opaque so the wires don't show through */
+    opacity:1;
     filter:drop-shadow(0 2px 0 rgba(7,48,91,0.06));
   }
   /* Stars — hand-drawn ink dots */
@@ -412,7 +414,7 @@
     <aside class="panel" id="panel">
       <button class="close" id="close" aria-label="close">×</button>
       <span class="gold-rule"></span>
-      <div class="idx" id="p-idx">Node · 01</div>
+      <div class="idx" id="p-idx">01</div>
       <h3 id="p-name">—</h3>
       <p class="tagline" id="p-tag">—</p>
       <p id="p-desc">—</p>
@@ -756,13 +758,13 @@ function clamp(){
 }
 
 let animRAF = null;
-function animateTo(fx, fy, targetScale, duration=650){
+function animateTo(fx, fy, targetScale, duration=650, besidePanel=true){
   if(animRAF) cancelAnimationFrame(animRAF);
   const vw = viewport.clientWidth, vh = viewport.clientHeight;
   const expanded = document.body.classList.contains('expanded');
   const panelW = expanded ? 380 : 340;
   const panelGap = expanded ? 48 : 24;
-  const panelOffset = (panelW + panelGap) / 2;
+  const panelOffset = besidePanel ? (panelW + panelGap) / 2 : 0;
   const focusX = vw/2 - panelOffset;
   const focusY = vh/2;
 
@@ -809,16 +811,24 @@ function fitWorld(){
   ty = vh/2 - _CY*WORLD_H*scale;
   applyTransform();
 }
+// Animated version of fitWorld: zoom back out and recenter on the child.
+function zoomHome(){
+  const vw = viewport.clientWidth, vh = viewport.clientHeight;
+  if(vw===0||vh===0) return;
+  MIN_SCALE = Math.min(vw / WORLD_W, vh / WORLD_H) * 0.98;
+  animateTo(_CX, _CY, MIN_SCALE, 650, false);
+}
 
-let panning=false, sx=0, sy=0, stx=0, sty=0;
+let panning=false, dragged=false, sx=0, sy=0, stx=0, sty=0;
 viewport.addEventListener('pointerdown', e=>{
   if(animRAF){ cancelAnimationFrame(animRAF); animRAF=null; }
-  panning=true; sx=e.clientX; sy=e.clientY; stx=tx; sty=ty;
+  panning=true; dragged=false; sx=e.clientX; sy=e.clientY; stx=tx; sty=ty;
   viewport.classList.add('panning');
   try{viewport.setPointerCapture(e.pointerId)}catch(_){}
 });
 viewport.addEventListener('pointermove', e=>{
   if(!panning) return;
+  if(Math.abs(e.clientX-sx)+Math.abs(e.clientY-sy) > 4) dragged=true;
   tx = stx + (e.clientX-sx);
   ty = sty + (e.clientY-sy);
   clamp(); applyTransform();
@@ -832,8 +842,13 @@ viewport.addEventListener('pointerup', endPan);
 viewport.addEventListener('pointercancel', endPan);
 viewport.addEventListener('pointerleave', endPan);
 
-viewport.addEventListener('click', e=>{
-  if(e.target === viewport || e.target === world){ deselect(); }
+// Clicking anywhere outside the panel closes it (but not the end of a drag-pan,
+// a star, or the zoom toolbar).
+document.addEventListener('click', e=>{
+  if(!panel.classList.contains('open')) return;
+  if(dragged){ dragged=false; return; }
+  if(e.target.closest('#panel, .star, .toolbar')) return;
+  deselect();
 });
 
 viewport.addEventListener('wheel', e=>{
@@ -896,7 +911,7 @@ function select(id){
       sp.setAttribute('stroke', isActive ? 'rgba(7,48,91,0.45)' : 'rgba(7,48,91,0.16)');
       sp.setAttribute('stroke-width', isActive ? '1.4' : '1.0');
     });
-    pIdx.textContent = `Node · ${String(i+1).padStart(2,'0')} of ${STARS.length}`;
+    pIdx.textContent = `${String(i+1).padStart(2,'0')} of ${STARS.length}`;
     pName.textContent = s.name;
     pTag.textContent = info.tagline;
     pDesc.textContent = info.desc;
@@ -912,7 +927,9 @@ function select(id){
   });
 }
 function deselect(){
+  if(!panel.classList.contains('open')) return;
   panel.classList.remove('open');
+  zoomHome();
   starEls.forEach(el=>el.classList.remove('active'));
   labelEls.forEach(el=>el.classList.remove('active'));
   wireEls.forEach(l=>{
