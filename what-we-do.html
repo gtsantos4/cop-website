@@ -471,14 +471,14 @@ editPage: what-we-do.html
 <script>
 (function () {
   const FAMILY = [
-    { id: 'mom',     name: 'Keisha', age: 32, role: 'Single parent',        scale: 1.0, aspect: 0.844, mask: 'assets/masks/person-mask-mom.png',
-      bio: "Keisha is a single mom raising three kids — Isaiah, Jada, and Malik — while working full time. Long days, a schedule that rarely lines up with school pickups, and no slack in the budget when something breaks. City of Promise's job is to make sure she isn't carrying it alone: one coach who knows the whole picture, and every program pulling in the same direction." },
-    { id: 'teen',    name: 'Isaiah', age: 14, role: 'CHS freshman',         scale: 1.2, aspect: 0.840, mask: 'assets/masks/person-mask-teen.png',
-      bio: "Isaiah just started his freshman year at Charlottesville High — one of the six school sites where CoP staff are embedded. He's sharp and curious but still finding his footing in a bigger building, and he lights up when an adult actually asks what he thinks." },
-    { id: 'child',   name: 'Jada',   age:  8, role: 'Grade 3',              scale: 1.2, aspect: 0.754, mask: 'assets/masks/person-mask-child.png',
-      bio: "Jada is in third grade at Trailblazer Elementary. She loves reading out loud and draws horses in the margins of everything. Reading clicked a little late for her, so the tutoring matters — and so does knowing there's a snack waiting and a familiar adult who notices when her day has been hard." },
-    { id: 'toddler', name: 'Malik',  age:  2, role: 'Pre-K age',            scale: 1.2, aspect: 0.606, mask: 'assets/masks/person-mask-toddler.png',
-      bio: "Malik is two and into everything — stacking blocks, naming every truck that drives by, and testing every 'no.' The years before kindergarten are where the gap starts, so the model starts here too: learning time with his mom, a path to quality childcare, and a neighborhood of adults who know his name." },
+    { id: 'mom',     name: 'Terry',  age: 32, role: 'Single parent',        scale: 1.0, aspect: 0.844, mask: 'assets/masks/person-mask-mom.png',
+      bio: "Terry is a single mom raising three kids — Greg, Mia, and Liz — while working full time. Long days, a schedule that rarely lines up with school pickups, and no slack in the budget when something breaks. City of Promise's job is to make sure she isn't carrying it alone: one coach who knows the whole picture, and every program pulling in the same direction." },
+    { id: 'teen',    name: 'Greg',   age: 14, grade: 'Grade 9', role: 'CHS freshman',         scale: 1.2, aspect: 0.840, mask: 'assets/masks/person-mask-teen.png',
+      bio: "Greg just started his freshman year at Charlottesville High — one of the six school sites where CoP staff are embedded. He's sharp and curious but still finding his footing in a bigger building, and he lights up when an adult actually asks what he thinks." },
+    { id: 'child',   name: 'Mia',    age:  8, grade: 'Grade 3', role: 'Grade 3',              scale: 1.2, aspect: 0.754, mask: 'assets/masks/person-mask-child.png',
+      bio: "Mia is in third grade at Trailblazer Elementary. She loves reading out loud and draws horses in the margins of everything. Reading clicked a little late for her, so the tutoring matters — and so does knowing there's a snack waiting and a familiar adult who notices when her day has been hard." },
+    { id: 'toddler', name: 'Liz',    age:  2, grade: 'Pre-K', role: 'Pre-K age',            scale: 1.2, aspect: 0.606, mask: 'assets/masks/person-mask-toddler.png',
+      bio: "Liz is two and into everything — stacking blocks, naming every truck that drives by, and testing every 'no.' The years before kindergarten are where the gap starts, so the model starts here too: learning time with her mom, a path to quality childcare, and a neighborhood of adults who know her name." },
   ];
 
   const PROGRAMS = {
@@ -525,7 +525,7 @@ editPage: what-we-do.html
     ],
     teen: [
       { program:'cs', title:'Community School Coordinator', cadence:'Daily · in-school', cats:['mentoring'],
-        summary:'CoP staff embedded at Charlottesville High — a trusted adult inside the building who knows Isaiah, his teachers, and his mom, and catches the hard days early.' },
+        summary:'CoP staff embedded at Charlottesville High — a trusted adult inside the building who knows Greg, his teachers, and his mom, and catches the hard days early.' },
       { program:'cs', title:'After-school tutoring', cadence:'4×/week', cats:['mentoring','extras'],
         summary:'Small-group tutoring four days a week — 40+ hours of added instruction a year, in the building he already attends.' },
       { program:'cs', title:'Tour of the Town', cadence:'Year-round trips', cats:['workforce','extras'],
@@ -541,13 +541,13 @@ editPage: what-we-do.html
       { program:'cs', title:'Summer tutoring + YMCA', cadence:'Summer mornings', cats:['extras','childcare'],
         summary:'A summer literacy program that staves off the "summer slide" of 10+ unstructured weeks. Participation also unlocks YMCA enrollment, easing the childcare load on a working parent.' },
       { program:'cs', title:'Community School Coordinator', cadence:'Daily · in-school', cats:['mentoring'],
-        summary:'A trusted adult embedded at Trailblazer who knows Jada, her teachers, and her family — the bridge between school routines and home life.' },
+        summary:'A trusted adult embedded at Trailblazer who knows Mia, her teachers, and her family — the bridge between school routines and home life.' },
     ],
     toddler: [
       { program:'db', title:'P.A.C.T. Time', cadence:'Weekly', cats:['childcare','mentoring'],
-        summary:"Structured Parent And Child Together time — Keisha and Malik learning side by side as part of the Dreambuilders week, building school readiness before there's a school." },
+        summary:"Structured Parent And Child Together time — Terry and Liz learning side by side as part of the Dreambuilders week, building school readiness before there's a school." },
       { program:'fe', title:'Childcare navigation', cadence:'As needed', cats:['childcare'],
-        summary:'Help finding, applying for, and holding a quality childcare and Pre-K spot — the difference between Keisha keeping full-time hours and losing them.' },
+        summary:'Help finding, applying for, and holding a quality childcare and Pre-K spot — the difference between Terry keeping full-time hours and losing them.' },
       { program:'fe', title:'Nurturing Neighborhood', cadence:'Ongoing', cats:['safety','mentoring'],
         summary:'A volunteer initiative that builds an "extended family" around the household — 4–5 volunteers contributing rides, meals, mentoring, and weekend outings.' },
     ],
@@ -579,7 +579,7 @@ editPage: what-we-do.html
                     mask-image: url('${p.mask}');"></div>
           <div class="fj-figure-meta">
             <div class="fj-figure-name">${esc(p.name)}</div>
-            <div class="fj-ms">Age ${esc(p.age)}</div>
+            <div class="fj-ms">Age ${esc(p.age)}${p.grade ? ' &middot; ' + esc(p.grade) : ''}</div>
           </div>
         </button>`;
     }).join('');
@@ -614,7 +614,7 @@ editPage: what-we-do.html
     document.getElementById('fj-detail').innerHTML = `
       <div class="fj-detail-head">
         <div class="fj-detail-eyebrow">What City of Promise provides for</div>
-        <h3 class="fj-detail-name">${esc(person.name)}<em>, age ${person.age}</em></h3>
+        <h3 class="fj-detail-name">${esc(person.name)}<em>, age ${person.age}${person.grade ? ', ' + esc(person.grade) : ''}</em></h3>
         <p class="fj-detail-bio">${esc(person.bio)}</p>
       </div>
       <div class="fj-layout">
