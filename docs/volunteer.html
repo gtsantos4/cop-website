@@ -421,6 +421,12 @@
     font-family: var(--font-body); font-size: 14px; line-height: 1.55;
     color: rgba(7,48,91,.75); margin: 0;
   }
+  .prereq { scroll-margin-top: 140px; }
+  .prereq p strong { color: var(--color-navy); }
+  .self-screen a, .other-card p a, .step p a, .prereq p a {
+    color: var(--color-primary); font-weight: 600;
+  }
+  .self-screen li a { display: inline-block; margin-top: 4px; }
 
   /* ---------- Final CTA (full-bleed scrim, matches WWD) ---------- */
   .final-cta { position: relative; overflow: hidden; }
@@ -476,7 +482,7 @@
     .final-cta h2 { font-size: 42px; letter-spacing: -0.8px; }
   }
   @media (max-width: 700px) {
-    .vol-hero, .why, .role, .signup, .final-cta .inner {
+    .vol-hero, .why, .role, .other-roles, .signup, .final-cta .inner {
       padding-left: 20px; padding-right: 20px;
     }
     .vol-hero { padding-top: 56px; padding-bottom: 64px; }
@@ -490,6 +496,8 @@
     .signup { padding-top: 64px; padding-bottom: 64px; }
     .signup h2 { font-size: 36px; letter-spacing: -0.6px; }
     .steps { grid-template-columns: 1fr; }
+    .other-roles .other-h2 { font-size: 36px; letter-spacing: -0.6px; }
+    .sub-nav { padding: 12px 20px; gap: 18px; overflow-x: auto; white-space: nowrap; }
     .final-cta h2 { font-size: 36px; letter-spacing: -0.6px; }
   }
 </style>
@@ -500,18 +508,19 @@
   <a href="#nurturing-neighborhood" data-field="f-2">Nurturing Neighborhood</a>
   <a href="#other-roles" data-field="f-3">Other ways to help</a>
   <a href="#sign-up" data-field="f-4">How to sign up</a>
+  <a href="#background-check" data-field="f-5">Background check</a>
 </div>
 
 <!-- ============ HERO ============ -->
 <section class="vol-hero">
   <div class="inner">
     <hr class="gold-rule">
-    <div class="kicker" data-field="f-5">Get Involved — Nurturing Neighborhood</div>
-    <h1 data-field="f-6">When parents thrive,<br>children thrive.</h1>
-    <p data-field="f-7">Kids spend about 80% of their waking hours out of school — time that becomes a tailwind or a headwind. Nurturing Neighborhood is how CoP makes it a tailwind: a pod of 4–5 volunteers is matched to one family in Westhaven or 10th and Page and stays with them over months and years. It's our flagship volunteer role, and the place we most need you.</p>
+    <div class="kicker" data-field="f-6">Get Involved — Nurturing Neighborhood</div>
+    <h1 data-field="f-7">When parents thrive,<br>children thrive.</h1>
+    <p data-field="f-8">Kids spend about 80% of their waking hours out of school — time that becomes a tailwind or a headwind. Nurturing Neighborhood is how CoP makes it a tailwind: a pod of 4–5 volunteers is matched to one family in Westhaven or 10th and Page and stays with them over months and years. It's our flagship volunteer role, and the place we most need you.</p>
     <div class="ctas">
-      <a class="vol-btn gold" href="#nurturing-neighborhood" data-field="f-8">Sign up for Nurturing Neighborhood <span>→</span></a>
-      <a class="vol-btn outline-dark" href="#other-roles" data-field="f-9">See other ways to help <span>→</span></a>
+      <a class="vol-btn gold" href="#nurturing-neighborhood" data-field="f-9">Sign up for Nurturing Neighborhood <span>→</span></a>
+      <a class="vol-btn outline-dark" href="#other-roles" data-field="f-10">See other ways to help <span>→</span></a>
     </div>
   </div>
 </section>
@@ -522,19 +531,20 @@
     <div class="copy">
       <hr class="gold-rule">
       <div class="section-tag light">
-        <div class="label" data-field="f-10">The Work</div>
+        <div class="label" data-field="f-11">The Work</div>
       </div>
-      <h2 data-field="f-11">Repeat contact,<br>same families.</h2>
-      <p data-field="f-12">Every role pairs you with a small group of kids or families and asks you to stay with them through <strong>a full school semester at minimum</strong>. Most volunteers stay through the year.</p>
-      <p data-field="f-13">CoP does not run event-day shifts, one-off drives, or surge volunteering. The work is repeat contact with the same families on a regular schedule, because that is what changes a child's trajectory.</p>
+      <h2 data-field="f-12">Repeat contact,<br>same families.</h2>
+      <p data-field="f-13">Every role pairs you with a small group of kids or families and asks you to stay with them through <strong>a full school semester at minimum</strong>. Most volunteers stay through the year.</p>
+      <p data-field="f-14">CoP does not run event-day shifts, one-off drives, or surge volunteering. The work is repeat contact with the same families on a regular schedule, because that is what changes a child's trajectory.</p>
     </div>
     <aside class="self-screen">
-      <div class="eyebrow"><hr class="gold-rule" style="display:inline-block; width:32px; height:2px; margin:0 8px 4px 0; vertical-align:middle;">Before you scroll</div>
+      <div class="eyebrow"><hr class="gold-rule" style="display:inline-block; width:32px; height:2px; margin:0 8px 4px 0; vertical-align:middle;">Before you sign up</div>
       <ul>
-        <li data-field="f-14"><b>Background check is universal across every role.</b>CoP runs and pays for it.</li>
-        <li data-field="f-15"><b>All roles are place-based in Charlottesville.</b>Westhaven, 10th and Page, and seven CCS partner schools, including Trailblazer, Summit, and Tall Oaks.</li>
-        <li data-field="f-16"><b>Reading Tutoring requires VA Literacy Partnerships certification.</b>Online plus practicum, roughly 12 hours over 4 weeks. Paid for by CoP.</li>
-        <li data-field="f-17"><b>Plan to commit through at least one school semester.</b>Most volunteers stay a full year.</li>
+        <li data-field="f-15"><b>Every role needs a background check first.</b>Fingerprints, which CoP pays for, and a Virginia child abuse and neglect registry search that you mail in with a $10 fee. CoP pays you back the $10. <a href="#background-check">How it works</a></li>
+        <li data-field="f-16"><b>All roles are place-based in Charlottesville.</b>Westhaven, 10th and Page, and seven CCS partner schools, including Trailblazer, Summit, and Tall Oaks.</li>
+        <li data-field="f-17"><b>Reading tutors complete a one-time VLP course.</b>Virginia Literacy Partnerships certifies you to teach reading. You take it at your own pace, and CoP helps you schedule it.</li>
+        <li data-field="f-18"><b>Mentors have a short interview.</b>About 20 to 30 minutes with our Assistant Director, so we can match you with the right student.</li>
+        <li data-field="f-19"><b>Plan to commit through at least one school semester.</b>Most volunteers stay a full year.</li>
       </ul>
     </aside>
   </div>
@@ -546,25 +556,29 @@
     <div class="photo" style="background-image: url('cop-photos/DJW11527.jpg'); background-position: center 25%;"></div>
     <div>
       <div class="section-tag light">
-        <div class="label" data-field="f-18">Nurturing Neighborhood</div>
+        <div class="label" data-field="f-20">Nurturing Neighborhood</div>
       </div>
-      <h2 data-field="f-19">When parents thrive,<br>children thrive.</h2>
+      <h2 data-field="f-21">When parents thrive,<br>children thrive.</h2>
       <hr class="gold-rule">
       <div class="body-block">
-        <div class="lab" data-field="f-20">What it is</div>
-        <p data-field="f-21">A pod of 4–5 volunteers is matched to one family in Westhaven or 10th and Page and stays with that family over months and years.</p>
+        <div class="lab" data-field="f-22">What it is</div>
+        <p data-field="f-23">A pod of 4–5 volunteers is matched to one family in Westhaven or 10th and Page and stays with that family over months and years.</p>
       </div>
       <div class="body-block">
-        <div class="lab" data-field="f-22">What you'd do</div>
-        <p data-field="f-23">Pods address the everyday non-monetary barriers a family faces: rides to appointments, after-school pickup, moving help, an extra adult at a school meeting. CoP staff coordinate scheduling and check-ins, and brief each pod before placement.</p>
+        <div class="lab" data-field="f-24">What you'd do</div>
+        <p data-field="f-25">The pod shares two kinds of help. Planned help, like rides to school and activities. Last-minute help, like childcare when a parent works late. CoP staff coordinate scheduling and check-ins, and brief each pod before placement.</p>
+      </div>
+      <div class="body-block">
+        <div class="lab" data-field="f-26">Once you're matched</div>
+        <p data-field="f-27">The volunteer portal shows your family's address and the adults' phone numbers and email. After each visit, you log it there: who you saw, what you did, and how long.</p>
       </div>
       <div class="stats" style="grid-template-columns: 1fr 1.5fr 1fr;">
-        <div class="stat-cell light"><div class="v v-blue" data-field="f-24">4–5</div><div class="l" data-field="f-25">volunteers per pod</div></div>
-        <div class="stat-cell light"><div class="v v-blue" data-field="f-26">Multi-yr</div><div class="l" data-field="f-27">horizon per family</div></div>
-        <div class="stat-cell light"><div class="v v-gold" data-field="f-28">2</div><div class="l" data-field="f-29">active families</div></div>
+        <div class="stat-cell light"><div class="v v-blue" data-field="f-28">4–5</div><div class="l" data-field="f-29">volunteers per pod</div></div>
+        <div class="stat-cell light"><div class="v v-blue" data-field="f-30">Multi-yr</div><div class="l" data-field="f-31">horizon per family</div></div>
+        <div class="stat-cell light"><div class="v v-gold" data-field="f-32">2</div><div class="l" data-field="f-33">active families</div></div>
       </div>
       <div class="ctas">
-        <a class="vol-btn navy" href="#sign-up" data-field="f-30">Sign up for Nurturing Neighborhood <span>→</span></a>
+        <a class="vol-btn navy" href="#sign-up" data-field="f-34">Sign up for Nurturing Neighborhood <span>→</span></a>
       </div>
     </div>
   </div>
@@ -575,71 +589,92 @@
   <div class="inner">
     <hr class="gold-rule">
     <div class="section-tag light">
-      <div class="label" data-field="f-31">Other ways to volunteer</div>
+      <div class="label" data-field="f-35">Other ways to volunteer</div>
     </div>
-    <h2 class="other-h2" data-field="f-32">Two more roles,<br>same commitment to the same kids.</h2>
-    <p class="other-lede" data-field="f-33">Not a fit for a Nurturing Neighborhood pod right now? These roles run on the same principle — repeat contact with the same student, all season long.</p>
+    <h2 class="other-h2" data-field="f-36">More ways to help,<br>same commitment to the same kids.</h2>
+    <p class="other-lede" data-field="f-37">Not a fit for a Nurturing Neighborhood pod right now? These roles run on the same principle — repeat contact with the same student, all season long. When you sign up, you can pick as many roles as you like.</p>
 
     <div class="other-grid">
 
       <!-- Mentoring & Transportation -->
       <article class="other-card">
         <div class="thumb" style="background-image: url('cop-photos/program-soccer-kids-field.jpg');"></div>
-        <div class="role-name" data-field="f-34">Mentoring &amp; Transportation</div>
-        <h3 data-field="f-35">Rides plus mentorship for CCS extracurriculars.</h3>
-        <p data-field="f-36">Drive Charlottesville City Schools students to the practices, lessons, and activities they'd otherwise miss for lack of a ride. The mentorship happens in the car, on repeated trips with the same kid.</p>
-        <a class="cta" href="#sign-up" data-field="f-37">Sign up for Mentoring &amp; Transportation <span>→</span></a>
+        <div class="role-name" data-field="f-38">Mentoring &amp; Transportation</div>
+        <h3 data-field="f-39">Rides plus mentorship for CCS students.</h3>
+        <p data-field="f-40"><strong>Mentors</strong> are a trusted adult for a Charlottesville City Schools student. You share advice and show them different careers and paths. Mentors have a short interview (20 to 30 minutes) with our Assistant Director so we can match you well.</p>
+        <p data-field="f-41"><strong>Drivers</strong> give students rides to the practices, lessons, and activities they'd otherwise miss, for example to practice a couple of times a week. When you sign up, you tell us what kind of car you drive.</p>
+        <p data-field="f-42">You can pick mentoring, driving, or both.</p>
+        <a class="cta" href="#sign-up" data-field="f-43">Sign up for Mentoring &amp; Transportation <span>→</span></a>
       </article>
 
       <!-- Reading Tutoring -->
       <article class="other-card">
         <div class="thumb" style="background-image: url('cop-photos/DJW20034.jpg'); background-position: center 35%;"></div>
-        <div class="role-name" data-field="f-38">Reading Tutoring</div>
-        <h3 data-field="f-39">Every kid deserves to learn to read.</h3>
-        <p data-field="f-40">One-on-one weekly literacy support for CCS students. Complete <strong>VA Literacy Partnerships</strong> certification (provided by CoP), then meet with the same student through the school year.</p>
-        <a class="cta" href="#sign-up" data-field="f-41">Sign up for Reading Tutoring <span>→</span></a>
+        <div class="role-name" data-field="f-44">Reading Tutoring</div>
+        <h3 data-field="f-45">Every kid deserves to learn to read.</h3>
+        <p data-field="f-46">You tutor CCS students outside the classroom, backing up what they learn in school, and meet with the same student through the school year.</p>
+        <p data-field="f-47">Tutors are trained by <strong>Virginia Literacy Partnerships (VLP)</strong>. It's a one-time course that certifies you to teach reading. After you make your account, we send you VLP's guide to how their tutoring works. Then you sign up on <a href="https://literacy.virginia.edu/vlp-community-literacy-outreach-tutoring" target="_blank" rel="noopener">VLP's website</a>, and VLP sets a time for your training.</p>
+        <a class="cta" href="#sign-up" data-field="f-48">Sign up for Reading Tutoring <span>→</span></a>
       </article>
 
     </div>
   </div>
 </section>
 
-<!-- ============ HOW TO SIGN UP + PREREQ BAND ============ -->
+<!-- ============ HOW TO SIGN UP + BACKGROUND CHECK ============ -->
 <section class="signup" id="sign-up">
   <div class="inner">
     <div class="header">
       <hr class="gold-rule">
       <div class="section-tag light">
-        <div class="label" data-field="f-42">How to sign up</div>
+        <div class="label" data-field="f-49">How to sign up</div>
       </div>
-      <h2 data-field="f-43">The same flow,<br>for all three roles.</h2>
-      <p class="lede" data-field="f-44">Account, matching form, interview, match notification. Background check is run by CoP in parallel.</p>
+      <h2 data-field="f-50">The same four steps,<br>for every role.</h2>
+      <p class="lede" data-field="f-51">Make an account, get your background check, and we'll get you started. Here is exactly what happens.</p>
     </div>
 
     <div class="steps">
       <div class="step">
-        <div class="num" data-field="f-45">01</div>
-        <div class="title" data-field="f-46">Create a portal account</div>
+        <div class="num" data-field="f-52">01</div>
+        <div class="title" data-field="f-53">Make your volunteer account</div>
         <div class="rule"></div>
-        <p data-field="f-47">Sign up at <code>volunteer.cityofpromise.org</code> with your name, email, and a password. About a minute.</p>
+        <p data-field="f-54">One form on the <a href="https://portal.cityofpromise.org/volunteer/sign-up" target="_blank" rel="noopener">volunteer portal</a>, about five minutes. You give your name, email, phone, and a password. Then you pick the roles you want, the days and times you're free, and how many hours a week you can give. You can also tell us your job and skills.</p>
       </div>
       <div class="step">
-        <div class="num" data-field="f-48">02</div>
-        <div class="title" data-field="f-49">Matching form</div>
+        <div class="num" data-field="f-55">02</div>
+        <div class="title" data-field="f-56">Get your background check</div>
         <div class="rule"></div>
-        <p data-field="f-50">Background, interests, weekly availability, and the role(s) you would consider. You can pick one role or all three.</p>
+        <p data-field="f-57">Right away, we email you step-by-step instructions. They're also on your portal page. There are two parts: fingerprints and a registry search. <a href="#background-check">See both below.</a> Reading tutors also sign up for their VLP course now.</p>
       </div>
       <div class="step">
-        <div class="num" data-field="f-51">03</div>
-        <div class="title" data-field="f-52">Interview</div>
+        <div class="num" data-field="f-58">03</div>
+        <div class="title" data-field="f-59">Get cleared</div>
         <div class="rule"></div>
-        <p data-field="f-53">A 15-to-20-minute conversation with CoP's Assistant Director, by phone or in person. Both sides decide whether to move forward.</p>
+        <p data-field="f-60">Your results come to CoP, not to you. When you're cleared, we email you, and you'll hear from us shortly to get started. You can sign in any time to see where things stand.</p>
       </div>
       <div class="step">
-        <div class="num" data-field="f-54">04</div>
-        <div class="title" data-field="f-55">Match notification</div>
+        <div class="num" data-field="f-61">04</div>
+        <div class="title" data-field="f-62">Start and log your hours</div>
         <div class="rule"></div>
-        <p data-field="f-56">When CoP pairs you with a family, student, or pod, you get an email and onboarding starts from there.</p>
+        <p data-field="f-63">Once you're active, you sign in to the portal to log your hours and see your total. Nurturing Neighborhood volunteers also see their matched family there.</p>
+      </div>
+    </div>
+
+    <div class="prereq" id="background-check">
+      <div>
+        <div class="eyebrow" data-field="f-64">Background check · Part 1</div>
+        <h4 data-field="f-65">Fingerprints with Fieldprint</h4>
+        <p data-field="f-66">Book an appointment at <a href="https://fieldprintvirginia.com" target="_blank" rel="noopener">fieldprintvirginia.com</a> with City of Promise's code, which comes in your email. Pick the location you like. Bring the printed confirmation page and two forms of ID. <strong>CoP pays for it.</strong></p>
+      </div>
+      <div>
+        <div class="eyebrow" data-field="f-67">Background check · Part 2</div>
+        <h4 data-field="f-68">Virginia registry search</h4>
+        <p data-field="f-69">Print the Virginia Department of Social Services form for its child abuse and neglect registry. Fill it out and mail it with the <strong>$10 fee</strong>, by money order or cashier's check (no personal checks or cash). The results are mailed to CoP, and <strong>CoP pays you back the $10</strong> when they arrive.</p>
+      </div>
+      <div>
+        <div class="eyebrow" data-field="f-70">Reading tutors only</div>
+        <h4 data-field="f-71">VLP training</h4>
+        <p data-field="f-72">Read VLP's guide to their tutoring, then sign up on <a href="https://literacy.virginia.edu/vlp-community-literacy-outreach-tutoring" target="_blank" rel="noopener">VLP's website</a>. VLP sets a time for your training. You can do this while your background check is in process.</p>
       </div>
     </div>
 
@@ -652,13 +687,14 @@
   <div class="scrim"></div>
   <div class="inner">
     <hr class="gold-rule">
-    <div class="kicker" data-field="f-57">Start here</div>
-    <h2 data-field="f-58">All four steps<br>live in the portal.</h2>
-    <p class="lede" data-field="f-59">Account creation, matching form, interview scheduling, and ongoing engagement all happen at <strong style="color:#fff">volunteer.cityofpromise.org</strong>. Same portal for current volunteers, who sign in there to log shifts and update availability.</p>
+    <div class="kicker" data-field="f-73">Start here</div>
+    <h2 data-field="f-74">It all happens in<br>the volunteer portal.</h2>
+    <p class="lede" data-field="f-75">Make your account there, follow your background check, and once you're active, log your hours there. Already signed up? Sign in with the email you used.</p>
     <div class="ctas">
-      <a class="vol-btn gold" href="https://volunteer.cityofpromise.org" target="_blank" rel="noopener" data-field="f-60">Open the Volunteer Portal <span>→</span></a>
-      <a class="vol-btn outline-dark" href="https://volunteer.cityofpromise.org" target="_blank" rel="noopener" data-field="f-61">I'm already signed up <span>→</span></a>
+      <a class="vol-btn gold" href="https://portal.cityofpromise.org/volunteer/sign-up" target="_blank" rel="noopener" data-field="f-76">Make a volunteer account <span>→</span></a>
+      <a class="vol-btn outline-dark" href="https://portal.cityofpromise.org/volunteer/sign-in" target="_blank" rel="noopener" data-field="f-77">I'm already signed up <span>→</span></a>
     </div>
+    <p class="external" data-field="f-78">Questions first? Email <a href="mailto:info@cityofpromise.org" style="color:inherit">info@cityofpromise.org</a>.</p>
   </div>
 </section>
 
@@ -748,7 +784,7 @@
   <span id="edit-status" class="edit-status">viewing</span>
   <button id="edit-revert" type="button" class="ghost" style="display:none;">Discard</button>
 </div>
-<script src="assets/edit.js?v=1780586355664" defer></script>
+<script src="assets/edit.js?v=1792589053865" defer></script>
 
 
 </body>
