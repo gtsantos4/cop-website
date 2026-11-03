@@ -98,6 +98,14 @@
     background-position: 8% 68%;
     background-repeat: no-repeat;
   }
+  /* Wide screens: the text column is centered, so nudge the photo right
+     (and fill the full width) so the boy clears the headline and copy. */
+  @media (min-width: 1500px) {
+    .home-hero .bg { background-size: auto 195%; background-position: 0% 64%; }
+  }
+  @media (min-width: 1950px) {
+    .home-hero .bg { background-size: 120% auto; background-position: 0% 52%; }
+  }
   .home-hero .scrim {
     position: absolute; inset: 0;
     background: linear-gradient(90deg, rgba(238,238,236,.78) 0%, rgba(238,238,236,.65) 22%, rgba(238,238,236,.25) 38%, rgba(238,238,236,0) 52%);
@@ -107,7 +115,8 @@
     padding: 0 48px; height: 100%;
     display: flex; flex-direction: column; justify-content: center;
   }
-  .home-hero .copy { max-width: 560px; margin-left: -64px; }
+  /* Hang the copy 64px left of the grid, but never closer than 24px to the screen edge. */
+  .home-hero .copy { max-width: 560px; margin-left: clamp(-64px, calc(616px - 50vw), -24px); }
   @media (max-width: 700px) { .home-hero .copy { margin-left: 0; } }
   .gold-rule { width: 64px; height: 3px; background: var(--color-gold); border: 0; margin: 0 0 20px; }
   .home-hero h1 {
