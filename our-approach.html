@@ -260,11 +260,18 @@ editPage: our-approach.html
     gap: 28px;
   }
   .dualgen-col {
+    display: block;
     background: #fff;
     border: 1px solid var(--border-subtle);
     border-radius: 10px;
     overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
   }
+  a.dualgen-col:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); text-decoration: none; }
+  a.dualgen-col:focus-visible { outline: 3px solid var(--color-gold); outline-offset: 3px; }
+  body.edit-mode a.dualgen-col:hover { transform: none; }
   .dualgen-col .photo-wrap {
     height: 220px;
     background: rgba(7,48,91,.08);
@@ -565,7 +572,7 @@ editPage: our-approach.html
     <p class="lede">Reach the kid, or reach the parent. Most organizations can only afford to choose one. The dual-generation model is the bet that you have to do both, together, or the gains don't compound.</p>
 
     <div class="dualgen-grid">
-      <div class="dualgen-col">
+      <a class="dualgen-col" href="community-schools.html">
         <div class="photo-wrap"><img src="cop-photos/program-kids-group-outdoors.jpg" alt="Kids together at a CoP outdoor event"></div>
         <div class="body">
           <div class="eyebrow">Child-side</div>
@@ -577,8 +584,8 @@ editPage: our-approach.html
             <li>Food pantry access when the household needs it</li>
           </ul>
         </div>
-      </div>
-      <div class="dualgen-col">
+      </a>
+      <a class="dualgen-col" href="dreambuilders.html">
         <div class="photo-wrap"><img src="cop-photos/event-award-ceremony-women.png" alt="Parents being recognized at a CoP ceremony"></div>
         <div class="body">
           <div class="eyebrow">Parent-side</div>
@@ -590,7 +597,7 @@ editPage: our-approach.html
             <li>School navigation and advocacy</li>
           </ul>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -681,3 +688,12 @@ editPage: our-approach.html
   </div>
 </section>
 
+
+<script>
+  // Keep the dual-gen cards from navigating away while text is being edited.
+  document.querySelectorAll("a.dualgen-col").forEach(function (card) {
+    card.addEventListener("click", function (e) {
+      if (document.body.classList.contains("edit-mode")) e.preventDefault();
+    });
+  });
+</script>
